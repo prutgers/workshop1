@@ -2,11 +2,9 @@
 package workshop1;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 public class BestellingDAO {
@@ -35,10 +33,7 @@ public class BestellingDAO {
 
             stmt.executeUpdate();
         }
-        catch(SQLException  e){
-            e.printStackTrace();
-        }
-        catch(ClassNotFoundException e){
+        catch(SQLException | ClassNotFoundException  e){
             e.printStackTrace();
         }
     }
@@ -70,10 +65,7 @@ public class BestellingDAO {
 */
             }
         }
-        catch(SQLException  e){
-            e.printStackTrace();
-        }
-        catch(ClassNotFoundException e){
+        catch(SQLException | ClassNotFoundException  e){
             e.printStackTrace();
         }
         return bestelling;
