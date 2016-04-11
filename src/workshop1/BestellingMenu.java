@@ -96,12 +96,16 @@ public class BestellingMenu {
         ArrayList<Bestelling> list = dao.getAllBestelling();
         System.out.println("LIJST MET ALLE BESTELLININGEN \n "
                 + "=================");
+        System.out.printf("%15s %15s %15s %15s %15s %15s\n", "BestellingID", "KlantID", "ArtikelNaam", "ArtikelID", "ArtikelPrijs", "ArtikelAantal");
         for(Bestelling e : list){
+            /*
             System.out.println("BestellingID: " + e.getBestellingID() + 
                     " KlantID: " + e.getKlantID() + 
                     " ArtikelNaam: " + e.getArtikelNaam_1() + 
                     " ArikelID: " + e.getArtikelID_1() + 
                     " Artikel pijs: " + e.getArtikelPrijs_1());
+*/
+            System.out.printf("%15d %15d %15s %15d %15.2f %15d\n",e.getBestellingID(), e.getKlantID(),e.getArtikelNaam_1(), e.getArtikelID_1(),e.getArtikelPrijs_1(), e.getArtikelAantal_1());
         }
     }
     public static void getByIdMenu()throws SQLException, ClassNotFoundException{

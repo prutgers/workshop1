@@ -20,7 +20,7 @@ import static workshop1.BestellingMenu.getByKlantIdMenu;
 public class HoofdMenu {
     public static void startMenu() {
         Scanner input = new Scanner(System.in);
-        
+        System.out.println("*HOOFD MENU*");
         System.out.println("Kies 1 voor klant menu; \n"
                 + "kies 2 voor adres menu, \n"
                 + "kies 3 voor artikel menu, \n"
