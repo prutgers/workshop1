@@ -8,6 +8,7 @@ package workshop1;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
+import workshop1.Adres;
 
 /**
  *
@@ -19,23 +20,11 @@ public class Klant {
     private String achternaam;
     private String tussenvoegsel;
     private String email;
+    private int adres_id;
     private Adres adres;
     
-    private Klant(){
-        Scanner input = new Scanner(System.in);
-        System.out.println("Create a new Klant!");
-        System.out.print("Your first name :");
-        voornaam = input.next();
-        System.out.print("Your last name :");
-        achternaam = input.next();
-        System.out.print("Additieves :");
-        tussenvoegsel = input.next();
-        System.out.print("Your email adress :");
-        email = input.next();
-        adres = new Adres();
-        Klant inner = KlantDAO.createKlant(this);
-        klant_id = (inner.getKlant_id()); // Dit is wel lelijk, geen idee hoe ik 
-    }                                     // het 2de object verwijder.
+    public Klant(){
+    }
     
     public Klant(int klant_id){
         this.klant_id = klant_id;
@@ -141,6 +130,20 @@ public class Klant {
         KlantDAO.updateKlant(this);
     }
 
+    /**
+     * @return the adres_id
+     */
+    public int getAdres_id() {
+        return klant_id;
+    }
+
+    /**
+     * @param klant_id the adres_id to set
+     */
+    public void setAdres_id(int klant_id) {
+        this.klant_id = klant_id;
+    }
+    
     /**
      * @return the adres
      */

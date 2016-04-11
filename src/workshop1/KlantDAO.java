@@ -13,11 +13,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import workshop1.Adres;
+import workshop1.AdresDAO;
+import workshop1.DBConnector;
 
 public class KlantDAO {
     
  
     public static Klant createKlant(Klant klant){
+        Klant klantOut = klant;
+        
         try (
             Connection connection = (new DBConnector()).getConnection();
                 )
@@ -33,20 +38,19 @@ public class KlantDAO {
             createKlant.setString(4, klant.getEmail() );
             createKlant.setString(5, Integer.toString(klant.getAdres().getAdres_id()) );
             
-            ResultSet klant_id = createKlant.getGeneratedKeys();
-            klant_id.next();
-            int klant_idc = klant_id.getInt(1);
-            Klant klantOut = new Klant(klant_idc);
+            ResultSet klant_idData = createKlant.getGeneratedKeys();
+            klant_idData.next();
+            klantOut.setKlant_id( klant_idData.getInt(1) );
             
-            return klantOut;
         }
         catch(Exception ex){
-            ex.printStackTrace(); 
-            return null;           
+            ex.printStackTrace();         
         }
+        return klantOut;
     }
     
     public static Klant readKlant(int klant_id){
+        Klant klant = new Klant();
         try (
             Connection connection = (new DBConnector()).getConnection();
                 )
@@ -55,15 +59,24 @@ public class KlantDAO {
                     "select * from Klant where Klant_id = ?");
             readKlant.setString(1, Integer.toString(klant_id) );
 
-            Klant klant = new Klant(readKlant.executeQuery());
-            //stuff
-            return klant;
+            ResultSet readKlantResult = readKlant.executeQuery();
+            
+            
+            readKlantResult.next();
+            klant.setKlant_id(readKlantResult.getInt(1));
+            klant.setVoornaam(readKlantResult.getString(2));
+            klant.setAchternaam(readKlantResult.getString(3));
+            klant.setTussenvoegsel(readKlantResult.getString(4));
+            klant.setEmail(readKlantResult.getString(5));
+            klant.setAdres_id(readKlantResult.getInt(6));
+            klant.setAdres( new Adres (AdresDAO.readAdres( klant.getAdres_id() )) );
+            
         }
         catch(Exception ex){
             ex.printStackTrace();
             return null;
         }
-        
+        return klant;
     }
     
     public static Klant updateKlant(Klant klant){
@@ -89,9 +102,9 @@ public class KlantDAO {
             
         }
         catch(Exception ex){
-            ex.printStackTrace(); 
-            return null;           
+            ex.printStackTrace();     
         }
+        return klantOut;
     }
 
     public static void deleteKlant(int klant_id){
