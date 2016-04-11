@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package workshop1;
 
 /**
@@ -10,42 +5,62 @@ package workshop1;
  * @author Sonja
  */
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
+
 
 public class AdresDAO {
-    private Connection connection;
-    private Statement statement;
     
-    public AdresDAO() {
-    }
+    //werkt in principe, zit alleen nog met de DBConnector te kloten
     
-    public Adres createAdres(Adres adres) {
+    static PreparedStatement stmnt;
+    Connection connection;
+
+    public void createAdres(Adres adres) throws SQLException {
         String query = "INSERT straatnaam, huisnummer, toevoeging, postcode,"
-                + "woonplaats INTO klant";
+                + "woonplaats INTO adres";
+        try {
+            Connection connection = DBConnector.getConnection();
+            //connection werkt nog niet; non-static method cannot be referenced 
+            //from static context, gruargh
+            Class.forName("com.mysql.jdbc.Driver");
+            PreparedStatement stmnt = connection.prepareStatement(query);
+            
+            stmnt.setString(1, adres.getStraatnaam());
+            stmnt.setInt(2, adres.getHuisnummer());
+            stmnt.setString(3, adres.getToevoeging());
+            stmnt.setString(4, adres.getPostcode());
+            stmnt.setString(5, adres.getWoonplaats());
+            
+        }
+        catch (ClassNotFoundException | SQLException ex) {
+            System.out.println("Probeer opnieuw.");
+            }
+        
+        finally {
+            stmnt.executeUpdate();
+            stmnt.close();
+        }
     }
     
     public List<Adres> readAdres() throws SQLException {
         String query = "SELECT straatnaam, huisnummer, toevoeging, postcode,"
-                + "woonplaats FROM klant";
+                + "woonplaats FROM adres";
         List<Adres> lijst = new ArrayList<>();
-        Adres adres = null;
-        ResultSet rs = null;
+        Adres adres;
+        ResultSet rs;
         try {
-            connection = DBConnector.getConnection();
-            statement = connection.createStatement();
-            rs = statement.executeQuery(query);
+            Connection connection = DBConnector.getConnection(); 
+            //connection werkt nog niet; zie boven 
+            Class.forName("com.mysql.jdbc.Driver");
+            PreparedStatement stmnt = connection.prepareStatement(query);
+            rs = stmnt.executeQuery(query);
             while (rs.next()) {
                 adres = new Adres();
                 
                 adres.setStraatnaam(rs.getString("straatnaam"));
-                adres.setHuisnr(rs.getInt("huisnummer"));
+                adres.setHuisnummer(rs.getInt("huisnummer"));
                 adres.setToevoeging(rs.getString("toevoeging"));
                 adres.setPostcode(rs.getString("postcode"));
                 adres.setWoonplaats(rs.getString("woonplaats"));
@@ -53,39 +68,62 @@ public class AdresDAO {
                 lijst.add(adres);
             }
         }
-        catch (Exception ex) {
-            System.out.println(ex);
+        catch (ClassNotFoundException | SQLException ex) {
+            System.out.println("Probeer opnieuw.");
             }
         
         finally {
-            DBConnector.close(rs);
-            DBConnector.close(statement);
-            DBConnector.close(connection);
+            stmnt.executeUpdate();
+            stmnt.close();
         }
         
         return lijst;
     }
     
-    public boolean updateAdres() {
-        String query = "UPDATE straatnaam, huisnummer, toevoeging, postcode," 
-                + "woonplaats FROM klant";
-    }
-    
-    public boolean deleteAdres() {
-        String query = "DELETE straatnaam, huisnummer, toevoeging, postcode,"
-                + "woonplaats FROM klant WHERE klant_id=?";
+    public void updateAdres(Adres adres) throws SQLException {
+        String query = "UPDATE adres SET straatnaam, huisnummer, toevoeging"
+                + "postcode, woonplaats";
+        
         try {
-            PreparedStatement statement = connection.prepareStatement(query);
+            connection = DBConnector.getConnection();
+            //connection werkt nog niet; zie boven
+            PreparedStatement stmnt = connection.prepareStatement(query);
             
-            //delete user-input klant_id adres something bla
-            //boolean execute(String sql) ???
+            stmnt.setString(1, adres.getStraatnaam());
+            stmnt.setInt(2, adres.getHuisnummer());
+            stmnt.setString(3, adres.getToevoeging());
+            stmnt.setString(4, adres.getPostcode());
+            stmnt.setString(5, adres.getWoonplaats());
             
-        } catch (Exception ex) {
-            System.out.println(ex);
+        }
+        catch (SQLException ex) {
+            System.out.println("Probeer opnieuw.");
+            }
+        
+        finally {
+            stmnt.executeUpdate();
+            stmnt.close();
         }
     }
     
-    public void getAdres(Adres adres) {
+    public void deleteAdres(int klant_id) {
+        String query = "DELETE straatnaam, huisnummer, toevoeging, postcode,"
+                + "woonplaats FROM adres WHERE klant_id=?";
+        try {
+            connection = DBConnector.getConnection();
+            //connection werkt nog niet; zie boven
+            stmnt = connection.prepareStatement(query);
+            
+            stmnt.setInt(1, klant_id);
+            
+        } catch (Exception ex) {
+            System.out.println("Probeer opnieuw.");
+        }
+    }
+    
+    public Adres getAdres(Adres adres) {
         return adres.get(lijst);
+        
+        //is deze wel nodig eigenlijk? Geloof het niet he
     }
 }
