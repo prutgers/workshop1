@@ -30,31 +30,14 @@ public class HoofdMenu {
         
         switch (select) {
             case 1:
-                System.out.println("klant menu nog niet gemaakt");
+                KlantMenu.startMenu();
                 break;
             case 2:
-                System.out.println("adres menu wordt aan gewerkt");
+                AdresMenu.startMenu();
                 break;
             case 3:
-                System.out.println("artikel menu nog niet gemaakt");
-                Artikel artikel = new Artikel();
-            artikel.setArtikel_id(27);
-
-            artikel.setArtikel_voorraad(2);
-            artikel.setArtikel_prijs(1677);
-            artikel.setArtikel_naam("koe");
-
-            ArtikelDAO test = new ArtikelDAO();
-            //test.createNewArtikel(artikel);
-           // int delete = 24;
-            //test.readArtikel();
-            //  test.deleteArtikel(delete);
-            
-          
-            test.readArtikel();
-            
-            HoofdMenu.startMenu();
-                break;
+                ArtikelMenu.startMenu()
+                break;            
             case 4:
                 BestellingMenu.startMenu();
                 break;
@@ -62,7 +45,7 @@ public class HoofdMenu {
                 System.exit(0);
                 break;
             default:
-                System.out.println("kies 1, 2 of 3 of 4");
+                System.out.println("kies 1, 2, 3, 4 of 5);
                 break;
         }
         
