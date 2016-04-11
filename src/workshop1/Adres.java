@@ -6,10 +6,11 @@ package workshop1;
  */
 public class Adres {
      String straatnaam;
-     int huisnr;
+     int huisnummer;
      String toevoeging;
      String postcode;
      String woonplaats;
+     int adres_id;
 
     /**
      * @return the straatnaam
@@ -26,17 +27,17 @@ public class Adres {
     }
 
     /**
-     * @return the huisnr
+     * @return the huisnummer
      */
-    public int getHuisnr() {
-        return huisnr;
+    public int getHuisnummer() {
+        return huisnummer;
     }
 
     /**
-     * @param huisnr the huisnr to set
+     * @param huisnummer the huisnr to set
      */
-    public void setHuisnr(int huisnr) {
-        this.huisnr = huisnr;
+    public void setHuisnr(int huisnummer) {
+        this.huisnummer = huisnummer;
     }
 
     /**
@@ -79,6 +80,20 @@ public class Adres {
      */
     public void setWoonplaats(String woonplaats) {
         this.woonplaats = woonplaats;
+    }
+
+    /**
+     * @return the adres_id
+     */
+    public int getAdres_id() {
+        return adres_id;
+    }
+
+    /**
+     * @param adres_id the adres_id to set
+     */
+    public void setAdres_id(int adres_id) {
+        this.adres_id = adres_id;
     }
     
 }
