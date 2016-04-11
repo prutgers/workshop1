@@ -10,22 +10,30 @@ import java.util.ArrayList;
 public class BestellingDAO {
     public static void createBestelling(Bestelling bestelling) {
 
-        String query = "INSERT into Bestelling ("
-                    + "klant_id, artikel_id1, artikel_id2, artikel_id3,"
-                    + "artikel_aantal1, artikel_aantal2, artikel_aantal3, "
-                    + "artikel_naam1, artikel_naam2, artikel_naam3) "
-                    + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        
+        String query = "INSERT INTO Bestelling ("
+                    + "klant_id, "
+                    + "artikel_id1,"
+                    + "artikel_prijs1, "
+                    + "artikel_naam1,"
+                    + "artikel_aantal1) "
+                    + "values (?, ?, ?, ?, ?)";
+
+
         try(Connection con = new DBConnector().getConnection();){
         
             PreparedStatement stmt = con.prepareStatement(query);
 
             //Set values for INSERT-part of the statement
-            setStatement(stmt,bestelling);
-
+                    stmt.setInt(1, bestelling.getKlantID());
+                    stmt.setInt(2, bestelling.getArtikelID_1());
+                    stmt.setDouble(3, bestelling.getArtikelPrijs_1());
+                    stmt.setString(4, bestelling.getArtikelNaam_1());            
+                    stmt.setInt(5, bestelling.getArtikelAantal_1());   
+                    
             stmt.executeUpdate();
         }
         catch(SQLException | ClassNotFoundException  e){
+            System.out.println("createBestelling error");
             e.printStackTrace();
         }
     }
