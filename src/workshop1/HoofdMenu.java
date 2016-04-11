@@ -20,7 +20,7 @@ import static workshop1.BestellingMenu.getByKlantIdMenu;
 public class HoofdMenu {
     public static void startMenu() {
         Scanner input = new Scanner(System.in);
-        
+        System.out.println("*HOOFD MENU*");
         System.out.println("Kies 1 voor klant menu; \n"
                 + "kies 2 voor adres menu, \n"
                 + "kies 3 voor artikel menu, \n"
@@ -33,10 +33,10 @@ public class HoofdMenu {
                 KlantMenu.startMenu();
                 break;
             case 2:
-                AdresMenu.startMenu();
+                //AdresMenu.startMenu();
                 break;
             case 3:
-                ArtikelMenu.startMenu()
+                //ArtikelMenu.startMenu()
                 break;            
             case 4:
                 BestellingMenu.startMenu();
@@ -45,7 +45,7 @@ public class HoofdMenu {
                 System.exit(0);
                 break;
             default:
-                System.out.println("kies 1, 2, 3, 4 of 5);
+                //System.out.println("kies 1, 2, 3, 4 of 5);
                 break;
         }
         
