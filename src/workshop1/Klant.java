@@ -82,7 +82,6 @@ public class Klant {
      */
     public void setVoornaam(String voornaam) {
         this.voornaam = voornaam;
-        KlantDAO.updateKlant(this);
     }
 
     /**
@@ -97,7 +96,6 @@ public class Klant {
      */
     public void setAchternaam(String achternaam) {
         this.achternaam = achternaam;
-        KlantDAO.updateKlant(this);
     }
 
     /**
