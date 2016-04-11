@@ -16,17 +16,11 @@ public class Artikel {
     private int artikel_voorraad;
     private double artikel_prijs;
 
-    //test voor github kleine verandering
+  
     
     public Artikel(){
     }
-    
-    //dit is een methode om te kijken op github update
-    public int testGitHub() {
-        
-        return 8;
-    }
-    
+   
     /**
      * @return the artikel_ID
      */

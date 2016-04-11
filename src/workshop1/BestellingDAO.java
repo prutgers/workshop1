@@ -134,6 +134,7 @@ public class BestellingDAO {
     public void updateBestelling(Klant klant){
 
     }
+    
     public void deleteBestelling(int bestelling_id){
         
         
@@ -150,6 +151,7 @@ public class BestellingDAO {
         
         
     }
+    
     public void rsToBestelling(ResultSet rs, Bestelling bestelling){
         try{
             bestelling.setKlantID(rs.getInt("klant_id"));

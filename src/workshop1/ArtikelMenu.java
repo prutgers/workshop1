@@ -33,18 +33,19 @@ public class ArtikelMenu {
     public void updateArtikel(){
         System.out.println("Wat is het artikel ID dat u wilt updaten");
         Scanner input = new Scanner(System.in);        
-        int artikel_id = input.next();       
-        Artikel artikel = new ArtikelDAO.readArtikel(artikel);
+        int artikel_id = input.nextInt();       
         
-        hoeveel liter
-        hoeveel kilo
-        hoe lang
+        System.out.println("Artikel Naam");
+        String artikel_naam = input.next();
         
-        3         
-                
+        System.out.println("artieklen op voorraad");
+        int artikel_voorraad = input.nextInt();
+        System.out.println("artikel rpijs");
+        double artikel_prijs = input.nextDouble();
+                      
 
         
-        artikel.setArtikel_id(25);
+        artikel.setArtikel_id();
         artikel.setArtikel_naam("koe");
         artikel.getArtikel_voorraad(4);
         

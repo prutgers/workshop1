@@ -21,51 +21,7 @@ public class Klant {
     private String email;
     private Adres adres;
     
-    private Klant(){
-        Scanner input = new Scanner(System.in);
-        System.out.println("Create a new Klant!");
-        System.out.print("Your first name :");
-        voornaam = input.next();
-        System.out.print("Your last name :");
-        achternaam = input.next();
-        System.out.print("Additieves :");
-        tussenvoegsel = input.next();
-        System.out.print("Your email adress :");
-        email = input.next();
-        adres = new Adres();
-        Klant inner = KlantDAO.createKlant(this);
-        klant_id = (inner.getKlant_id()); // Dit is wel lelijk, geen idee hoe ik 
-    }                                     // het 2de object verwijder.
-    
-    public Klant(int klant_id){
-        this.klant_id = klant_id;
-        Scanner input = new Scanner(System.in);
-        System.out.println("Create a new Klant!");
-        System.out.print("Your first name :");
-        voornaam = input.next();
-        System.out.print("Your last name :");
-        achternaam = input.next();
-        System.out.print("Additieves :");
-        tussenvoegsel = input.next();
-        System.out.print("Your email adress :");
-        email = input.next();
-        adres = new Adres();
-    }
-    
-    public Klant(ResultSet klantData) throws SQLException{
-        klantData.next();
-        klant_id = klantData.getInt(1);
-        voornaam = klantData.getString(2);
-        achternaam = klantData.getString(3);
-        tussenvoegsel = klantData.getString(4);
-        email = klantData.getString(5);
-        adres = new Adres();
-    }
-    
-    public String toString(){
-        return "" + getKlant_id() + ", " + getVoornaam() + ", " + getAchternaam() + ", "
-                + getTussenvoegsel() + ", " + getEmail()+ ", " + getAdres().toString();
-    }
+ 
 
     /**
      * @return the klant_id

@@ -14,6 +14,7 @@ import java.util.Scanner;
  * @author Peter
  */
 public class BestellingMenu {
+    
     public static void startMenu() {
         Scanner input = new Scanner(System.in);
         while(true){
