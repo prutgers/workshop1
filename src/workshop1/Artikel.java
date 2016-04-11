@@ -7,7 +7,7 @@ package workshop1;
 
 /**
  *
- * @author Peter
+ * @author Peter en Herman
  */
 public class Artikel {
     
