@@ -15,22 +15,40 @@ import java.util.Scanner;
 public class ArtikelMenu {
     
     
-    ArtikelMenu(){
+    public static void startMenu(){
     
-
-    System.out.println("Create a new Artikel!");
-    System.out.println("Maak een keuze:");
-    System.out.println("Kies 1 voor aanmaken nieuw artikel, kies 2 voor deleten artikel");
-    Scanner input = new Scanner(System.in);
-    int keuze = input.nextInt();
-    CommandLineReader cmd = new CommandLineReader();
-    if(1 == keuze){
-        cmd.readCommandLine("artikel");
+        System.out.println("Kies 1 om een artikel toe te voegen; \n"
+                + "kies 2 om een artikel up te daten \n"
+                + "kies 3 om een artikel te verwijderen \n"
+                + "kies 4 om de lijst van artikelen te bekijken \n"
+                + "kies 5 quit, \n");
+        Scanner input = new Scanner(System.in);
+        int select = input.nextInt();
+        
+        switch (select) {
+            case 1:
+                KlantMenu.startMenu();
+                break;
+            case 2:
+                updateArtikel();
+                break;
+            case 3:
+                //ArtikelMenu.startMenu();
+                break;            
+            case 4:
+                ArtikelDAO.readArtikel();
+                break;
+            case 5:
+                System.exit(0);
+                break;
+            default:
+                System.out.println("kies 1, 2, 3, 4 of 5");
+                break;
         }
     }
     
     
-    public void updateArtikel(){
+    public static void updateArtikel(){
         System.out.println("Wat is het artikel ID dat u wilt updaten");
         Scanner input = new Scanner(System.in);        
         int artikel_id = input.nextInt();       
@@ -40,14 +58,18 @@ public class ArtikelMenu {
         
         System.out.println("artieklen op voorraad");
         int artikel_voorraad = input.nextInt();
+        
         System.out.println("artikel rpijs");
         double artikel_prijs = input.nextDouble();
-                      
-
         
-        artikel.setArtikel_id();
-        artikel.setArtikel_naam("koe");
-        artikel.getArtikel_voorraad(4);
+        Artikel artikel = new Artikel();                      
+
+        artikel.setArtikel_id(artikel_id);
+        artikel.setArtikel_naam(artikel_naam);
+        artikel.setArtikel_voorraad(artikel_voorraad);
+        artikel.setArtikel_prijs(artikel_prijs);
+        
+        ArtikelDAO.updateArtikel(artikel);
         
         
     }

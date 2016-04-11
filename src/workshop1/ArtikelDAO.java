@@ -19,7 +19,7 @@ import java.sql.*;
 
 public class ArtikelDAO {
 
-   public void createNewArtikel(Artikel artikel){
+   public static void createNewArtikel(Artikel artikel){
        //Connect to database
        
     String user = "rsvier";
@@ -54,7 +54,7 @@ public class ArtikelDAO {
         
     }
    
-   public Artikel readArtikel(){
+   public static Artikel readArtikel(){
         Artikel artikel = new Artikel();
        
         String user = "rsvier";
@@ -95,7 +95,7 @@ public class ArtikelDAO {
        return artikel;
    }
    
-   public void updateArtikel(Artikel artikel){
+   public static void updateArtikel(Artikel artikel){
        String user = "rsvier";
         String password = "tiger";
         String datbaseUrl = "jdbc:mysql://localhost/workshopdb";
@@ -132,7 +132,7 @@ public class ArtikelDAO {
        
    }
    
-   public void deleteArtikel(int artikel_ID) {
+   public static void deleteArtikel(int artikel_ID) {
              String user = "rsvier";
         String password = "tiger";
         String datbaseUrl = "jdbc:mysql://localhost/workshopdb";
