@@ -90,10 +90,13 @@ public class BestellingMenu {
     public static void getAllMenu(){
         BestellingDAO dao = new BestellingDAO();
         ArrayList<Bestelling> list = dao.getAllBestelling();
-        System.out.println("LIJST MET ALLE BESTELLININGEN \n"
-                + "====");
+        System.out.println("LIJST MET ALLE BESTELLININGEN \n "
+                + "=================");
         for(Bestelling e : list){
-            System.out.println("BestellingID: " + e.getBestellingID() + " KlantID: " + e.getKlantID() + " ArtikelNaam: " + e.getArtikelNaam_1());
+            System.out.println(
+                    "BestellingID: " + e.getBestellingID() + 
+                    " KlantID: " + e.getKlantID() + 
+                    " ArtikelNaam: " + e.getArtikelNaam_1());
         }
     }
     public static void getByIdMenu()throws SQLException, ClassNotFoundException{
@@ -118,7 +121,7 @@ public class BestellingMenu {
         BestellingDAO dao = new BestellingDAO();
         ArrayList<Bestelling> list = dao.getBestellingByKlantId(klantId);
         System.out.println("LIJST MET BESTELLINING VAN KLANT " + klantId + "\n"
-                + "====");
+                + "=================");
         for(Bestelling e : list){
             System.out.println("BestellingID: " + e.getBestellingID() + " KlantID: " + e.getKlantID() + " ArtikelNaam: " + e.getArtikelNaam_1());
         }
