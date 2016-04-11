@@ -23,8 +23,9 @@ public class BestellingMenu {
                 + "kies 2 voor getBestellingById, \n"
                 + "kies 3 voor getBestellingByKlandId, \n"
                 + "kies 4 voor getAllBestelling, \n"
-                + "kies 5 voor deleteByBestellingId, \n"
-                + "kies 6 ga naar hoofdmenu");
+                + "kies 5 voor updateBestelling, \n"
+                + "kies 6 voor deleteByBestellingId, \n"
+                + "kies 7 ga naar hoofdmenu");
             int select = input.nextInt();
             try{
                 switch (select) {
@@ -42,9 +43,12 @@ public class BestellingMenu {
                         getAllMenu();
                         break;
                     case 5:
-                        deleteByIdMenu();
+                        updateBestellingMenu();
                         break;
                     case 6:
+                        deleteByIdMenu();
+                        break;
+                    case 7:
                         HoofdMenu.startMenu();
                         break;
                     default:
@@ -61,7 +65,7 @@ public class BestellingMenu {
     }
     public static void createMenu()throws SQLException, ClassNotFoundException{
         Scanner input = new Scanner(System.in);
-        
+        System.out.println("*CREATE MENU*");
         //verkrijg data uit de commandline
         System.out.println("Enter klant ID :");
         int klantID = input.nextInt();
@@ -93,10 +97,11 @@ public class BestellingMenu {
         System.out.println("LIJST MET ALLE BESTELLININGEN \n "
                 + "=================");
         for(Bestelling e : list){
-            System.out.println(
-                    "BestellingID: " + e.getBestellingID() + 
+            System.out.println("BestellingID: " + e.getBestellingID() + 
                     " KlantID: " + e.getKlantID() + 
-                    " ArtikelNaam: " + e.getArtikelNaam_1());
+                    " ArtikelNaam: " + e.getArtikelNaam_1() + 
+                    " ArikelID: " + e.getArtikelID_1() + 
+                    " Artikel pijs: " + e.getArtikelPrijs_1());
         }
     }
     public static void getByIdMenu()throws SQLException, ClassNotFoundException{
@@ -123,9 +128,38 @@ public class BestellingMenu {
         System.out.println("LIJST MET BESTELLINING VAN KLANT " + klantId + "\n"
                 + "=================");
         for(Bestelling e : list){
-            System.out.println("BestellingID: " + e.getBestellingID() + " KlantID: " + e.getKlantID() + " ArtikelNaam: " + e.getArtikelNaam_1());
+            System.out.println("BestellingID: " + e.getBestellingID() + " KlantID: " + e.getKlantID() + " ArtikelNaam: " + e.getArtikelNaam_1() + "ArikelID: " + e.getArtikelID_1() + "Artikel pijs: " + e.getArtikelPrijs_1());
         }
     }   
+    public static void updateBestellingMenu(){
+        Scanner input = new Scanner(System.in);
+        
+        //verkrijg data uit de commandline
+        System.out.println("Enter bestelling ID :");
+        int bestellingId = input.nextInt();
+        
+        Bestelling bestelling = BestellingDAO.getBestellingById(bestellingId);  
+        
+        System.out.println(bestelling.getKlantID() + ") Enter nieuw klant ID:");
+        int klantID = input.nextInt();
+        System.out.println(bestelling.getArtikelID_1() + ") Enter nieuw artikel ID :");
+        int artikelID = input.nextInt();
+        System.out.println(bestelling.getArtikelNaam_1() + ") Enter nieuw artikel naam :");
+        String artikelNaam = input.next();
+        System.out.println(bestelling.getArtikelPrijs_1() + ") Enter nieuw artikel prijs:");
+        double artikelPrijs = input.nextDouble();
+        System.out.println(bestelling.getArtikelPrijs_1() + ") Enter nieuw artikel aantal:");
+        int artikelAantal = input.nextInt();
+        
+        //vul de nieuwe bestelling
+        bestelling.setKlantID(klantID);
+        bestelling.setArtikelID_1(artikelID);
+        bestelling.setArtikelNaam_1(artikelNaam);
+        bestelling.setArtikelPrijs_1(artikelPrijs);
+        bestelling.setArtikelAantal_1(artikelAantal);
+        
+        BestellingDAO.updateBestelling(bestelling);
+    }
     public static void deleteByIdMenu(){
         Scanner input = new Scanner(System.in);
         
