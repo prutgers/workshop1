@@ -36,7 +36,7 @@ public class Adres {
     /**
      * @param huisnummer the huisnr to set
      */
-    public void setHuisnr(int huisnummer) {
+    public void setHuisnummer(int huisnummer) {
         this.huisnummer = huisnummer;
     }
 
