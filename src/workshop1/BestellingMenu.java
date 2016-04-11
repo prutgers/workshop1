@@ -1,48 +1,62 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package workshop1;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Workshop {
-    public static void main(String[] args) throws SQLException, ClassNotFoundException{
+/**
+ *
+ * @author Peter
+ */
+public class BestellingMenu {
+    public static void startMenu() {
         Scanner input = new Scanner(System.in);
-        
-        System.out.println("Kies 1 voor createBestelling; \n"
+        while(true){
+                    
+            System.out.println("Kies 1 voor createBestelling; \n"
                 + "kies 2 voor getBestellingById, \n"
                 + "kies 3 voor getBestellingByKlandId, \n"
                 + "kies 4 voor getAllBestelling, \n"
-                + "kies 5 voor deleteByBestellingId");
-        int select = input.nextInt();
-        
-        if(select == 1){
-            createMenu();
+                + "kies 5 voor deleteByBestellingId, \n"
+                + "kies 6 ga naar hoofdmenu");
+            int select = input.nextInt();
+            try{
+                switch (select) {
+                    case 1:
+                        createMenu();
+                        startMenu();
+                        break;
+                    case 2:
+                        getByIdMenu();
+                        break;
+                    case 3:
+                        getByKlantIdMenu();
+                        break;
+                    case 4:
+                        getAllMenu();
+                        break;
+                    case 5:
+                        deleteByIdMenu();
+                        break;
+                    case 6:
+                        HoofdMenu.startMenu();
+                        break;
+                    default:
+                        System.out.println("kies 1, 2 of 3");
+                        break;
+                }
+            }
+            catch(SQLException | ClassNotFoundException e){
+                e.printStackTrace();
+            }
         }
-        else if (select == 2){
-            getByIdMenu();
-        }
-        else if ( select == 3){
-            getByKlantIdMenu();
-        }
-        else if ( select == 4){
-            getAllMenu();
-        }
-        else if( select ==5){
-            deleteByIdMenu();
-        }
-        else System.out.println("kies 1, 2 of 3");
-        /*
-        KlantDAO dao = new KlantDAO();
-        Klant klant = new Klant();
-        klant.setAchternaam("joost");
-        klant.setVoornaam("Jos");
-        */
+            
 
-        //dao.createKlant(klant);
-        //Klant klant2 = new Klant();
-        //klant2 = dao.getKlantById(1);
-        //System.out.println(klant2.getAchternaam().toString() + " " + klant2.getVoornaam().toString());
-        
     }
     public static void createMenu()throws SQLException, ClassNotFoundException{
         Scanner input = new Scanner(System.in);
