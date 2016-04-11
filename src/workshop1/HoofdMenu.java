@@ -7,11 +7,11 @@ package workshop1;
 
 import java.sql.SQLException;
 import java.util.Scanner;
-import static workshop1.MenuBestelling.createMenu;
-import static workshop1.MenuBestelling.deleteByIdMenu;
-import static workshop1.MenuBestelling.getAllMenu;
-import static workshop1.MenuBestelling.getByIdMenu;
-import static workshop1.MenuBestelling.getByKlantIdMenu;
+import static workshop1.BestellingMenu.createMenu;
+import static workshop1.BestellingMenu.deleteByIdMenu;
+import static workshop1.BestellingMenu.getAllMenu;
+import static workshop1.BestellingMenu.getByIdMenu;
+import static workshop1.BestellingMenu.getByKlantIdMenu;
 
 /**
  *
@@ -56,7 +56,7 @@ public class HoofdMenu {
             HoofdMenu.startMenu();
                 break;
             case 4:
-                MenuBestelling.startMenu();
+                BestellingMenu.startMenu();
                 break;
             case 5:
                 System.exit(0);
