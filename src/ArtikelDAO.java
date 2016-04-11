@@ -7,7 +7,7 @@ package workshop1;
 
 /**
  *
- * @author Peter
+ * @author Petertje
  */
 
 /**
