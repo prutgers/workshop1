@@ -140,13 +140,13 @@ public class KlantMenu {
         System.out.println("Create a new Klant!"
                 + " If you don't know a certain field just leave it blank.");
         System.out.print("Your first name :");
-        inputKlant.setVoornaam( input.next() );
+        inputKlant.setVoornaam( input.nextLine() );
         System.out.print("Your last name :");
-        inputKlant.setAchternaam( input.next() );
+        inputKlant.setAchternaam( input.nextLine() );
         System.out.print("Additieves :");
-        inputKlant.setTussenvoegsel( input.next() );
+        inputKlant.setTussenvoegsel( input.nextLine() );
         System.out.print("Your email adress :");
-        inputKlant.setEmail( input.next() );
+        inputKlant.setEmail( input.nextLine() );
         
         //incomplete inputKlant nu naar KlantDao voor lijst met alle mogelijke klanten
         ArrayList<Klant> list = KlantDAO.readAllKlantByKlant(inputKlant);
