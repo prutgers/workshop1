@@ -41,7 +41,7 @@ public class AdresDAO {
     public ArrayList<Adres> readAdres() throws SQLException {
         String query = "SELECT straatnaam, huisnummer, toevoeging, postcode,"
                 + "woonplaats, adres_id FROM adres";
-        ArrayList<Adres> lijst = new ArrayList<>();
+        ArrayList<Adres> adresGegevens = new ArrayList<>();
         Adres adres;
         ResultSet rs;
         try {
@@ -51,41 +51,6 @@ public class AdresDAO {
             rs = stmntRA.executeQuery(query);
             while (rs.next()) {
                 adres = new Adres();
-                
-                adres.setStraatnaam(rs.getString("straatnaam"));
-                adres.setHuisnummer(rs.getInt("huisnummer"));
-                adres.setToevoeging(rs.getString("toevoeging"));
-                adres.setPostcode(rs.getString("postcode"));
-                adres.setWoonplaats(rs.getString("woonplaats"));
-                adres.setAdres_id(rs.getInt("adres_id"));
-                
-                lijst.add(adres);
-            }
-        }
-        catch (ClassNotFoundException | SQLException ex) {
-            System.out.println("Probeer opnieuw.");
-            }
-        
-        finally {
-            stmnt.executeUpdate();
-            stmnt.close();
-        }
-        
-        return lijst;
-    }
-    
-    public ArrayList<Adres> readAdresByID(int adresID) throws SQLException {
-        String query = "SELECT * FROM adres WHERE adres_id=?";
-        ArrayList<Adres> adresGegevens = new ArrayList<>();
-    
-        try {
-            Connection connection = new DBConnector().getConnection(); 
-            Class.forName("com.mysql.jdbc.Driver");
-            PreparedStatement stmntRAID = connection.prepareStatement(query);
-            stmntRAID.setInt(1, adresID);     
-            ResultSet rs = stmntRAID.executeQuery(query);
-            while (rs.next()) {
-                Adres adres = new Adres();
                 
                 adres.setStraatnaam(rs.getString("straatnaam"));
                 adres.setHuisnummer(rs.getInt("huisnummer"));
@@ -107,6 +72,41 @@ public class AdresDAO {
         }
         
         return adresGegevens;
+    }
+    
+    public ArrayList<Adres> readAdresByID(int adresID) throws SQLException {
+        String query = "SELECT * FROM adres WHERE adres_id=?";
+        ArrayList<Adres> adresGegevensByID = new ArrayList<>();
+    
+        try {
+            Connection connection = new DBConnector().getConnection(); 
+            Class.forName("com.mysql.jdbc.Driver");
+            PreparedStatement stmntRAID = connection.prepareStatement(query);
+            stmntRAID.setInt(1, adresID);     
+            ResultSet rs = stmntRAID.executeQuery(query);
+            while (rs.next()) {
+                Adres adres = new Adres();
+                
+                adres.setStraatnaam(rs.getString("straatnaam"));
+                adres.setHuisnummer(rs.getInt("huisnummer"));
+                adres.setToevoeging(rs.getString("toevoeging"));
+                adres.setPostcode(rs.getString("postcode"));
+                adres.setWoonplaats(rs.getString("woonplaats"));
+                adres.setAdres_id(rs.getInt("adres_id"));
+                
+                adresGegevensByID.add(adres);
+            }
+        }
+        catch (ClassNotFoundException | SQLException ex) {
+            System.out.println("Probeer opnieuw.");
+            }
+        
+        finally {
+            stmnt.executeUpdate();
+            stmnt.close();
+        }
+        
+        return adresGegevensByID;
     }
     
     public void updateAdres(Adres adres) throws SQLException {
