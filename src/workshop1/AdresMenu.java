@@ -1,5 +1,7 @@
 package workshop1;
 
+import menu.*;
+
 /**
  *
  * @author Sonja
