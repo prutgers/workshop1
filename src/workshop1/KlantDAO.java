@@ -26,8 +26,8 @@ public class KlantDAO {
                 )
         {
             PreparedStatement createKlant = connection.prepareStatement(
-                    "insert into Klant (voornaam, achternaam,"
-                            + " tussenvoegsel, email, adres_id"
+                    "insert into klant (voornaam, achternaam,"
+                            + " tussenvoegsel, email, adres_id)"
                             +"values (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             
             createKlant.setString(1, klant.getVoornaam() );
@@ -36,6 +36,7 @@ public class KlantDAO {
             createKlant.setString(4, klant.getEmail() );
             createKlant.setString(5, Integer.toString(klant.getAdres().getAdres_id()) );
             
+            createKlant.execute();
             ResultSet klant_idData = createKlant.getGeneratedKeys();
             klant_idData.next();
             klantOut.setKlant_id( klant_idData.getInt(1) );
@@ -54,7 +55,7 @@ public class KlantDAO {
                 )
         {
             PreparedStatement readKlant = connection.prepareStatement(
-                    "select * from Klant where Klant_id = ?");
+                    "select * from klant where Klant_id = ?");
             readKlant.setString(1, Integer.toString(klant_id) );
 
             ResultSet readKlantResult = readKlant.executeQuery();
@@ -84,7 +85,7 @@ public class KlantDAO {
                 )
         {
             PreparedStatement updateKlant = connection.prepareStatement(
-                    "update Klant set voornaam = ?, achternaam = ?,"
+                    "update klant set voornaam = ?, achternaam = ?,"
                             + "  tussenvoegsel = ?, email = ?, adres_id = ?"
                             +"where Klant_id = ?");
             
@@ -130,26 +131,26 @@ public class KlantDAO {
                 )
         {
             PreparedStatement readKlant = connection.prepareStatement(
-                    "select * from Klant where "
-                            + "Klant_id = ? "           //1
-                            + "and voornaam = ? "       //2
-                            + "and achternaam = ? "     //3
-                            + "and tussenvoegsel = ? "  //4
-                            + "and email = ? "          //5
-                            + "and adres_id = ?");      //6
+                    "select * from klant where "
+                            + "Klant_id LIKE ? "           //1
+                            + "and voornaam LIKE ? "       //2
+                            + "and achternaam LIKE ? "     //3
+                            + "and tussenvoegsel LIKE ? "  //4
+                            + "and email LIKE ? "          //5
+                            + "and adres_id LIKE ?");      //6
             
             readKlant.setString(1, (klant.getKlant_id() == 0)?
-                    "*" : Integer.toString( klant.getKlant_id() ) );
-            readKlant.setString(2, ( klant.getVoornaam().equals("") )?
-                    "*" : klant.getVoornaam() );
-            readKlant.setString(3, ( klant.getAchternaam().equals("") )?
-                    "*" : klant.getAchternaam() );
-            readKlant.setString(4, ( klant.getTussenvoegsel().equals("") )?
-                    "*" : klant.getTussenvoegsel() );
-            readKlant.setString(5, ( klant.getEmail().equals("") )?
-                    "*" : klant.getEmail() );
+                    "%" : Integer.toString( klant.getKlant_id() ) );
+            readKlant.setString(2, ( klant.getVoornaam() == null  || klant.getVoornaam().equals("") )?
+                    "%" : klant.getVoornaam() );
+            readKlant.setString(3, ( klant.getAchternaam() == null  || klant.getVoornaam().equals("") )?
+                    "%" : klant.getAchternaam() );
+            readKlant.setString(4, ( klant.getTussenvoegsel() == null  || klant.getVoornaam().equals("") )?
+                    "%" : klant.getTussenvoegsel() );
+            readKlant.setString(5, ( klant.getEmail() == null  || klant.getVoornaam().equals("") )?
+                    "%" : klant.getEmail() );
             readKlant.setString(6, ( klant.getAdres().getAdres_id() == 0)?
-                    "*" : Integer.toString( klant.getKlant_id() ) );
+                    "%" : Integer.toString( klant.getKlant_id() ) );
 
             ResultSet readKlantResult = readKlant.executeQuery();
             
@@ -183,8 +184,8 @@ public class KlantDAO {
                 )
         {
             PreparedStatement readKlant = connection.prepareStatement(
-                    "select * from Klant where "
-                            + "and adres_id = ?");      //1
+                    "select * from klant where "
+                            + "adres_id = ?;");      //1
             readKlant.setString(1, Integer.toString( adres_id ) );
 
             ResultSet readKlantResult = readKlant.executeQuery();

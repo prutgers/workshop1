@@ -8,7 +8,6 @@ package workshop1;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
-import workshop1.Adres;
 
 /**
  *
