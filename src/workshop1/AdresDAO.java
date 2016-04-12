@@ -12,8 +12,6 @@ import java.util.List;
 
 public class AdresDAO {
     
-    //werkt in principe, zit alleen nog met de DBConnector te kloten
-    
     static PreparedStatement stmnt;
     Connection connection;
 
@@ -21,9 +19,7 @@ public class AdresDAO {
         String query = "INSERT straatnaam, huisnummer, toevoeging, postcode,"
                 + "woonplaats, adres_id INTO adres";
         try {
-            Connection connection = DBConnector.getConnection();
-            //connection werkt nog niet; non-static method cannot be referenced 
-            //from static context, gruargh
+            Connection connection = new DBConnector().getConnection();
             Class.forName("com.mysql.jdbc.Driver");
             PreparedStatement stmnt = connection.prepareStatement(query);
             
@@ -52,8 +48,7 @@ public class AdresDAO {
         Adres adres;
         ResultSet rs;
         try {
-            Connection connection = DBConnector.getConnection(); 
-            //connection werkt nog niet; zie boven 
+            Connection connection = new DBConnector().getConnection(); 
             Class.forName("com.mysql.jdbc.Driver");
             PreparedStatement stmnt = connection.prepareStatement(query);
             rs = stmnt.executeQuery(query);
@@ -88,8 +83,7 @@ public class AdresDAO {
                 + "postcode, woonplaats";
         
         try {
-            connection = DBConnector.getConnection();
-            //connection werkt nog niet; zie boven
+            Connection connection = new DBConnector().getConnection();
             PreparedStatement stmnt = connection.prepareStatement(query);
             
             stmnt.setString(1, adres.getStraatnaam());
@@ -99,7 +93,7 @@ public class AdresDAO {
             stmnt.setString(5, adres.getWoonplaats());
             
         }
-        catch (SQLException ex) {
+        catch (SQLException | ClassNotFoundException ex) {
             System.out.println("Probeer opnieuw.");
             }
         
@@ -113,8 +107,7 @@ public class AdresDAO {
         String query = "DELETE straatnaam, huisnummer, toevoeging, postcode,"
                 + "woonplaats FROM adres WHERE klant_id=?";
         try {
-            connection = DBConnector.getConnection();
-            //connection werkt nog niet; zie boven
+            Connection connection = new DBConnector().getConnection();
             stmnt = connection.prepareStatement(query);
             
             stmnt.setInt(1, klant_id);
@@ -122,11 +115,5 @@ public class AdresDAO {
         } catch (Exception ex) {
             System.out.println("Probeer opnieuw.");
         }
-    }
-    
-    public Adres getAdres(Adres adres) {
-        return adres.get(lijst);
-        
-        //is deze wel nodig eigenlijk? Geloof het niet he
     }
 }
