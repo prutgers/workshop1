@@ -95,6 +95,8 @@ public class KlantDAO {
             updateKlant.setString(5, Integer.toString(klant.getAdres().getAdres_id()) );
             updateKlant.setString(6, Integer.toString(klant.getKlant_id()) );
             updateKlant.executeUpdate();
+            
+            klantOut = readKlant(klant.getKlant_id());
 
         }
         catch(Exception ex){
@@ -138,15 +140,15 @@ public class KlantDAO {
             
             readKlant.setString(1, (klant.getKlant_id() == 0)?
                     "*" : Integer.toString( klant.getKlant_id() ) );
-            readKlant.setString(2, (klant.getVoornaam() == null)?
+            readKlant.setString(2, ( klant.getVoornaam().equals("") )?
                     "*" : klant.getVoornaam() );
-            readKlant.setString(3, (klant.getAchternaam() == null)?
+            readKlant.setString(3, ( klant.getAchternaam().equals("") )?
                     "*" : klant.getAchternaam() );
-            readKlant.setString(4, (klant.getTussenvoegsel() == null)?
+            readKlant.setString(4, ( klant.getTussenvoegsel().equals("") )?
                     "*" : klant.getTussenvoegsel() );
-            readKlant.setString(5, (klant.getEmail() == null)?
+            readKlant.setString(5, ( klant.getEmail().equals("") )?
                     "*" : klant.getEmail() );
-            readKlant.setString(6, (klant.getAdres().getAdres_id() == 0)?
+            readKlant.setString(6, ( klant.getAdres().getAdres_id() == 0)?
                     "*" : Integer.toString( klant.getKlant_id() ) );
 
             ResultSet readKlantResult = readKlant.executeQuery();
