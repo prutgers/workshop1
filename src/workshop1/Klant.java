@@ -110,7 +110,6 @@ public class Klant {
      */
     public void setTussenvoegsel(String tussenvoegsel) {
         this.tussenvoegsel = tussenvoegsel;
-        KlantDAO.updateKlant(this);
     }
 
     /**
@@ -125,7 +124,6 @@ public class Klant {
      */
     public void setEmail(String email) {
         this.email = email;
-        KlantDAO.updateKlant(this);
     }
 
     /**
