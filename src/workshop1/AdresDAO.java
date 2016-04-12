@@ -45,10 +45,10 @@ public class AdresDAO {
         }
     }
     
-    public List<Adres> readAdres() throws SQLException {
+    public ArrayList<Adres> readAdres() throws SQLException {
         String query = "SELECT straatnaam, huisnummer, toevoeging, postcode,"
                 + "woonplaats, adres_id, klant_id FROM adres";
-        List<Adres> lijst = new ArrayList<>();
+        ArrayList<Adres> lijst = new ArrayList<>();
         Adres adres;
         ResultSet rs;
         try {
