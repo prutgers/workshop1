@@ -3,15 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package workshop1;
+package menu;
 
-import java.sql.SQLException;
 import java.util.Scanner;
-import static workshop1.BestellingMenu.createMenu;
-import static workshop1.BestellingMenu.deleteByIdMenu;
-import static workshop1.BestellingMenu.getAllMenu;
-import static workshop1.BestellingMenu.getByIdMenu;
-import static workshop1.BestellingMenu.getByKlantIdMenu;
+import workshop1.*;
 
 /**
  *

@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package workshop1;
+package menu;
 
+import menu.KlantMenu;
 import java.util.Scanner;
+import workshop1.*;
 
 
 /**

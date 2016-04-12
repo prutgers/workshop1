@@ -5,7 +5,8 @@
  */
 package workshop1;
 
-import java.util.HashSet;
+import menu.*;
+
 
 
 /**
@@ -20,10 +21,10 @@ public class Workshop1 {
      */
     public static void main(String[] args) {
         
-                
-      
      
-    HoofdMenu.startMenu();        
+   HoofdMenu.startMenu();        
+   
+   // ArtikelDAO.readArtikel();
     }
     
 }
