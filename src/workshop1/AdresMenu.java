@@ -109,12 +109,13 @@ public class AdresMenu {
     }
 
     private static void deleteAdresMenu() {
-        String query = "DELETE FROM adres WHERE adres_id =?";
+        Scanner input = new Scanner(System.in);
         
-        try {
-            Connection connection = new DBConnector().getConnection();
-            //connection werkt nog niet; zie boven
-            PreparedStatement stmnt = connection.prepareStatement(query);
-        }
+        System.out.println("Welk adres wilt u verwijderen? \n"
+                + "Voer adres ID in: ");
+        int adres_id = input.nextInt();
+        
+        AdresDAO aDAO = new AdresDAO();
+        aDAO.deleteAdres(adres_id);
     }
 }
