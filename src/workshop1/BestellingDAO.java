@@ -15,8 +15,19 @@ public class BestellingDAO {
                     + "artikel_id1,"
                     + "artikel_prijs1, "
                     + "artikel_naam1,"
-                    + "artikel_aantal1) "
-                    + "values (?, ?, ?, ?, ?)";
+                    + "artikel_aantal1,"
+                
+                    + "artikel_id2,"
+                    + "artikel_prijs2, "
+                    + "artikel_naam2,"
+                    + "artikel_aantal2,"
+                
+                    + "artikel_id3,"
+                    + "artikel_prijs3, "
+                    + "artikel_naam3,"
+                    + "artikel_aantal3"
+                + ") "
+                    + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 
         try(Connection con = new DBConnector().getConnection();){
@@ -25,10 +36,21 @@ public class BestellingDAO {
 
             //Set values for INSERT-part of the statement
                     stmt.setInt(1, bestelling.getKlantID());
+                    
                     stmt.setInt(2, bestelling.getArtikelID_1());
                     stmt.setDouble(3, bestelling.getArtikelPrijs_1());
                     stmt.setString(4, bestelling.getArtikelNaam_1());            
                     stmt.setInt(5, bestelling.getArtikelAantal_1());   
+
+                    stmt.setInt(6, bestelling.getArtikelID_2());
+                    stmt.setDouble(7, bestelling.getArtikelPrijs_2());
+                    stmt.setString(8, bestelling.getArtikelNaam_2());            
+                    stmt.setInt(9, bestelling.getArtikelAantal_2());   
+
+                    stmt.setInt(10, bestelling.getArtikelID_3());
+                    stmt.setDouble(11, bestelling.getArtikelPrijs_3());
+                    stmt.setString(12, bestelling.getArtikelNaam_3());            
+                    stmt.setInt(13, bestelling.getArtikelAantal_3());   
                     
             stmt.executeUpdate();
         }
