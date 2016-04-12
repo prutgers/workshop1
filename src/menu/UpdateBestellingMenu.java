@@ -12,5 +12,7 @@ import workshop1.*;
  * @author Peter
  */
 public class UpdateBestellingMenu {
+     public static void startMenu(){
     
+    }  
 }

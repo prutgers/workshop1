@@ -27,16 +27,16 @@ public class ArtikelMenu {
         
         switch (select) {
             case 1:
-                KlantMenu.startMenu();
+                createArtikel();
                 break;
             case 2:
-                updateArtikel();
+                UpdateArtikelMenu.startMenu();
                 break;
             case 3:
                 //ArtikelMenu.startMenu();
                 break;            
             case 4:
-                ArtikelDAO.readArtikel();
+               ReadArtikelMenu.startMenu();
                 break;
             case 5:
                 System.exit(0);
@@ -47,6 +47,10 @@ public class ArtikelMenu {
         }
     }
     
+    
+    public static void createArtikel(){
+        
+    }
     
     public static void updateArtikel(){
         System.out.println("Wat is het artikel ID dat u wilt updaten");

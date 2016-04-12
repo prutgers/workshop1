@@ -12,5 +12,7 @@ import workshop1.*;
  * @author Peter
  */
 public class UpdateKlantMenu {
+     public static void startMenu(){
     
+    }  
 }
