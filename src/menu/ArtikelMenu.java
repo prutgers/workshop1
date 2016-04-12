@@ -5,7 +5,6 @@
  */
 package menu;
 
-import menu.KlantMenu;
 import java.util.Scanner;
 import workshop1.*;
 
@@ -15,8 +14,6 @@ import workshop1.*;
  * @author Peter
  */
 public class ArtikelMenu {
-    
-    //Herman ik push alleed dit
     
     public static void startMenu(){
     
