@@ -29,7 +29,7 @@ public class ArtikelMenu {
         }
     }
     
-    
+    /*
     public void updateArtikel(){
         System.out.println("Wat is het artikel ID dat u wilt updaten");
         Scanner input = new Scanner(System.in);        

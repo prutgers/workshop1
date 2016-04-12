@@ -7,11 +7,6 @@ package workshop1;
 
 import java.sql.SQLException;
 import java.util.Scanner;
-import static workshop1.BestellingMenu.createMenu;
-import static workshop1.BestellingMenu.deleteByIdMenu;
-import static workshop1.BestellingMenu.getAllMenu;
-import static workshop1.BestellingMenu.getByIdMenu;
-import static workshop1.BestellingMenu.getByKlantIdMenu;
 
 /**
  *

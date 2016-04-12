@@ -23,7 +23,7 @@ public class Workshop1 {
                 
       
      
-     HoofdMenu.startMenu();
+     KlantMenu.startMenu();
      //BestellingDAO best = new BestellingDAO();
     // best.deleteBestelling(1);
      
