@@ -132,14 +132,14 @@ public class Klant {
      * @return the adres_id
      */
     public int getAdres_id() {
-        return klant_id;
+        return adres_id;
     }
 
     /**
-     * @param klant_id the adres_id to set
+     * @param adres_id the adres_id to set
      */
     public void setAdres_id(int klant_id) {
-        this.klant_id = klant_id;
+        this.adres_id = klant_id;
     }
     
     /**
