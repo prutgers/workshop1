@@ -138,18 +138,12 @@ public class KlantDAO {
                             + "and email = ? "          //5
                             + "and adres_id = ?");      //6
             
-            readKlant.setString(1, (klant.getKlant_id() == 0)?
-                    "*" : Integer.toString( klant.getKlant_id() ) );
-            readKlant.setString(2, ( klant.getVoornaam().equals("") )?
-                    "*" : klant.getVoornaam() );
-            readKlant.setString(3, ( klant.getAchternaam().equals("") )?
-                    "*" : klant.getAchternaam() );
-            readKlant.setString(4, ( klant.getTussenvoegsel().equals("") )?
-                    "*" : klant.getTussenvoegsel() );
-            readKlant.setString(5, ( klant.getEmail().equals("") )?
-                    "*" : klant.getEmail() );
-            readKlant.setString(6, ( klant.getAdres().getAdres_id() == 0)?
-                    "*" : Integer.toString( klant.getKlant_id() ) );
+            readKlant.setString(1, (klant.getKlant_id() == 0)? "*" : Integer.toString( klant.getKlant_id() ) );
+            readKlant.setString(2, ( klant.getVoornaam().equals("") )? "*" : klant.getVoornaam() );
+            readKlant.setString(3, ( klant.getAchternaam().equals("") )? "*" : klant.getAchternaam() );
+            readKlant.setString(4, ( klant.getTussenvoegsel().equals("") )? "*" : klant.getTussenvoegsel() );
+            readKlant.setString(5, ( klant.getEmail().equals("") )? "*" : klant.getEmail() );
+            readKlant.setString(6, ( klant.getAdres().getAdres_id() == 0)? "*" : Integer.toString( klant.getKlant_id() ) );
 
             ResultSet readKlantResult = readKlant.executeQuery();
             

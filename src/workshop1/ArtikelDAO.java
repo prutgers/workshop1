@@ -95,6 +95,47 @@ public class ArtikelDAO {
        return artikel;
    }
    
+   public static Artikel readArtikel(int artikel_id){
+        Artikel artikel = new Artikel();
+       
+        String user = "rsvier";
+        String password = "tiger";
+        String datbaseUrl = "jdbc:mysql://localhost/workshopdb";
+
+        try(Connection connection = DriverManager.getConnection(datbaseUrl, user, password)){
+            Class.forName("com.mysql.jdbc.Driver");
+            
+            String query = "SELECT * FROM artikel WHERE artikel_id = " + artikel_id;
+            
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            ResultSet rs = pstmt.executeQuery(query);
+            
+         System.out.format("%s, %s, %s, %s\n", "id", "artikel_naam", "artikel_prijs", "artikel_voorraad");
+            while (rs.next())
+      {
+          
+        int id = rs.getInt("artikel_id");
+        String artikel_naam = rs.getString("artikel_naam");
+        double artikel_prijs = rs.getDouble("artikel_prijs");
+        int artikel_voorraad = rs.getInt("artikel_voorraad");
+        
+       
+         
+        // print the results
+        //System.out.println("id " + id + " Artikel naam " + artikel_naam);
+       
+        System.out.format("%s, %s, %s, %s\n", id, artikel_naam, artikel_prijs, artikel_voorraad);
+      }
+      pstmt.close();
+            
+       
+        }
+        catch (ClassNotFoundException | SQLException e){
+            System.out.println("verdorie mislukt");
+        } 
+       return artikel;
+   }
+   
    public static void updateArtikel(Artikel artikel){
        String user = "rsvier";
         String password = "tiger";
