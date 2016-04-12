@@ -11,7 +11,7 @@ public class Adres {
      String postcode;
      String woonplaats;
      int adres_id;
-     private int klant_id;
+     int klant_id;
 
     /**
      * @return the straatnaam
