@@ -171,23 +171,23 @@ public class KlantMenu {
         System.out.println("Please fill in your new infromation:"
                 + " (If you don't want to update a field just leave it blank.)");
         System.out.print("Your new first name :");
-        String nieuweVoornaam = input.next();
-        if (nieuweVoornaam != null) {
+        String nieuweVoornaam = input.nextLine();
+        if ( !nieuweVoornaam.equals("") ) {
             outputKlant.setVoornaam( nieuweVoornaam );
                 }
         System.out.print("Your new last name :");
-        String nieuweAchternaam = input.next();
-        if (nieuweAchternaam != null) {
+        String nieuweAchternaam = input.nextLine();
+        if ( !nieuweAchternaam.equals("") ) {
             outputKlant.setVoornaam( nieuweAchternaam );
                 }
         System.out.print("new Additieves :");
-        String nieuweTussenvoegsel = input.next();
-        if (nieuweVoornaam != null) {
+        String nieuweTussenvoegsel = input.nextLine();
+        if ( !nieuweTussenvoegsel.equals("") ) {
             outputKlant.setVoornaam( nieuweTussenvoegsel );
                 }
         System.out.print("Your new email adress :");
-        String nieuwEmail = input.next();
-        if (nieuweVoornaam != null) {
+        String nieuwEmail = input.nextLine();
+        if ( !nieuwEmail.equals("") ) {
             outputKlant.setVoornaam( nieuwEmail );
                 }
         
