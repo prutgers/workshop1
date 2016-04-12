@@ -115,7 +115,7 @@ public class KlantDAO {
                     "delete from klant where Klant_id = ?");
             deleteKlant.setString(1, Integer.toString(klant_id) );
 
-            deleteKlant.executeQuery();
+            deleteKlant.executeUpdate();
             
         }
         catch(Exception ex){
