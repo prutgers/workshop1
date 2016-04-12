@@ -31,7 +31,7 @@ public class HoofdMenu {
                 //AdresMenu.startMenu();
                 break;
             case 3:
-                //ArtikelMenu.startMenu()
+                ArtikelMenu.startMenu();
                 break;            
             case 4:
                 BestellingMenu.startMenu();

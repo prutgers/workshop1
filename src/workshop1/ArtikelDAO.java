@@ -119,6 +119,11 @@ public class ArtikelDAO {
         double artikel_prijs = rs.getDouble("artikel_prijs");
         int artikel_voorraad = rs.getInt("artikel_voorraad");
         
+        artikel.setArtikel_id(rs.getInt("artikel_id"));
+        artikel.setArtikel_naam(rs.getString("artikel_naam"));
+        artikel.setArtikel_voorraad(rs.getInt("artikel_voorraad"));
+        artikel.setArtikel_prijs(rs.getDouble("artikel_prijs"));
+        
        
          
         // print the results
@@ -153,6 +158,9 @@ public class ArtikelDAO {
             
             
             PreparedStatement pstmt = connection.prepareStatement(update);
+            
+            System.out.println("artikel naam in de update functie" + artikel.getArtikel_naam());
+            System.out.println("artikel rpijs " + artikel.getArtikel_prijs());
                        
             pstmt.setString(1, artikel.getArtikel_naam());
             pstmt.setInt(2, artikel.getArtikel_voorraad());

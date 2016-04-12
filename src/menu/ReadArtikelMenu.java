@@ -6,6 +6,7 @@
 package menu;
 
 
+import java.util.Scanner;
 import workshop1.*;
 
 /**
@@ -14,6 +15,41 @@ import workshop1.*;
  */
 public class ReadArtikelMenu {
     public static void startMenu(){
-    
+     Scanner input = new Scanner(System.in);
+        
+        System.out.println("Kies 1 een overzicht van alle artikelen, \n"
+                + "kies voor een artikel met een specifiek ID, \n"
+                + "kies 3 om terug te keren naar het hoofdmenu, \n"
+                + "kies 4 om het programma te sluiten, \n");
+        int select = input.nextInt();
+        
+        switch (select) {
+            case 1:
+                ArtikelDAO.readArtikel();
+                break;
+            case 2:
+                readArtikelMetID();
+                break;
+            case 3:
+                HoofdMenu.startMenu();
+                break;            
+            case 4:
+                System.exit(0);
+                break;
+            default:
+                System.out.println("kies 1, 2, 3 of 4");
+                break;
+        }
     }
+
+      
+
+        public static void readArtikelMetID(){
+        System.out.println("Wat is het artikel ID dat u zoekt, \n");
+        Scanner input = new Scanner(System.in);        
+        int artikel_id = input.nextInt();       
+            
+        
+        ArtikelDAO.readArtikel(artikel_id);
+        }
 }
