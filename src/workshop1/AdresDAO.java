@@ -19,7 +19,7 @@ public class AdresDAO {
 
     public void createAdres(Adres adres) throws SQLException {
         String query = "INSERT straatnaam, huisnummer, toevoeging, postcode,"
-                + "woonplaats INTO adres";
+                + "woonplaats, adres_id INTO adres";
         try {
             Connection connection = DBConnector.getConnection();
             //connection werkt nog niet; non-static method cannot be referenced 
@@ -32,6 +32,7 @@ public class AdresDAO {
             stmnt.setString(3, adres.getToevoeging());
             stmnt.setString(4, adres.getPostcode());
             stmnt.setString(5, adres.getWoonplaats());
+            stmnt.setInt(6, adres.getAdres_id());
             
         }
         catch (ClassNotFoundException | SQLException ex) {
@@ -46,7 +47,7 @@ public class AdresDAO {
     
     public List<Adres> readAdres() throws SQLException {
         String query = "SELECT straatnaam, huisnummer, toevoeging, postcode,"
-                + "woonplaats FROM adres";
+                + "woonplaats, adres_id, klant_id FROM adres";
         List<Adres> lijst = new ArrayList<>();
         Adres adres;
         ResultSet rs;
@@ -64,6 +65,8 @@ public class AdresDAO {
                 adres.setToevoeging(rs.getString("toevoeging"));
                 adres.setPostcode(rs.getString("postcode"));
                 adres.setWoonplaats(rs.getString("woonplaats"));
+                adres.setAdres_id(rs.getInt("adres_id"));
+                adres.setKlant_id(rs.getInt("klant_id"));
                 
                 lijst.add(adres);
             }
