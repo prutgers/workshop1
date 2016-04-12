@@ -159,8 +159,7 @@ public class ArtikelDAO {
             
             PreparedStatement pstmt = connection.prepareStatement(update);
             
-            System.out.println("artikel naam in de update functie" + artikel.getArtikel_naam());
-            System.out.println("artikel rpijs " + artikel.getArtikel_prijs());
+            
                        
             pstmt.setString(1, artikel.getArtikel_naam());
             pstmt.setInt(2, artikel.getArtikel_voorraad());

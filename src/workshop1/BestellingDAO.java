@@ -174,9 +174,9 @@ public class BestellingDAO {
             bestelling.setArtikelAantal_1(rs.getInt("artikel_aantal1"));
             bestelling.setArtikelAantal_2(rs.getInt("artikel_aantal2"));
             bestelling.setArtikelAantal_3(rs.getInt("artikel_aantal3"));
-            bestelling.setArtikelPrijs_1(rs.getInt("artikel_prijs1"));
-            bestelling.setArtikelPrijs_2(rs.getInt("artikel_prijs2"));
-            bestelling.setArtikelPrijs_3(rs.getInt("artikel_prijs3"));
+            bestelling.setArtikelPrijs_1(rs.getDouble("artikel_prijs1"));
+            bestelling.setArtikelPrijs_2(rs.getDouble("artikel_prijs2"));
+            bestelling.setArtikelPrijs_3(rs.getDouble("artikel_prijs3"));
          }
         catch(SQLException e){
             e.printStackTrace();
