@@ -7,23 +7,17 @@ package workshop1;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
-
 
 public class AdresDAO {
-    
-    //werkt in principe, zit alleen nog met de DBConnector te kloten
     
     static PreparedStatement stmnt;
     Connection connection;
 
     public void createAdres(Adres adres) throws SQLException {
         String query = "INSERT straatnaam, huisnummer, toevoeging, postcode,"
-                + "woonplaats INTO adres";
+                + "woonplaats, adres_id INTO adres";
         try {
-            Connection connection = DBConnector.getConnection();
-            //connection werkt nog niet; non-static method cannot be referenced 
-            //from static context, gruargh
+            Connection connection = new DBConnector().getConnection();
             Class.forName("com.mysql.jdbc.Driver");
             PreparedStatement stmnt = connection.prepareStatement(query);
             
@@ -32,6 +26,7 @@ public class AdresDAO {
             stmnt.setString(3, adres.getToevoeging());
             stmnt.setString(4, adres.getPostcode());
             stmnt.setString(5, adres.getWoonplaats());
+            stmnt.setInt(6, adres.getAdres_id());
             
         }
         catch (ClassNotFoundException | SQLException ex) {
@@ -44,15 +39,14 @@ public class AdresDAO {
         }
     }
     
-    public List<Adres> readAdres() throws SQLException {
+    public ArrayList<Adres> readAdres() throws SQLException {
         String query = "SELECT straatnaam, huisnummer, toevoeging, postcode,"
-                + "woonplaats FROM adres";
-        List<Adres> lijst = new ArrayList<>();
+                + "woonplaats, adres_id, klant_id FROM adres";
+        ArrayList<Adres> lijst = new ArrayList<>();
         Adres adres;
         ResultSet rs;
         try {
-            Connection connection = DBConnector.getConnection(); 
-            //connection werkt nog niet; zie boven 
+            Connection connection = new DBConnector().getConnection(); 
             Class.forName("com.mysql.jdbc.Driver");
             PreparedStatement stmnt = connection.prepareStatement(query);
             rs = stmnt.executeQuery(query);
@@ -64,6 +58,8 @@ public class AdresDAO {
                 adres.setToevoeging(rs.getString("toevoeging"));
                 adres.setPostcode(rs.getString("postcode"));
                 adres.setWoonplaats(rs.getString("woonplaats"));
+                adres.setAdres_id(rs.getInt("adres_id"));
+                adres.setKlant_id(rs.getInt("klant_id"));
                 
                 lijst.add(adres);
             }
@@ -85,8 +81,7 @@ public class AdresDAO {
                 + "postcode, woonplaats";
         
         try {
-            connection = DBConnector.getConnection();
-            //connection werkt nog niet; zie boven
+            Connection connection = new DBConnector().getConnection();
             PreparedStatement stmnt = connection.prepareStatement(query);
             
             stmnt.setString(1, adres.getStraatnaam());
@@ -96,7 +91,7 @@ public class AdresDAO {
             stmnt.setString(5, adres.getWoonplaats());
             
         }
-        catch (SQLException ex) {
+        catch (SQLException | ClassNotFoundException ex) {
             System.out.println("Probeer opnieuw.");
             }
         
@@ -110,8 +105,7 @@ public class AdresDAO {
         String query = "DELETE straatnaam, huisnummer, toevoeging, postcode,"
                 + "woonplaats FROM adres WHERE klant_id=?";
         try {
-            connection = DBConnector.getConnection();
-            //connection werkt nog niet; zie boven
+            Connection connection = new DBConnector().getConnection();
             stmnt = connection.prepareStatement(query);
             
             stmnt.setInt(1, klant_id);
@@ -119,11 +113,5 @@ public class AdresDAO {
         } catch (Exception ex) {
             System.out.println("Probeer opnieuw.");
         }
-    }
-    
-    public Adres getAdres(Adres adres) {
-        return adres.get(lijst);
-        
-        //is deze wel nodig eigenlijk? Geloof het niet he
     }
 }
