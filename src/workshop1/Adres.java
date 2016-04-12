@@ -5,12 +5,12 @@ package workshop1;
  * @author Sonja
  */
 public class Adres {
-     String straatnaam;
-     int huisnummer;
-     String toevoeging;
-     String postcode;
-     String woonplaats;
-     int adres_id;
+     private String straatnaam;
+     private int huisnummer;
+     private String toevoeging;
+     private String postcode;
+     private String woonplaats;
+     private int adres_id;
 
     /**
      * @return the straatnaam
