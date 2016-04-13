@@ -44,7 +44,7 @@ public class AdresMenu {
                         System.out.println("Maak een keuze.");
                 }
             }
-            catch(Exception ex){
+            catch(SQLException | ClassNotFoundException ex){
                 System.out.println(ex);
             }
         }
@@ -54,8 +54,6 @@ public class AdresMenu {
         Scanner input = new Scanner(System.in);
         System.out.println("Voer het adres ID in:");
         int adres_id = input.nextInt();
-        System.out.println("Voer het klant ID in:");
-        int klant_id = input.nextInt();
         System.out.println("Voer de straatnaam in:");
         String straatnaam = input.next();
         System.out.println("Voer het huisnummer in:");
@@ -69,8 +67,7 @@ public class AdresMenu {
         
         Adres adres = new Adres(); //nieuw adres
         
-        adres.setKlant_id(klant_id); //fill'er up
-        adres.setAdres_id(adres_id);
+        adres.setAdres_id(adres_id);  //fill'er up
         adres.setStraatnaam(straatnaam);
         adres.setHuisnummer(huisnummer);
         adres.setToevoeging(toevoeging);
@@ -88,8 +85,7 @@ public class AdresMenu {
         System.out.println("ADRESGEGEVENS \n"
             + "--------------");
         for (Adres a : adresgegevens) {
-            System.out.println("Klant ID: " + a.getKlant_id()
-            + "Adres ID: " + a.getAdres_id()
+            System.out.println("Adres ID: " + a.getAdres_id()
             + "Straatnaam: " + a.getStraatnaam()
             + "Huisnummer: " + a.getHuisnummer()
             + "Toevoeging: " + a.getToevoeging()
@@ -101,9 +97,9 @@ public class AdresMenu {
     private static void updateAdresMenu() {
         Scanner input = new Scanner(System.in);
         
-        System.out.println("Wiens adres wilt u updaten? \n"
-                + "Voer klant ID in: ");
-        int klant_id = input.nextInt();
+        System.out.println("Welk adres wilt u updaten? \n"
+                + "Voer adres ID in: ");
+        int adres_id = input.nextInt();
         
         //voer nieuwe info in en update adres
         
