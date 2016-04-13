@@ -57,7 +57,7 @@ public class ArtikelDAO {
    
    public static ArrayList<Artikel> readArtikel(){
        ArrayList<Artikel> artikelLijst = new ArrayList<Artikel>();
-       Artikel artikel = new Artikel();
+       
        
         String user = "rsvier";
         String password = "tiger";
@@ -70,20 +70,19 @@ public class ArtikelDAO {
             
             PreparedStatement pstmt = connection.prepareStatement(query);
             ResultSet rs = pstmt.executeQuery(query);
-            
+             
          
-            while (rs.next())
-      {
-          
-        artikel.setArtikel_id(rs.getInt("artikel_id"));
-        artikel.setArtikel_naam(rs.getString("artikel_naam"));
-        artikel.setArtikel_voorraad(rs.getInt("artikel_voorraad"));
-        artikel.setArtikel_prijs(rs.getDouble("artikel_prijs"));
-        artikelLijst.add(artikel);
-          System.out.println("ik zit in de loop");
-        
-      }
-      pstmt.close();
+            while (rs.next()) {
+                Artikel artikel = new Artikel();
+                artikel.setArtikel_id(rs.getInt("artikel_id"));
+                artikel.setArtikel_naam(rs.getString("artikel_naam"));
+                artikel.setArtikel_voorraad(rs.getInt("artikel_voorraad"));
+                artikel.setArtikel_prijs(rs.getDouble("artikel_prijs"));
+                artikelLijst.add(artikel);
+            }
+            
+            pstmt.close();
+            
             
        
         }
