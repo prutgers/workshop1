@@ -42,7 +42,7 @@ public class AdresDAO {
             }
     }
     
-    public ArrayList<Adres> readAdres() throws SQLException {
+    public static ArrayList<Adres> readAdres() throws SQLException {
         ArrayList<Adres> adresGegevens = new ArrayList<>();
         try (Connection connection = new DBConnector().getConnection();) { 
             //Class.forName("com.mysql.jdbc.Driver");
@@ -75,8 +75,8 @@ public class AdresDAO {
         return adresGegevens;
     }
     
-    public static ArrayList<Adres> readAdresByID(int adresID) throws SQLException {
-        ArrayList<Adres> adresGegevensByID = new ArrayList<>();
+    public static Adres readAdresByID(int adresID) throws SQLException {
+        Adres adres = new Adres();
     
         try (Connection connection = new DBConnector().getConnection();) {
             //Class.forName("com.mysql.jdbc.Driver");
@@ -90,24 +90,20 @@ public class AdresDAO {
             stmntRAID.setInt(1, adresID);     
             ResultSet rs = stmntRAID.executeQuery();
             while (rs.next()) {
-                Adres adres = new Adres();
-                
                 adres.setStraatnaam(rs.getString("straatnaam"));
                 adres.setHuisnummer(rs.getInt("huisnummer"));
                 adres.setToevoeging(rs.getString("toevoeging"));
                 adres.setPostcode(rs.getString("postcode"));
                 adres.setWoonplaats(rs.getString("woonplaats"));
                 adres.setAdres_id(rs.getInt("adres_id"));
-                
-                adresGegevensByID.add(adres);
             }
         }
-        catch (ClassNotFoundException | SQLException ex) {
-            System.out.println("Probeer opnieuw.");
-            ex.printStackTrace();
+            catch (ClassNotFoundException | SQLException ex) {
+                System.out.println("Probeer opnieuw.");
+                ex.printStackTrace();
             }
         
-        return adresGegevensByID;
+        return adres;
     }
     
     public static void updateAdres(Adres adres) throws SQLException {
