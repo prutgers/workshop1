@@ -13,8 +13,12 @@ public class AdresDAO {
     static PreparedStatement stmnt;
 
     public void createAdres(Adres adres) throws SQLException {
-        String query = "INSERT straatnaam, huisnummer, toevoeging, postcode,"
-                + "woonplaats, adres_id INTO adres";
+        String query = "INSERT straatnaam,"
+                + "huisnummer,"
+                + "toevoeging,"
+                + "postcode,"
+                + "woonplaats,"
+                + "adres_id INTO adres";
         try {
             Connection connection = new DBConnector().getConnection();
             Class.forName("com.mysql.jdbc.Driver");
@@ -39,8 +43,12 @@ public class AdresDAO {
     }
     
     public ArrayList<Adres> readAdres() throws SQLException {
-        String query = "SELECT straatnaam, huisnummer, toevoeging, postcode,"
-                + "woonplaats, adres_id FROM adres";
+        String query = "SELECT straatnaam,"
+                + "huisnummer,"
+                + "toevoeging,"
+                + "postcode,"
+                + "woonplaats,"
+                + "adres_id FROM adres";
         ArrayList<Adres> adresGegevens = new ArrayList<>();
         Adres adres;
         ResultSet rs;
@@ -75,7 +83,12 @@ public class AdresDAO {
     }
     
     public ArrayList<Adres> readAdresByID(int adresID) throws SQLException {
-        String query = "SELECT * FROM adres WHERE adres_id=?";
+        String query = "SELECT straatnaam,"
+                + "huisnummer,"
+                + "toevoeging,"
+                + "postcode,"
+                + "woonplaats,"
+                + "adres_id FROM adres WHERE adres_id=?";
         ArrayList<Adres> adresGegevensByID = new ArrayList<>();
     
         try {
@@ -110,8 +123,11 @@ public class AdresDAO {
     }
     
     public void updateAdres(Adres adres) throws SQLException {
-        String query = "UPDATE adres SET straatnaam, huisnummer, toevoeging"
-                + "postcode, woonplaats";
+        String query = "UPDATE adres SET straatnaam,"
+                + "huisnummer,"
+                + "toevoeging"
+                + "postcode,"
+                + "woonplaats";
         
         try {
             Connection connection = new DBConnector().getConnection();
@@ -135,7 +151,10 @@ public class AdresDAO {
     }
     
     public void deleteAdres(int adres_id) {
-        String query = "DELETE straatnaam, huisnummer, toevoeging, postcode,"
+        String query = "DELETE straatnaam,"
+                + "huisnummer,"
+                + "toevoeging,"
+                + "postcode,"
                 + "woonplaats FROM adres WHERE adres_id=?";
         try {
             Connection connection = new DBConnector().getConnection();
