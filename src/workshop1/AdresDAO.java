@@ -42,7 +42,7 @@ public class AdresDAO {
             }
     }
     
-    public ArrayList<Adres> readAdres() throws SQLException {
+    public static ArrayList<Adres> readAdres() throws SQLException {
         ArrayList<Adres> adresGegevens = new ArrayList<>();
         try (Connection connection = new DBConnector().getConnection();) { 
             //Class.forName("com.mysql.jdbc.Driver");
@@ -75,7 +75,7 @@ public class AdresDAO {
         return adresGegevens;
     }
     
-    public ArrayList<Adres> readAdresByID(int adresID) throws SQLException {
+    public static ArrayList<Adres> readAdresByID(int adresID) throws SQLException {
         ArrayList<Adres> adresGegevensByID = new ArrayList<>();
     
         try (Connection connection = new DBConnector().getConnection();) {
@@ -110,7 +110,7 @@ public class AdresDAO {
         return adresGegevensByID;
     }
     
-    public void updateAdres(Adres adres) throws SQLException {
+    public static void updateAdres(Adres adres) throws SQLException {
         String query = "UPDATE adres SET "
                 + "straatnaam=?,"
                 + "huisnummer=?,"
@@ -138,7 +138,7 @@ public class AdresDAO {
         }
     }
     
-    public void deleteAdres(int adres_id) {
+    public static void deleteAdres(int adres_id) {
         String query = "DELETE FROM adres straatnaam,"
                 + "huisnummer,"
                 + "toevoeging,"
