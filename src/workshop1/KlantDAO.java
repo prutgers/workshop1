@@ -68,7 +68,7 @@ public class KlantDAO {
             klant.setTussenvoegsel(readKlantResult.getString(4));
             klant.setEmail(readKlantResult.getString(5));
             klant.setAdres_id(readKlantResult.getInt(6));
-            klant.setAdres( AdresDAO.readAdresByID(klant.getAdres_id() ) );
+            klant.setAdres( AdresDAO.readAdres ( klant.getAdres_id() ) );
             
         }
         catch(Exception ex){
@@ -163,7 +163,7 @@ public class KlantDAO {
                 klant4Array.setTussenvoegsel(readKlantResult.getString(4));
                 klant4Array.setEmail(readKlantResult.getString(5));
                 klant4Array.setAdres_id(readKlantResult.getInt(6));
-                klant4Array.setAdres(AdresDAO.readAdresByID(klant4Array.getAdres_id()));
+                klant4Array.setAdres( new Adres (AdresDAO.readAdres( klant4Array.getAdres_id() )) );
                 AllKlant.add(klant4Array);
             }
 
@@ -199,7 +199,7 @@ public class KlantDAO {
                 klant4Array.setTussenvoegsel(readKlantResult.getString(4));
                 klant4Array.setEmail(readKlantResult.getString(5));
                 klant4Array.setAdres_id(readKlantResult.getInt(6));
-                klant4Array.setAdres(AdresDAO.readAdresByID(klant4Array.getAdres_id()));
+                klant4Array.setAdres( new Adres (AdresDAO.readAdres( klant4Array.getAdres_id() )) );
                 AllKlant.add(klant4Array);
             }
 

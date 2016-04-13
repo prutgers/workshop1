@@ -12,6 +12,9 @@ public class Adres {
      private String woonplaats;
      private int adres_id;
 
+     
+    public Adres (){
+    }
     /**
      * @return the straatnaam
      */

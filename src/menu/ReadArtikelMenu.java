@@ -6,7 +6,6 @@
 package menu;
 
 
-import java.util.ArrayList;
 import java.util.Scanner;
 import workshop1.*;
 
@@ -26,10 +25,10 @@ public class ReadArtikelMenu {
         
         switch (select) {
             case 1:
-                readMenuArtikel();
+                ArtikelDAO.readArtikel();
                 break;
             case 2:
-                readMenuArtikelMetID();
+                readArtikelMetID();
                 break;
             case 3:
                 HoofdMenu.startMenu();

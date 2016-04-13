@@ -16,7 +16,6 @@ package workshop1;
  */
 
 import java.sql.*;
-import java.util.ArrayList;
 
 public class ArtikelDAO {
 
@@ -89,7 +88,7 @@ public class ArtikelDAO {
         catch (ClassNotFoundException | SQLException e){
             System.out.println("verdorie mislukt");
         } 
-       return artikelLijst;
+       return artikel;
    }
    
    public static Artikel readArtikel(int artikel_id){
@@ -107,17 +106,26 @@ public class ArtikelDAO {
             PreparedStatement pstmt = connection.prepareStatement(query);
             ResultSet rs = pstmt.executeQuery(query);
             
-        
+         System.out.format("%s, %s, %s, %s\n", "id", "artikel_naam", "artikel_prijs", "artikel_voorraad");
             while (rs.next())
       {
           
-        
+        int id = rs.getInt("artikel_id");
+        String artikel_naam = rs.getString("artikel_naam");
+        double artikel_prijs = rs.getDouble("artikel_prijs");
+        int artikel_voorraad = rs.getInt("artikel_voorraad");
         
         artikel.setArtikel_id(rs.getInt("artikel_id"));
         artikel.setArtikel_naam(rs.getString("artikel_naam"));
         artikel.setArtikel_voorraad(rs.getInt("artikel_voorraad"));
         artikel.setArtikel_prijs(rs.getDouble("artikel_prijs"));
+        
        
+         
+        // print the results
+        //System.out.println("id " + id + " Artikel naam " + artikel_naam);
+       
+        System.out.format("%s, %s, %s, %s\n", id, artikel_naam, artikel_prijs, artikel_voorraad);
       }
       pstmt.close();
             
