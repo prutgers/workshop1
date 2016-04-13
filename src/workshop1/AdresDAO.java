@@ -12,16 +12,18 @@ public class AdresDAO {
     
     static PreparedStatement stmnt;
 
-    public void createAdres(Adres adres) throws SQLException {
-        String query = "INSERT straatnaam,"
+    public static void createAdres(Adres adres) throws SQLException {
+        String query = "INSERT INTO adres ("
+                + "straatnaam,"
                 + "huisnummer,"
                 + "toevoeging,"
                 + "postcode,"
                 + "woonplaats,"
-                + "adres_id INTO adres";
-        try {
-            Connection connection = new DBConnector().getConnection();
-            Class.forName("com.mysql.jdbc.Driver");
+                + "adres_id"
+                + ")"
+                + "values (?, ?, ?, ?, ?, ?)";
+        try (Connection connection = new DBConnector().getConnection();){
+            
             PreparedStatement stmntCA = connection.prepareStatement(query);
             
             stmntCA.setString(1, adres.getStraatnaam());
@@ -31,34 +33,29 @@ public class AdresDAO {
             stmntCA.setString(5, adres.getWoonplaats());
             stmntCA.setInt(6, adres.getAdres_id());
             
+            stmntCA.executeUpdate();
+            
         }
         catch (ClassNotFoundException | SQLException ex) {
             System.out.println("Probeer opnieuw.");
+            ex.printStackTrace();
             }
-        
-        finally {
-            stmnt.executeUpdate();
-            stmnt.close();
-        }
     }
     
     public ArrayList<Adres> readAdres() throws SQLException {
-        String query = "SELECT straatnaam,"
+        ArrayList<Adres> adresGegevens = new ArrayList<>();
+        try (Connection connection = new DBConnector().getConnection();) { 
+            //Class.forName("com.mysql.jdbc.Driver");
+            PreparedStatement stmntRA = connection.prepareStatement(
+                    "SELECT FROM adres (straatnaam,"
                 + "huisnummer,"
                 + "toevoeging,"
                 + "postcode,"
                 + "woonplaats,"
-                + "adres_id FROM adres";
-        ArrayList<Adres> adresGegevens = new ArrayList<>();
-        Adres adres;
-        ResultSet rs;
-        try {
-            Connection connection = new DBConnector().getConnection(); 
-            Class.forName("com.mysql.jdbc.Driver");
-            PreparedStatement stmntRA = connection.prepareStatement(query);
-            rs = stmntRA.executeQuery(query);
+                + "adres_id)");
+            ResultSet rs = stmntRA.executeQuery();
             while (rs.next()) {
-                adres = new Adres();
+                Adres adres = new Adres();
                 
                 adres.setStraatnaam(rs.getString("straatnaam"));
                 adres.setHuisnummer(rs.getInt("huisnummer"));
@@ -72,31 +69,26 @@ public class AdresDAO {
         }
         catch (ClassNotFoundException | SQLException ex) {
             System.out.println("Probeer opnieuw.");
+            ex.printStackTrace();
             }
-        
-        finally {
-            stmnt.executeUpdate();
-            stmnt.close();
-        }
         
         return adresGegevens;
     }
     
     public ArrayList<Adres> readAdresByID(int adresID) throws SQLException {
-        String query = "SELECT straatnaam,"
+        ArrayList<Adres> adresGegevensByID = new ArrayList<>();
+    
+        try (Connection connection = new DBConnector().getConnection();) {
+            //Class.forName("com.mysql.jdbc.Driver");
+            PreparedStatement stmntRAID = connection.prepareStatement(
+                    "SELECT FROM adres (straatnaam,"
                 + "huisnummer,"
                 + "toevoeging,"
                 + "postcode,"
-                + "woonplaats,"
-                + "adres_id FROM adres WHERE adres_id=?";
-        ArrayList<Adres> adresGegevensByID = new ArrayList<>();
-    
-        try {
-            Connection connection = new DBConnector().getConnection(); 
-            Class.forName("com.mysql.jdbc.Driver");
-            PreparedStatement stmntRAID = connection.prepareStatement(query);
+                + "woonplaats)"
+                + "WHERE adres_id=?");
             stmntRAID.setInt(1, adresID);     
-            ResultSet rs = stmntRAID.executeQuery(query);
+            ResultSet rs = stmntRAID.executeQuery();
             while (rs.next()) {
                 Adres adres = new Adres();
                 
@@ -112,25 +104,23 @@ public class AdresDAO {
         }
         catch (ClassNotFoundException | SQLException ex) {
             System.out.println("Probeer opnieuw.");
+            ex.printStackTrace();
             }
-        
-        finally {
-            stmnt.executeUpdate();
-            stmnt.close();
-        }
         
         return adresGegevensByID;
     }
     
     public void updateAdres(Adres adres) throws SQLException {
-        String query = "UPDATE adres SET straatnaam,"
-                + "huisnummer,"
-                + "toevoeging"
-                + "postcode,"
-                + "woonplaats";
+        String query = "UPDATE adres SET "
+                + "straatnaam=?,"
+                + "huisnummer=?,"
+                + "toevoeging=?"
+                + "postcode=?,"
+                + "woonplaats=?"
+                + "WHERE adres_id=?";
         
-        try {
-            Connection connection = new DBConnector().getConnection();
+        try (Connection connection = new DBConnector().getConnection();) {
+            
             PreparedStatement stmntUA = connection.prepareStatement(query);
             
             stmntUA.setString(1, adres.getStraatnaam());
@@ -139,31 +129,31 @@ public class AdresDAO {
             stmntUA.setString(4, adres.getPostcode());
             stmntUA.setString(5, adres.getWoonplaats());
             
+            stmntUA.executeUpdate();
+            
         }
         catch (SQLException | ClassNotFoundException ex) {
             System.out.println("Probeer opnieuw.");
-            }
-        
-        finally {
-            stmnt.executeUpdate();
-            stmnt.close();
+            ex.printStackTrace();
         }
     }
     
     public void deleteAdres(int adres_id) {
-        String query = "DELETE straatnaam,"
+        String query = "DELETE FROM adres straatnaam,"
                 + "huisnummer,"
                 + "toevoeging,"
                 + "postcode,"
-                + "woonplaats FROM adres WHERE adres_id=?";
-        try {
-            Connection connection = new DBConnector().getConnection();
-            stmnt = connection.prepareStatement(query);
+                + "woonplaats"
+                + "WHERE adres_id=?";
+        try (Connection connection = new DBConnector().getConnection();) {
             
+            stmnt = connection.prepareStatement(query);
             stmnt.setInt(1, adres_id);
+            stmnt.executeUpdate();
             
         } catch (SQLException | ClassNotFoundException ex) {
             System.out.println("Probeer opnieuw.");
+            ex.printStackTrace();
         }
     }
 }
