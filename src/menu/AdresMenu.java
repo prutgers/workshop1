@@ -1,6 +1,4 @@
 package menu;
-
-import workshop1.*;
 /**
  *
  * @author Sonja
@@ -170,5 +168,4 @@ public class AdresMenu {
         AdresDAO aDAO = new AdresDAO();
         aDAO.deleteAdres(adres_id);
     }
-
 }
