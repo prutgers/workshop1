@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package workshop1;
+package menu;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import workshop1.*;
 
 /**
  *
@@ -113,7 +114,7 @@ public class KlantMenu {
 
         ArrayList<Klant> list = KlantDAO.readAllKlantByAdres_id(adres_id);
         System.out.println("LIJST MET BEWONERS VAN " + adres_id + "\n"
-                + "(aka " + AdresDAO.readAdres(adres_id) + ")\n"
+                + "(aka " + AdresDAO.readAdresByID(adres_id) + ")\n"
                 + "====");
         System.out.println("Klant_id  Voornaam  Achternaam   Tussenvoegsel  Email  Adres_id");
         for(Klant e : list){
