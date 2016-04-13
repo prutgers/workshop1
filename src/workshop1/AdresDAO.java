@@ -12,7 +12,7 @@ public class AdresDAO {
     
     static PreparedStatement stmnt;
 
-    public static void createAdres(Adres adres) throws SQLException {
+    public static void createAdres(Adres adres) {
         String query = "INSERT INTO adres ("
                 + "straatnaam,"
                 + "huisnummer,"
@@ -42,7 +42,7 @@ public class AdresDAO {
             }
     }
     
-    public static ArrayList<Adres> readAdres() throws SQLException {
+    public static ArrayList<Adres> readAdres() {
         ArrayList<Adres> adresGegevens = new ArrayList<>();
         try (Connection connection = new DBConnector().getConnection();) { 
             //Class.forName("com.mysql.jdbc.Driver");
@@ -75,7 +75,7 @@ public class AdresDAO {
         return adresGegevens;
     }
     
-    public static Adres readAdresByID(int adresID) throws SQLException {
+    public static Adres readAdresByID(int adresID) {
         Adres adres = new Adres();
     
         try (Connection connection = new DBConnector().getConnection();) {
@@ -106,7 +106,7 @@ public class AdresDAO {
         return adres;
     }
     
-    public static void updateAdres(Adres adres) throws SQLException {
+    public static void updateAdres(Adres adres) {
         String query = "UPDATE adres SET "
                 + "straatnaam=?,"
                 + "huisnummer=?,"
