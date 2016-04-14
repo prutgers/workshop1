@@ -5,7 +5,11 @@
  */
 package workshop1;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
+import junit.framework.Assert;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -24,6 +28,8 @@ public class BestellingDAOTest {
     
     @BeforeClass
     public static void setUpClass() {
+
+        
     }
     
     @AfterClass
@@ -44,10 +50,39 @@ public class BestellingDAOTest {
     @Test
     public void testCreateBestelling() {
         System.out.println("createBestelling");
-        Bestelling bestelling = null;
-        BestellingDAO.createBestelling(bestelling);
+        Bestelling dao = new Bestelling();
+        dao.setKlantID(999);
+        dao.setArtikelNaam_1("testNaam1");
+        dao.setArtikelNaam_2("testNaam2");
+        dao.setArtikelNaam_3("testNaam3");
+        dao.setArtikelPrijs_1(999);
+        dao.setArtikelPrijs_2(999);
+        dao.setArtikelPrijs_3(999);
+        dao.setArtikelAantal_1(999);
+        dao.setArtikelAantal_2(999);
+        dao.setArtikelAantal_3(999);
+        BestellingDAO.createBestelling(dao);
+        
+        ResultSet rs;
+        ArrayList<Bestelling> bestellingLijst = new ArrayList<Bestelling>();
+        try(Connection con = new DBConnector().getConnection();){
+            PreparedStatement stmt = con.prepareStatement("select * from bestelling where klant_id = 999");
+            rs = stmt.executeQuery();
+            Assert.assertEquals(999,rs.getInt("klant_id"));
+            Assert.assertEquals("testNaam1",rs.getString("artikel_naam1"));
+            Assert.assertEquals("testNaam2",rs.getString("artikel_naam1"));
+            Assert.assertEquals("testNaam3",rs.getString("artikel_naam1"));
+            Assert.assertEquals(999,rs.getInt("artikel_prijs1"));
+            Assert.assertEquals(999,rs.getInt("artikel_aantal1"));
+            Assert.assertEquals(999,rs.getInt("artikel_aantal2"));
+            Assert.assertEquals(999,rs.getInt("artikel_aantal3"));
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
     /**
