@@ -11,4 +11,29 @@ package workshop1;
  */
 public class KoppelBestellingArtikelDAO {
     
+    public void createKoppelBestellingArtikel(int bestelling_id, int artikel_id){
+        
+    }
+    
+    public void readKoppelMetBestellingID(int bestelling_id){
+        
+    }
+    
+    public void readKoppelMetArtikelID(int artikel_id){
+        
+    }
+    
+    public void deleteKoppelMetBestellingID(int bestelling_id){
+        
+    }
+    
+    public void deleteKoppelMetArtikelID(int artikel_id){
+        
+    }
+    
+    
+    
+    
+    
+    
 }
