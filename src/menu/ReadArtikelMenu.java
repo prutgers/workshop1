@@ -53,13 +53,7 @@ public class ReadArtikelMenu {
         Artikel a = ArtikelDAO.readArtikel(artikel_id);
         System.out.format("%s, %s, %s, %s\n", "id", "artikel_naam", "artikel_prijs", "artikel_voorraad");
         System.out.format("%s, %s, %s, %s\n", a.getArtikel_id(), a.getArtikel_naam(), a.getArtikel_prijs(), a.getArtikel_voorraad());    
-            System.out.println("Wat is het artikel ID dat u zoekt, \n");
-            Scanner input = new Scanner(System.in);        
-            int artikel_id = input.nextInt();       
-
-            Artikel a = ArtikelDAO.readArtikel(artikel_id);
-            System.out.format("%s, %s, %s, %s\n", "id", "artikel_naam", "artikel_prijs", "artikel_voorraad");
-            System.out.format("%s, %s, %s, %s\n", a.getArtikel_id(), a.getArtikel_naam(), a.getArtikel_prijs(), a.getArtikel_voorraad());    
+              
         }
 
 
@@ -72,11 +66,7 @@ public class ReadArtikelMenu {
             System.out.format("%s, %s, %s, %s\n", a.getArtikel_id(), a.getArtikel_naam(), a.getArtikel_prijs(), a.getArtikel_voorraad());
            }
            
-            
-                   
-           for(Artikel a : artikelLijst){
-              System.out.format("%s, %s, %s, %s\n", a.getArtikel_id(), a.getArtikel_naam(), a.getArtikel_prijs(), a.getArtikel_voorraad());
-            }
+        
         }
     
 }
