@@ -24,7 +24,7 @@ public class UpdateArtikelMenu {
         
         switch (select) {
             case 1:
-                updateArtikel();
+                updateArtikelMenu();
                 break;
             case 2:
                 updateArtikelPrijs();
@@ -43,7 +43,7 @@ public class UpdateArtikelMenu {
     }  
      
      
-     public static void updateArtikel(){
+     public static void updateArtikelMenu(){
         System.out.println("Wat is het artikel ID dat u wilt updaten");
         Scanner input = new Scanner(System.in);        
         int artikel_id = input.nextInt();       

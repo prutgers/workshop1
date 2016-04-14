@@ -63,11 +63,9 @@ public class BestellingDAOTest {
         dao.setArtikelAantal_3(999);
         BestellingDAO.createBestelling(dao);
         
-        ResultSet rs;
-        ArrayList<Bestelling> bestellingLijst = new ArrayList<Bestelling>();
         try(Connection con = new DBConnector().getConnection();){
             PreparedStatement stmt = con.prepareStatement("select * from bestelling where klant_id = 999");
-            rs = stmt.executeQuery();
+            ResultSet rs = stmt.executeQuery();
             Assert.assertEquals(999,rs.getInt("klant_id"));
             Assert.assertEquals("testNaam1",rs.getString("artikel_naam1"));
             Assert.assertEquals("testNaam2",rs.getString("artikel_naam1"));
