@@ -9,7 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
-import static java.sql.Statement.RETURN_GENERATED_KEYS;
+import static java.sql.Statement.RETURN_GENERATED_KEYS; // help mij hiermee :D
 import javax.sql.RowSet;
 import com.sun.rowset.*;
 import java.util.ArrayList;
@@ -109,7 +109,6 @@ public class KoppelBestellingArtikelDAO {
                 // test voor mij te kijken of het werkt dit moet natuurlijk normaal in het menu gebeuren
                 System.out.println("ik ben aan het deleten");
             }
-            
         }
         catch(SQLException | ClassNotFoundException  e){
             System.out.println("Fout in readKoppelMetBestelling");
@@ -129,10 +128,7 @@ public class KoppelBestellingArtikelDAO {
             
             while(rowSet.next()){
                 rowSet.deleteRow();
-                // test voor mij te kijken of het werkt dit moet natuurlijk normaal in het menu gebeuren
-                System.out.println("ik ben aan het deleten");
             }
-            
         }
         catch(SQLException | ClassNotFoundException  e){
             System.out.println("Fout in readKoppelMetBestelling");
@@ -152,9 +148,7 @@ public class KoppelBestellingArtikelDAO {
             
             while(rowSet.next()){
                 rowSet.deleteRow();
-                // test voor mij te kijken of het werkt dit moet natuurlijk normaal in het menu gebeuren
-                System.out.println("ik ben aan het deleten");
-            }
+             }
             
         }
         catch(SQLException | ClassNotFoundException  e){
