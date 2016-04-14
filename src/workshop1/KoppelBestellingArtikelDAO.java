@@ -123,7 +123,7 @@ public class KoppelBestellingArtikelDAO {
             rowSet.setUrl("jdbc:mysql://localhost/workshopdb");
             rowSet.setUsername("rsvier");
             rowSet.setPassword("tiger");
-            rowSet.setCommand("SELECT * FROM bestellingartikel WHERE artikel_id= " + artikel_id);
+            rowSet.setCommand("SELECT * FROM bestellingartikel WHERE artikel_id = " + artikel_id);
             rowSet.execute();
             
             while(rowSet.next()){
