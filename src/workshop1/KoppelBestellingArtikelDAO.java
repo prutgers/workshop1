@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import static java.sql.Statement.RETURN_GENERATED_KEYS;
 import javax.sql.RowSet;
+import com.sun.rowset.*;
+import java.util.ArrayList;
 
 /**
  *
@@ -36,23 +38,46 @@ public class KoppelBestellingArtikelDAO {
         }
     }
     
-    public void readKoppelMetBestellingID(int bestelling_id){
-        RowSet rowSet = new JdbcRowSetImpl();
+    public static ArrayList<KoppelBestellingArtikel> readKoppelMetBestellingID(int bestelling_id){
+        ArrayList<KoppelBestellingArtikel> lijst = new ArrayList<KoppelBestellingArtikel>();
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            RowSet rowSet = new JdbcRowSetImpl();
+            rowSet.setUrl("jdbc:mysql://localhost/workshopdb");
+            rowSet.setUsername("rsvier");
+            rowSet.setPassword("tiger");
+            rowSet.setCommand("SELECT * FROM bestellingartikel WHERE bestelling_id = " + bestelling_id);
+            rowSet.execute();
+            
+            while(rowSet.next()){
+                KoppelBestellingArtikel koppel = new KoppelBestellingArtikel();
+                koppel.setBestelling_id(rowSet.getInt("bestelling_id"));
+                koppel.setArtikel_id(rowSet.getInt("artikel_id"));
+                lijst.add(koppel);
+                // test voor mij te kijken of het werkt dit moet natuurlijk normaal in het menu gebeuren
+                System.out.println("Bestelling en Artikkel ID " + rowSet.getInt("bestelling_id") + "  " + rowSet.getInt("artikel_id"));
+            }
+            
+        }
+        catch(SQLException | ClassNotFoundException  e){
+            System.out.println("Fout in readKoppelMetBestelling");
+            e.printStackTrace();
+        }
+        return lijst;
+    }
+    
+    public static void readKoppelMetArtikelID(int artikel_id){
         
     }
     
-    public void readKoppelMetArtikelID(int artikel_id){
+    public static void deleteKoppelMetBestellingID(int bestelling_id){
         
     }
     
-    public void deleteKoppelMetBestellingID(int bestelling_id){
+    public static void deleteKoppelMetArtikelID(int artikel_id){
         
     }
-    
-    public void deleteKoppelMetArtikelID(int artikel_id){
-        
-    }
-    public void deleteKoppelID(int koppel_id){
+    public static void deleteKoppelID(int koppel_id){
         
     }
     
