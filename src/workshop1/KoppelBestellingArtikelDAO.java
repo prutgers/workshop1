@@ -74,7 +74,7 @@ public class KoppelBestellingArtikelDAO {
             rowSet.setUrl("jdbc:mysql://localhost/workshopdb");
             rowSet.setUsername("rsvier");
             rowSet.setPassword("tiger");
-            rowSet.setCommand("SELECT * FROM bestellingartikel WHERE bestelling_id = " + artikel_id);
+            rowSet.setCommand("SELECT * FROM bestellingartikel WHERE artikel_id = " + artikel_id);
             rowSet.execute();
             
             while(rowSet.next()){
@@ -95,14 +95,72 @@ public class KoppelBestellingArtikelDAO {
     }
     
     public static void deleteKoppelMetBestellingID(int bestelling_id){
-        
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            RowSet rowSet = new JdbcRowSetImpl();
+            rowSet.setUrl("jdbc:mysql://localhost/workshopdb");
+            rowSet.setUsername("rsvier");
+            rowSet.setPassword("tiger");
+            rowSet.setCommand("SELECT * FROM bestellingartikel WHERE bestelling_id = " + bestelling_id);
+            rowSet.execute();
+            
+            while(rowSet.next()){
+                rowSet.deleteRow();
+                // test voor mij te kijken of het werkt dit moet natuurlijk normaal in het menu gebeuren
+                System.out.println("ik ben aan het deleten");
+            }
+            
+        }
+        catch(SQLException | ClassNotFoundException  e){
+            System.out.println("Fout in readKoppelMetBestelling");
+            e.printStackTrace();
+        }
     }
     
     public static void deleteKoppelMetArtikelID(int artikel_id){
-        
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            RowSet rowSet = new JdbcRowSetImpl();
+            rowSet.setUrl("jdbc:mysql://localhost/workshopdb");
+            rowSet.setUsername("rsvier");
+            rowSet.setPassword("tiger");
+            rowSet.setCommand("SELECT * FROM bestellingartikel WHERE artikel_id= " + artikel_id);
+            rowSet.execute();
+            
+            while(rowSet.next()){
+                rowSet.deleteRow();
+                // test voor mij te kijken of het werkt dit moet natuurlijk normaal in het menu gebeuren
+                System.out.println("ik ben aan het deleten");
+            }
+            
+        }
+        catch(SQLException | ClassNotFoundException  e){
+            System.out.println("Fout in readKoppelMetBestelling");
+            e.printStackTrace();
+        }
     }
+    
     public static void deleteKoppelID(int koppel_id){
-        
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            RowSet rowSet = new JdbcRowSetImpl();
+            rowSet.setUrl("jdbc:mysql://localhost/workshopdb");
+            rowSet.setUsername("rsvier");
+            rowSet.setPassword("tiger");
+            rowSet.setCommand("SELECT * FROM bestellingartikel WHERE bestellingartikel_id = " + koppel_id);
+            rowSet.execute();
+            
+            while(rowSet.next()){
+                rowSet.deleteRow();
+                // test voor mij te kijken of het werkt dit moet natuurlijk normaal in het menu gebeuren
+                System.out.println("ik ben aan het deleten");
+            }
+            
+        }
+        catch(SQLException | ClassNotFoundException  e){
+            System.out.println("Fout in readKoppelMetBestelling");
+            e.printStackTrace();
+        }
     }
     
     
