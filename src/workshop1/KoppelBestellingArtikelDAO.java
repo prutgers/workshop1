@@ -5,17 +5,39 @@
  */
 package workshop1;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
+import static java.sql.Statement.RETURN_GENERATED_KEYS;
+import javax.sql.RowSet;
+
 /**
  *
  * @author Peter
  */
 public class KoppelBestellingArtikelDAO {
     
-    public void createKoppelBestellingArtikel(int bestelling_id, int artikel_id){
-        
+    
+    // Toe te voegen is Statement.RETURN_GENERATED_KEYS zoals in KlantDAO
+    
+    public static void createKoppelBestellingArtikel(int bestelling_id, int artikel_id){
+        String query = "INSERT INTO bestellingartikel (bestelling_id, artikel_id)"
+                + " values (?, ?)";
+        try(Connection con = new DBConnector().getConnection();){
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, bestelling_id);
+            pstmt.setInt(2, artikel_id);
+            pstmt.executeUpdate();
+        }
+        catch(SQLException | ClassNotFoundException  e){
+            System.out.println("Fout in createKoppelBestellingArtikel");
+            e.printStackTrace();
+        }
     }
     
     public void readKoppelMetBestellingID(int bestelling_id){
+        RowSet rowSet = new JdbcRowSetImpl();
         
     }
     
@@ -28,6 +50,9 @@ public class KoppelBestellingArtikelDAO {
     }
     
     public void deleteKoppelMetArtikelID(int artikel_id){
+        
+    }
+    public void deleteKoppelID(int koppel_id){
         
     }
     

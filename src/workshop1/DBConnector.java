@@ -8,9 +8,9 @@ package workshop1;
 import java.sql.*;
 
 public class DBConnector{
-    String url = "jdbc:mysql://localhost/workshopdb";
-    String user = "rsvier";
-    String password = "tiger";
+    final String url = "jdbc:mysql://localhost/workshopdb";
+    final String user = "rsvier";
+    final String password = "tiger";
     Connection connection;
     public DBConnector() throws SQLException, ClassNotFoundException {
         Class.forName("com.mysql.jdbc.Driver");

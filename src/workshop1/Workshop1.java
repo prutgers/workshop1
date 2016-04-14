@@ -22,7 +22,9 @@ public class Workshop1 {
     public static void main(String[] args) {
         
      
-   HoofdMenu.startMenu();        
+   //HoofdMenu.startMenu();        
+   
+   KoppelBestellingArtikelDAO.createKoppelBestellingArtikel(2, 2);
    
     }
     
