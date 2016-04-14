@@ -66,8 +66,32 @@ public class KoppelBestellingArtikelDAO {
         return lijst;
     }
     
-    public static void readKoppelMetArtikelID(int artikel_id){
-        
+    public static ArrayList<KoppelBestellingArtikel> readKoppelMetArtikelID(int artikel_id){
+        ArrayList<KoppelBestellingArtikel> lijst = new ArrayList<KoppelBestellingArtikel>();
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            RowSet rowSet = new JdbcRowSetImpl();
+            rowSet.setUrl("jdbc:mysql://localhost/workshopdb");
+            rowSet.setUsername("rsvier");
+            rowSet.setPassword("tiger");
+            rowSet.setCommand("SELECT * FROM bestellingartikel WHERE bestelling_id = " + artikel_id);
+            rowSet.execute();
+            
+            while(rowSet.next()){
+                KoppelBestellingArtikel koppel = new KoppelBestellingArtikel();
+                koppel.setBestelling_id(rowSet.getInt("bestelling_id"));
+                koppel.setArtikel_id(rowSet.getInt("artikel_id"));
+                lijst.add(koppel);
+                // test voor mij te kijken of het werkt dit moet natuurlijk normaal in het menu gebeuren
+                System.out.println("Bestelling en Artikkel ID " + rowSet.getInt("bestelling_id") + "  " + rowSet.getInt("artikel_id"));
+            }
+            
+        }
+        catch(SQLException | ClassNotFoundException  e){
+            System.out.println("Fout in readKoppelMetBestelling");
+            e.printStackTrace();
+        }
+        return lijst;
     }
     
     public static void deleteKoppelMetBestellingID(int bestelling_id){
