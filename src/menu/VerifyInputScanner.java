@@ -7,6 +7,9 @@ package menu;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import org.apache.commons.validator.EmailValidator;
+
+
 
 /**
  *
@@ -66,11 +69,33 @@ public class VerifyInputScanner {
     }
     
     
-    //incompleet moet nog geschreven worden
-    
+    /**
+     * Ga naar https://commons.apache.org/proper/commons-validator/download_validator.cgi
+     *         download de bin file
+     * Ga naar libraries in netbeans rechtermuisknop workshop1 properties
+     * Druk op libraries
+     * add library
+     * create
+     * dan add the file commons-validator-1.5.0 aan de classpath
+     * 
+     */    
     public static String verifyEmail(){
-        String email = "aap@noot.mies";
-        return email;
+        while(true){
+            try{
+                Scanner input = new Scanner(System.in);
+                String verified = input.next();
+                EmailValidator emailVal =  EmailValidator.getInstance();
+                if(emailVal.isValid(verified)){
+                return verified;
+                }
+                else{
+                    System.out.println("Ongeldig Emailadres");
+                }
+            }
+            catch(InputMismatchException e){
+                System.out.println("Geen juiste invoer probeer opnieuw");
+            }
+        }
     }
     
     
