@@ -32,7 +32,6 @@ public class BestellingMenu {
                 switch (select) {
                     case 1:
                         createMenu();
-                        startMenu();
                         break;
                     case 2:
                         getByIdMenu();
@@ -91,6 +90,13 @@ public class BestellingMenu {
         //Verstuur de bestelling naar de database
         BestellingDAO dao = new BestellingDAO();
         dao.createBestelling(bestelling);
+        
+        //Koppelen bestelling en artikel;
+        KoppelBestellingArtikel KoppelBA = new KoppelBestellingArtikel();
+        KoppelBA.setArtikel_id(artikelID);
+        KoppelBA.setBestelling_id(3); // het zou makelijk zijnom direct het bestelling ID terug krijg krijgen
+        
+        
     }
     public static void getAllMenu(){
         BestellingDAO dao = new BestellingDAO();
