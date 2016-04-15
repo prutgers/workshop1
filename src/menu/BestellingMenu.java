@@ -88,13 +88,13 @@ public class BestellingMenu {
         bestelling.setArtikelAantal_1(artikelAantal);
         
         //Verstuur de bestelling naar de database
-        BestellingDAO dao = new BestellingDAO();
-        dao.createBestelling(bestelling);
+        BestellingDAO.createBestelling(bestelling);
         
         //Koppelen bestelling en artikel;
         KoppelBestellingArtikel KoppelBA = new KoppelBestellingArtikel();
         KoppelBA.setArtikel_id(artikelID);
-        KoppelBA.setBestelling_id(3); // het zou makelijk zijnom direct het bestelling ID terug krijg krijgen
+        KoppelBA.setBestelling_id(3); 
+       
         
         
     }
