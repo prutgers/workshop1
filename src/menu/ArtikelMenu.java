@@ -52,15 +52,14 @@ public class ArtikelMenu {
     
     
     public static void createArtikel(){
-        Scanner input = new Scanner(System.in);
         System.out.println("Artikel Naam");
-        String artikel_naam = input.next();
+        String artikel_naam = VerifyInputScanner.verifyString();
         
         System.out.println("artikelen op voorraad");
-        int artikel_voorraad = input.nextInt();
+        int artikel_voorraad = VerifyInputScanner.verifyInt();
         
-        System.out.println("artikel rpijs");
-        double artikel_prijs = input.nextDouble();
+        System.out.println("artikel prijs");
+        double artikel_prijs = VerifyInputScanner.verifyDouble();
         
         Artikel artikel = new Artikel();                      
 
@@ -76,7 +75,7 @@ public class ArtikelMenu {
         Scanner input = new Scanner(System.in);        
         
         System.out.println("Het artikel Id van het te verwijderen artikel");
-        int artikel_id = input.nextInt();       
+        int artikel_id = VerifyInputScanner.verifyInt();
         
         
         ArtikelDAO.deleteArtikel(artikel_id);

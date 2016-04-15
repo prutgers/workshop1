@@ -45,28 +45,21 @@ public class ReadArtikelMenu {
 
       
 
-        public static void readMenuArtikelMetID(){
+    public static void readMenuArtikelMetID(){
         System.out.println("Wat is het artikel ID dat u zoekt, \n");
-        Scanner input = new Scanner(System.in);        
-        int artikel_id = input.nextInt();       
-            
+        int artikel_id = VerifyInputScanner.verifyInt();
+
         Artikel a = ArtikelDAO.readArtikel(artikel_id);
         System.out.format("%s, %s, %s, %s\n", "id", "artikel_naam", "artikel_prijs", "artikel_voorraad");
         System.out.format("%s, %s, %s, %s\n", a.getArtikel_id(), a.getArtikel_naam(), a.getArtikel_prijs(), a.getArtikel_voorraad());    
-              
-        }
+    }
 
+    public static void readMenuArtikel(){
+       System.out.format("%s, %s, %s, %s\n", "id", "artikel_naam", "artikel_prijs", "artikel_voorraad");
+       ArrayList<Artikel> artikelLijst = ArtikelDAO.readArtikel();
 
-
-        public static void readMenuArtikel(){
-           System.out.format("%s, %s, %s, %s\n", "id", "artikel_naam", "artikel_prijs", "artikel_voorraad");
-           ArrayList<Artikel> artikelLijst = ArtikelDAO.readArtikel();
-                      
-           for(Artikel a : artikelLijst){
-            System.out.format("%s, %s, %s, %s\n", a.getArtikel_id(), a.getArtikel_naam(), a.getArtikel_prijs(), a.getArtikel_voorraad());
-           }
-           
-        
-        }
-    
+       for(Artikel a : artikelLijst){
+        System.out.format("%s, %s, %s, %s\n", a.getArtikel_id(), a.getArtikel_naam(), a.getArtikel_prijs(), a.getArtikel_voorraad());
+       }
+    }
 }

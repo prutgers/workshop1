@@ -45,17 +45,16 @@ public class UpdateArtikelMenu {
      
      public static void updateArtikelMenu(){
         System.out.println("Wat is het artikel ID dat u wilt updaten");
-        Scanner input = new Scanner(System.in);        
-        int artikel_id = input.nextInt();       
+        int artikel_id = VerifyInputScanner.verifyInt();
         
         System.out.println("Artikel Naam");
-        String artikel_naam = input.next();
+        String artikel_naam = VerifyInputScanner.verifyEmail();
         
         System.out.println("artikelen op voorraad");
-        int artikel_voorraad = input.nextInt();
+        int artikel_voorraad = VerifyInputScanner.verifyInt();
         
         System.out.println("artikel rpijs");
-        double artikel_prijs = input.nextDouble();
+        double artikel_prijs = VerifyInputScanner.verifyDouble();
         
         Artikel artikel = new Artikel();                      
 
@@ -65,28 +64,18 @@ public class UpdateArtikelMenu {
         artikel.setArtikel_prijs(artikel_prijs);
         
         ArtikelDAO.updateArtikel(artikel);
-        
-        
     }
      
      public static void updateArtikelPrijs(){
         System.out.println("Wat is het artikel ID dat u wilt updaten");
-        Scanner input = new Scanner(System.in);        
-        int artikel_id = input.nextInt();       
+        int artikel_id = VerifyInputScanner.verifyInt();
         
         Artikel artikel = ArtikelDAO.readArtikel(artikel_id);
         
-        System.out.println("artikel naam: in updateMENU" + artikel.getArtikel_naam());
-        System.out.println("artikel prijs" + artikel.getArtikel_prijs());
-        
-        
-        System.out.println("artikel rpijs");
-        double artikel_prijs = input.nextDouble();
-        
+        System.out.println("artikel prijs");
+        double artikel_prijs = VerifyInputScanner.verifyDouble();
         artikel.setArtikel_prijs(artikel_prijs);
         
         ArtikelDAO.updateArtikel(artikel);
-        
-        
     }
 }
