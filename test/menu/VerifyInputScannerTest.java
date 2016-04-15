@@ -39,6 +39,7 @@ public class VerifyInputScannerTest {
 
     /**
      * Test of verifyString method, of class VerifyInputScanner.
+     * http://stackoverflow.com/questions/6415728/junit-testing-with-simulated-user-input
      */
     @Test
     public void testVerifyString() {
