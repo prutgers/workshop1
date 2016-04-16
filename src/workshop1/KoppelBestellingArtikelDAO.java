@@ -29,7 +29,7 @@ public class KoppelBestellingArtikelDAO {
         try(Connection con = new DBConnector().getConnection();){
             PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setInt(1, koppelBestellingArtikel.getBestelling_id());
-            pstmt.setInt(2, koppelBestellingArtikel.getBestelling_id());
+            pstmt.setInt(2, koppelBestellingArtikel.getArtikel_id());
             pstmt.executeUpdate();
         }
         catch(SQLException | ClassNotFoundException  e){
