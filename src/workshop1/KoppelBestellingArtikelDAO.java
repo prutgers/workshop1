@@ -156,4 +156,24 @@ public class KoppelBestellingArtikelDAO {
             e.printStackTrace();
         }
     }
+    public static void updateKoppelID(int koppel_id){
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            RowSet rowSet = new JdbcRowSetImpl();
+            rowSet.setUrl("jdbc:mysql://localhost/workshopdb");
+            rowSet.setUsername("rsvier");
+            rowSet.setPassword("tiger");
+            rowSet.setCommand("SELECT * FROM bestellingartikel WHERE bestellingartikel_id = " + koppel_id);
+            rowSet.execute();
+            
+            while(rowSet.next()){
+                rowSet.deleteRow();
+             }
+            
+        }
+        catch(SQLException | ClassNotFoundException  e){
+            System.out.println("Fout in readKoppelMetBestelling");
+            e.printStackTrace();
+        }
+    }
 }
