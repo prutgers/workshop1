@@ -34,7 +34,7 @@ public class HoofdMenu {
                 ArtikelMenu.startMenu();
                 break;            
             case 4:
-                BestellingMenu.startMenu();
+                BestellingenMenu.startMenu();
                 break;
             case 5:
                 System.exit(0);
