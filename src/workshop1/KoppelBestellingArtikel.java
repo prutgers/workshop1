@@ -14,45 +14,37 @@ public class KoppelBestellingArtikel {
     private int bestelling_id;
     private int artikel_id;
     private int Koppel_id;
+    private int aantal;
 
-    /**
-     * @return the bestelling_id
-     */
+
     public int getBestelling_id() {
         return bestelling_id;
     }
-
-    /**
-     * @param bestelling_id the bestelling_id to set
-     */
+    
     public void setBestelling_id(int bestelling_id) {
         this.bestelling_id = bestelling_id;
     }
+    
+    public int getAantal() {
+        return aantal;
+    }
 
-    /**
-     * @return the artikel_id
-     */
+    public void setAantal(int aantal) {
+        this.aantal = aantal;
+    }
+
     public int getArtikel_id() {
         return artikel_id;
     }
-
-    /**
-     * @param artikel_id the artikel_id to set
-     */
+    
     public void setArtikel_id(int artikel_id) {
         this.artikel_id = artikel_id;
     }
 
-    /**
-     * @return the Koppel_id
-     */
     public int getKoppel_id() {
         return Koppel_id;
     }
 
-    /**
-     * @param Koppel_id the Koppel_id to set
-     */
     public void setKoppel_id(int Koppel_id) {
         this.Koppel_id = Koppel_id;
     }
