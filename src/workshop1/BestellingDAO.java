@@ -9,7 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class BestellingDAO {
-    public static void createBestelling(Bestelling bestelling) {
+    public static Bestelling createBestelling(Bestelling bestelling) {
 
         String query = "INSERT INTO Bestelling ("
                     + "klant_id, "
@@ -33,32 +33,40 @@ public class BestellingDAO {
 
         try(Connection con = new DBConnector().getConnection();){
         
-            PreparedStatement stmt = con.prepareStatement(query);
+            PreparedStatement stmt = con.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
 
             //Set values for INSERT-part of the statement
-                    stmt.setInt(1, bestelling.getKlantID());
-                    
-                    stmt.setInt(2, bestelling.getArtikelID_1());
-                    stmt.setDouble(3, bestelling.getArtikelPrijs_1());
-                    stmt.setString(4, bestelling.getArtikelNaam_1());            
-                    stmt.setInt(5, bestelling.getArtikelAantal_1());   
+            setStatement(stmt,bestelling);
+            /*
+            stmt.setInt(1, bestelling.getKlantID());
 
-                    stmt.setInt(6, bestelling.getArtikelID_2());
-                    stmt.setDouble(7, bestelling.getArtikelPrijs_2());
-                    stmt.setString(8, bestelling.getArtikelNaam_2());            
-                    stmt.setInt(9, bestelling.getArtikelAantal_2());   
+            stmt.setInt(2, bestelling.getArtikelID_1());
+            stmt.setDouble(3, bestelling.getArtikelPrijs_1());
+            stmt.setString(4, bestelling.getArtikelNaam_1());            
+            stmt.setInt(5, bestelling.getArtikelAantal_1());   
 
-                    stmt.setInt(10, bestelling.getArtikelID_3());
-                    stmt.setDouble(11, bestelling.getArtikelPrijs_3());
-                    stmt.setString(12, bestelling.getArtikelNaam_3());            
-                    stmt.setInt(13, bestelling.getArtikelAantal_3());   
-                    
+            stmt.setInt(6, bestelling.getArtikelID_2());
+            stmt.setDouble(7, bestelling.getArtikelPrijs_2());
+            stmt.setString(8, bestelling.getArtikelNaam_2());            
+            stmt.setInt(9, bestelling.getArtikelAantal_2());   
+
+            stmt.setInt(10, bestelling.getArtikelID_3());
+            stmt.setDouble(11, bestelling.getArtikelPrijs_3());
+            stmt.setString(12, bestelling.getArtikelNaam_3());            
+            stmt.setInt(13, bestelling.getArtikelAantal_3());   
+            */
             stmt.executeUpdate();
+            ResultSet resultSet = stmt.getGeneratedKeys();
+            if (resultSet.isBeforeFirst()){
+                resultSet.next();
+                bestelling.setBestellingID(resultSet.getInt(1)); //wijs door db gegenereerde id toe aan klant
+            }
         }
         catch(SQLException | ClassNotFoundException  e){
             System.out.println("createBestelling error");
             e.printStackTrace();
         }
+        return bestelling;
     }
 
     public static Bestelling getBestellingById(int BestellingId){
@@ -112,22 +120,33 @@ public class BestellingDAO {
         return bestellingLijst;
     }
 
-    public static void updateBestelling(Bestelling bestelling){
-                String query = "Update Bestelling SET "
-                    + "klant_id =?, "
-                    + "artikel_id1=?, artikel_id2=?, artikel_id3=?,"
-                    + "artikel_prijs1=?, artikel_prijs2=?, artikel_prijs3=?, "
-                    + "artikel_naam1=?, artikel_naam2=?, artikel_naam3=?, "
-                    + "artikel_aantal1=?, artikel_aantal2=?, artikel_aantal3=? "
-                    + "WHERE bestelling_id = ?";
+    public static void updateBestelling(Bestelling bestelling){           
+                    String query =  "UPDATE Bestelling SET "
+                    + "klant_id=?, "
+                    + "artikel_id1=?,"
+                    + "artikel_prijs1=?, "
+                    + "artikel_naam1=?,"
+                    + "artikel_aantal1=?,"
+                
+                    + "artikel_id2=?,"
+                    + "artikel_prijs2=?, "
+                    + "artikel_naam2=?,"
+                    + "artikel_aantal2=?,"
+                
+                    + "artikel_id3=?,"
+                    + "artikel_prijs3=?, "
+                    + "artikel_naam3=?,"
+                    + "artikel_aantal3=? "
+                    + "WHERE bestelling_id = ?;";
         
         try(Connection con = new DBConnector().getConnection();){
         
             PreparedStatement stmt = con.prepareStatement(query);
             
             //Set values for SET-part of the statement
-            //setStatement(stmt,bestelling);
+            setStatement(stmt,bestelling);
             
+            /*
             stmt.setInt(1, bestelling.getKlantID());
             stmt.setInt(2, bestelling.getArtikelID_1());
             stmt.setInt(3, bestelling.getArtikelID_2());
@@ -141,8 +160,8 @@ public class BestellingDAO {
             stmt.setInt(11, bestelling.getArtikelAantal_1());
             stmt.setInt(12, bestelling.getArtikelAantal_2());
             stmt.setInt(13, bestelling.getArtikelAantal_3()); 
+            */
             stmt.setInt(14, bestelling.getBestellingID());
-            
             stmt.executeUpdate();
         }
         catch(SQLException | ClassNotFoundException  e){
@@ -185,18 +204,21 @@ public class BestellingDAO {
     }
 
     private static void setStatement(PreparedStatement stmt, Bestelling bestelling) throws SQLException{
-        stmt.setInt(1, bestelling.getKlantID());
-        stmt.setInt(2, bestelling.getArtikelID_1());
-        stmt.setInt(3, bestelling.getArtikelID_2());
-        stmt.setInt(4, bestelling.getArtikelID_3());
-        stmt.setDouble(5, bestelling.getArtikelPrijs_1());
-        stmt.setDouble(6, bestelling.getArtikelPrijs_2());
-        stmt.setDouble(7, bestelling.getArtikelPrijs_3());
-        stmt.setString(8, bestelling.getArtikelNaam_1());
-        stmt.setString(9, bestelling.getArtikelNaam_2());
-        stmt.setString(10, bestelling.getArtikelNaam_3());            
-        stmt.setInt(11, bestelling.getArtikelAantal_1());
-        stmt.setInt(12, bestelling.getArtikelAantal_2());
-        stmt.setInt(13, bestelling.getArtikelAantal_3());            
+            stmt.setInt(1, bestelling.getKlantID());
+
+            stmt.setInt(2, bestelling.getArtikelID_1());
+            stmt.setDouble(3, bestelling.getArtikelPrijs_1());
+            stmt.setString(4, bestelling.getArtikelNaam_1());            
+            stmt.setInt(5, bestelling.getArtikelAantal_1());   
+
+            stmt.setInt(6, bestelling.getArtikelID_2());
+            stmt.setDouble(7, bestelling.getArtikelPrijs_2());
+            stmt.setString(8, bestelling.getArtikelNaam_2());            
+            stmt.setInt(9, bestelling.getArtikelAantal_2());   
+
+            stmt.setInt(10, bestelling.getArtikelID_3());
+            stmt.setDouble(11, bestelling.getArtikelPrijs_3());
+            stmt.setString(12, bestelling.getArtikelNaam_3());            
+            stmt.setInt(13, bestelling.getArtikelAantal_3());             
     }
 }
