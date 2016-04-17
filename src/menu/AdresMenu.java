@@ -77,13 +77,13 @@ public class AdresMenu {
         adres.setWoonplaats(woonplaats);
         
         AdresDAO aDAO = new AdresDAO(); 
-        aDAO.createAdres(adres);
+        AdresDAO.createAdres(adres);
     }
 
     private static void readAdresMenu() throws SQLException {
         
         AdresDAO aDAO = new AdresDAO();
-        ArrayList<Adres> adresgegevens = aDAO.readAdres();
+        ArrayList<Adres> adresgegevens = AdresDAO.readAdres();
         System.out.println("ADRESGEGEVENS \n"
             + "----------------");
         System.out.printf("%15s %15s %15s %15s %15s %15s", 
@@ -109,7 +109,7 @@ public class AdresMenu {
         int adresID = input.nextInt();
         
         AdresDAO aDAO = new AdresDAO();
-        Adres adresGegevens = aDAO.readAdresByID(adresID);
+        Adres adresGegevens = AdresDAO.readAdresByID(adresID);
             System.out.println("Adres ID: " + adresGegevens.getAdres_id() + "\n"
             + "Straatnaam: " + adresGegevens.getStraatnaam() + "\n"
             + "Huisnummer: " + adresGegevens.getHuisnummer() + "\n"
@@ -162,10 +162,10 @@ public class AdresMenu {
         Scanner input = new Scanner(System.in);
         
         System.out.println("Welk adres wilt u verwijderen? \n"
-                + "Voer adres ID in: ");
+                + "Voer het adres ID in: ");
         int adres_id = input.nextInt();
         
         AdresDAO aDAO = new AdresDAO();
-        aDAO.deleteAdres(adres_id);
+        AdresDAO.deleteAdres(adres_id);
     }
 }
