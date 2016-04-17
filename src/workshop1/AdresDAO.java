@@ -6,7 +6,7 @@ package workshop1;
  */
 
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.ArrayList; 
 
 public class AdresDAO {
     
@@ -38,7 +38,6 @@ public class AdresDAO {
         }
         catch (ClassNotFoundException | SQLException ex) {
             System.out.println("Probeer opnieuw.");
-            ex.printStackTrace();
             }
     }
     
@@ -69,7 +68,6 @@ public class AdresDAO {
         }
         catch (ClassNotFoundException | SQLException ex) {
             System.out.println("Probeer opnieuw.");
-            ex.printStackTrace();
             }
         
         return adresGegevens;
@@ -100,7 +98,6 @@ public class AdresDAO {
         }
             catch (ClassNotFoundException | SQLException ex) {
                 System.out.println("Probeer opnieuw.");
-                ex.printStackTrace();
             }
         
         return adres;
@@ -110,7 +107,7 @@ public class AdresDAO {
         String query = "UPDATE adres SET "
                 + "straatnaam=?,"
                 + "huisnummer=?,"
-                + "toevoeging=?"
+                + "toevoeging=?,"
                 + "postcode=?,"
                 + "woonplaats=?"
                 + "WHERE adres_id=?";
@@ -119,7 +116,7 @@ public class AdresDAO {
             
             PreparedStatement stmntUA = connection.prepareStatement(query);
             
-            stmntUA.setString(1, adres.getStraatnaam());
+            stmntUA.setString(1, adres.getStraatnaam()); 
             stmntUA.setInt(2, adres.getHuisnummer());
             stmntUA.setString(3, adres.getToevoeging());
             stmntUA.setString(4, adres.getPostcode());
@@ -130,7 +127,6 @@ public class AdresDAO {
         }
         catch (SQLException | ClassNotFoundException ex) {
             System.out.println("Probeer opnieuw.");
-            ex.printStackTrace();
         }
     }
     
@@ -149,7 +145,6 @@ public class AdresDAO {
             
         } catch (SQLException | ClassNotFoundException ex) {
             System.out.println("Probeer opnieuw.");
-            ex.printStackTrace();
         }
     }
 }
