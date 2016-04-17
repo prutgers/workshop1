@@ -5,6 +5,7 @@
  */
 package menu;
 
+import formatMessage.PrintFormat;
 import java.util.Scanner;
 import workshop1.*;
 
@@ -15,7 +16,7 @@ import workshop1.*;
 public class HoofdMenu {
     public static void startMenu() {
         Scanner input = new Scanner(System.in);
-        System.out.println("*HOOFD MENU*");
+        PrintFormat.printHeader("HOOFD-MENU");
         System.out.println("Kies 1 voor klant menu; \n"
                 + "kies 2 voor adres menu, \n"
                 + "kies 3 voor artikel menu, \n"

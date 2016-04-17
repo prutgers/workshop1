@@ -5,6 +5,7 @@
  */
 package menu;
 
+import formatMessage.PrintFormat;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -19,16 +20,15 @@ public class BestellingenMenu {
     public static void startMenu() {
         Scanner input = new Scanner(System.in);
         while(true){
-                    
-            System.out.println("\n"
-                    + "**BESTELLINGEN-MENU**\n"
-                + "Kies 1 om een bestelling aan te maken \n"
-                + "kies 2 voor een bestelling via bestellingID, \n"
-                + "kies 3 voor alle bestellingen van een klant, \n"
-                + "kies 4 voor alle bestellingen, \n"
-                + "kies 5 om een bestelling te openen\n"
-                + "kies 7 om een bestelling te verwijderen, \n"
-                + "kies 99 om terug naar hoofdmenu te gaan");
+            PrintFormat.printHeader("BESTELLINGEN-MENU");        
+            System.out.println(
+                    "Kies 1 om een bestelling aan te maken \n"
+                + "kies 2 om een bestelling op te halen via bestellingID, \n"
+                + "kies 3 om alle bestellingen op te halen van een klant, \n"
+                + "kies 4 om alle bestellingen op te halen, \n"
+                + "kies 5 om naar bestelling artikelen te gaan\n"
+                + "kies 6 om een bestelling te verwijderen, \n"
+                + "kies 9 om terug naar hoofdmenu te gaan");
             int select = input.nextInt();
             try{
                 switch (select) {
@@ -45,12 +45,12 @@ public class BestellingenMenu {
                         getAllMenu();
                         break;
                     case 5:
-                        BestellingMenu.startMenu();
+                        BestellingArtikelMenu.startMenu();
                         break;
-                    case 7:
+                    case 6:
                         deleteByIdMenu();
                         break;
-                    case 99:
+                    case 9:
                         HoofdMenu.startMenu();
                         break;
                     default:
@@ -69,16 +69,15 @@ public class BestellingenMenu {
         Scanner input = new Scanner(System.in);
         System.out.print("\n"
                 + "*CREATE MENU*");
-
         //maak nieuwe bestelling aan
         Bestelling bestelling = new Bestelling();   
-        
         //vul klant id in
         System.out.print("Enter klant ID: ");    
         bestelling.setKlantID(input.nextInt());
         //Verstuur de bestelling naar de database
         BestellingDAO.createBestelling(bestelling);
 
+           /*     
         boolean doorgaan = true;
         while(doorgaan){        
             //maakt een nieuwe bestelregel aan met het id van de bestelling
@@ -99,6 +98,7 @@ public class BestellingenMenu {
                 doorgaan=true;
             else doorgaan = false;
         }
+        */
     }
     public static void getAllMenu(){
         BestellingDAO dao = new BestellingDAO();
@@ -120,8 +120,7 @@ public class BestellingenMenu {
 
         BestellingDAO dao = new BestellingDAO();
         Bestelling bestelling = dao.getBestellingById(BestellingId);
-        System.out.println("bestelID: " + bestelling.getBestellingID() + " " + "KlantID" + bestelling.getKlantID());
-        KoppelBestellingArtikelDAO.readKoppelMetBestellingID(bestelling.getBestellingID());
+        System.out.println("bestelID: " + bestelling.getBestellingID() + " " + "KlantID: " + bestelling.getKlantID());
         
     }
     public static void getByKlantIdMenu()throws SQLException, ClassNotFoundException{
@@ -134,7 +133,7 @@ public class BestellingenMenu {
         BestellingDAO dao = new BestellingDAO();
         ArrayList<Bestelling> list = dao.getBestellingByKlantId(klantId);
         System.out.println("\n"
-                + "LIJST MET BESTELLINING VAN KLANT " + klantId + "\n"
+                + "LIJST MET BESTELLININGEN VAN KLANT " + klantId + "\n"
                 + "================================");
         for(Bestelling e : list){
             System.out.println("BestellingID: " + e.getBestellingID() + " KlantID: " + e.getKlantID());

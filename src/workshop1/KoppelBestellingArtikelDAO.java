@@ -40,6 +40,7 @@ public class KoppelBestellingArtikelDAO {
     
     public static ArrayList<KoppelBestellingArtikel> readKoppelMetBestellingID(int bestelling_id){
         ArrayList<KoppelBestellingArtikel> lijst = new ArrayList<KoppelBestellingArtikel>();
+        System.out.println("test");
         try {
             Class.forName("com.mysql.jdbc.Driver");
             RowSet rowSet = new JdbcRowSetImpl();
@@ -156,14 +157,42 @@ public class KoppelBestellingArtikelDAO {
             e.printStackTrace();
         }
     }
-    public static void updateKoppelID(int koppel_id){
+    
+    
+    public static KoppelBestellingArtikel readKoppelById(int koppelID){
+        KoppelBestellingArtikel koppel = new KoppelBestellingArtikel();
         try {
             Class.forName("com.mysql.jdbc.Driver");
             RowSet rowSet = new JdbcRowSetImpl();
             rowSet.setUrl("jdbc:mysql://localhost/workshopdb");
             rowSet.setUsername("rsvier");
             rowSet.setPassword("tiger");
-            rowSet.setCommand("SELECT * FROM bestellingartikel WHERE bestellingartikel_id = " + koppel_id);
+            rowSet.setCommand("SELECT * FROM bestellingartikel WHERE koppel_id = " + koppelID);
+            rowSet.execute();
+
+            koppel.setBestelling_id(rowSet.getInt("bestelling_id"));
+            koppel.setArtikel_id(rowSet.getInt("artikel_id"));
+        }
+        catch(SQLException | ClassNotFoundException  e){
+            System.out.println("Fout in readKoppelMetBestelling");
+            e.printStackTrace();
+        }
+        return koppel;
+    }
+    
+    public static void updateKoppel(KoppelBestellingArtikel koppel){
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            RowSet rowSet = new JdbcRowSetImpl();
+            rowSet.setUrl("jdbc:mysql://localhost/workshopdb");
+            rowSet.setUsername("rsvier");
+            rowSet.setPassword("tiger");
+            
+            rowSet.setCommand("UPDATE bestellingartikel SET " 
+                    + " bestelling_id =" + koppel.getBestelling_id()
+                    + " artikel_id= " + koppel.getArtikel_id() 
+                    + " aantal = ? " + koppel.getAantal() 
+                    + " WHERE koppel_id = " + koppel.getKoppel_id() + ";");
             rowSet.execute();
             
             while(rowSet.next()){

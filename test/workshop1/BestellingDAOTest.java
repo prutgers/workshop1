@@ -49,38 +49,20 @@ public class BestellingDAOTest {
      */
     @Test
     public void testCreateBestelling() {
-        System.out.println("createBestelling");
-        Bestelling dao = new Bestelling();
-        dao.setKlantID(999);
-        dao.setArtikelNaam_1("testNaam1");
-        dao.setArtikelNaam_2("testNaam2");
-        dao.setArtikelNaam_3("testNaam3");
-        dao.setArtikelPrijs_1(999);
-        dao.setArtikelPrijs_2(999);
-        dao.setArtikelPrijs_3(999);
-        dao.setArtikelAantal_1(999);
-        dao.setArtikelAantal_2(999);
-        dao.setArtikelAantal_3(999);
-        BestellingDAO.createBestelling(dao);
-        
+        Bestelling bestelling = new Bestelling();
+        bestelling.setKlantID(999);
+       
+        Bestelling result = BestellingDAO.createBestelling(bestelling);
         try(Connection con = new DBConnector().getConnection();){
-            PreparedStatement stmt = con.prepareStatement("select * from bestelling where klant_id = 999");
-            ResultSet rs = stmt.executeQuery();
-            Assert.assertEquals(999,rs.getInt("klant_id"));
-            Assert.assertEquals("testNaam1",rs.getString("artikel_naam1"));
-            Assert.assertEquals("testNaam2",rs.getString("artikel_naam1"));
-            Assert.assertEquals("testNaam3",rs.getString("artikel_naam1"));
-            Assert.assertEquals(999,rs.getInt("artikel_prijs1"));
-            Assert.assertEquals(999,rs.getInt("artikel_aantal1"));
-            Assert.assertEquals(999,rs.getInt("artikel_aantal2"));
-            Assert.assertEquals(999,rs.getInt("artikel_aantal3"));
+            PreparedStatement stmt = con.prepareStatement("select * from bestelling where bestelling_id = ?");
+            stmt.setInt(1, result.getBestellingID());
+            ResultSet expResult = stmt.executeQuery();
+            assertEquals(result.getKlantID(),expResult.getInt("klant_id"));
+            assertEquals(result.getBestellingID(),expResult.getString("bestelling_id"));
         }
         catch(Exception e){
             e.printStackTrace();
         }
-
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 
     /**
@@ -88,13 +70,21 @@ public class BestellingDAOTest {
      */
     @Test
     public void testGetBestellingById() {
-        System.out.println("getBestellingById");
-        int BestellingId = 0;
-        Bestelling expResult = null;
-        Bestelling result = BestellingDAO.getBestellingById(BestellingId);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Bestelling bestelling = new Bestelling();
+        bestelling.setKlantID(888);
+        Bestelling newBestelling = BestellingDAO.createBestelling(bestelling);
+        
+        Bestelling result = BestellingDAO.getBestellingById(newBestelling.getBestellingID());
+        try(Connection con = new DBConnector().getConnection();){
+            PreparedStatement stmt = con.prepareStatement("select * from bestelling where bestelling_id = ?");
+            stmt.setInt(1,result.getBestellingID());
+            ResultSet expResult = stmt.executeQuery();
+            assertEquals(result.getKlantID(),expResult.getInt("klant_id"));
+            assertEquals(result.getBestellingID(),expResult.getString("bestelling_id"));
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -102,12 +92,22 @@ public class BestellingDAOTest {
      */
     @Test
     public void testGetAllBestelling() {
-        System.out.println("getAllBestelling");
-        ArrayList<Bestelling> expResult = null;
-        ArrayList<Bestelling> result = BestellingDAO.getAllBestelling();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //get test result
+        ArrayList<Bestelling> resultList = BestellingDAO.getAllBestelling();
+        
+        //get expected result
+        try(Connection con = new DBConnector().getConnection();){
+            PreparedStatement stmt = con.prepareStatement("select * from bestelling");
+            ResultSet expResult = stmt.executeQuery();
+            
+            for(Bestelling result : resultList){
+                assertEquals(result.getKlantID(),expResult.getInt("klant_id"));
+                assertEquals(result.getBestellingID(),expResult.getString("bestelling_id"));
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -115,13 +115,22 @@ public class BestellingDAOTest {
      */
     @Test
     public void testGetBestellingByKlantId() {
-        System.out.println("getBestellingByKlantId");
-        int klantId = 0;
-        ArrayList<Bestelling> expResult = null;
-        ArrayList<Bestelling> result = BestellingDAO.getBestellingByKlantId(klantId);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //get test result
+        ArrayList<Bestelling> resultList = BestellingDAO.getBestellingByKlantId(0);
+        
+        //get expected result
+        try(Connection con = new DBConnector().getConnection();){
+            PreparedStatement stmt = con.prepareStatement("select * from bestelling");
+            ResultSet expResult = stmt.executeQuery();
+            
+            for(Bestelling result : resultList){
+                assertEquals(result.getKlantID(),expResult.getInt("klant_id"));
+                assertEquals(result.getBestellingID(),expResult.getString("bestelling_id"));
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -129,11 +138,25 @@ public class BestellingDAOTest {
      */
     @Test
     public void testUpdateBestelling() {
-        System.out.println("updateBestelling");
-        Bestelling bestelling = null;
-        BestellingDAO.updateBestelling(bestelling);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //create bestelling
+        Bestelling bestelling = new Bestelling();
+        bestelling.setKlantID(777);
+        Bestelling updateBestelling = BestellingDAO.createBestelling(bestelling);
+        
+        //update bestelling
+        updateBestelling.setKlantID(777);
+        BestellingDAO.updateBestelling(updateBestelling);
+    
+        try(Connection con = new DBConnector().getConnection();){
+            PreparedStatement stmt = con.prepareStatement("SELECT  * Bestelling WHERE bestelling_id = ?;");
+            stmt.setInt(1, updateBestelling.getBestellingID());
+            
+            ResultSet expResult = stmt.executeQuery();
+            assertEquals(777, expResult.getInt("klant_id"));
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -141,11 +164,24 @@ public class BestellingDAOTest {
      */
     @Test
     public void testDeleteBestelling() {
-        System.out.println("deleteBestelling");
-        int bestelling_id = 0;
-        BestellingDAO.deleteBestelling(bestelling_id);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //create bestelling
+        Bestelling bestelling = new Bestelling();
+        bestelling.setKlantID(777);
+        Bestelling deleteBestelling = BestellingDAO.createBestelling(bestelling);
+        
+        //delete bestelling
+        BestellingDAO.deleteBestelling(deleteBestelling.getBestellingID());
+        try(Connection con = new DBConnector().getConnection();){
+            PreparedStatement stmt = con.prepareStatement("SELECT  * Bestelling WHERE bestelling_id = ?;");
+            stmt.setInt(1, deleteBestelling.getBestellingID());
+            ResultSet expResult = stmt.executeQuery();
+            
+            assertEquals(null, expResult.getInt("bestelling_id"));
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+
     }
     
 }

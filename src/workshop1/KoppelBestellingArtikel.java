@@ -13,7 +13,7 @@ public class KoppelBestellingArtikel {
     
     private int bestelling_id;
     private int artikel_id;
-    private int Koppel_id;
+    private int koppel_id;
     private int aantal;
 
 
@@ -42,11 +42,11 @@ public class KoppelBestellingArtikel {
     }
 
     public int getKoppel_id() {
-        return Koppel_id;
+        return koppel_id;
     }
 
     public void setKoppel_id(int Koppel_id) {
-        this.Koppel_id = Koppel_id;
+        this.koppel_id = Koppel_id;
     }
     
 }
