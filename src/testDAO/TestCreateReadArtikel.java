@@ -16,20 +16,14 @@ public class TestCreateReadArtikel {
     
     
     public String testCreateRead(Artikel artikel){
-       
-        
+        //Create a new article
         ArtikelDAO.createNewArtikel(artikel);
-        
+        //Read all the articles in the database
         ArrayList<Artikel> lijst = ArtikelDAO.readArtikel();
-        
-        
         int index = lijst.size();
         System.out.println(index + " is de index");
         Artikel read = lijst.get(index-1);
-        
         String result = read.getArtikel_naam();
-        
-        
         return result;
     }
     
