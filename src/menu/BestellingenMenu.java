@@ -38,6 +38,7 @@ public class BestellingenMenu {
                 + " \n"
                 + "kies 7 om een bestelling te verwijderen, \n"
                 + "kies 8 om een voor overzicht van EEN bestelling, \n"
+                + "kies 10 om een voor overzicht van EEN bestelling, \n"
                 + " \n"
                 + "kies 9 om terug naar hoofdmenu te gaan");
             int select = input.nextInt();
@@ -64,16 +65,25 @@ public class BestellingenMenu {
                 case 7:
                     deleteByIdMenu();
                     break;
-                    case 8:
+                case 8:
                     getBestelArtikelMenu();
                     break;
                 case 9:
                     HoofdMenu.startMenu();
                     break;
+                case 10:
+                    deleteArtikelUitBestellingMenu();
+                    break;
+                case 11:
+                    updateBestellingAantalMenu();
+                    break;    
+                    
                 default:
                     System.out.println("kies 1, 2 of 3");
                     break;
             }
+            System.out.println("druk op enter om door te gaan");
+            // iets invoegen zodat het programma even stopt
         }
     }
     
@@ -152,9 +162,30 @@ public class BestellingenMenu {
         BestellingDAO.deleteBestelling(bestellingId);
     }
     
-    //Geeft een lijst weer van artikelen in een specifieke bestelling op basis van bestelling ID
+    //verwijdert een artikel uit een bestelling
+    public static void deleteArtikelUitBestellingMenu(){
+        System.out.println("Enter bestelling ID :");
+        int bestellingId = VerifyInputScanner.verifyInt();
+        System.out.println("Enter atikel ID :");
+        int artikelId = VerifyInputScanner.verifyInt();
+        KoppelBestellingArtikelDAO.deleteKoppel(bestellingId,artikelId);
+    }
     
-    
+    //update het aantal bestellen artikelen van een bestelling
+    public static void updateBestellingAantalMenu(){
+        System.out.println("Enter bestelling ID :");
+        int bestellingId = VerifyInputScanner.verifyInt();
+        System.out.println("Enter artikellen ID :");
+        int artikelId = VerifyInputScanner.verifyInt();
+        KoppelBestellingArtikel koppel = KoppelBestellingArtikelDAO.readKoppel(bestellingId, artikelId);
+        
+        System.out.println("aantal dat u wilt bestellen :");
+        koppel.setAantal(VerifyInputScanner.verifyInt());
+        
+        KoppelBestellingArtikelDAO.updateKoppel(koppel);
+        
+        
+    }
     
     
     /**

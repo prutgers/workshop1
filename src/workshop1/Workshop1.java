@@ -22,8 +22,8 @@ public class Workshop1 {
     public static void main(String[] args) {
         
      
-  // HoofdMenu.startMenu();        
-   BestellingenMenu.startMenu();
+  HoofdMenu.startMenu();        
+
    }
     
 }
