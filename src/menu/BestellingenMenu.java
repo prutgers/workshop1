@@ -76,6 +76,10 @@ public class BestellingenMenu {
         bestelling.setKlantID(input.nextInt());
         //Verstuur de bestelling naar de database
         BestellingDAO.createBestelling(bestelling);
+        
+        
+        
+        
 
            /*     
         boolean doorgaan = true;
