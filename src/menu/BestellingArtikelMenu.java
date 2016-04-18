@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import workshop1.*;
-import static workshop1.lBestellingArtikelDAO.*;
+import static workshop1.KoppelBestellingArtikelDAO.*;
 
 /**
  *
@@ -54,7 +54,7 @@ public class BestellingArtikelMenu {
 
     private static void createBestelArtikelMenu() {
         Scanner input = new Scanner(System.in);
-        BestellingArtikel bestellingArtikel = new BestellingArtikel();
+        KoppelBestellingArtikel bestellingArtikel = new KoppelBestellingArtikel();
         System.out.println("Enter bestellingID");
         bestellingArtikel.setBestelling_id(input.nextInt());
         System.out.println("Enter artikelID");
@@ -67,9 +67,9 @@ public class BestellingArtikelMenu {
     public static void getBestelArtikelMenu(){
         Scanner input = new Scanner(System.in);
         System.out.println("Enter bestellingID");
-        ArrayList<BestellingArtikel> lijst = readKoppelMetBestellingID(input.nextInt());
+        ArrayList<KoppelBestellingArtikel> lijst = readKoppelMetBestellingID(input.nextInt());
         System.out.printf("%15s %15s %15s\n","KoppelID", "AtikelID", "Aantal");
-        for(BestellingArtikel e : lijst){
+        for(KoppelBestellingArtikel e : lijst){
              System.out.printf("%15s %15d %15d\n",e.getKoppel_id(), e.getArtikel_id(), e.getAantal());
         }
     }
@@ -77,7 +77,7 @@ public class BestellingArtikelMenu {
     private static void updateBestelArtikelMenu() {
        Scanner input = new Scanner(System.in);
         System.out.println("Enter koppelID");
-        BestellingArtikel koppel = readKoppelById(input.nextInt());
+        KoppelBestellingArtikel koppel = readKoppelById(input.nextInt());
         System.out.println("Enter aantal");
         koppel.setAantal(input.nextInt());
         System.out.println("Enter artikelID");
