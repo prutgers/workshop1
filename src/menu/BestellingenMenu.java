@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import workshop1.*;
+import static workshop1.KoppelBestellingArtikelDAO.createKoppelBestellingArtikel;
 
 /**
  *
@@ -22,12 +23,18 @@ public class BestellingenMenu {
         while(true){
             PrintFormat.printHeader("BESTELLINGEN-MENU");        
             System.out.println(
-                    "Kies 1 om een bestelling aan te maken \n"
+                  "Kies 1 om een bestelling aan te maken \n"
+                + " \n"
                 + "kies 2 om een bestelling op te halen via bestellingID, \n"
                 + "kies 3 om alle bestellingen op te halen van een klant, \n"
                 + "kies 4 om alle bestellingen op te halen, \n"
+                + " \n"
                 + "kies 5 om naar bestelling artikelen te gaan\n"
+                + " \n"
                 + "kies 6 om een bestelling te verwijderen, \n"
+                + " \n"
+                + "kies 7 om een artikel toe te voegen aan een bestelling, \n"
+                + " \n"
                 + "kies 9 om terug naar hoofdmenu te gaan");
             int select = input.nextInt();
             try{
@@ -50,6 +57,9 @@ public class BestellingenMenu {
                     case 6:
                         deleteByIdMenu();
                         break;
+                    case 7:
+                        createBestelArtikelMenu();
+                        break;
                     case 9:
                         HoofdMenu.startMenu();
                         break;
@@ -65,6 +75,14 @@ public class BestellingenMenu {
             
 
     }
+    
+    /**
+     * createMenu maakt een nieuwe bestelling aan en roept de methode XXXX aan die
+     * een bestaand artikel toevoeged aan deze bestelling
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
+    
     public static void createMenu()throws SQLException, ClassNotFoundException{
         Scanner input = new Scanner(System.in);
         System.out.print("\n"
@@ -77,33 +95,12 @@ public class BestellingenMenu {
         //Verstuur de bestelling naar de database
         BestellingDAO.createBestelling(bestelling);
         
+        //voegt besteling en artikel samen
+        createBestelArtikelMenu(bestelling.getBestellingID());
         
         
-        
-
-           /*     
-        boolean doorgaan = true;
-        while(doorgaan){        
-            //maakt een nieuwe bestelregel aan met het id van de bestelling
-            KoppelBestellingArtikel bestellingRegel = new KoppelBestellingArtikel();
-            bestellingRegel.setBestelling_id(bestelling.getBestellingID()); 
-            
-            //Vul gegevens bestelregel in
-            System.out.print("Enter artikel ID: ");
-            bestellingRegel.setArtikel_id(input.nextInt());
-            System.out.print("Enter artikel aantal: ");
-            bestellingRegel.setAantal(input.nextInt());
-            
-            //voeg bestelregel toe aan de database
-            KoppelBestellingArtikelDAO.createKoppelBestellingArtikel(bestellingRegel);
-            
-            System.out.print( "nog een artikel? kies 1 ");
-            if(input.nextInt()==1) 
-                doorgaan=true;
-            else doorgaan = false;
-        }
-        */
     }
+    
     public static void getAllMenu(){
         BestellingDAO dao = new BestellingDAO();
         ArrayList<Bestelling> list = dao.getAllBestelling();
@@ -154,6 +151,38 @@ public class BestellingenMenu {
         BestellingDAO dao = new BestellingDAO();
         dao.deleteBestelling(bestellingId);
     }
+    
+    /**
+     * createBeestelArtikelMenu koppeld artikelen en bestellingen aan elkaar
+     * er is 1 methode zonder argumenten voor handmatige invoer
+     * en 1 methode met argumenten voor automatische invoer
+     */
+    
+    public static void createBestelArtikelMenu() {
+        Scanner input = new Scanner(System.in);
+        KoppelBestellingArtikel bestellingArtikel = new KoppelBestellingArtikel();
+        System.out.println("Enter bestellingID");
+        bestellingArtikel.setBestelling_id(input.nextInt());
+        System.out.println("Enter artikelID");
+        bestellingArtikel.setArtikel_id(input.nextInt());
+        System.out.println("Enter aantal");
+        bestellingArtikel.setAantal(input.nextInt());
+        createKoppelBestellingArtikel(bestellingArtikel);
+    }
+    
+    public static void createBestelArtikelMenu(int bestellingID){
+        Scanner input = new Scanner(System.in);
+        KoppelBestellingArtikel bestellingArtikel = new KoppelBestellingArtikel();
+        bestellingArtikel.setBestelling_id(bestellingID);
+        System.out.println("Enter artikelID");
+        bestellingArtikel.setArtikel_id(input.nextInt());
+        System.out.println("Enter aantal");
+        bestellingArtikel.setAantal(input.nextInt());
+        createKoppelBestellingArtikel(bestellingArtikel);
+        
+    }
+    
+    
 }
 
     

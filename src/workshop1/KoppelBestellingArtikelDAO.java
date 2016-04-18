@@ -40,7 +40,7 @@ public class KoppelBestellingArtikelDAO {
     
     public static ArrayList<KoppelBestellingArtikel> readKoppelMetBestellingID(int bestelling_id){
         ArrayList<KoppelBestellingArtikel> lijst = new ArrayList<KoppelBestellingArtikel>();
-        System.out.println("test");
+        
         try {
             Class.forName("com.mysql.jdbc.Driver");
             RowSet rowSet = new JdbcRowSetImpl();
@@ -55,8 +55,7 @@ public class KoppelBestellingArtikelDAO {
                 koppel.setBestelling_id(rowSet.getInt("bestelling_id"));
                 koppel.setArtikel_id(rowSet.getInt("artikel_id"));
                 lijst.add(koppel);
-                // test voor mij te kijken of het werkt dit moet natuurlijk normaal in het menu gebeuren
-                System.out.println("Bestelling en Artikkel ID " + rowSet.getInt("bestelling_id") + "  " + rowSet.getInt("artikel_id"));
+                
             }
             
         }
@@ -83,8 +82,7 @@ public class KoppelBestellingArtikelDAO {
                 koppel.setBestelling_id(rowSet.getInt("bestelling_id"));
                 koppel.setArtikel_id(rowSet.getInt("artikel_id"));
                 lijst.add(koppel);
-                // test voor mij te kijken of het werkt dit moet natuurlijk normaal in het menu gebeuren
-                System.out.println("Bestelling en Artikkel ID " + rowSet.getInt("bestelling_id") + "  " + rowSet.getInt("artikel_id"));
+                
             }
             
         }
@@ -107,8 +105,7 @@ public class KoppelBestellingArtikelDAO {
             
             while(rowSet.next()){
                 rowSet.deleteRow();
-                // test voor mij te kijken of het werkt dit moet natuurlijk normaal in het menu gebeuren
-                System.out.println("ik ben aan het deleten");
+                
             }
         }
         catch(SQLException | ClassNotFoundException  e){
