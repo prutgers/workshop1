@@ -24,23 +24,19 @@ public class BestellingenMenu {
         while(true){
             PrintFormat.printHeader("BESTELLINGEN-MENU");        
             System.out.println(
-                  "Kies 1 om een bestelling aan te maken \n"
+                  "1) Maak nieuwe bestelling aan\n"
+                + "2) Voeg een artikel toe aan een bestelling (met bestelling ID) \n"
+                + "3) Verander aantal bestelde artikellen (met bestelling en artikel ID) \n"
                 + " \n"
-                + "kies 2 om een bestelling op te halen via bestellingID, \n"
-                + "kies 3 om alle bestellingen op te halen van een klant, \n"
-                + "kies 4 om alle bestellingen op te halen, \n"
+                + "4) Haal specifieke bestelling op (met bestelling ID) \n"
+                + "5) Haal alle bestelling van 1 klant op (met klant ID) \n"
+                + "6) Haal alle artikelen van 1 bestelling op (met bestelling ID) \n"
+                + "7) Haal alle bestelling van alle klanten op \n"
                 + " \n"
-                + "kies 5 om naar bestelling artikelen menu te gaan\n"
-                + "kies 6 om een artikel toe te voegen aan een bestelling, \n"
-                + "kies x voor alle artikelen van een bestelling \n"
-                + "kies x om een artikel aan te passen\n"
-                + "kies x om een artikel te verwijderen"
+                + "8) Verwijder 1 artikel uit een bestelling (met bestelling en artikel ID) \n"
+                + "9) Verwijder gehele bestelling (met bestelling ID) \n"
                 + " \n"
-                + "kies 7 om een bestelling te verwijderen, \n"
-                + "kies 8 om een voor overzicht van EEN bestelling, \n"
-                + "kies 10 om een voor overzicht van EEN bestelling, \n"
-                + " \n"
-                + "kies 9 om terug naar hoofdmenu te gaan");
+                + "10) Ga naar hoofdmenu");
             int select = input.nextInt();
 
             switch (select) {
@@ -48,38 +44,34 @@ public class BestellingenMenu {
                     createMenu();
                     break;
                 case 2:
-                    getByIdMenu();
-                    break;
-                case 3:
-                    getByKlantIdMenu();
-                    break;
-                case 4:
-                    getAllMenu();
-                    break;
-                case 5:
-                    BestellingArtikelMenu.startMenu();
-                    break;
-                case 6:
                     createBestelArtikelMenu();
                     break;
-                case 7:
-                    deleteByIdMenu();
+                case 3:
+                    updateBestellingAantalMenu();
                     break;
-                case 8:
+                case 4:
+                    getByIdMenu();
+                    break;
+                case 5:
+                    getByKlantIdMenu();
+                    break;
+                case 6:
                     getBestelArtikelMenu();
                     break;
-                case 9:
-                    HoofdMenu.startMenu();
+                case 7:
+                    getAllMenu();
                     break;
-                case 10:
+                case 8:
                     deleteArtikelUitBestellingMenu();
                     break;
-                case 11:
-                    updateBestellingAantalMenu();
-                    break;    
-                    
+                case 9:
+                    deleteByIdMenu();
+                    break;
+                case 10:
+                    HoofdMenu.startMenu();
+                    break;
                 default:
-                    System.out.println("kies 1, 2 of 3");
+                    System.out.println("kies 1, 2, 3, 4, 5, 6, 7, 8, 9  of 10");
                     break;
             }
             System.out.println("druk op enter om door te gaan");
@@ -88,7 +80,7 @@ public class BestellingenMenu {
     }
     
     /**
-     * createMenu maakt een nieuwe bestelling aan en roept de methode XXXX aan die
+     *  1) createMenu maakt een nieuwe bestelling aan en roept de methode XXXX aan die
      * een bestaand artikel toevoeged aan deze bestelling
      * @throws SQLException
      * @throws ClassNotFoundException 
@@ -109,69 +101,22 @@ public class BestellingenMenu {
         createBestelArtikelMenu(bestelling.getBestellingID());
     }
     
-    //overzicht van alle bestellingen van alle bestelling van alle klanten
-    public static void getAllMenu(){
-        ArrayList<Bestelling> list = BestellingDAO.getAllBestelling();
-        
-        System.out.printf("%15s %15s\n", "BestellingID", "KlantID");
-        for(Bestelling e : list){
-            System.out.printf("%15d %15d\n",e.getBestellingID(), e.getKlantID());
-        }
-    }
-    
-    //Geeft voor een gegeven bestelling ID een de hele bestelling terug (KlantID, Totaal Prijs, etc]
-    public static void getByIdMenu(){
+    /**
+     * 2) createBestelArtikelMenu voegt een artikel toe aan een bestaande bestelling
+     */
+    public static void createBestelArtikelMenu() {
         Scanner input = new Scanner(System.in);
-        
-        //verkrijg data uit de commandline
-        System.out.println("Enter bestelling ID :");
-        int BestellingId = input.nextInt();
-        
-        Bestelling bestelling = BestellingDAO.getBestellingById(BestellingId);
-        System.out.println("bestelID: " + bestelling.getBestellingID() + " " + "KlantID: " + bestelling.getKlantID());
-        
+        KoppelBestellingArtikel bestellingArtikel = new KoppelBestellingArtikel();
+        System.out.print("Enter bestellingID: ");
+        bestellingArtikel.setBestelling_id(input.nextInt());
+        System.out.print("Enter artikelID: ");
+        bestellingArtikel.setArtikel_id(input.nextInt());
+        System.out.print("Enter aantal: ");
+        bestellingArtikel.setAantal(input.nextInt());
+        KoppelBestellingArtikelDAO.createKoppelBestellingArtikel(bestellingArtikel);
     }
     
-    //Geeft een lijst van bestellingen terug van een klant, op basis van klantID
-    public static void getByKlantIdMenu(){
-        Scanner input = new Scanner(System.in);
-        
-        //verkrijg data uit de commandline
-        System.out.println("Enter klant ID :");
-        int klantId = input.nextInt();
-        ArrayList<Bestelling> list = BestellingDAO.getBestellingByKlantId(klantId);
-        System.out.println("\n"
-                + "LIJST MET BESTELLININGEN VAN KLANT " + klantId + "\n");
-        for(Bestelling e : list){
-            System.out.println("BestellingID: " + e.getBestellingID() + " KlantID: " + e.getKlantID());
-        }
-    }   
-
-    //verwijdert een bestelling op basis van bestellingID
-    public static void deleteByIdMenu(){
-        Scanner input = new Scanner(System.in);
-        
-        //verkrijg data uit de commandline
-        System.out.println("Enter bestelling ID :");
-        int bestellingId = input.nextInt();
-        
-        //verwijdert alle artikelen die bij deze bestelling horen
-        KoppelBestellingArtikelDAO.deleteKoppelMetBestellingID(bestellingId);
-        
-        //verwijdert de bestelling
-        BestellingDAO.deleteBestelling(bestellingId);
-    }
-    
-    //verwijdert een artikel uit een bestelling
-    public static void deleteArtikelUitBestellingMenu(){
-        System.out.println("Enter bestelling ID :");
-        int bestellingId = VerifyInputScanner.verifyInt();
-        System.out.println("Enter atikel ID :");
-        int artikelId = VerifyInputScanner.verifyInt();
-        KoppelBestellingArtikelDAO.deleteKoppel(bestellingId,artikelId);
-    }
-    
-    //update het aantal bestellen artikelen van een bestelling
+     //3) update het aantal bestellen artikelen van een bestelling
     public static void updateBestellingAantalMenu(){
         System.out.println("Enter bestelling ID :");
         int bestellingId = VerifyInputScanner.verifyInt();
@@ -187,23 +132,84 @@ public class BestellingenMenu {
         
     }
     
-    
-    /**
-     * createBestelArtikelMenu voegt een artikel toe aan een bestaande bestelling
-     */
-    public static void createBestelArtikelMenu() {
+     //4) Geeft voor een gegeven bestelling ID een de hele bestelling terug (KlantID, Totaal Prijs, etc]
+    public static void getByIdMenu(){
         Scanner input = new Scanner(System.in);
-        KoppelBestellingArtikel bestellingArtikel = new KoppelBestellingArtikel();
-        System.out.print("Enter bestellingID: ");
-        bestellingArtikel.setBestelling_id(input.nextInt());
-        System.out.print("Enter artikelID: ");
-        bestellingArtikel.setArtikel_id(input.nextInt());
-        System.out.print("Enter aantal: ");
-        bestellingArtikel.setAantal(input.nextInt());
-        KoppelBestellingArtikelDAO.createKoppelBestellingArtikel(bestellingArtikel);
+        
+        //verkrijg data uit de commandline
+        System.out.println("Enter bestelling ID :");
+        int BestellingId = input.nextInt();
+        
+        Bestelling bestelling = BestellingDAO.getBestellingById(BestellingId);
+        System.out.println("bestelID: " + bestelling.getBestellingID() + " " + "KlantID: " + bestelling.getKlantID());
+        
     }
     
+    //5)Geeft een lijst van bestellingen terug van een klant, op basis van klantID
+    public static void getByKlantIdMenu(){
+        Scanner input = new Scanner(System.in);
+        
+        //verkrijg data uit de commandline
+        System.out.println("Enter klant ID :");
+        int klantId = input.nextInt();
+        ArrayList<Bestelling> list = BestellingDAO.getBestellingByKlantId(klantId);
+        System.out.println("\n"
+                + "LIJST MET BESTELLININGEN VAN KLANT " + klantId + "\n");
+        for(Bestelling e : list){
+            System.out.println("BestellingID: " + e.getBestellingID() + " KlantID: " + e.getKlantID());
+        }
+    }   
+   
+    //6) Geeft een lijst terug met bestelde artikelen van 1 bestelling op basis van bestelling ID
+    public static void getBestelArtikelMenu(){
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter bestellingID");
+        ArrayList<KoppelBestellingArtikel> lijst = readKoppelMetBestellingID(input.nextInt());
+        System.out.printf("%15s %15s %15s %15s %15s\n","KoppelID", "AtikelID", "Aantal", "artikel Naam", "Artikel Prijs");
+        for(KoppelBestellingArtikel e : lijst){
+             Artikel artikel = ArtikelDAO.readArtikel(e.getArtikel_id());
+             System.out.printf("%15s %15d %15s %15s %15s\n",e.getKoppel_id(), e.getArtikel_id(), e.getAantal(), artikel.getArtikel_naam(), artikel.getArtikel_prijs());
+             
+        }
+    } 
+    
+    //7) overzicht van alle bestellingen van alle bestelling van alle klanten
+    public static void getAllMenu(){
+        ArrayList<Bestelling> list = BestellingDAO.getAllBestelling();
+        
+        System.out.printf("%15s %15s\n", "BestellingID", "KlantID");
+        for(Bestelling e : list){
+            System.out.printf("%15d %15d\n",e.getBestellingID(), e.getKlantID());
+        }
+    }
+    
+    //8) verwijdert een artikel uit een bestelling
+    public static void deleteArtikelUitBestellingMenu(){
+        System.out.println("Enter bestelling ID :");
+        int bestellingId = VerifyInputScanner.verifyInt();
+        System.out.println("Enter atikel ID :");
+        int artikelId = VerifyInputScanner.verifyInt();
+        KoppelBestellingArtikelDAO.deleteKoppel(bestellingId,artikelId);
+    }
+
+    //9) verwijdert een bestelling op basis van bestellingID
+    public static void deleteByIdMenu(){
+        Scanner input = new Scanner(System.in);
+        
+        //verkrijg data uit de commandline
+        System.out.println("Enter bestelling ID :");
+        int bestellingId = input.nextInt();
+        
+        //verwijdert alle artikelen die bij deze bestelling horen
+        KoppelBestellingArtikelDAO.deleteKoppelMetBestellingID(bestellingId);
+        
+        //verwijdert de bestelling
+        BestellingDAO.deleteBestelling(bestellingId);
+    }
+    
+        
     /**
+     * Alleen automatisch 
      * createBestelArtikelMenu koppelt artikelen en bestellingen aan elkaar
      * en 1 methode met argumenten voor automatische invoer
      */
@@ -219,18 +225,7 @@ public class BestellingenMenu {
         
     }
     
-    //Geeft een lijst terug met artikelID op basis van bestelling ID
-    public static void getBestelArtikelMenu(){
-        Scanner input = new Scanner(System.in);
-        System.out.println("Enter bestellingID");
-        ArrayList<KoppelBestellingArtikel> lijst = readKoppelMetBestellingID(input.nextInt());
-        System.out.printf("%15s %15s %15s %15s %15s\n","KoppelID", "AtikelID", "Aantal", "artikel Naam", "Artikel Prijs");
-        for(KoppelBestellingArtikel e : lijst){
-             Artikel artikel = ArtikelDAO.readArtikel(e.getArtikel_id());
-             System.out.printf("%15s %15d %15s %15s %15s\n",e.getKoppel_id(), e.getArtikel_id(), e.getAantal(), artikel.getArtikel_naam(), artikel.getArtikel_prijs());
-             
-        }
-    } 
+    
 }
 
     

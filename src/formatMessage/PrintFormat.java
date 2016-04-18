@@ -7,7 +7,7 @@ package formatMessage;
 
 /**
  *
- * @author Gebruiker
+ * @author Herman
  */
 public class PrintFormat {
     public static void printHeader(String header){
