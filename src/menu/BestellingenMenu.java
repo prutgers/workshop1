@@ -68,7 +68,7 @@ public class BestellingenMenu {
     public static void createMenu()throws SQLException, ClassNotFoundException{
         Scanner input = new Scanner(System.in);
         System.out.print("\n"
-                + "*CREATE MENU*");
+                + "*CREATE MENU*\n");
         //maak nieuwe bestelling aan
         Bestelling bestelling = new Bestelling();   
         //vul klant id in

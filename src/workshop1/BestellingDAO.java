@@ -39,10 +39,11 @@ public class BestellingDAO {
             PreparedStatement stmt = con.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
 
             //Set values for INSERT-part of the statement
-            setStatement(stmt,bestelling);
-            /*
+            //setStatement(stmt,bestelling);
+            
             stmt.setInt(1, bestelling.getKlantID());
 
+            /*
             stmt.setInt(2, bestelling.getArtikelID_1());
             stmt.setDouble(3, bestelling.getArtikelPrijs_1());
             stmt.setString(4, bestelling.getArtikelNaam_1());            
