@@ -80,7 +80,8 @@ public class BestellingDAO {
             stmt.setInt(1, BestellingId);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
-                rsToBestelling(rs,bestelling);
+                bestelling.setKlantID(rs.getInt("klant_id"));
+                bestelling.setBestellingID(rs.getInt("bestelling_id"));
             }
         }
         catch(SQLException | ClassNotFoundException  e){
@@ -96,7 +97,8 @@ public class BestellingDAO {
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
                 Bestelling bestelling = new Bestelling();
-                rsToBestelling(rs,bestelling);
+                bestelling.setKlantID(rs.getInt("klant_id"));
+                bestelling.setBestellingID(rs.getInt("bestelling_id"));
                 bestellingLijst.add(bestelling);
             }
         }
