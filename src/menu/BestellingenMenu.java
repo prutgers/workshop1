@@ -10,7 +10,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import workshop1.*;
-import static workshop1.KoppelBestellingArtikelDAO.createKoppelBestellingArtikel;
+import static workshop1.KoppelBestellingArtikelDAO.readKoppelMetBestellingID;
+
 
 /**
  *
@@ -36,42 +37,42 @@ public class BestellingenMenu {
                 + "kies x om een artikel te verwijderen"
                 + " \n"
                 + "kies 7 om een bestelling te verwijderen, \n"
+                + "kies 8 om een voor overzicht van EEN bestelling, \n"
                 + " \n"
                 + "kies 9 om terug naar hoofdmenu te gaan");
             int select = input.nextInt();
-            try{
-                switch (select) {
-                    case 1:
-                        createMenu();
-                        break;
-                    case 2:
-                        getByIdMenu();
-                        break;
-                    case 3:
-                        getByKlantIdMenu();
-                        break;
-                    case 4:
-                        getAllMenu();
-                        break;
-                    case 5:
-                        BestellingArtikelMenu.startMenu();
-                        break;
-                    case 6:
-                        createBestelArtikelMenu();
-                        break;
-                    case 7:
-                        deleteByIdMenu();
-                        break;
-                    case 9:
-                        HoofdMenu.startMenu();
-                        break;
-                    default:
-                        System.out.println("kies 1, 2 of 3");
-                        break;
-                }
-            }
-            catch(SQLException | ClassNotFoundException e){
-                e.printStackTrace();
+
+            switch (select) {
+                case 1:
+                    createMenu();
+                    break;
+                case 2:
+                    getByIdMenu();
+                    break;
+                case 3:
+                    getByKlantIdMenu();
+                    break;
+                case 4:
+                    getAllMenu();
+                    break;
+                case 5:
+                    BestellingArtikelMenu.startMenu();
+                    break;
+                case 6:
+                    createBestelArtikelMenu();
+                    break;
+                case 7:
+                    deleteByIdMenu();
+                    break;
+                    case 8:
+                    getBestelArtikelMenu();
+                    break;
+                case 9:
+                    HoofdMenu.startMenu();
+                    break;
+                default:
+                    System.out.println("kies 1, 2 of 3");
+                    break;
             }
         }
     }
@@ -81,9 +82,10 @@ public class BestellingenMenu {
      * een bestaand artikel toevoeged aan deze bestelling
      * @throws SQLException
      * @throws ClassNotFoundException 
+     * 
+     * samenvatting: Maak een nieuwe bestelling + voeg een artikel toe aan de bestelling
      */
-    
-    public static void createMenu()throws SQLException, ClassNotFoundException{
+    public static void createMenu(){
         Scanner input = new Scanner(System.in);
         //maak nieuwe bestelling aan
         Bestelling bestelling = new Bestelling();   
@@ -95,39 +97,39 @@ public class BestellingenMenu {
         
         //voegt besteling en artikel samen
         createBestelArtikelMenu(bestelling.getBestellingID());
-
     }
     
+    //overzicht van alle bestellingen van alle bestelling van alle klanten
     public static void getAllMenu(){
-        BestellingDAO dao = new BestellingDAO();
-        ArrayList<Bestelling> list = dao.getAllBestelling();
+        ArrayList<Bestelling> list = BestellingDAO.getAllBestelling();
         
         System.out.printf("%15s %15s\n", "BestellingID", "KlantID");
         for(Bestelling e : list){
             System.out.printf("%15d %15d\n",e.getBestellingID(), e.getKlantID());
         }
     }
-    public static void getByIdMenu()throws SQLException, ClassNotFoundException{
+    
+    //Geeft voor een gegeven bestelling ID een de hele bestelling terug (KlantID, Totaal Prijs, etc]
+    public static void getByIdMenu(){
         Scanner input = new Scanner(System.in);
         
         //verkrijg data uit de commandline
         System.out.println("Enter bestelling ID :");
         int BestellingId = input.nextInt();
-
-        BestellingDAO dao = new BestellingDAO();
-        Bestelling bestelling = dao.getBestellingById(BestellingId);
+        
+        Bestelling bestelling = BestellingDAO.getBestellingById(BestellingId);
         System.out.println("bestelID: " + bestelling.getBestellingID() + " " + "KlantID: " + bestelling.getKlantID());
         
     }
-    public static void getByKlantIdMenu()throws SQLException, ClassNotFoundException{
+    
+    //Geeft een lijst van bestellingen terug van een klant, op basis van klantID
+    public static void getByKlantIdMenu(){
         Scanner input = new Scanner(System.in);
         
         //verkrijg data uit de commandline
         System.out.println("Enter klant ID :");
         int klantId = input.nextInt();
-
-        BestellingDAO dao = new BestellingDAO();
-        ArrayList<Bestelling> list = dao.getBestellingByKlantId(klantId);
+        ArrayList<Bestelling> list = BestellingDAO.getBestellingByKlantId(klantId);
         System.out.println("\n"
                 + "LIJST MET BESTELLININGEN VAN KLANT " + klantId + "\n");
         for(Bestelling e : list){
@@ -135,23 +137,29 @@ public class BestellingenMenu {
         }
     }   
 
+    //verwijdert een bestelling op basis van bestellingID
     public static void deleteByIdMenu(){
         Scanner input = new Scanner(System.in);
         
         //verkrijg data uit de commandline
         System.out.println("Enter bestelling ID :");
         int bestellingId = input.nextInt();
-
-        BestellingDAO dao = new BestellingDAO();
-        dao.deleteBestelling(bestellingId);
+        
+        //verwijdert alle artikelen die bij deze bestelling horen
+        KoppelBestellingArtikelDAO.deleteKoppelMetBestellingID(bestellingId);
+        
+        //verwijdert de bestelling
+        BestellingDAO.deleteBestelling(bestellingId);
     }
     
-    /**
-     * createBeestelArtikelMenu koppeld artikelen en bestellingen aan elkaar
-     * er is 1 methode zonder argumenten voor handmatige invoer
-     * en 1 methode met argumenten voor automatische invoer
-     */
+    //Geeft een lijst weer van artikelen in een specifieke bestelling op basis van bestelling ID
     
+    
+    
+    
+    /**
+     * createBestelArtikelMenu voegt een artikel toe aan een bestaande bestelling
+     */
     public static void createBestelArtikelMenu() {
         Scanner input = new Scanner(System.in);
         KoppelBestellingArtikel bestellingArtikel = new KoppelBestellingArtikel();
@@ -161,9 +169,13 @@ public class BestellingenMenu {
         bestellingArtikel.setArtikel_id(input.nextInt());
         System.out.print("Enter aantal: ");
         bestellingArtikel.setAantal(input.nextInt());
-        createKoppelBestellingArtikel(bestellingArtikel);
+        KoppelBestellingArtikelDAO.createKoppelBestellingArtikel(bestellingArtikel);
     }
     
+    /**
+     * createBestelArtikelMenu koppelt artikelen en bestellingen aan elkaar
+     * en 1 methode met argumenten voor automatische invoer
+     */
     public static void createBestelArtikelMenu(int bestellingID){
         Scanner input = new Scanner(System.in);
         KoppelBestellingArtikel bestellingArtikel = new KoppelBestellingArtikel();
@@ -172,11 +184,22 @@ public class BestellingenMenu {
         bestellingArtikel.setArtikel_id(input.nextInt());
         System.out.print("Enter aantal: ");
         bestellingArtikel.setAantal(input.nextInt());
-        createKoppelBestellingArtikel(bestellingArtikel);
+        KoppelBestellingArtikelDAO.createKoppelBestellingArtikel(bestellingArtikel);
         
     }
     
-    
+    //Geeft een lijst terug met artikelID op basis van bestelling ID
+    public static void getBestelArtikelMenu(){
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter bestellingID");
+        ArrayList<KoppelBestellingArtikel> lijst = readKoppelMetBestellingID(input.nextInt());
+        System.out.printf("%15s %15s %15s %15s %15s\n","KoppelID", "AtikelID", "Aantal", "artikel Naam", "Artikel Prijs");
+        for(KoppelBestellingArtikel e : lijst){
+             Artikel artikel = ArtikelDAO.readArtikel(e.getArtikel_id());
+             System.out.printf("%15s %15d %15s %15s %15s\n",e.getKoppel_id(), e.getArtikel_id(), e.getAantal(), artikel.getArtikel_naam(), artikel.getArtikel_prijs());
+             
+        }
+    } 
 }
 
     

@@ -52,6 +52,7 @@ public class KoppelBestellingArtikelDAO {
             
             while(rowSet.next()){
                 KoppelBestellingArtikel koppel = new KoppelBestellingArtikel();
+                koppel.setKoppel_id(rowSet.getInt("bestellingartikel_id"));
                 koppel.setBestelling_id(rowSet.getInt("bestelling_id"));
                 koppel.setArtikel_id(rowSet.getInt("artikel_id"));
                 lijst.add(koppel);
@@ -79,6 +80,7 @@ public class KoppelBestellingArtikelDAO {
             
             while(rowSet.next()){
                 KoppelBestellingArtikel koppel = new KoppelBestellingArtikel();
+                koppel.setKoppel_id(rowSet.getInt("bestellingartikel_id"));
                 koppel.setBestelling_id(rowSet.getInt("bestelling_id"));
                 koppel.setArtikel_id(rowSet.getInt("artikel_id"));
                 lijst.add(koppel);
