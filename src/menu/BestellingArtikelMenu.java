@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import workshop1.*;
-import static workshop1.KoppelBestellingArtikelDAO.*;
+import static workshop1.lBestellingArtikelDAO.*;
 
 /**
  *
@@ -22,24 +22,24 @@ public class BestellingArtikelMenu {
         while(true){
             printHeader("BESTELLING-ARIKELEN MENU");
             System.out.println(
-                    "Kies 1 om een item toe te voegen \n"
-                + "kies 2 voor alle items van een bestelling \n"
-                + "kies 3 om een bestelregel aan te passen\n"
-                + "kies 4 om een bestelregel te verwijderen");
+                    "Kies 1 om een bestllingartikel toe te voegen \n"
+                + "kies 2 voor alle bestllingartikels van een bestelling \n"
+                + "kies 3 om een bestllingartikel aan te passen\n"
+                + "kies 4 om een bestllingartikel te verwijderen");
             int select = input.nextInt();
             try{
                 switch (select) {
                     case 1:
-                        createBestelRegelsMenu();
+                        createBestelArtikelMenu();
                         break;
                     case 2:
                         getBestelArtikelMenu();
                         break;
                     case 3:
-                        updateBestelRegelsMenu();
+                        updateBestelArtikelMenu();
                         break;
                     case 4:
-                        deleteBestelRegelsMenu();
+                        deleteBestelArtikelMenu();
                         break;
                     default:
                         System.out.println("kies 1, 2 of 3");
@@ -52,9 +52,9 @@ public class BestellingArtikelMenu {
         }
     }
 
-    private static void createBestelRegelsMenu() {
+    private static void createBestelArtikelMenu() {
         Scanner input = new Scanner(System.in);
-        KoppelBestellingArtikel bestellingArtikel = new KoppelBestellingArtikel();
+        BestellingArtikel bestellingArtikel = new BestellingArtikel();
         System.out.println("Enter bestellingID");
         bestellingArtikel.setBestelling_id(input.nextInt());
         System.out.println("Enter artikelID");
@@ -67,17 +67,17 @@ public class BestellingArtikelMenu {
     public static void getBestelArtikelMenu(){
         Scanner input = new Scanner(System.in);
         System.out.println("Enter bestellingID");
-        ArrayList<KoppelBestellingArtikel> lijst = readKoppelMetBestellingID(input.nextInt());
+        ArrayList<BestellingArtikel> lijst = readKoppelMetBestellingID(input.nextInt());
         System.out.printf("%15s %15s %15s\n","KoppelID", "AtikelID", "Aantal");
-        for(KoppelBestellingArtikel e : lijst){
+        for(BestellingArtikel e : lijst){
              System.out.printf("%15s %15d %15d\n",e.getKoppel_id(), e.getArtikel_id(), e.getAantal());
         }
     }
     
-    private static void updateBestelRegelsMenu() {
+    private static void updateBestelArtikelMenu() {
        Scanner input = new Scanner(System.in);
         System.out.println("Enter koppelID");
-        KoppelBestellingArtikel koppel = readKoppelById(input.nextInt());
+        BestellingArtikel koppel = readKoppelById(input.nextInt());
         System.out.println("Enter aantal");
         koppel.setAantal(input.nextInt());
         System.out.println("Enter artikelID");
@@ -85,7 +85,7 @@ public class BestellingArtikelMenu {
         updateKoppel(koppel);
     }
 
-    private static void deleteBestelRegelsMenu() {
+    private static void deleteBestelArtikelMenu() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

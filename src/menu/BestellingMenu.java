@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import workshop1.*;
-import static workshop1.KoppelBestellingArtikelDAO.*;
+import static workshop1.lBestellingArtikelDAO.*;
 
 /**
  *
@@ -54,7 +54,7 @@ public class BestellingMenu {
 
     private static void createBestelRegelsMenu() {
         Scanner input = new Scanner(System.in);
-        KoppelBestellingArtikel bestelRegel = new KoppelBestellingArtikel();
+        BestellingArtikel bestelRegel = new BestellingArtikel();
         System.out.println("Enter bestellingID");
         bestelRegel.setBestelling_id(input.nextInt());
         System.out.println("Enter artikelID");
@@ -67,9 +67,9 @@ public class BestellingMenu {
     public static void getBestelRegelsMenu(){
         Scanner input = new Scanner(System.in);
         System.out.println("Enter bestellingID");
-        ArrayList<KoppelBestellingArtikel> lijst = readKoppelMetArtikelID(input.nextInt());
+        ArrayList<BestellingArtikel> lijst = readKoppelMetArtikelID(input.nextInt());
         System.out.println("**BESTELREGELS**");
-        for(KoppelBestellingArtikel e : lijst){
+        for(BestellingArtikel e : lijst){
             System.out.println(e.getKoppel_id() + "-" + e.getArtikel_id() + "-" + e.getAantal());
         }
     }
