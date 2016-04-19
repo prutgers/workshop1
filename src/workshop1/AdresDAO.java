@@ -19,25 +19,31 @@ public class AdresDAO {
                 + "toevoeging,"
                 + "postcode,"
                 + "woonplaats,"
-                + "adres_id"
+                //+ "adres_id" let op: extra ? in values wanneer deze terug
                 + ")"
-                + "values (?, ?, ?, ?, ?, ?)";
+                + "values (?, ?, ?, ?, ?)";
         try (Connection connection = new DBConnector().getConnection();){
             
-            PreparedStatement stmntCA = connection.prepareStatement(query);
+            PreparedStatement stmntCA = connection.prepareStatement(query,
+                    Statement.RETURN_GENERATED_KEYS);
             
             stmntCA.setString(1, adres.getStraatnaam());
             stmntCA.setInt(2, adres.getHuisnummer());
             stmntCA.setString(3, adres.getToevoeging());
             stmntCA.setString(4, adres.getPostcode());
             stmntCA.setString(5, adres.getWoonplaats());
-            stmntCA.setInt(6, adres.getAdres_id());
+            //stmntCA.setInt(6, adres.getAdres_id()); ??
             
             stmntCA.executeUpdate();
             
+            ResultSet resultSet = stmnt.getGeneratedKeys();
+            if (resultSet.isBeforeFirst()){
+                resultSet.next();
+                adres.setAdres_id(resultSet.getInt(1));
+            }   
         }
         catch (ClassNotFoundException | SQLException ex) {
-            System.out.println("Probeer opnieuw.");
+            System.out.println(ex + "\nProbeer opnieuw.");
             }
     }
     
