@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -41,47 +43,48 @@ public class AdresDaoTest {
     /**
      * Test of createAdres method, of class AdresDAO.
      */
-    /*@Test
+    @Test
     public void testCreateAdres() {
-        System.out.println("createAdres");
-        Adres adres = null;
-        AdresDAO.createAdres(adres);
-    }*/
+        Adres adres = new Adres();
+        adres.setAdres_id(11);
+        
+        Adres adresResultaat = null; 
+        AdresDAO.createAdres(adresResultaat);
+        
+        try (Connection connection = new DBConnector().getConnection();) {
+            PreparedStatement stmnt = connection.prepareStatement(
+                    "SELECT * FROM adres WHERE adres_id=?");
+            stmnt.setInt(1, adresResultaat.getAdres_id());
+            ResultSet resultaat = stmnt.executeQuery();
+            assertEquals(adresResultaat.getAdres_id(), resultaat.getInt("adres_id"));
+        }
+        catch (SQLException | ClassNotFoundException ex) {
+            System.out.println(ex);
+        }
+    }
 
     /**
      * Test of readAdres method, of class AdresDAO.
      */
     @Test
     public void testReadAdres() {
-        System.out.println("readAdres");
-        ArrayList<Adres> expResult = null;
-        ArrayList<Adres> result = AdresDAO.readAdres();
-        assertEquals(expResult, result);
         
-        Adres adres = new Adres();
-        adres.setAdres_id(1);
-        adres.setStraatnaam("Obrechtstraat");
-        adres.setHuisnummer(21);
-        adres.setToevoeging("a");
-        adres.setPostcode("3314EK");
-        adres.setWoonplaats("Dordrecht");    
-        
-        AdresDAO.createAdres(adres);
-        
-        ArrayList<Adres> adresGegevens = new ArrayList<>(); 
+        ArrayList<Adres> adresGegevens = AdresDAO.readAdres(); 
         try(Connection connection = new DBConnector().getConnection();){
             PreparedStatement stmnt = connection.prepareStatement(
-                    "select * from adres where adres_id = 1");
-            ResultSet resultSet = stmnt.executeQuery();
-       
-        assertEquals(1, resultSet.getString("straatnaam"));
-        assertEquals(1, resultSet.getInt("huisnummer"));
-        assertEquals(1, resultSet.getString("postcode"));
-        assertEquals(1, resultSet.getString("woonplaats"));
+                    "select * from adres");
+            ResultSet expResultaat = stmnt.executeQuery();
+            
+            for(Adres resultaat : adresGegevens) {
+        assertEquals(resultaat.getStraatnaam(), expResultaat.getString("straatnaam"));
+        assertEquals(resultaat.getHuisnummer(), expResultaat.getInt("huisnummer"));
+        assertEquals(resultaat.getPostcode(), expResultaat.getString("postcode"));
+        assertEquals(resultaat.getWoonplaats(), expResultaat.getString("woonplaats"));
+            }
         }
         
         catch (ClassNotFoundException | SQLException ex) {
-            System.out.println("Probeer opnieuw.");
+            System.out.println(ex + "\nProbeer opnieuw.");
         }
     }
 
@@ -90,11 +93,17 @@ public class AdresDaoTest {
      */
     @Test
     public void testReadAdresByID() {
-        System.out.println("readAdresByID");
-        int adresID = 0;
-        Adres expResult = null;
-        Adres result = AdresDAO.readAdresByID(adresID);
-        assertEquals(expResult, result);
+        
+        Adres adresTest = AdresDAO.readAdresByID(0);
+        //get expected result
+        try(Connection connection = new DBConnector().getConnection();){
+            PreparedStatement stmnt = connection.prepareStatement("select * from adres");
+            ResultSet resultaat = stmnt.executeQuery();
+            
+                assertEquals(adresTest.getAdres_id(),resultaat.getInt("adres_id"));
+            } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(AdresDaoTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -102,9 +111,25 @@ public class AdresDaoTest {
      */
     @Test
     public void testUpdateAdres() {
-        System.out.println("updateAdres");
-        Adres adres = null;
-        AdresDAO.updateAdres(adres);
+        Adres adres = new Adres();
+        adres.setAdres_id(22);
+        Adres updateAdres = null; 
+        AdresDAO.createAdres(adres);
+        
+        updateAdres.setAdres_id(22);
+        AdresDAO.updateAdres(updateAdres);
+        
+        try(Connection con = new DBConnector().getConnection();){
+            PreparedStatement stmnt = con.prepareStatement(
+                    "SELECT * FROM adres WHERE adres_id=?");
+            stmnt.setInt(1, updateAdres.getAdres_id());
+            
+            ResultSet expResultaat = stmnt.executeQuery();
+            assertEquals(22, expResultaat.getInt("adres_id"));
+        }
+        catch(SQLException | ClassNotFoundException ex){
+            System.out.println(ex);
+        }
     }
 
     /**
@@ -112,8 +137,23 @@ public class AdresDaoTest {
      */
     @Test
     public void testDeleteAdres() {
-        System.out.println("deleteAdres");
-        int adres_id = 0;
-        AdresDAO.deleteAdres(adres_id);
+        Adres adres = new Adres();
+        adres.setAdres_id(33);
+        Adres deleteAdres = null; 
+        AdresDAO.createAdres(adres);
+        
+        AdresDAO.deleteAdres(deleteAdres.getAdres_id());
+        
+        try(Connection con = new DBConnector().getConnection();){
+            PreparedStatement stmnt = con.prepareStatement(
+                    "SELECT * FROM adres WHERE adres_id=?");
+            stmnt.setInt(1, deleteAdres.getAdres_id());
+            
+            ResultSet expResultaat = stmnt.executeQuery();
+            assertEquals(null, expResultaat.getInt("adres_id"));
+        }
+        catch(SQLException | ClassNotFoundException ex){
+            System.out.println(ex);
+        }
     }
 }
