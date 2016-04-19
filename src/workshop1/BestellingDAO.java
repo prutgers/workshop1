@@ -1,6 +1,7 @@
 
 package workshop1;
 
+import ConnectionPools.ConnectionPoolHikari;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -34,7 +35,7 @@ public class BestellingDAO {
 
         */
 
-        try(Connection con = new DBConnector().getConnection();){
+        try(Connection con = new ConnectionPoolHikari().getConnection();){
         
             PreparedStatement stmt = con.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
 
