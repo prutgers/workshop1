@@ -41,7 +41,7 @@ public class BestellingenMenu {
 
             switch (select) {
                 case 1:
-                    createMenu();
+                    createBestellingMenu();
                     break;
                 case 2:
                     createBestelArtikelMenu();
@@ -82,12 +82,10 @@ public class BestellingenMenu {
     /**
      *  1) createMenu maakt een nieuwe bestelling aan en roept de methode XXXX aan die
      * een bestaand artikel toevoeged aan deze bestelling
-     * @throws SQLException
-     * @throws ClassNotFoundException 
      * 
      * samenvatting: Maak een nieuwe bestelling + voeg een artikel toe aan de bestelling
      */
-    public static void createMenu(){
+    public static void createBestellingMenu(){
         Scanner input = new Scanner(System.in);
         //maak nieuwe bestelling aan
         Bestelling bestelling = new Bestelling();   
