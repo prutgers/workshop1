@@ -13,27 +13,7 @@ public class BestellingDAO {
     public static Bestelling createBestelling(Bestelling bestelling) {
 
         String query = "INSERT INTO Bestelling (klant_id) values (?)";
-        /*
-        String query = "INSERT INTO Bestelling ("
-                    + "klant_id, "
-                    + "artikel_id1,"
-                    + "artikel_prijs1, "
-                    + "artikel_naam1,"
-                    + "artikel_aantal1,"
-                
-                    + "artikel_id2,"
-                    + "artikel_prijs2, "
-                    + "artikel_naam2,"
-                    + "artikel_aantal2,"
-                
-                    + "artikel_id3,"
-                    + "artikel_prijs3, "
-                    + "artikel_naam3,"
-                    + "artikel_aantal3"
-                + ") "
-                    + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-        */
+      
 
         try(Connection con = new ConnectionPoolHikari().getConnection();){
         

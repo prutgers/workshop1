@@ -24,12 +24,13 @@ public class KoppelBestellingArtikelDAO {
     // Toe te voegen is Statement.RETURN_GENERATED_KEYS zoals in KlantDAO
     
     public static void createKoppelBestellingArtikel(KoppelBestellingArtikel koppelBestellingArtikel){
-        String query = "INSERT INTO bestellingartikel (bestelling_id, artikel_id)"
-                + " values (?, ?)";
+        String query = "INSERT INTO bestellingartikel (bestelling_id, artikel_id, aantal)"
+                + " values (?, ?, ?)";
         try(Connection con = new DBConnector().getConnection();){
             PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setInt(1, koppelBestellingArtikel.getBestelling_id());
             pstmt.setInt(2, koppelBestellingArtikel.getArtikel_id());
+            pstmt.setInt(3, koppelBestellingArtikel.getAantal());
             pstmt.executeUpdate();
         }
         catch(SQLException | ClassNotFoundException  e){

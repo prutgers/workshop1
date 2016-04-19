@@ -93,10 +93,11 @@ public class BestellingenMenu {
         System.out.print("Enter klant ID: ");    
         bestelling.setKlantID(input.nextInt());
         //Verstuur de bestelling naar de database
-        BestellingDAO.createBestelling(bestelling);
+        Bestelling newBestelling = BestellingDAO.createBestelling(bestelling);
         
+        System.out.println("log bestelling id " + newBestelling.getBestellingID());
         //voegt besteling en artikel samen
-        createBestelArtikelMenu(bestelling.getBestellingID());
+        createBestelArtikelMenu(newBestelling.getBestellingID());
     }
     
     /**
