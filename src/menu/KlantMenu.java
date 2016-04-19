@@ -21,12 +21,11 @@ public class KlantMenu {
                     
             System.out.println("Kies 1 voor createKlant; \n"
                 + "kies 2 voor getKlantByKlant_id, \n"
-                + "kies 3 voor getKlantByAdres_id, \n"
-                + "kies 4 voor getAllKlants, \n"
-                + "kies 5 voor getAllKlantsByPartialKlant, \n"
-                + "kies 6 voor deleteByKlant_id, \n"
-                + "kies 7 voor updateKlant, \n"
-                + "kies 8 ga naar hoofdmenu");
+                + "kies 3 voor getAllKlants, \n"
+                + "kies 4 voor getAllKlantsByPartialKlant, \n"
+                + "kies 5 voor deleteByKlant_id, \n"
+                + "kies 6 voor updateKlant, \n"
+                + "kies 0 ga naar hoofdmenu");
             int select = input.nextInt();
             try{
                 switch (select) {
@@ -38,25 +37,22 @@ public class KlantMenu {
                         getByKlant_idMenu();
                         break;
                     case 3:
-                        getByAdres_idMenu();
-                        break;
-                    case 4:
                         getAllMenu();
                         break;
-                    case 5:
+                    case 4:
                         getAllKlantsByPartialKlant();
                         break;
-                    case 6:
+                    case 5:
                         deleteByIdMenu();
                         break;
-                    case 7:
+                    case 6:
                         UpdateByIdMenu();
                         break;
-                    case 8:
+                    case 0:
                         HoofdMenu.startMenu();
                         break;
                     default:
-                        System.out.println("kies 1, 2, 3, 4, 5, 6, 7 of 8");
+                        System.out.println("kies 1, 2, 3, 4, 5, 6 of 0");
                         break;
                 }
             }
@@ -82,16 +78,24 @@ public class KlantMenu {
         inputKlant.setEmail( input.next() );
         
         //Verstuur de bestelling naar de database
-        KlantDAO.createKlant(inputKlant);
+        try {
+            KlantDAO.createKlant(inputKlant);
+        }
+        catch(com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException ex){
+            System.out.println("\nUw staat al in ons register!\n" );
+        }
+        catch(Exception ex){
+            ex.printStackTrace();         
+        }
     }
     
     public static void getAllMenu(){
         ArrayList<Klant> list = KlantDAO.readAllKlantByKlant(new Klant());
-        System.out.println("LIJST MET ALLE KLANTEN \n"
+        System.out.println("\nLIJST MET ALLE KLANTEN \n"
                 + "====");
-        System.out.println("Klant_id  Voornaam  Achternaam   Tussenvoegsel  Email  Adres_id");
+        System.out.printf("%12s| %31s| %32s| %13s| %31s|\n", "Klant_id", "Voornaam", "Achternaam", "Tussenvoegsel", "Email");
         for(Klant e : list){
-            System.out.println( e.toString() );
+            System.out.printf("%12s| %31s| %32s| %13s| %31s|\n", e.getKlant_id(), e.getVoornaam(), e.getAchternaam(), e.getTussenvoegsel(), e.getEmail());
         }
     }
     
@@ -100,12 +104,99 @@ public class KlantMenu {
         
         //verkrijg data uit de commandline
         System.out.println("Enter klant_id :");
-        Klant klantOuput = KlantDAO.readKlant( input.nextInt() );
-        System.out.println( klantOuput.toString() );
+        Klant e = KlantDAO.readKlant( input.nextInt() );
+        System.out.printf("%12s| %31s| %32s| %13s| %31s|\n", "Klant_id", "Voornaam", "Achternaam", "Tussenvoegsel", "Email");
+        System.out.printf("%12s| %31s| %32s| %13s| %31s|\n", e.getKlant_id(), e.getVoornaam(), e.getAchternaam(), e.getTussenvoegsel(), e.getEmail());
         
     }
     
-    public static void getByAdres_idMenu()throws SQLException, ClassNotFoundException{
+    
+    
+    public static void deleteByIdMenu(){
+        Scanner input = new Scanner(System.in);
+        
+        //verkrijg data uit de commandline
+        System.out.println("Enter Klant ID :");
+        int klantId = input.nextInt();
+
+        try {
+            KlantDAO.deleteKlant(klantId);
+            System.out.println("Klant deleted: "+ klantId +".");
+        }
+        catch(com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException ex){
+            System.out.println("Klant kan niet worden verwijdered;\n"
+                    + " het klantId \""+ klantId +"\" is nog in gebruik in"
+                    + " de KoppelKlantAdres tabel of de bestellings tabel." );
+        }
+        catch(Exception ex){
+            ex.printStackTrace();         
+        }
+    }
+    
+    public static void getAllKlantsByPartialKlant(){
+        Scanner input = new Scanner(System.in);
+        Klant inputKlant = new Klant();   
+        
+        //verkrijg data uit de commandline en zet in de inputklant
+        System.out.println("Wat weet je over de persoon die je zoekt?"
+                + " If you don't know a certain field just leave it blank.");
+        System.out.print("Voornaam :");
+        inputKlant.setVoornaam( input.nextLine() );
+        System.out.print("Achternaam :");
+        inputKlant.setAchternaam( input.nextLine() );
+        System.out.print("Toevoegingen :");
+        inputKlant.setTussenvoegsel( input.nextLine() );
+        System.out.print("Email adress :");
+        inputKlant.setEmail( input.nextLine() );
+        
+        //incomplete inputKlant nu naar KlantDao voor lijst met alle mogelijke klanten
+        ArrayList<Klant> list = KlantDAO.readAllKlantByKlant(inputKlant);
+        System.out.println("LIJST MET ALLE KLANTEN \n"
+                + "====");
+        System.out.printf("%12s| %31s| %32s| %13s| %31s|\n", "Klant_id", "Voornaam", "Achternaam", "Tussenvoegsel", "Email");
+        for(Klant e : list){
+            System.out.printf("%12s| %31s| %32s| %13s| %31s|\n", e.getKlant_id(), e.getVoornaam(), e.getAchternaam(), e.getTussenvoegsel(), e.getEmail());
+        }
+    }
+    
+    public static void UpdateByIdMenu(){
+        Scanner input = new Scanner(System.in);
+        
+        //select a Klant
+        System.out.println("\nUpdate een Klant! \nWat is je Klant_id?");
+        Klant outputKlant = KlantDAO.readKlant( Integer.parseInt(input.nextLine() ) );
+        
+        System.out.println("Welkom terug " + outputKlant.getVoornaam() );
+        
+        //verkrijg de nieuwe data uit de commandline en zet in de Outputklant
+        System.out.println("Please fill in your new infromation:"
+                + " (If you don't want to update a field just leave it blank.)");
+        System.out.print("Je nieuwe Voornaam :");
+        String nieuweVoornaam = input.nextLine();
+        if ( !nieuweVoornaam.equals("") ) {
+            outputKlant.setVoornaam( nieuweVoornaam );
+                }
+        System.out.print("Je nieuwe Achternaam:");
+        String nieuweAchternaam = input.nextLine();
+        if ( !nieuweAchternaam.equals("") ) {
+            outputKlant.setAchternaam( nieuweAchternaam );
+                }
+        System.out.print("Je nieuwe Toevoegingen:");
+        String nieuweTussenvoegsel = input.nextLine();
+        if ( !nieuweTussenvoegsel.equals("") ) {
+            outputKlant.setTussenvoegsel( nieuweTussenvoegsel );
+                }
+        System.out.print("Je nieuwe Email adres:");
+        String nieuwEmail = input.nextLine();
+        if ( !nieuwEmail.equals("") ) {
+            outputKlant.setEmail( nieuwEmail );
+                }
+        
+        //Nieuwe versie van klant word nu verstuurd naar DB
+        KlantDAO.updateKlant(outputKlant);
+    }
+    
+    /*public static void getByAdres_idMenu()throws SQLException, ClassNotFoundException{
         Scanner input = new Scanner(System.in);
         
         //verkrijg data uit de commandline
@@ -120,79 +211,5 @@ public class KlantMenu {
         for(Klant e : list){
             System.out.println( e.toString() );
         }
-    }
-    
-    public static void deleteByIdMenu(){
-        Scanner input = new Scanner(System.in);
-        
-        //verkrijg data uit de commandline
-        System.out.println("Enter Klant ID :");
-        int klantId = input.nextInt();
-
-        KlantDAO.deleteKlant(klantId);
-        System.out.println("Klant deleted: klant_id.");
-    }
-    
-    public static void getAllKlantsByPartialKlant(){
-        Scanner input = new Scanner(System.in);
-        Klant inputKlant = new Klant();   
-        
-        //verkrijg data uit de commandline en zet in de inputklant
-        System.out.println("Create a new Klant!"
-                + " If you don't know a certain field just leave it blank.");
-        System.out.print("Your first name :");
-        inputKlant.setVoornaam( input.nextLine() );
-        System.out.print("Your last name :");
-        inputKlant.setAchternaam( input.nextLine() );
-        System.out.print("Additieves :");
-        inputKlant.setTussenvoegsel( input.nextLine() );
-        System.out.print("Your email adress :");
-        inputKlant.setEmail( input.nextLine() );
-        
-        //incomplete inputKlant nu naar KlantDao voor lijst met alle mogelijke klanten
-        ArrayList<Klant> list = KlantDAO.readAllKlantByKlant(inputKlant);
-        System.out.println("LIJST MET ALLE KLANTEN \n"
-                + "====");
-        System.out.println("Klant_id  Voornaam  Achternaam   Tussenvoegsel  Email  Adres_id");
-        for(Klant e : list){
-            System.out.println( e.toString() );
-        }
-    }
-    
-    public static void UpdateByIdMenu(){
-        Scanner input = new Scanner(System.in);
-        
-        //select a Klant
-        System.out.println("Update a Klant! \nWhat is your Klant_id?");
-        Klant outputKlant = KlantDAO.readKlant( input.nextInt() );
-        
-        System.out.println("Welcome back " + outputKlant.getVoornaam() );
-        
-        //verkrijg de nieuwe data uit de commandline en zet in de Outputklant
-        System.out.println("Please fill in your new infromation:"
-                + " (If you don't want to update a field just leave it blank.)");
-        System.out.print("Your new first name :");
-        String nieuweVoornaam = input.nextLine();
-        if ( !nieuweVoornaam.equals("") ) {
-            outputKlant.setVoornaam( nieuweVoornaam );
-                }
-        System.out.print("Your new last name :");
-        String nieuweAchternaam = input.nextLine();
-        if ( !nieuweAchternaam.equals("") ) {
-            outputKlant.setVoornaam( nieuweAchternaam );
-                }
-        System.out.print("new Additieves :");
-        String nieuweTussenvoegsel = input.nextLine();
-        if ( !nieuweTussenvoegsel.equals("") ) {
-            outputKlant.setVoornaam( nieuweTussenvoegsel );
-                }
-        System.out.print("Your new email adress :");
-        String nieuwEmail = input.nextLine();
-        if ( !nieuwEmail.equals("") ) {
-            outputKlant.setVoornaam( nieuwEmail );
-                }
-        
-        //Nieuwe versie van klant word nu verstuurd naar DB
-        KlantDAO.updateKlant(outputKlant);
-    }
+    }*/
 }

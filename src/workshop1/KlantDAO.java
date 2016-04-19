@@ -12,35 +12,43 @@ package workshop1;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import javax.sql.rowset.JdbcRowSet;
+import com.sun.rowset.CachedRowSetImpl;
 import java.sql.Statement;
 import java.util.ArrayList;
 
 public class KlantDAO {
     
  
-    public static Klant createKlant(Klant klant){
+    public static Klant createKlant(Klant klant) throws com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException {
         Klant klantOut = klant;
-        
-        try (
-            Connection connection = (new DBConnector()).getConnection();
-                )
-        {
-            PreparedStatement createKlant = connection.prepareStatement(
-                    "insert into klant (voornaam, achternaam,"
-                            + " tussenvoegsel, email, adres_id)"
-                            +"values (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+        try ( CachedRowSetImpl connection = new CachedRowSetImpl();
+                ) {
+            connection.setUrl("jdbc:mysql://localhost/workshopdb");
+            connection.setUsername("rsvier");
+            connection.setPassword("tiger");
+            connection.setCommand(
+                    "insert into klant ("
+                            + "voornaam,"       //1
+                            + " achternaam,"    //2
+                            + " tussenvoegsel," //3
+                            + " email)"         //4
+                            + "values (?, ?, ?, ?)");
             
-            createKlant.setString(1, klant.getVoornaam() );
-            createKlant.setString(2, klant.getAchternaam() );
-            createKlant.setString(3, klant.getTussenvoegsel() );
-            createKlant.setString(4, klant.getEmail() );
-            createKlant.setString(5, Integer.toString(klant.getAdres().getAdres_id()) );
+            connection.setString(1, klant.getVoornaam() );
+            connection.setString(2, klant.getAchternaam() );
+            connection.setString(3, klant.getTussenvoegsel() );
+            connection.setString(4, klant.getEmail() );
             
-            createKlant.execute();
-            ResultSet klant_idData = createKlant.getGeneratedKeys();
-            klant_idData.next();
-            klantOut.setKlant_id( klant_idData.getInt(1) );
+            connection.execute();
+            //ResultSet klant_idData = connection.getGeneratedKeys();
+            connection.next();
+            klantOut.setKlant_id( connection.getInt("klant_id") );
             
+        }
+        catch(com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException ex){
+            throw ex;         
         }
         catch(Exception ex){
             ex.printStackTrace();         
@@ -50,25 +58,23 @@ public class KlantDAO {
     
     public static Klant readKlant(int klant_id){
         Klant klant = new Klant();
-        try (
-            Connection connection = (new DBConnector()).getConnection();
-                )
-        {
-            PreparedStatement readKlant = connection.prepareStatement(
-                    "select * from klant where Klant_id = ?");
-            readKlant.setString(1, Integer.toString(klant_id) );
+        try ( CachedRowSetImpl connection = new CachedRowSetImpl();
+                ) {
+            connection.setUrl("jdbc:mysql://localhost/workshopdb");
+            connection.setUsername("rsvier");
+            connection.setPassword("tiger");
+            connection.setCommand("select * from klant where klant_id = ?");
+            connection.setString(1, Integer.toString(klant_id) );
 
-            ResultSet readKlantResult = readKlant.executeQuery();
             
+            connection.execute();
             
-            readKlantResult.next();
-            klant.setKlant_id(readKlantResult.getInt(1));
-            klant.setVoornaam(readKlantResult.getString(2));
-            klant.setAchternaam(readKlantResult.getString(3));
-            klant.setTussenvoegsel(readKlantResult.getString(4));
-            klant.setEmail(readKlantResult.getString(5));
-            klant.setAdres_id(readKlantResult.getInt(6));
-            klant.setAdres( AdresDAO.readAdresByID(klant.getAdres_id() ) );
+            connection.next();
+            klant.setKlant_id(connection.getInt("klant_id"));
+            klant.setVoornaam(connection.getString("voornaam"));
+            klant.setAchternaam(connection.getString("achternaam"));
+            klant.setTussenvoegsel(connection.getString("tussenvoegsel"));
+            klant.setEmail(connection.getString("email"));
             
         }
         catch(Exception ex){
@@ -80,22 +86,27 @@ public class KlantDAO {
     
     public static Klant updateKlant(Klant klant){
         Klant klantOut = klant;
-        try (
-            Connection connection = (new DBConnector()).getConnection();
-                )
-        {
-            PreparedStatement updateKlant = connection.prepareStatement(
-                    "update klant set voornaam = ?, achternaam = ?,"
-                            + "  tussenvoegsel = ?, email = ?, adres_id = ?"
-                            +"where Klant_id = ?");
+        try ( CachedRowSetImpl connection = new CachedRowSetImpl();
+                ) {
+            connection.setUrl("jdbc:mysql://localhost/workshopdb");
+            connection.setUsername("rsvier");
+            connection.setPassword("tiger");
+            
+            connection.setCommand(
+                    "update klant set voornaam = ?,"    //1
+                            + " achternaam = ?,"        //2
+                            + " tussenvoegsel = ?,"     //3
+                            + " email = ?"              //4
+                            +"where Klant_id = ?");     //5
+            
+            CachedRowSetImpl updateKlant = connection;
             
             updateKlant.setString(1, klant.getVoornaam() );
             updateKlant.setString(2, klant.getAchternaam() );
             updateKlant.setString(3, klant.getTussenvoegsel() );
             updateKlant.setString(4, klant.getEmail() );
-            updateKlant.setString(5, Integer.toString(klant.getAdres().getAdres_id()) );
-            updateKlant.setString(6, Integer.toString(klant.getKlant_id()) );
-            updateKlant.executeUpdate();
+            updateKlant.setInt(5, klant.getKlant_id() );
+            updateKlant.execute();
             
             klantOut = readKlant(klant.getKlant_id());
 
@@ -106,64 +117,65 @@ public class KlantDAO {
         return klantOut;
     }
 
-    public static void deleteKlant(int klant_id){
-        try (
-            Connection connection = (new DBConnector()).getConnection();
-                )
-        {
-            PreparedStatement deleteKlant = connection.prepareStatement(
+    public static void deleteKlant(int klant_id) throws com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException {
+        try ( CachedRowSetImpl connection = new CachedRowSetImpl();
+                ) {
+            connection.setUrl("jdbc:mysql://localhost/workshopdb");
+            connection.setUsername("rsvier");
+            connection.setPassword("tiger");
+            
+            connection.setCommand(
                     "delete from klant where Klant_id = ?");
-            deleteKlant.setString(1, Integer.toString(klant_id) );
+            connection.setString(1, Integer.toString(klant_id) );
 
-            deleteKlant.executeUpdate();
+            connection.execute();
             
         }
+        catch(com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException ex){
+            throw ex;         
+        }
         catch(Exception ex){
-            ex.printStackTrace();            
+            ex.printStackTrace();     
         }
     }
     
     public static ArrayList<Klant> readAllKlantByKlant(Klant klant){
         ArrayList<Klant> AllKlant = new ArrayList();
         int i = 0;
-        try (
-            Connection connection = (new DBConnector()).getConnection();
-                )
-        {
-            PreparedStatement readKlant = connection.prepareStatement(
+        try ( CachedRowSetImpl connection = new CachedRowSetImpl();
+                ) {
+            connection.setUrl("jdbc:mysql://localhost/workshopdb");
+            connection.setUsername("rsvier");
+            connection.setPassword("tiger");
+            connection.setCommand(
                     "select * from klant where "
                             + "Klant_id LIKE ? "           //1
                             + "and voornaam LIKE ? "       //2
                             + "and achternaam LIKE ? "     //3
                             + "and tussenvoegsel LIKE ? "  //4
-                            + "and email LIKE ? "          //5
-                            + "and adres_id LIKE ?");      //6
+                            + "and email LIKE ? ");        //5
             
-            readKlant.setString(1, (klant.getKlant_id() == 0)?
+            connection.setString(1, (klant.getKlant_id() == 0)?
                     "%" : Integer.toString( klant.getKlant_id() ) );
-            readKlant.setString(2, ( klant.getVoornaam() == null  || klant.getVoornaam().equals("") )?
+            connection.setString(2, ( klant.getVoornaam() == null  || klant.getVoornaam().equals("") )?
                     "%" : klant.getVoornaam() );
-            readKlant.setString(3, ( klant.getAchternaam() == null  || klant.getVoornaam().equals("") )?
+            connection.setString(3, ( klant.getAchternaam() == null  || klant.getAchternaam().equals("") )?
                     "%" : klant.getAchternaam() );
-            readKlant.setString(4, ( klant.getTussenvoegsel() == null  || klant.getVoornaam().equals("") )?
+            connection.setString(4, ( klant.getTussenvoegsel() == null  || klant.getTussenvoegsel().equals("") )?
                     "%" : klant.getTussenvoegsel() );
-            readKlant.setString(5, ( klant.getEmail() == null  || klant.getVoornaam().equals("") )?
+            connection.setString(5, ( klant.getEmail() == null  || klant.getEmail().equals("") )?
                     "%" : klant.getEmail() );
-            readKlant.setString(6, ( klant.getAdres().getAdres_id() == 0)?
-                    "%" : Integer.toString( klant.getKlant_id() ) );
 
-            ResultSet readKlantResult = readKlant.executeQuery();
+            connection.execute();
             
-            while (readKlantResult.next()){
+            while (connection.next()){
                 i++;
                 Klant klant4Array = new Klant();
-                klant4Array.setKlant_id(readKlantResult.getInt(1));
-                klant4Array.setVoornaam(readKlantResult.getString(2));
-                klant4Array.setAchternaam(readKlantResult.getString(3));
-                klant4Array.setTussenvoegsel(readKlantResult.getString(4));
-                klant4Array.setEmail(readKlantResult.getString(5));
-                klant4Array.setAdres_id(readKlantResult.getInt(6));
-                klant4Array.setAdres(AdresDAO.readAdresByID(klant4Array.getAdres_id()));
+                klant.setKlant_id(connection.getInt("klant_id"));
+                klant.setVoornaam(connection.getString("voornaam"));
+                klant.setAchternaam(connection.getString("achternaam"));
+                klant.setTussenvoegsel(connection.getString("tussenvoegsel"));
+                klant.setEmail(connection.getString("email"));
                 AllKlant.add(klant4Array);
             }
 
@@ -176,7 +188,7 @@ public class KlantDAO {
         return AllKlant;
     }
     
-    public static ArrayList<Klant> readAllKlantByAdres_id(int adres_id){
+    /*public static ArrayList<Klant> readAllKlantByAdres_id(int adres_id){
         ArrayList<Klant> AllKlant = new ArrayList();
         int i = 0;
         try (
@@ -198,8 +210,6 @@ public class KlantDAO {
                 klant4Array.setAchternaam(readKlantResult.getString(3));
                 klant4Array.setTussenvoegsel(readKlantResult.getString(4));
                 klant4Array.setEmail(readKlantResult.getString(5));
-                klant4Array.setAdres_id(readKlantResult.getInt(6));
-                klant4Array.setAdres(AdresDAO.readAdresByID(klant4Array.getAdres_id()));
                 AllKlant.add(klant4Array);
             }
 
@@ -210,5 +220,5 @@ public class KlantDAO {
         }
         System.out.println("" + i +" Klants matched this inquiry.");
         return AllKlant;
-    }
+    }*/
 }

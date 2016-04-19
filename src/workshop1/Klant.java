@@ -19,8 +19,6 @@ public class Klant {
     private String achternaam;
     private String tussenvoegsel;
     private String email;
-    private int adres_id;
-    private Adres adres;
     
     public Klant(){
     }
@@ -37,7 +35,6 @@ public class Klant {
         tussenvoegsel = input.next();
         System.out.print("Your email adress :");
         email = input.next();
-        adres = new Adres();
     }
     
     public Klant(ResultSet klantData) throws SQLException{
@@ -47,12 +44,11 @@ public class Klant {
         achternaam = klantData.getString(3);
         tussenvoegsel = klantData.getString(4);
         email = klantData.getString(5);
-        adres = new Adres();
     }
     
     public String toString(){
         return "" + getKlant_id() + ", " + getVoornaam() + ", " + getAchternaam() + ", "
-                + getTussenvoegsel() + ", " + getEmail()+ ", " + getAdres().toString();
+                + getTussenvoegsel() + ", " + getEmail();
     }
 
     /**
@@ -123,33 +119,5 @@ public class Klant {
      */
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    /**
-     * @return the adres_id
-     */
-    public int getAdres_id() {
-        return adres_id;
-    }
-
-    /**
-     * @param adres_id the adres_id to set
-     */
-    public void setAdres_id(int klant_id) {
-        this.adres_id = klant_id;
-    }
-    
-    /**
-     * @return the adres
-     */
-    public Adres getAdres() {
-        return adres;
-    }
-
-    /**
-     * @param adres the adres to set
-     */
-    public void setAdres(Adres adres) {
-        this.adres = adres;
     }
 }
