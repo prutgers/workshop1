@@ -14,6 +14,17 @@ import java.sql.SQLException;
  * @author Gebruiker
  */
 
+/**
+ * Hier kan je de HikariCP van downloaden en dan de HikariCP 2.4.5 de jar file
+ * http://search.maven.org/#search|ga|1|com.zaxxer.hikaricp
+ * Ga naar libraries in netbeans rechtermuisknop workshop1 properties
+     * Druk op libraries
+     * add library
+     * create
+     * dan add the file commons-validator-1.5.0 aan de classpath
+ * @author Peter
+ */
+
 public class ConnectionPoolHikari {
     HikariDataSource ds;
     public ConnectionPoolHikari(){
