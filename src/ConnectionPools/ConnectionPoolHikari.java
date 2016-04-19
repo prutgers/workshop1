@@ -22,6 +22,9 @@ import java.sql.SQLException;
      * add library
      * create
      * dan add the file commons-validator-1.5.0 aan de classpath
+     * 
+     * verder heb je ook nog de slf4j-api nodig en de slf4j-simple
+     * zelfde manier als hikariCP te vinden op http://www.slf4j.org/download.html
  * @author Peter
  */
 
