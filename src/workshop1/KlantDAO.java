@@ -44,6 +44,7 @@ public class KlantDAO {
             connection.execute();
             //ResultSet klant_idData = connection.getGeneratedKeys();
             connection.next();
+            // Dit werk niet momenteel en geeft foutmeldingen een Nullpointer dus dit moet nog anders
             klantOut.setKlant_id( connection.getInt("klant_id") );
             
         }
