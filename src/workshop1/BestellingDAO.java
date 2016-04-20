@@ -1,7 +1,7 @@
 
 package workshop1;
 
-import ConnectionPools.ConnectionPoolHikari;
+import ConnectionPools.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,7 +15,7 @@ public class BestellingDAO {
         String query = "INSERT INTO Bestelling (klant_id) values (?)";
       
 
-        try(Connection con = new ConnectionPoolHikari().getConnection();){
+        try(Connection con = new HermanConnectionPoolHikari().getConnection();){
         
             PreparedStatement stmt = con.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
 

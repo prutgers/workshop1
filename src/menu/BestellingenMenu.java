@@ -95,7 +95,7 @@ public class BestellingenMenu {
         //Verstuur de bestelling naar de database
         Bestelling newBestelling = BestellingDAO.createBestelling(bestelling);
         
-        System.out.println("log bestelling id " + newBestelling.getBestellingID());
+        
         //voegt besteling en artikel samen
         createBestelArtikelMenu(newBestelling.getBestellingID());
     }
@@ -221,7 +221,6 @@ public class BestellingenMenu {
         System.out.print("Enter aantal: ");
         bestellingArtikel.setAantal(input.nextInt());
         KoppelBestellingArtikelDAO.createKoppelBestellingArtikel(bestellingArtikel);
-        
     }
     
     

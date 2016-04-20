@@ -9,7 +9,7 @@ package workshop1;
  *
  * @author lucas
  */
-public interface DBConnectorSettings {
+public interface HermanDBConnectorSettings {
     public static final int NILL = 0;
     public static final int HIKARI = 1;
     public static final int C3PO = 2;
