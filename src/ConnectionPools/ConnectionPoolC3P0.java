@@ -40,19 +40,20 @@ public class ConnectionPoolC3P0 implements GetConnection,java.io.Closeable  {
     public ConnectionPoolC3P0(){
         ComboPooledDataSource cpds = new ComboPooledDataSource();
         try {
-            cpds.setDriverClass( "org.postgresql.Driver" ); //loads the jdbc driver
-            logger.info("C3P0 Driver loaded");
+            cpds.setDriverClass( "com.mysql.jdbc.Driver" ); //loads the jdbc driver
+                logger.info("C3P0 Driver loaded");
             
-            cpds.setJdbcUrl( "jdbc:postgresql://localhost/workshopdb" );
+            cpds.setJdbcUrl( "jdbc:mysql://localhost/workshopdb" );
             cpds.setUser("rsvier");
             cpds.setPassword("tiger");
             cpds.setMaxStatements( 50 );
             
-            logger.info("Database connected");
+                logger.info("Database connected");
             
             this.cpds = cpds;
         }
         catch (Exception ex){
+            ex.printStackTrace();
         }
         
     }

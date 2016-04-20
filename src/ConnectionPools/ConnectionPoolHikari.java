@@ -32,7 +32,7 @@ import java.sql.SQLException;
 
 public class ConnectionPoolHikari implements GetConnection,java.io.Closeable  {
     
-    static Logger logger = LoggerFactory.getLogger(ConnectionPoolC3P0.class);
+    static Logger logger = LoggerFactory.getLogger(ConnectionPoolHikari.class);
     
     HikariDataSource ds;
     public ConnectionPoolHikari(){
@@ -51,7 +51,7 @@ public class ConnectionPoolHikari implements GetConnection,java.io.Closeable  {
         config.addDataSourceProperty("password", "tiger");
             logger.info("Database connected");
         
-                this.ds = new HikariDataSource(config);
+        this.ds = new HikariDataSource(config);
     }
     
     @Override
