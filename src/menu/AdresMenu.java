@@ -126,13 +126,12 @@ public class AdresMenu {
         int adres_id = input.nextInt();
         
         Adres adres = AdresDAO.readAdresByID(adres_id);  
+        //Verwijderd vraag nieuwe Adres_id deze is namelijk niet nodig het adres id blijft voor
+        // altijd gelijk
         
-        System.out.println("Huidig adres ID: " + adres.getAdres_id() + "\n"
-                + "Voer een nieuw adres ID in:");
-        int adresID = input.nextInt();
         System.out.println("Huidige straanaam: " + adres.getStraatnaam() + "\n"
                 + "Voer een nieuwe straatnaam in:");
-        String straatnaam = input.next();
+        String straatnaam = VerifyInputScanner.verifyString();
         System.out.println("Huidig huisnummer: " + adres.getHuisnummer() + "\n"
                 + "Voer een nieuw huisnummer in:");
         int huisnummer = input.nextInt();
@@ -146,7 +145,7 @@ public class AdresMenu {
                 + "Voer een nieuwe woonplaats in:");
         String woonplaats = input.next();
 
-        adres.setAdres_id(adresID);
+        adres.setAdres_id(adres_id);
         adres.setStraatnaam(straatnaam);
         adres.setHuisnummer(huisnummer);
         adres.setToevoeging(toevoeging);

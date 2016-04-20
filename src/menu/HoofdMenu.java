@@ -29,7 +29,7 @@ public class HoofdMenu {
                 KlantMenu.startMenu();
                 break;
             case 2:
-                //AdresMenu.startMenu();
+                AdresMenu.startMenu();
                 break;
             case 3:
                 ArtikelMenu.startMenu();
