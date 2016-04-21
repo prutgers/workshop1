@@ -11,18 +11,29 @@ package workshop1;
  */
 
 /**
- * ArtikelDAO doet momenteen nog alles het zou mooi zijn als ik de connectie lost weet te koppelen
- * @author Peter
- */
-
-/**
- * Deze firebird downloaden
- * http://sourceforge.net/projects/firebird/files/firebird-win64/2.5.5-Release/Firebird-2.5.5.26952_0_x64.exe/download
+ * FIREBIRD EN JAYBIRD DOWNLOADEN
+ * FIREBIRD: http://sourceforge.net/projects/firebird/files/firebird-win64/2.5.5-Release/Firebird-2.5.5.26952_0_x64.exe/download
  * install met alle opties zoals ze standaard staan ik heb een super server aangevinkt
+ * 
+ * JAYBIRD: http://www.firebirdsql.org/en/jdbc-driver/
+ * toevoegen aan library
  * 
  * extra documentatie voor de start http://www.firebirdsql.org/file/documentation/reference_manuals/user_manuals/html/qsg25.html
  * 
  */
+
+/** Om allemaal de gelijke database te hebben doe het volgende
+ * maak op c: een mapje data
+ * zet in het mapje data input.sql en inputcreate.sql
+ * start de firebird tool en type: INPUT C:\data\inputcreate.sql
+ *      daarmee maak je hem aan en krijg je 1 database die TEST heeft met 1 tabel ARTIKEL
+ *      de tabal heeft twee kolommen artikel_id (int) en artikel_naam (varchar)
+ * mocht je later weer willen connecten naar de database type dan:
+ *          INPUT C:\data\input.sql
+ * 
+*/
+
+
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -30,149 +41,38 @@ import java.util.ArrayList;
 public class ArtikelDAOFirebird {
     
     public static void testFirebirdDB(){
-        String user = "rsvier";
-        String password = "tiger";
+        String user = "SYSDBA";
+        String password = "masterkey";
         String datbaseUrl;
         //Syntax URL jdbc:firebirdsql:[host[/port]:]<database>
-        
-        datbaseUrl = "jdbc:firebirdsql://localhost/3050:c://data/TEST.fdb";
+        datbaseUrl = "jdbc:firebirdsql://localhost:3050/C://data\\test.FDB";
        
         try(Connection connection = DriverManager.getConnection(datbaseUrl, user, password)){
-            Class.forName("com.mysql.jdbc.Driver");
-            String sql = "INSERT INTO artikel("
-            + "artikel_naam,"
-            + "artikel_voorraad,"
-            + "artikel_prijs) "
-            +  "VALUES(?,?,?)";
-            PreparedStatement pstmt = connection.prepareStatement(sql);
+            Class.forName("org.firebirdsql.jdbc.FBDriver");
+            
+            
+            String sql = "INSERT INTO ARTIKEL("
+            + "artikel_id, artikel_naam)"
+            +  "VALUES(43436, 'hasfasferman')"
+            + "returning artikel_id, artikel_naam";
+            Statement pstmt = connection.createStatement();
             // Set the values
-            pstmt.setString(1, artikel.getArtikel_naam());
-            pstmt.setInt(2, artikel.getArtikel_voorraad());
-            pstmt.setDouble(3, artikel.getArtikel_prijs());
+            //int artikelID = 4;
+            //pstmt.setInt(1, artikelID);
+            
             // Insert 
-            pstmt.executeUpdate();
+            pstmt.executeQuery(sql);
             pstmt.close();
+            
         } 
-        catch (ClassNotFoundException | SQLException e){
-                System.out.println("verdorie mislukt");
+        catch (SQLException e){
+                System.out.println("SQL fout");
+                e.printStackTrace();
+        }
+        catch(ClassNotFoundException p){
+            System.out.println("verdorie mislukt");
         }
         
     }
 
-   public static void createNewArtikel(Artikel artikel){
-        //Connect to database
-        String user = "rsvier";
-        String password = "tiger";
-        String datbaseUrl = "jdbc:mysql://localhost/workshopdb";
-        try(Connection connection = DriverManager.getConnection(datbaseUrl, user, password)){
-            Class.forName("com.mysql.jdbc.Driver");
-            String sql = "INSERT INTO artikel("
-            + "artikel_naam,"
-            + "artikel_voorraad,"
-            + "artikel_prijs) "
-            +  "VALUES(?,?,?)";
-            PreparedStatement pstmt = connection.prepareStatement(sql);
-            // Set the values
-            pstmt.setString(1, artikel.getArtikel_naam());
-            pstmt.setInt(2, artikel.getArtikel_voorraad());
-            pstmt.setDouble(3, artikel.getArtikel_prijs());
-            // Insert 
-            pstmt.executeUpdate();
-            pstmt.close();
-        } 
-        catch (ClassNotFoundException | SQLException e){
-                System.out.println("verdorie mislukt");
-        }
-    }
-   
-   public static ArrayList<Artikel> readArtikel(){
-        ArrayList<Artikel> artikelLijst = new ArrayList<Artikel>();
-        String user = "rsvier";
-        String password = "tiger";
-        String datbaseUrl = "jdbc:mysql://localhost/workshopdb";
-        try(Connection connection = DriverManager.getConnection(datbaseUrl, user, password)){
-            Class.forName("com.mysql.jdbc.Driver");
-            String query = "SELECT * FROM artikel";
-            PreparedStatement pstmt = connection.prepareStatement(query);
-            ResultSet rs = pstmt.executeQuery(query);
-            while (rs.next()) {
-                Artikel artikel = new Artikel(); 
-                artikel.setArtikel_id(rs.getInt("artikel_id"));
-                artikel.setArtikel_naam(rs.getString("artikel_naam"));
-                artikel.setArtikel_voorraad(rs.getInt("artikel_voorraad"));
-                artikel.setArtikel_prijs(rs.getDouble("artikel_prijs"));
-                artikelLijst.add(artikel);
-            }
-            pstmt.close();
-        }
-        catch (ClassNotFoundException | SQLException e){
-            System.out.println("verdorie mislukt");
-        } 
-       return artikelLijst;
-   }
-   
-   public static Artikel readArtikel(int artikel_id){
-        Artikel artikel = new Artikel();
-        String user = "rsvier";
-        String password = "tiger";
-        String datbaseUrl = "jdbc:mysql://localhost/workshopdb";
-
-        try(Connection connection = DriverManager.getConnection(datbaseUrl, user, password)){
-            Class.forName("com.mysql.jdbc.Driver");
-            String query = "SELECT * FROM artikel WHERE artikel_id = " + artikel_id;
-            PreparedStatement pstmt = connection.prepareStatement(query);
-            ResultSet rs = pstmt.executeQuery(query);
-            while (rs.next()) {
-                artikel.setArtikel_id(rs.getInt("artikel_id"));
-                artikel.setArtikel_naam(rs.getString("artikel_naam"));
-                artikel.setArtikel_voorraad(rs.getInt("artikel_voorraad"));
-                artikel.setArtikel_prijs(rs.getDouble("artikel_prijs"));
-            }
-            pstmt.close();
-        }
-        catch (ClassNotFoundException | SQLException e){
-            System.out.println("verdorie mislukt");
-        } 
-       return artikel;
-    }
-   
-   public static void updateArtikel(Artikel artikel){
-        String user = "rsvier";
-        String password = "tiger";
-        String datbaseUrl = "jdbc:mysql://localhost/workshopdb";
-        try(Connection connection = DriverManager.getConnection(datbaseUrl, user, password)){
-            Class.forName("com.mysql.jdbc.Driver");
-            String update = "UPDATE artikel SET artikel_naam = ?, "
-                      + " artikel_voorraad = ?, "
-                      + " artikel_prijs = ? "
-                        + "WHERE artikel_id = ? ";
-            PreparedStatement pstmt = connection.prepareStatement(update);
-            pstmt.setString(1, artikel.getArtikel_naam());
-            pstmt.setInt(2, artikel.getArtikel_voorraad());
-            pstmt.setDouble(3, artikel.getArtikel_prijs());
-            pstmt.setInt(4, artikel.getArtikel_id());
-            pstmt.executeUpdate();
-            pstmt.close();
-        }
-        catch (ClassNotFoundException | SQLException e){
-            System.out.println("verdorie misluktFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
-        } 
-    }
-   
-   public static void deleteArtikel(int artikel_ID) {
-        String user = "rsvier";
-        String password = "tiger";
-        String datbaseUrl = "jdbc:mysql://localhost/workshopdb";
-        try(Connection connection = DriverManager.getConnection(datbaseUrl, user, password)){
-            Class.forName("com.mysql.jdbc.Driver");
-            String update = "DELETE FROM artikel WHERE artikel_id = ?";
-            PreparedStatement pstmt = connection.prepareStatement(update);
-            pstmt.setInt(1, artikel_ID);
-            pstmt.executeUpdate();
-            pstmt.close();
-        }
-        catch (ClassNotFoundException | SQLException e){
-            System.out.println("verdorie mislukt");
-        }  
-   }
 }

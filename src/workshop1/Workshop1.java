@@ -7,6 +7,7 @@ package workshop1;
 
 import ConnectionPools.ConnectionPool;
 import ConnectionPools.ConnectionPoolHikari;
+import formatMessage.*;
 import menu.*;
 
 
@@ -22,5 +23,12 @@ public class Workshop1 {
      */
     public static void main(String[] args) {
         HoofdMenu.startMenu();      
+           
+           
+        //ArtikelDAOFirebird.testFirebirdDB();
     }
+    
+
+    
+
 }
