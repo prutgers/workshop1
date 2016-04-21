@@ -37,8 +37,49 @@ package workshop1;
 
 import java.sql.*;
 import java.util.ArrayList;
+import org.firebirdsql.jdbc;
+
 
 public class ArtikelDAOFirebird {
+    
+    public static void testreadFirebirdDB(){
+        String user = "SYSDBA";
+        String password = "masterkey";
+        String datbaseUrl;
+        //Syntax URL jdbc:firebirdsql:[host[/port]:]<database>
+        datbaseUrl = "jdbc:firebirdsql://localhost:3050/C://data\\test.FDB";
+       FirebirdConnection aap;
+       
+        try(Connection connection = DriverManager.getConnection(datbaseUrl, user, password)){
+            Class.forName("org.firebirdsql.jdbc.FBDriver");
+            
+            
+            String sql = "SELECT * FROM artikel";
+            Statement pstmt = connection.createStatement();
+            /** waarom kan ik deze shit niet aanroepen op connectie?
+             * http://www.firebirdsql.org/file/documentation/drivers_documentation/java/2.2.9/docs/org/firebirdsql/jdbc/FirebirdConnection.html#isUseFirebirdAutoCommit--
+             * waarschijnlijk omdat dit niet ge-extend wordt maar dat zou wel handig zijn heb ik mijn library niet goed ofzo?
+            */
+            
+            // Insert 
+            ResultSet poef = pstmt.executeQuery(sql);
+            
+            
+            while(poef.next()){
+                System.out.println("artikel id " + poef.getInt("artikel_id") + "naam " + poef.getString("artikel_naam"));
+            }
+            pstmt.close();
+            
+        } 
+        catch (SQLException e){
+                System.out.println("SQL fout");
+                e.printStackTrace();
+        }
+        catch(ClassNotFoundException p){
+            System.out.println("verdorie mislukt");
+        }
+        
+    }
     
     public static void testFirebirdDB(){
         String user = "SYSDBA";
@@ -53,7 +94,7 @@ public class ArtikelDAOFirebird {
             
             String sql = "INSERT INTO ARTIKEL("
             + "artikel_id, artikel_naam)"
-            +  "VALUES(43436, 'hasfasferman')"
+            +  "VALUES(333336, 'wie is de stink aap')"
             + "returning artikel_id, artikel_naam";
             Statement pstmt = connection.createStatement();
             // Set the values
@@ -62,6 +103,7 @@ public class ArtikelDAOFirebird {
             
             // Insert 
             pstmt.executeQuery(sql);
+            System.out.println("auto commit staat " + connection.);
             pstmt.close();
             
         } 
@@ -74,5 +116,10 @@ public class ArtikelDAOFirebird {
         }
         
     }
+    
+  
+        
+    }
+
 
 }

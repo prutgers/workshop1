@@ -24,8 +24,11 @@ public class Workshop1 {
     public static void main(String[] args) {
         HoofdMenu.startMenu();      
            
-           
+        //ArtikelDAOFirebird.testSETAUTOFirebirdDB();
         //ArtikelDAOFirebird.testFirebirdDB();
+        //ArtikelDAOFirebird.testCommitFirebirdDB();
+        
+        //ArtikelDAOFirebird.testreadFirebirdDB();
     }
     
 
