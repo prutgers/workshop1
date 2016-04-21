@@ -35,37 +35,32 @@ import java.sql.SQLException;
 
 public class ConnectionPoolC3P0 implements ConnectionType {
     ComboPooledDataSource cpds;
-    
     static Logger logger = LoggerFactory.getLogger(ConnectionPoolC3P0.class);
     
     public ConnectionPoolC3P0(){
-        ComboPooledDataSource cpds = new ComboPooledDataSource();
+      cpds = new ComboPooledDataSource();
         try {
             cpds.setDriverClass( "com.mysql.jdbc.Driver" ); //loads the jdbc driver
-                logger.info("C3P0 Driver loaded");
-            
+            logger.info("C3P0 Driver loaded");
             cpds.setJdbcUrl( "jdbc:mysql://localhost/workshopdb" );
             cpds.setUser("rsvier");
             cpds.setPassword("tiger");
             cpds.setMaxStatements( 50 );
-            
-                logger.info("Database connected");
-            
-            this.cpds = cpds;
+            logger.info("Database connected");
         }
         catch (Exception ex){
             ex.printStackTrace();
         }
-        
     }
     
     @Override
     public Connection getConnection() throws SQLException{
+        System.out.println("hey ik doe het met C3P0");
         return cpds.getConnection();
     }
     
     @Override
     public void close(){
-     cpds.close();
+        cpds.close();
     }
 }

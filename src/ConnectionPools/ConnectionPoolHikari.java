@@ -13,7 +13,7 @@ import java.sql.SQLException;
 
 /**
  *
- * @author Gebruiker
+ * @author Herman
  */
 
 /**
@@ -31,7 +31,6 @@ import java.sql.SQLException;
  */
 
 public class ConnectionPoolHikari implements ConnectionType {
-    
     static Logger logger = LoggerFactory.getLogger(ConnectionPoolHikari.class);
     
     HikariDataSource ds;
@@ -50,12 +49,12 @@ public class ConnectionPoolHikari implements ConnectionType {
         config.addDataSourceProperty("user", "rsvier");
         config.addDataSourceProperty("password", "tiger");
             logger.info("Database connected");
-        
         this.ds = new HikariDataSource(config);
     }
     
     @Override
     public Connection getConnection() throws SQLException{
+        System.out.println("hey ik ben Hikari aan het doen");
         return ds.getConnection();
     }
     
