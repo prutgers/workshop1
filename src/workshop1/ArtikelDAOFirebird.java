@@ -37,7 +37,7 @@ package workshop1;
 
 import java.sql.*;
 import java.util.ArrayList;
-import org.firebirdsql.jdbc;
+
 
 
 public class ArtikelDAOFirebird {
@@ -48,7 +48,7 @@ public class ArtikelDAOFirebird {
         String datbaseUrl;
         //Syntax URL jdbc:firebirdsql:[host[/port]:]<database>
         datbaseUrl = "jdbc:firebirdsql://localhost:3050/C://data\\test.FDB";
-       FirebirdConnection aap;
+       //FirebirdConnection aap;
        
         try(Connection connection = DriverManager.getConnection(datbaseUrl, user, password)){
             Class.forName("org.firebirdsql.jdbc.FBDriver");
@@ -79,6 +79,44 @@ public class ArtikelDAOFirebird {
             System.out.println("verdorie mislukt");
         }
         
+    }
+    
+    public static void testDeleteFirebirdDB(int artikel_id){
+       String user = "SYSDBA";
+        String password = "masterkey";
+        String datbaseUrl;
+        //Syntax URL jdbc:firebirdsql:[host[/port]:]<database>
+        datbaseUrl = "jdbc:firebirdsql://localhost:3050/C://data\\test.FDB";
+       //FirebirdConnection aap;
+       
+        try(Connection connection = DriverManager.getConnection(datbaseUrl, user, password)){
+            Class.forName("org.firebirdsql.jdbc.FBDriver");
+            
+            
+            String sql = "DELETE FROM artikel WHERE artikel_id = " + artikel_id
+                    //Zonder de returning geef die een foutmelding wtf
+                       + "returning artikel_id, artikel_naam";
+            Statement pstmt = connection.createStatement();
+            /** waarom kan ik deze shit niet aanroepen op connectie?
+             * http://www.firebirdsql.org/file/documentation/drivers_documentation/java/2.2.9/docs/org/firebirdsql/jdbc/FirebirdConnection.html#isUseFirebirdAutoCommit--
+             * waarschijnlijk omdat dit niet ge-extend wordt maar dat zou wel handig zijn heb ik mijn library niet goed ofzo?
+            */
+            
+            // Insert 
+           pstmt.executeQuery(sql);
+            
+            
+           
+            pstmt.close();
+            
+        } 
+        catch (SQLException e){
+                System.out.println("SQL fout");
+                e.printStackTrace();
+        }
+        catch(ClassNotFoundException p){
+            System.out.println("verdorie mislukt");
+        }
     }
     
     public static void testFirebirdDB(){
