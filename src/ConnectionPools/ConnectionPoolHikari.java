@@ -33,6 +33,7 @@ import java.sql.SQLException;
 public class ConnectionPoolHikari implements ConnectionType {
     static Logger logger = LoggerFactory.getLogger(ConnectionPoolHikari.class);
     
+    
     HikariDataSource ds;
     public ConnectionPoolHikari(){
         HikariConfig config = new HikariConfig();
@@ -59,6 +60,8 @@ public class ConnectionPoolHikari implements ConnectionType {
     }
     
     @Override
+    
+    // niet de ds closen maar alleen de connect bouw een extra connection instance variable
     public void close(){
      ds.close();
     }

@@ -14,13 +14,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ConnectionPool {
-    //private static ConnectionType strategy = new ConnectionPoolHikari();
     private static ConnectionType strategy = new ConnectionPoolHikari();
-    //private ConnectionType strategy;
     static Logger logger = LoggerFactory.getLogger(ConnectionPool.class);
         
     public ConnectionPool(){
-        
     }
    
     public static Connection getConnection() throws SQLException, ClassNotFoundException{
