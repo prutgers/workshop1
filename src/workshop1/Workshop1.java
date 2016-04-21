@@ -17,20 +17,10 @@ import menu.*;
  */
 
 public class Workshop1 {
-
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
-     
-  HoofdMenu.startMenu();      
-
-
-  
-  
-  
-
-   }
-    
+        HoofdMenu.startMenu();      
+    }
 }

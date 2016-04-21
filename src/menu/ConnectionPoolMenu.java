@@ -18,6 +18,11 @@ public class ConnectionPoolMenu {
     
     
     public static void startMenu() {
+        
+        public static final int NILL = 0;
+    public static final int HIKARI = 1;
+    public static final int C3P0 = 2;
+    public static final int JDBCDRIVER = 3;
         Scanner input = new Scanner(System.in);
         while(true){
             PrintFormat.printHeader("BESTELLINGEN-MENU");        
