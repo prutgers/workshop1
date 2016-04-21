@@ -17,16 +17,16 @@ package workshop1;
 
 import java.sql.*;
 import java.util.ArrayList;
+import ConnectionPools.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ArtikelDAO {
 
    public static void createNewArtikel(Artikel artikel){
         //Connect to database
-        String user = "rsvier";
-        String password = "tiger";
-        String datbaseUrl = "jdbc:mysql://localhost/workshopdb";
-        try(Connection connection = DriverManager.getConnection(datbaseUrl, user, password)){
-            Class.forName("com.mysql.jdbc.Driver");
+        
+        try(Connection connection = ConnectionPool.getConnection()) {
             String sql = "INSERT INTO artikel("
             + "artikel_naam,"
             + "artikel_voorraad,"
@@ -41,9 +41,11 @@ public class ArtikelDAO {
             pstmt.executeUpdate();
             pstmt.close();
         } 
-        catch (ClassNotFoundException | SQLException e){
+        catch (SQLException e){
                 System.out.println("verdorie mislukt");
-        }
+        } catch (ClassNotFoundException ex) {
+           Logger.getLogger(ArtikelDAO.class.getName()).log(Level.SEVERE, null, ex);
+       }
     }
    
    public static ArrayList<Artikel> readArtikel(){

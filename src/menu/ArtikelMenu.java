@@ -52,6 +52,7 @@ public class ArtikelMenu {
     
     
     public static void createArtikel(){
+        
         System.out.println("Artikel Naam");
         String artikel_naam = VerifyInputScanner.verifyString();
         

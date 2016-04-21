@@ -5,6 +5,8 @@
  */
 package workshop1;
 
+import ConnectionPools.ConnectionPool;
+import ConnectionPools.ConnectionPoolHikari;
 import menu.*;
 
 

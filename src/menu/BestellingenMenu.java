@@ -222,8 +222,6 @@ public class BestellingenMenu {
         bestellingArtikel.setAantal(input.nextInt());
         KoppelBestellingArtikelDAO.createKoppelBestellingArtikel(bestellingArtikel);
     }
-    
-    
 }
 
     

@@ -28,6 +28,36 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class ArtikelDAOFirebird {
+    
+    public static void testFirebirdDB(){
+        String user = "rsvier";
+        String password = "tiger";
+        String datbaseUrl;
+        //Syntax URL jdbc:firebirdsql:[host[/port]:]<database>
+        
+        datbaseUrl = "jdbc:firebirdsql://localhost/3050:c://data/TEST.fdb";
+       
+        try(Connection connection = DriverManager.getConnection(datbaseUrl, user, password)){
+            Class.forName("com.mysql.jdbc.Driver");
+            String sql = "INSERT INTO artikel("
+            + "artikel_naam,"
+            + "artikel_voorraad,"
+            + "artikel_prijs) "
+            +  "VALUES(?,?,?)";
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            // Set the values
+            pstmt.setString(1, artikel.getArtikel_naam());
+            pstmt.setInt(2, artikel.getArtikel_voorraad());
+            pstmt.setDouble(3, artikel.getArtikel_prijs());
+            // Insert 
+            pstmt.executeUpdate();
+            pstmt.close();
+        } 
+        catch (ClassNotFoundException | SQLException e){
+                System.out.println("verdorie mislukt");
+        }
+        
+    }
 
    public static void createNewArtikel(Artikel artikel){
         //Connect to database
