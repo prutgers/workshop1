@@ -34,14 +34,14 @@ public class AdresDAOFirebird {
             stmntCA.setString(3, adres.getToevoeging());
             stmntCA.setString(4, adres.getPostcode());
             stmntCA.setString(5, adres.getWoonplaats());
-            
-            
+
             stmntCA.executeUpdate();
             
+            //generatedKey teruglezen
             ResultSet generatedKey = stmnt.getGeneratedKeys();
            
             generatedKey.next();
-            adres.setAdres_id(generatedKey.getInt(1));
+            adres.setAdres_id(generatedKey.getInt("adres_id"));
         }
         catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex + "\nProbeer opnieuw.");
