@@ -35,7 +35,7 @@ public class AdresDAO {
             ResultSet generatedKey = stmnt.getGeneratedKeys();
             if(generatedKey.isBeforeFirst()){
                 generatedKey.next();
-                adres.setAdres_id(generatedKey.getInt("adres_id"));
+                adres.setAdres_id(generatedKey.getInt(1));
             }
             
            /*
