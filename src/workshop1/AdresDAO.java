@@ -34,6 +34,7 @@ public class AdresDAO {
             stmntCA.executeUpdate();
            /*
             werkt dit wel? Ik krijg rare errors over de ConnectionPool als ik wil testen
+            snap sowieso niet zoveel van die generatedkeys maar toe maar
             */ 
             ResultSet generatedKey = stmnt.getGeneratedKeys();
            
