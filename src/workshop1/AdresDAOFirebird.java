@@ -19,7 +19,8 @@ public class AdresDAOFirebird {
                 + "toevoeging,"
                 + "postcode,"
                 + "woonplaats)"
-                + "values (?, ?, ?, ?, ?)";
+                + "values (?, ?, ?, ?, ?)"
+                + "RETURNING adres_id";
         try (Connection connection = DriverManager.getConnection
         ("jdbc:firebirdsql://localhost:3050/C://data\\\\test.FDB", "SYSDBA", 
                 "masterkey");){
