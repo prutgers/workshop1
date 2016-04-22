@@ -31,15 +31,19 @@ public class AdresDAO {
             stmntCA.setString(4, adres.getPostcode());
             stmntCA.setString(5, adres.getWoonplaats());
             
-            
             stmntCA.executeUpdate();
+           /*
+            werkt dit wel? Ik krijg rare errors over de ConnectionPool als ik wil testen
+            */ 
+            ResultSet generatedKey = stmnt.getGeneratedKeys();
+           
+            generatedKey.next();
+            adres.setAdres_id(generatedKey.getInt(1));
             
            /*
-            
-            Hey Sonja deze code werkt nog niet daarom heb ik het even in de comments gezet
-            
-           ResultSet resultSet = stmnt.getGeneratedKeys();
-            if (resultSet.isBeforeFirst()){
+           Hey Sonja deze code werkt nog niet daarom heb ik het even in de comments gezet
+           
+           if (resultSet.isBeforeFirst()){
                 resultSet.next();
                 adres.setAdres_id(resultSet.getInt(1));
             }  
