@@ -168,7 +168,7 @@ public class ArtikelDAOFirebird {
             Class.forName("org.firebirdsql.jdbc.FBDriver");
             
             //String sql = "INSERT INTO ARTIKEL(artikel_id, artikel_naam) VALUES(13, 'juist')";
-            //String sql = "UPDATE ARTIKEL set artikel_naam = 'zone' where artikel_id = 5";
+            String sql = "UPDATE ARTIKEL set artikel_naam = 'zone' where artikel_id = 5";
             //String sql = "UPDATE ARTIKEL(artikel_naam) VALUES('jolike') WHERE artikel_id = 5";
             System.out.println("bleh");
             Statement pstmt = connection.createStatement();
