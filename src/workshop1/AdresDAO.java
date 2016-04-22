@@ -32,10 +32,16 @@ public class AdresDAO {
             stmntCA.setString(5, adres.getWoonplaats());
             
             stmntCA.executeUpdate();
+            ResultSet generatedKey = stmnt.getGeneratedKeys();
+            if(generatedKey.isBeforeFirst()){
+                generatedKey.next();
+                adres.setAdres_id(generatedKey.getInt("adres_id"));
+            }
+            
            /*
             werkt dit wel? Ik krijg rare errors over de ConnectionPool als ik wil testen
             snap sowieso niet zoveel van die generatedkeys maar toe maar
-            */ 
+            
             ResultSet generatedKey = stmnt.getGeneratedKeys();
            
             generatedKey.next();
