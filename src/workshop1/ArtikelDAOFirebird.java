@@ -11,7 +11,7 @@ package workshop1;
  */
 
 /**
- * FIREBIRD EN JAYBIRD DOWNLOADEN
+ * FIREBIRD EN JAYBIRD DOWNLOADEN ik heb de firebird 2.5.5 versie
  * FIREBIRD: http://sourceforge.net/projects/firebird/files/firebird-win64/2.5.5-Release/Firebird-2.5.5.26952_0_x64.exe/download
  * install met alle opties zoals ze standaard staan ik heb een super server aangevinkt
  * 
