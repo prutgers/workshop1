@@ -8,7 +8,7 @@ package workshop1;
 import java.sql.*;
 import java.util.ArrayList; 
 
-public class AdresDAO {
+public class AdresDAOFirebird {
     
     static PreparedStatement stmnt;
 
@@ -19,8 +19,12 @@ public class AdresDAO {
                 + "toevoeging,"
                 + "postcode,"
                 + "woonplaats)"
-                + "values (?, ?, ?, ?, ?)";
-        try (Connection connection = new DBConnector().getConnection();){
+                + "values (?, ?, ?, ?, ?)"
+                + "RETURNING adres_id";
+        try (Connection connection = DriverManager.getConnection
+        ("jdbc:firebirdsql://localhost:3050/C://data\\\\test.FDB", "SYSDBA", 
+                "masterkey");){
+            Class.forName("org.firebirdsql.jdbc.FBDriver");
             
             PreparedStatement stmntCA = connection.prepareStatement(query,
                     Statement.RETURN_GENERATED_KEYS);
@@ -30,32 +34,16 @@ public class AdresDAO {
             stmntCA.setString(3, adres.getToevoeging());
             stmntCA.setString(4, adres.getPostcode());
             stmntCA.setString(5, adres.getWoonplaats());
-            
+
             stmntCA.executeUpdate();
+            
+            //generatedKey teruglezen
             ResultSet generatedKey = stmnt.getGeneratedKeys();
-            if(generatedKey.isBeforeFirst()){
-                generatedKey.next();
-                adres.setAdres_id(generatedKey.getInt(1));
+            ResultSet resultSet = stmnt.executeQuery();
+           
+            while (resultSet.next()) {
+                generatedKey = resultSet.getInt("adres_id");
             }
-            
-           /* 
-           /*
-            werkt dit wel? Ik krijg rare errors over de ConnectionPool als ik wil testen
-            snap sowieso niet zoveel van die generatedkeys maar toe maar
-            
-            ResultSet generatedKey = stmnt.getGeneratedKeys();
-           
-            generatedKey.next();
-            adres.setAdres_id(generatedKey.getInt(1));
-            
-           /*
-           Hey Sonja deze code werkt nog niet daarom heb ik het even in de comments gezet
-           
-           if (resultSet.isBeforeFirst()){
-                resultSet.next();
-                adres.setAdres_id(resultSet.getInt(1));
-            }  
-           */
         }
         catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex + "\nProbeer opnieuw.");
