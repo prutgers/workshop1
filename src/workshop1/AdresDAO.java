@@ -49,6 +49,7 @@ public class AdresDAO {
             adres.setAdres_id(generatedKey.getInt(1));
             
            /*
+
            Hey Sonja deze code werkt nog niet daarom heb ik het even in de comments gezet
            
            if (resultSet.isBeforeFirst()){
