@@ -29,9 +29,10 @@ public class Workshop1 {
         //ArtikelDAOFirebird.testCommitFirebirdDB();
         
         ArtikelDAOFirebird.testreadFirebirdDB();
-        ArtikelDAOFirebird.testDeleteFirebirdDB(13);
+        //ArtikelDAOFirebird.testDeleteFirebirdDB(13);
+       ArtikelDAOFirebird.testUpdateFirebirdDB(10);
         System.out.println("DIT IS DE TWEEDE KEER");
-        ArtikelDAOFirebird.testreadFirebirdDB();
+        //ArtikelDAOFirebird.testreadFirebirdDB();
     }
     
 

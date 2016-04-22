@@ -152,12 +152,40 @@ public class ArtikelDAOFirebird {
         catch(ClassNotFoundException p){
             System.out.println("verdorie mislukt");
         }
-        
     }
     
-  
-        
+    public static void testUpdateFirebirdDB(int artikel_id){
+        String user = "SYSDBA";
+        String password = "masterkey";
+        String datbaseUrl;
+        //Syntax URL jdbc:firebirdsql:[host[/port]:]<database>
+        datbaseUrl = "jdbc:firebirdsql://localhost:3050/C://data\\test.FDB";
+       
+        try(Connection connection = DriverManager.getConnection(datbaseUrl, user, password)){
+            Class.forName("org.firebirdsql.jdbc.FBDriver");
+            
+            
+            String sql = "UPDATE artikel"
+                    + "set artikel_naam = 'bas'"
+                    + "where artikel_id = " + artikel_id
+                    + "returning artikel_id, new.artikel_naam";
+            Statement pstmt = connection.createStatement();
+           
+            
+            // Insert 
+            pstmt.executeQuery(sql);
+           
+            pstmt.close();
+            
+        } 
+        catch (SQLException e){
+                System.out.println("SQL fout");
+                e.printStackTrace();
+        }
+        catch(ClassNotFoundException p){
+            System.out.println("verdorie mislukt");
+        }
     }
-
-
 }
+
+
