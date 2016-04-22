@@ -22,17 +22,17 @@ public class Workshop1 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        HoofdMenu.startMenu();      
+        //HoofdMenu.startMenu();      
            
        // ArtikelDAOFirebird.testreadFirebirdDB();
-       //ArtikelDAOFirebird.testCreateFirebirdDB(5, "aap");
+       ArtikelDAOFirebird.testCreateFirebirdDB(5, "aap");
         
         
        
        // ArtikelDAOFirebird.testDeleteFirebirdDB(5);
       // ArtikelDAOFirebird.testPrepUpdateFirebirdDB(5);
         
-       //ArtikelDAOFirebird.testreadFirebirdDB();
+       ArtikelDAOFirebird.testreadFirebirdDB();
        
         
     }

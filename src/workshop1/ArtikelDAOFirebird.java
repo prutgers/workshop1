@@ -134,7 +134,7 @@ public class ArtikelDAOFirebird {
             
             String sql = "INSERT INTO ARTIKEL("
             + "artikel_id, artikel_naam)"
-            +  "VALUES(6, 'henk')";
+            +  "VALUES(6, 'PAASHAAS')";
             //+ "returning artikel_id, artikel_naam";
             Statement pstmt = connection.createStatement();
             // Set the values
