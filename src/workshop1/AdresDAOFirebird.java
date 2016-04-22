@@ -39,9 +39,11 @@ public class AdresDAOFirebird {
             
             //generatedKey teruglezen
             ResultSet generatedKey = stmnt.getGeneratedKeys();
+            ResultSet resultSet = stmnt.executeQuery();
            
-            generatedKey.next();
-            adres.setAdres_id(generatedKey.getInt("adres_id"));
+            while (resultSet.next()) {
+                generatedKey = resultSet.getInt("adres_id");
+            }
         }
         catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex + "\nProbeer opnieuw.");
