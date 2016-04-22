@@ -168,7 +168,7 @@ public class ArtikelDAOFirebird {
             Class.forName("org.firebirdsql.jdbc.FBDriver");
             
             //String sql = "INSERT INTO ARTIKEL(artikel_id, artikel_naam) VALUES(13, 'juist')";
-            String sql = "UPDATE ARTIKEL set artikel_naam = 'zone' where artikel_id = 5";
+            //String sql = "UPDATE ARTIKEL set artikel_naam = 'zone' where artikel_id = 5";
             //String sql = "UPDATE ARTIKEL(artikel_naam) VALUES('jolike') WHERE artikel_id = 5";
             System.out.println("bleh");
             Statement pstmt = connection.createStatement();
@@ -193,6 +193,44 @@ public class ArtikelDAOFirebird {
             System.out.println("verdorie mislukt");
         }
     }
+    
+    public static void testPrepUpdateFirebirdDB(int artikel_id){
+        String user = "SYSDBA";
+        String password = "masterkey";
+        String datbaseUrl;
+        //Syntax URL jdbc:firebirdsql:[host[/port]:]<database>
+        datbaseUrl = "jdbc:firebirdsql://localhost:3050/C://data\\test.FDB";
+
+        try(Connection connection = DriverManager.getConnection(datbaseUrl, user, password)){
+            Class.forName("org.firebirdsql.jdbc.FBDriver");
+
+            String opdracht = "UPDATE artikel SET artikel_naam = ? WHERE artikel_id = ?";
+
+            PreparedStatement statement = connection.prepareStatement(opdracht);
+
+            statement.setString(1, "henk");
+            statement.setInt(2, 5);
+            statement.executeUpdate();
+
+
+            // Insert 
+
+            //pstmt.executeUpdate(sql);
+            System.out.println("blue3");
+
+            statement.close();
+
+        } 
+        catch (SQLException e){
+                System.out.println("SQL fout");
+                e.printStackTrace();
+        }
+        catch(ClassNotFoundException p){
+            System.out.println("verdorie mislukt");
+        }
+    }
+            
+            
 }
 
 

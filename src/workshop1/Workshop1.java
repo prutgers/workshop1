@@ -22,7 +22,7 @@ public class Workshop1 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        //HoofdMenu.startMenu();      
+        HoofdMenu.startMenu();      
            
        // ArtikelDAOFirebird.testreadFirebirdDB();
        //ArtikelDAOFirebird.testCreateFirebirdDB(5, "aap");
@@ -30,12 +30,11 @@ public class Workshop1 {
         
        
        // ArtikelDAOFirebird.testDeleteFirebirdDB(5);
-       ArtikelDAOFirebird.testUpdateFirebirdDB(5);
-        System.out.println("DIT IS DE TWEEDE KEER");
-       // ArtikelDAOFirebird.testreadFirebirdDB();
-       // while(true){
-       // PrintFormat.PrintClown();
-       // }
+      // ArtikelDAOFirebird.testPrepUpdateFirebirdDB(5);
+        
+       //ArtikelDAOFirebird.testreadFirebirdDB();
+       
+        
     }
     
 
