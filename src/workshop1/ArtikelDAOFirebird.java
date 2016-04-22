@@ -37,6 +37,7 @@ package workshop1;
 
 import java.sql.*;
 import java.util.ArrayList;
+import org.firebirdsql.jdbc.FirebirdConnection;
 
 
 
@@ -87,24 +88,24 @@ public class ArtikelDAOFirebird {
         String datbaseUrl;
         //Syntax URL jdbc:firebirdsql:[host[/port]:]<database>
         datbaseUrl = "jdbc:firebirdsql://localhost:3050/C://data\\test.FDB";
-       //FirebirdConnection aap;
        
         try(Connection connection = DriverManager.getConnection(datbaseUrl, user, password)){
             Class.forName("org.firebirdsql.jdbc.FBDriver");
             
             
-            String sql = "DELETE FROM artikel WHERE artikel_id = " + artikel_id
+            String sql = "DELETE FROM artikel WHERE artikel_id = " + artikel_id;
                     //Zonder de returning geef die een foutmelding wtf
-                       + "returning artikel_id, artikel_naam";
+                    //   + "returning artikel_id, artikel_naam";
             Statement pstmt = connection.createStatement();
             /** waarom kan ik deze shit niet aanroepen op connectie?
              * http://www.firebirdsql.org/file/documentation/drivers_documentation/java/2.2.9/docs/org/firebirdsql/jdbc/FirebirdConnection.html#isUseFirebirdAutoCommit--
              * waarschijnlijk omdat dit niet ge-extend wordt maar dat zou wel handig zijn heb ik mijn library niet goed ofzo?
             */
             
-            // Insert 
-           pstmt.executeQuery(sql);
+           
             
+            // Insert 
+           pstmt.executeUpdate(sql);
             
            
             pstmt.close();
@@ -119,12 +120,13 @@ public class ArtikelDAOFirebird {
         }
     }
     
-    public static void testFirebirdDB(){
+    public static void testCreateFirebirdDB(int artikel_id, String artikel_naam){
         String user = "SYSDBA";
         String password = "masterkey";
         String datbaseUrl;
         //Syntax URL jdbc:firebirdsql:[host[/port]:]<database>
         datbaseUrl = "jdbc:firebirdsql://localhost:3050/C://data\\test.FDB";
+       
        
         try(Connection connection = DriverManager.getConnection(datbaseUrl, user, password)){
             Class.forName("org.firebirdsql.jdbc.FBDriver");
@@ -132,16 +134,17 @@ public class ArtikelDAOFirebird {
             
             String sql = "INSERT INTO ARTIKEL("
             + "artikel_id, artikel_naam)"
-            +  "VALUES(333336, 'wie is de stink aap')"
-            + "returning artikel_id, artikel_naam";
+            +  "VALUES(6, 'henk')";
+            //+ "returning artikel_id, artikel_naam";
             Statement pstmt = connection.createStatement();
             // Set the values
             //int artikelID = 4;
             //pstmt.setInt(1, artikelID);
             
             // Insert 
-            pstmt.executeQuery(sql);
-            System.out.println("auto commit staat " + connection.);
+            pstmt.executeUpdate(sql);
+            
+            //System.out.println("auto commit staat " + connection.commit());
             pstmt.close();
             
         } 
@@ -164,17 +167,21 @@ public class ArtikelDAOFirebird {
         try(Connection connection = DriverManager.getConnection(datbaseUrl, user, password)){
             Class.forName("org.firebirdsql.jdbc.FBDriver");
             
-            
-            String sql = "UPDATE artikel"
-                    + "set artikel_naam = 'bas'"
-                    + "where artikel_id = " + artikel_id
-                    + "returning artikel_id, new.artikel_naam";
+            //String sql = "INSERT INTO ARTIKEL(artikel_id, artikel_naam) VALUES(13, 'juist')";
+            String sql = "UPDATE ARTIKEL set artikel_naam = 'zone' where artikel_id = 5";
+            //String sql = "UPDATE ARTIKEL(artikel_naam) VALUES('jolike') WHERE artikel_id = 5";
+            System.out.println("bleh");
             Statement pstmt = connection.createStatement();
            
             
+            pstmt.executeUpdate("UPDATE artikel SET artikel_naam = 1" 
+                            + "WHERE artikel_id = 5");
+            System.out.println("bleh2.2");
             // Insert 
-            pstmt.executeQuery(sql);
-           
+            pstmt.execute(sql);
+            //pstmt.executeUpdate(sql);
+            System.out.println("blue3");
+            
             pstmt.close();
             
         } 

@@ -24,15 +24,18 @@ public class Workshop1 {
     public static void main(String[] args) {
         //HoofdMenu.startMenu();      
            
-        //ArtikelDAOFirebird.testSETAUTOFirebirdDB();
-        //ArtikelDAOFirebird.testFirebirdDB();
-        //ArtikelDAOFirebird.testCommitFirebirdDB();
+       // ArtikelDAOFirebird.testreadFirebirdDB();
+       //ArtikelDAOFirebird.testCreateFirebirdDB(5, "aap");
         
-        ArtikelDAOFirebird.testreadFirebirdDB();
-        //ArtikelDAOFirebird.testDeleteFirebirdDB(13);
-       ArtikelDAOFirebird.testUpdateFirebirdDB(10);
+        
+       
+       // ArtikelDAOFirebird.testDeleteFirebirdDB(5);
+       ArtikelDAOFirebird.testUpdateFirebirdDB(5);
         System.out.println("DIT IS DE TWEEDE KEER");
-        //ArtikelDAOFirebird.testreadFirebirdDB();
+       // ArtikelDAOFirebird.testreadFirebirdDB();
+       // while(true){
+       // PrintFormat.PrintClown();
+       // }
     }
     
 

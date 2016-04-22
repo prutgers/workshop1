@@ -34,16 +34,14 @@ public class AdresDAO {
             
             stmntCA.executeUpdate();
             
-           /*
-            
-            Hey Sonja deze code werkt nog niet daarom heb ik het even in de comments gezet
+           /* 
             
            ResultSet resultSet = stmnt.getGeneratedKeys();
             if (resultSet.isBeforeFirst()){
                 resultSet.next();
                 adres.setAdres_id(resultSet.getInt(1));
             }  
-            */
+           */
         }
         catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex + "\nProbeer opnieuw.");
