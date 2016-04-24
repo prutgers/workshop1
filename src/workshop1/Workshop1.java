@@ -25,19 +25,24 @@ public class Workshop1 {
         //HoofdMenu.startMenu();      
            
        // ArtikelDAOFirebird.testreadFirebirdDB();
-       ArtikelDAOFirebird.testCreateFirebirdDB(5, "aap");
-        
-        
+       Artikel artikel = new Artikel();
+       artikel.setArtikel_id(5);
+       artikel.setArtikel_naam("test");
+       artikel.setArtikel_prijs(19);
+       artikel.setArtikel_voorraad(5);
+
+       ArtikelDAOFirebird.createFirebirdDB(artikel);
+       ArtikelDAOFirebird.readFirebirdDB();
+
        
-       // ArtikelDAOFirebird.testDeleteFirebirdDB(5);
-      // ArtikelDAOFirebird.testPrepUpdateFirebirdDB(5);
-        
-       ArtikelDAOFirebird.testreadFirebirdDB();
-       
+       Artikel artikel2 = new Artikel();
+       artikel2.setArtikel_id(5);
+       artikel2.setArtikel_naam("test3");
+       artikel2.setArtikel_prijs(19);
+       artikel2.setArtikel_voorraad(5);
+
+       ArtikelDAOFirebird.updateFirebirdDB(artikel2);
+       ArtikelDAOFirebird.readFirebirdDB(); 
         
     }
-    
-
-    
-
 }
