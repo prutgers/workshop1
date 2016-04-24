@@ -36,7 +36,7 @@ public class ArtikelDAO {
             // Set the values
             pstmt.setString(1, artikel.getArtikel_naam());
             pstmt.setInt(2, artikel.getArtikel_voorraad());
-            pstmt.setDouble(3, artikel.getArtikel_prijs());
+            pstmt.setInt(3, artikel.getArtikel_prijs());
             // Insert 
             pstmt.executeUpdate();
             pstmt.close();
@@ -63,7 +63,7 @@ public class ArtikelDAO {
                 artikel.setArtikel_id(rs.getInt("artikel_id"));
                 artikel.setArtikel_naam(rs.getString("artikel_naam"));
                 artikel.setArtikel_voorraad(rs.getInt("artikel_voorraad"));
-                artikel.setArtikel_prijs(rs.getDouble("artikel_prijs"));
+                artikel.setArtikel_prijs(rs.getInt("artikel_prijs"));
                 artikelLijst.add(artikel);
             }
             pstmt.close();
@@ -89,7 +89,7 @@ public class ArtikelDAO {
                 artikel.setArtikel_id(rs.getInt("artikel_id"));
                 artikel.setArtikel_naam(rs.getString("artikel_naam"));
                 artikel.setArtikel_voorraad(rs.getInt("artikel_voorraad"));
-                artikel.setArtikel_prijs(rs.getDouble("artikel_prijs"));
+                artikel.setArtikel_prijs(rs.getInt("artikel_prijs"));
             }
             pstmt.close();
         }
@@ -112,7 +112,7 @@ public class ArtikelDAO {
             PreparedStatement pstmt = connection.prepareStatement(update);
             pstmt.setString(1, artikel.getArtikel_naam());
             pstmt.setInt(2, artikel.getArtikel_voorraad());
-            pstmt.setDouble(3, artikel.getArtikel_prijs());
+            pstmt.setInt(3, artikel.getArtikel_prijs());
             pstmt.setInt(4, artikel.getArtikel_id());
             pstmt.executeUpdate();
             pstmt.close();

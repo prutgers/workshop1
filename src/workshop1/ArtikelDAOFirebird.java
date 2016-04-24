@@ -39,33 +39,39 @@ import java.sql.*;
 import java.util.ArrayList;
 import org.firebirdsql.jdbc.FirebirdConnection;
 
-
-
 public class ArtikelDAOFirebird {
-    
-    public static void testreadFirebirdDB(){
-        String user = "SYSDBA";
-        String password = "masterkey";
-        String datbaseUrl;
-        //Syntax URL jdbc:firebirdsql:[host[/port]:]<database>
-        datbaseUrl = "jdbc:firebirdsql://localhost:3050/C://data\\test.FDB";
-       //FirebirdConnection aap;
-       
-        try(Connection connection = DriverManager.getConnection(datbaseUrl, user, password)){
+        
+    public static void createFirebirdDB(Artikel artikel){
+
+        try(Connection connection = DBConnectorFirebird.getConnection();){
+            System.out.println("1");
+            String sql = "INSERT INTO ARTIKEL (artikel_id, artikel_naam, artikel_voorraad, artikel_prijs) VALUES (?,?,?,?)";
+            
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+
+            pstmt.setInt(1, artikel.getArtikel_id());
+            pstmt.setString(2, artikel.getArtikel_naam());
+            pstmt.setInt(3, artikel.getArtikel_voorraad());
+            pstmt.setLong(4, artikel.getArtikel_prijs());
+
+            pstmt.executeUpdate();
+
+        } 
+        catch (SQLException e){
+                System.out.println("SQL fout");
+                e.printStackTrace();
+        }
+    }
+
+    public static void readFirebirdDB(){
+        try(Connection connection = new DBConnectorFirebird().getConnection()){
             Class.forName("org.firebirdsql.jdbc.FBDriver");
-            
-            
+     
             String sql = "SELECT * FROM artikel";
             Statement pstmt = connection.createStatement();
-            /** waarom kan ik deze shit niet aanroepen op connectie?
-             * http://www.firebirdsql.org/file/documentation/drivers_documentation/java/2.2.9/docs/org/firebirdsql/jdbc/FirebirdConnection.html#isUseFirebirdAutoCommit--
-             * waarschijnlijk omdat dit niet ge-extend wordt maar dat zou wel handig zijn heb ik mijn library niet goed ofzo?
-            */
-            
-            // Insert 
+
             ResultSet poef = pstmt.executeQuery(sql);
-            
-            
+
             while(poef.next()){
                 System.out.println("artikel id " + poef.getInt("artikel_id") + "naam " + poef.getString("artikel_naam"));
             }
@@ -83,31 +89,19 @@ public class ArtikelDAOFirebird {
     }
     
     public static void testDeleteFirebirdDB(int artikel_id){
-       String user = "SYSDBA";
+        String user = "SYSDBA";
         String password = "masterkey";
         String datbaseUrl;
-        //Syntax URL jdbc:firebirdsql:[host[/port]:]<database>
-        datbaseUrl = "jdbc:firebirdsql://localhost:3050/C://data\\test.FDB";
+        datbaseUrl = "jdbc:firebirdsql://localhost:3050/C://data\\workshopdb.FDB";
        
         try(Connection connection = DriverManager.getConnection(datbaseUrl, user, password)){
             Class.forName("org.firebirdsql.jdbc.FBDriver");
-            
             
             String sql = "DELETE FROM artikel WHERE artikel_id = " + artikel_id;
-                    //Zonder de returning geef die een foutmelding wtf
-                    //   + "returning artikel_id, artikel_naam";
             Statement pstmt = connection.createStatement();
-            /** waarom kan ik deze shit niet aanroepen op connectie?
-             * http://www.firebirdsql.org/file/documentation/drivers_documentation/java/2.2.9/docs/org/firebirdsql/jdbc/FirebirdConnection.html#isUseFirebirdAutoCommit--
-             * waarschijnlijk omdat dit niet ge-extend wordt maar dat zou wel handig zijn heb ik mijn library niet goed ofzo?
-            */
-            
-           
-            
-            // Insert 
+
            pstmt.executeUpdate(sql);
-            
-           
+                       
             pstmt.close();
             
         } 
@@ -119,78 +113,25 @@ public class ArtikelDAOFirebird {
             System.out.println("verdorie mislukt");
         }
     }
+
     
-    public static void testCreateFirebirdDB(int artikel_id, String artikel_naam){
-        String user = "SYSDBA";
-        String password = "masterkey";
-        String datbaseUrl;
-        //Syntax URL jdbc:firebirdsql:[host[/port]:]<database>
-        datbaseUrl = "jdbc:firebirdsql://localhost:3050/C://data\\test.FDB";
-       
-       
-        try(Connection connection = DriverManager.getConnection(datbaseUrl, user, password)){
-            Class.forName("org.firebirdsql.jdbc.FBDriver");
-            
-            
-            String sql = "INSERT INTO ARTIKEL("
-            + "artikel_id, artikel_naam)"
-            +  "VALUES(6, 'PAASHAAS')";
-            //+ "returning artikel_id, artikel_naam";
-            Statement pstmt = connection.createStatement();
-            // Set the values
-            //int artikelID = 4;
-            //pstmt.setInt(1, artikelID);
-            
-            // Insert 
-            pstmt.executeUpdate(sql);
-            
-            //System.out.println("auto commit staat " + connection.commit());
-            pstmt.close();
-            
+    public static void updateFirebirdDB(Artikel artikel){
+        try(Connection connection = DBConnectorFirebird.getConnection();){
+
+            String sql = "UPDATE ARTIKEL set artikel_naam = ?, artikel_prijs = ?, artikel_voorraad = ? where artikel_id = ?;";
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setString(1, artikel.getArtikel_naam());
+            pstmt.setInt(2, artikel.getArtikel_prijs());
+            pstmt.setInt(3, artikel.getArtikel_voorraad());
+            pstmt.setInt(4, artikel.getArtikel_id());
+
+            pstmt.executeUpdate();
+
+            pstmt.close(); 
         } 
         catch (SQLException e){
-                System.out.println("SQL fout");
+                System.out.println("SQL Update fout");
                 e.printStackTrace();
-        }
-        catch(ClassNotFoundException p){
-            System.out.println("verdorie mislukt");
-        }
-    }
-    
-    public static void testUpdateFirebirdDB(int artikel_id){
-        String user = "SYSDBA";
-        String password = "masterkey";
-        String datbaseUrl;
-        //Syntax URL jdbc:firebirdsql:[host[/port]:]<database>
-        datbaseUrl = "jdbc:firebirdsql://localhost:3050/C://data\\test.FDB";
-       
-        try(Connection connection = DriverManager.getConnection(datbaseUrl, user, password)){
-            Class.forName("org.firebirdsql.jdbc.FBDriver");
-            
-            //String sql = "INSERT INTO ARTIKEL(artikel_id, artikel_naam) VALUES(13, 'juist')";
-            String sql = "UPDATE ARTIKEL set artikel_naam = 'zone' where artikel_id = 5";
-            //String sql = "UPDATE ARTIKEL(artikel_naam) VALUES('jolike') WHERE artikel_id = 5";
-            System.out.println("bleh");
-            Statement pstmt = connection.createStatement();
-           
-            
-            pstmt.executeUpdate("UPDATE artikel SET artikel_naam = 1" 
-                            + "WHERE artikel_id = 5");
-            System.out.println("bleh2.2");
-            // Insert 
-            pstmt.execute(sql);
-            //pstmt.executeUpdate(sql);
-            System.out.println("blue3");
-            
-            pstmt.close();
-            
-        } 
-        catch (SQLException e){
-                System.out.println("SQL fout");
-                e.printStackTrace();
-        }
-        catch(ClassNotFoundException p){
-            System.out.println("verdorie mislukt");
         }
     }
     
@@ -198,8 +139,7 @@ public class ArtikelDAOFirebird {
         String user = "SYSDBA";
         String password = "masterkey";
         String datbaseUrl;
-        //Syntax URL jdbc:firebirdsql:[host[/port]:]<database>
-        datbaseUrl = "jdbc:firebirdsql://localhost:3050/C://data\\test.FDB";
+        datbaseUrl = "jdbc:firebirdsql://localhost:3050/C://data\\workshopdb.FDB";;
 
         try(Connection connection = DriverManager.getConnection(datbaseUrl, user, password)){
             Class.forName("org.firebirdsql.jdbc.FBDriver");
