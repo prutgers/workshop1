@@ -57,7 +57,7 @@ public class ArtikelDAOFirebird {
             pstmt.executeUpdate();
 
         } 
-        catch (SQLException e){
+        catch (SQLException | ClassNotFoundException e){
                 System.out.println("SQL fout");
                 e.printStackTrace();
         }
@@ -129,7 +129,7 @@ public class ArtikelDAOFirebird {
 
             pstmt.close(); 
         } 
-        catch (SQLException e){
+        catch (SQLException | ClassNotFoundException e){
                 System.out.println("SQL Update fout");
                 e.printStackTrace();
         }

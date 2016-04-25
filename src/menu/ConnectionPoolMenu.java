@@ -18,7 +18,7 @@ public class ConnectionPoolMenu {
     
     
     public static void startMenu() {
-        
+        /*
         public static final int NILL = 0;
     public static final int HIKARI = 1;
     public static final int C3P0 = 2;
@@ -83,5 +83,6 @@ public class ConnectionPoolMenu {
         }
         else {
             logger.info("Als je dit leest dan is er iets mis.");
+        */
         }
 }

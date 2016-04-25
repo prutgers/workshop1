@@ -60,12 +60,14 @@ public class TestVerify {
         System.out.println("Artikel Naam");
         String artikel_naam = VerifyInputScanner.verifyString();
         
+        /*
         System.out.println("artikelen op voorraad");
         while(!verified)
             String verify
         if(VerifyInputScanner.verifyInt(input.next())){
             String artikel_voorraad = input.next();
         }
+*/
         
             
         
