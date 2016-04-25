@@ -74,7 +74,7 @@ public class ConnectionPoolMenu {
             logger.info("HikariCP ingesteld");
         }
         else if (setting == 2) {
-            strategy = new ConnectionPoolC3P0();
+            strategy = new ConnectionPoolC3P0(setUrl().setPasword);
             logger.info("C3P0 ingesteld");
         }
         else if (setting == 3) {

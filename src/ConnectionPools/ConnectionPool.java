@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 public class ConnectionPool {
     private static ConnectionType strategy = new ConnectionPoolHikari();
     static Logger logger = LoggerFactory.getLogger(ConnectionPool.class);
-        
+    
     public ConnectionPool(){
     }
    

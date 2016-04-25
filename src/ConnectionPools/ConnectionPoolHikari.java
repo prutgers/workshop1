@@ -33,7 +33,6 @@ import java.sql.SQLException;
 public class ConnectionPoolHikari implements ConnectionType {
     static Logger logger = LoggerFactory.getLogger(ConnectionPoolHikari.class);
     
-    
     HikariDataSource ds;
     public ConnectionPoolHikari(){
         HikariConfig config = new HikariConfig();

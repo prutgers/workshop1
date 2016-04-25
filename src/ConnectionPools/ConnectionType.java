@@ -14,6 +14,4 @@ import java.sql.SQLException;
  */
 public interface ConnectionType extends java.io.Closeable{
     public Connection getConnection() throws SQLException, ClassNotFoundException;
-    
-    
-}
+    }
