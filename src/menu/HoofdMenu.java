@@ -26,7 +26,6 @@ public class HoofdMenu {
         
         switch (select) {
             case 1:
-                KlantMenu.startMenu();
                 break;
             case 2:
                 AdresMenu.startMenu();

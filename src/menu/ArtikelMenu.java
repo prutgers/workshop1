@@ -52,7 +52,7 @@ public class ArtikelMenu {
     
     
     public static void createArtikel(){
-        
+        Scanner input = new Scanner(System.in);
         System.out.println("Artikel Naam");
         String artikel_naam = VerifyInputScanner.verifyString();
         
@@ -60,7 +60,7 @@ public class ArtikelMenu {
         int artikel_voorraad = VerifyInputScanner.verifyInt();
         
         System.out.println("artikel prijs");
-        double artikel_prijs = VerifyInputScanner.verifyDouble();
+        int artikel_prijs = input.nextInt();
         
         Artikel artikel = new Artikel();                      
 
