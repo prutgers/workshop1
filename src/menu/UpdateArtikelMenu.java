@@ -5,6 +5,7 @@
  */
 package menu;
 
+import java.math.BigDecimal;
 import java.util.Scanner;
 import workshop1.*;
 
@@ -54,8 +55,8 @@ public class UpdateArtikelMenu {
         System.out.println("artikelen op voorraad");
         int artikel_voorraad = VerifyInputScanner.verifyInt();
         
-        System.out.println("artikel rpijs");
-        int artikel_prijs = input.nextInt();
+        System.out.println("artikel prijs");
+         BigDecimal artikel_prijs = input.nextBigDecimal();
         
         Artikel artikel = new Artikel();                      
 
@@ -75,7 +76,7 @@ public class UpdateArtikelMenu {
         Artikel artikel = ArtikelDAO.readArtikel(artikel_id);
         
         System.out.println("artikel prijs");
-        int artikel_prijs = input.nextInt();
+        BigDecimal artikel_prijs = input.nextBigDecimal();
         artikel.setArtikel_prijs(artikel_prijs);
         
         ArtikelDAO.updateArtikel(artikel);

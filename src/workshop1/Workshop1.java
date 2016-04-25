@@ -8,6 +8,7 @@ package workshop1;
 import ConnectionPools.ConnectionPool;
 import ConnectionPools.ConnectionPoolHikari;
 import formatMessage.*;
+import java.math.BigDecimal;
 import menu.*;
 
 
@@ -22,13 +23,20 @@ public class Workshop1 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        //HoofdMenu.startMenu();      
+        HoofdMenu.startMenu();      
            
-       // ArtikelDAOFirebird.testreadFirebirdDB();
+ 
+        
+    }
+}
+
+/**
+ *       // ArtikelDAOFirebird.testreadFirebirdDB();
        Artikel artikel = new Artikel();
-       artikel.setArtikel_id(5);
-       artikel.setArtikel_naam("test");
-       artikel.setArtikel_prijs(19);
+       //artikel.setArtikel_id(5);
+       artikel.setArtikel_naam("feest");
+
+       artikel.setArtikel_prijs(new BigDecimal(14.8));
        artikel.setArtikel_voorraad(5);
 
        ArtikelDAOFirebird.createFirebirdDB(artikel);
@@ -36,13 +44,12 @@ public class Workshop1 {
 
        
        Artikel artikel2 = new Artikel();
-       artikel2.setArtikel_id(5);
-       artikel2.setArtikel_naam("test3");
-       artikel2.setArtikel_prijs(19);
+       artikel2.setArtikel_naam("33");
+        
+       artikel2.setArtikel_prijs(new BigDecimal(16.44));
        artikel2.setArtikel_voorraad(5);
 
-       ArtikelDAOFirebird.updateFirebirdDB(artikel2);
+       //ArtikelDAOFirebird.updateFirebirdDB(artikel2);
+       ArtikelDAOFirebird.createFirebirdDB(artikel2);
        ArtikelDAOFirebird.readFirebirdDB(); 
-        
-    }
-}
+ */

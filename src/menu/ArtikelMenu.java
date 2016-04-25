@@ -5,6 +5,7 @@
  */
 package menu;
 
+import java.math.BigDecimal;
 import java.util.Scanner;
 import workshop1.*;
 
@@ -57,10 +58,10 @@ public class ArtikelMenu {
         String artikel_naam = VerifyInputScanner.verifyString();
         
         System.out.println("artikelen op voorraad");
-        int artikel_voorraad = VerifyInputScanner.verifyInt();
+        int artikel_voorraad = input.nextInt();
         
         System.out.println("artikel prijs");
-        int artikel_prijs = input.nextInt();
+        BigDecimal artikel_prijs = input.nextBigDecimal();
         
         Artikel artikel = new Artikel();                      
 

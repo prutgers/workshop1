@@ -44,7 +44,7 @@ public class ArtikelDAOFirebird {
     public static void createFirebirdDB(Artikel artikel){
 
         try(Connection connection = DBConnectorFirebird.getConnection();){
-            System.out.println("1");
+            
             String sql = "INSERT INTO ARTIKEL (artikel_id, artikel_naam, artikel_voorraad, artikel_prijs) VALUES (?,?,?,?)";
             
             PreparedStatement pstmt = connection.prepareStatement(sql);
@@ -52,7 +52,7 @@ public class ArtikelDAOFirebird {
             pstmt.setInt(1, artikel.getArtikel_id());
             pstmt.setString(2, artikel.getArtikel_naam());
             pstmt.setInt(3, artikel.getArtikel_voorraad());
-            pstmt.setLong(4, artikel.getArtikel_prijs());
+            pstmt.setBigDecimal(4, artikel.getArtikel_prijs());
 
             pstmt.executeUpdate();
 
@@ -73,7 +73,7 @@ public class ArtikelDAOFirebird {
             ResultSet poef = pstmt.executeQuery(sql);
 
             while(poef.next()){
-                System.out.println("artikel id " + poef.getInt("artikel_id") + "naam " + poef.getString("artikel_naam"));
+                System.out.println("artikel id " + poef.getInt("artikel_id") + "naam " + poef.getString("artikel_naam") + " prijs " + poef.getBigDecimal("artikel_prijs"));
             }
             pstmt.close();
             
@@ -121,7 +121,7 @@ public class ArtikelDAOFirebird {
             String sql = "UPDATE ARTIKEL set artikel_naam = ?, artikel_prijs = ?, artikel_voorraad = ? where artikel_id = ?;";
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setString(1, artikel.getArtikel_naam());
-            pstmt.setInt(2, artikel.getArtikel_prijs());
+            pstmt.setBigDecimal(2, artikel.getArtikel_prijs());
             pstmt.setInt(3, artikel.getArtikel_voorraad());
             pstmt.setInt(4, artikel.getArtikel_id());
 

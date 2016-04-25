@@ -5,6 +5,7 @@
  */
 package workshop1;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 /**
@@ -16,7 +17,7 @@ public class Artikel {
     private int artikel_id;
     private String artikel_naam;
     private int artikel_voorraad;
-    private int artikel_prijs;
+    private BigDecimal artikel_prijs;
 
   
     
@@ -68,14 +69,14 @@ public class Artikel {
     /**
      * @return the artikel_prijs
      */
-    public int getArtikel_prijs() {
+    public BigDecimal getArtikel_prijs() {
         return artikel_prijs;
     }
 
     /**
      * @param artikel_prijs the artikel_prijs to set
      */
-    public void setArtikel_prijs(int artikel_prijs) {
+    public void setArtikel_prijs(BigDecimal artikel_prijs) {
         this.artikel_prijs = artikel_prijs;
     }
 
