@@ -37,18 +37,19 @@ public class VerifyInputScanner {
         }
     }
     
-    public static int verifyInt(){
-        while(true){
-            Scanner input = new Scanner(System.in);
-            try{
-                int verified = input.nextInt();
-                return verified;
-            }
-            catch(InputMismatchException e){
-                System.out.println("geen juist nummer, probeer nogmaals");
-
-            }
+    public static boolean verifyInt(String verify){
+       try { 
+            Integer.parseInt(verify); 
+        } catch(NumberFormatException e) { 
+            return false; 
+        } catch(NullPointerException e) {
+          return false;
         }
+       return true;
+    }
+    
+    public static int verifyInt(){
+       return 5;
     }
     
     
