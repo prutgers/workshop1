@@ -17,21 +17,23 @@ import java.util.ArrayList;
  * @author lucas
  */
 public class KoppelKlantAdresDAO {
-    public static void createKlantAdresKoppel(KoppelKlantAdres koppel) throws com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException {
-        try ( CachedRowSetImpl connection = new CachedRowSetImpl()) {
-            System.out.println("1");
-            connection.setUrl("jdbc:mysql://localhost/workshopdb");
-            connection.setUsername("rsvier");
-            connection.setPassword("tiger");
-            
-            connection.setCommand("insert into koppelklantadres ("
+    public static KoppelKlantAdres createKlantAdresKoppel(KoppelKlantAdres koppel) throws com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException {
+        KoppelKlantAdres koppelKlantAdresOut = koppel;
+        try (
+            Connection connection = ConnectionPool.getConnection();
+                ) {
+            PreparedStatement createKoppel = connection.prepareStatement("insert into koppelklantadres ("
                     + "klant_id, adres_id)"
                     + "values (?, ?)"); //1, 2
-            connection.setInt(1, koppel.getKlant_id() );
-            System.out.println("2 koppel klantid " + koppel.getKlant_id()  );
-            connection.setInt(2, koppel.getAdres_id() );
-            System.out.println("2 koppel klantid " + koppel.getAdres_id()  );
-            connection.execute();
+            createKoppel.setInt(1, koppel.getKlant_id() );
+            createKoppel.setInt(2, koppel.getAdres_id() );
+            
+            createKoppel.execute();
+            
+            ResultSet koppelData = createKoppel.getGeneratedKeys();
+            koppelData.next();
+            koppelKlantAdresOut.setKoppel_id( koppelData.getInt(1) );
+            
         }
         catch(com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException ex){
             System.out.println("Dit klant_idadres_idKoppel bestaat al; Geen actie ondernomen.");         
@@ -39,28 +41,27 @@ public class KoppelKlantAdresDAO {
         catch(Exception ex){
             ex.printStackTrace();     
         }
+        return koppelKlantAdresOut;
     }
     
-    public static ArrayList<Integer> readKlantID(int adres_id){
+     public static ArrayList<Integer> readKlantID(int adres_id){
         ArrayList<Integer> allKlant_id = new ArrayList();
         int i = 0;
-        try ( CachedRowSetImpl connection = new CachedRowSetImpl();
+        try (
+            Connection connection = ConnectionPool.getConnection();
                 ) {
-            connection.setUrl("jdbc:mysql://localhost/workshopdb");
-            connection.setUsername("rsvier");
-            connection.setPassword("tiger");
-            
-            connection.setCommand(
+            PreparedStatement readKlant_id = connection.prepareStatement(
                     "select klant_id from koppelklantadres "
                             + "where adres_id LIKE ? ");
             
-            connection.setInt(1, adres_id );
+            readKlant_id.setInt(1, adres_id );
 
-            connection.execute();
+            ResultSet readKlantResult = readKlant_id.executeQuery();
+                logger.info("Statement executed.");
             
-            while (connection.next()){
+            while (readKlantResult.next()){
                 i++;
-                allKlant_id.add( connection.getInt("klant_id") );
+                allKlant_id.add( readKlantResult.getInt("klant_id") );
             }
         }
         catch(Exception ex){
@@ -70,6 +71,8 @@ public class KoppelKlantAdresDAO {
         return allKlant_id;
     }
     
+     
+     //helemaal aangepast
     public static ArrayList<Adres> readAdresID(int klant_id){
         ArrayList<Adres> adresLijst = new ArrayList();
         
@@ -101,17 +104,15 @@ public class KoppelKlantAdresDAO {
             
             
     public static void deleteKlantAdresKoppel(int klant_id){
-        try ( CachedRowSetImpl connection = new CachedRowSetImpl();
+        try (
+            Connection connection = ConnectionPool.getConnection();
                 ) {
-            connection.setUrl("jdbc:mysql://localhost/workshopdb");
-            connection.setUsername("rsvier");
-            connection.setPassword("tiger");
-            
-            connection.setCommand(
+            PreparedStatement deleteByKlant_id = connection.prepareStatement(
                     "delete from koppelklantadres where klant_id = ?");
-            connection.setString(1, Integer.toString(klant_id) );
+            
+            deleteByKlant_id.setString(1, Integer.toString(klant_id) );
 
-            connection.execute();
+            deleteByKlant_id.executeUpdate();
         }
         catch(Exception ex){
             ex.printStackTrace();            
@@ -119,17 +120,14 @@ public class KoppelKlantAdresDAO {
     }
     
     public static void deleteAdresKlantKoppel(int adres_id){
-        try ( CachedRowSetImpl connection = new CachedRowSetImpl();
+        try (
+            Connection connection = ConnectionPool.getConnection();
                 ) {
-            connection.setUrl("jdbc:mysql://localhost/workshopdb");
-            connection.setUsername("rsvier");
-            connection.setPassword("tiger");
-            
-            connection.setCommand(
+            PreparedStatement deleteByAdres_id = connection.prepareStatement(
                     "delete from koppelklantadres where adres_id = ?");
-            connection.setString(1, Integer.toString(adres_id) );
+            deleteByAdres_id.setString(1, Integer.toString(adres_id) );
 
-            connection.execute();
+            deleteByAdres_id.executeUpdate();
         }
         catch(Exception ex){
             ex.printStackTrace();            
