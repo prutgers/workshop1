@@ -18,8 +18,8 @@ import java.util.ArrayList;
  */
 public class KoppelKlantAdresDAO {
     public static void createKlantAdresKoppel(KoppelKlantAdres koppel) throws com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException {
-        try ( CachedRowSetImpl connection = new CachedRowSetImpl();
-                ) {
+        try ( CachedRowSetImpl connection = new CachedRowSetImpl()) {
+            System.out.println("1");
             connection.setUrl("jdbc:mysql://localhost/workshopdb");
             connection.setUsername("rsvier");
             connection.setPassword("tiger");
@@ -28,7 +28,10 @@ public class KoppelKlantAdresDAO {
                     + "klant_id, adres_id)"
                     + "values (?, ?)"); //1, 2
             connection.setInt(1, koppel.getKlant_id() );
+            System.out.println("2 koppel klantid " + koppel.getKlant_id()  );
             connection.setInt(2, koppel.getAdres_id() );
+            System.out.println("2 koppel klantid " + koppel.getAdres_id()  );
+            connection.execute();
         }
         catch(com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException ex){
             System.out.println("Dit klant_idadres_idKoppel bestaat al; Geen actie ondernomen.");         

@@ -9,12 +9,14 @@ package workshop1;
  *
  * @author lucas
  */
+import ConnectionPools.ConnectionPool;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import javax.sql.rowset.JdbcRowSet;
 import com.sun.rowset.CachedRowSetImpl;
+import formatMessage.PrintFormat;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -22,30 +24,25 @@ public class KlantDAO {
     
  
     public static Klant createKlant(Klant klant) throws com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException {
-        Klant klantOut = klant;
-        try ( CachedRowSetImpl connection = new CachedRowSetImpl();
-                ) {
-            connection.setUrl("jdbc:mysql://localhost/workshopdb");
-            connection.setUsername("rsvier");
-            connection.setPassword("tiger");
-            connection.setCommand(
-                    "insert into klant ("
+        try(Connection connection = ConnectionPool.getConnection()){
+             String sql = "insert into klant ("
                             + "voornaam,"       //1
                             + " achternaam,"    //2
                             + " tussenvoegsel," //3
                             + " email)"         //4
-                            + "values (?, ?, ?, ?)");
+                            + "values (?, ?, ?, ?)" ;
             
-            connection.setString(1, klant.getVoornaam() );
-            connection.setString(2, klant.getAchternaam() );
-            connection.setString(3, klant.getTussenvoegsel() );
-            connection.setString(4, klant.getEmail() );
+            PreparedStatement pstmt = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            pstmt.setString(1, klant.getVoornaam() );
+            pstmt.setString(2, klant.getAchternaam() );
+            pstmt.setString(3, klant.getTussenvoegsel() );
+            pstmt.setString(4, klant.getEmail() );
             
-            connection.execute();
-            //ResultSet klant_idData = connection.getGeneratedKeys();
-            connection.next();
-            // Dit werk niet momenteel en geeft foutmeldingen een Nullpointer dus dit moet nog anders
-            klantOut.setKlant_id( connection.getInt("klant_id") );
+            pstmt.executeUpdate();
+            ResultSet resultSet = pstmt.getGeneratedKeys();
+            if (resultSet.next()){
+                klant.setKlant_id(resultSet.getInt(1)); 
+            }
             
         }
         catch(com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException ex){
@@ -54,7 +51,7 @@ public class KlantDAO {
         catch(Exception ex){
             ex.printStackTrace();         
         }
-        return klantOut;
+        return klant;
     }
     
     public static Klant readKlant(int klant_id){
@@ -142,7 +139,7 @@ public class KlantDAO {
     
     public static ArrayList<Klant> readAllKlantByKlant(Klant klant){
         ArrayList<Klant> AllKlant = new ArrayList();
-        int i = 0;
+        
         try ( CachedRowSetImpl connection = new CachedRowSetImpl();
                 ) {
             connection.setUrl("jdbc:mysql://localhost/workshopdb");
@@ -170,14 +167,15 @@ public class KlantDAO {
             connection.execute();
             
             while (connection.next()){
-                i++;
-                Klant klant4Array = new Klant();
-                klant.setKlant_id(connection.getInt("klant_id"));
-                klant.setVoornaam(connection.getString("voornaam"));
-                klant.setAchternaam(connection.getString("achternaam"));
-                klant.setTussenvoegsel(connection.getString("tussenvoegsel"));
-                klant.setEmail(connection.getString("email"));
-                AllKlant.add(klant4Array);
+        
+                Klant klant4Array = new Klant(); //maakt nieuwe klant aan
+                klant4Array.setKlant_id(connection.getInt("klant_id")); //stopt data in klant die niet voor de array is
+                klant4Array.setVoornaam(connection.getString("voornaam")); //stopt data in klant die niet voor de array is
+                klant4Array.setAchternaam(connection.getString("achternaam")); //stopt data in klant die niet voor de array is
+                klant4Array.setTussenvoegsel(connection.getString("tussenvoegsel")); //stopt data in klant die niet voor de array is
+                klant4Array.setEmail(connection.getString("email")); //stopt data in klant die niet voor de array is
+                AllKlant.add(klant4Array); //stopt nieuwe klant LEGE KLANT DUS in array
+                
             }
 
         }
@@ -185,7 +183,7 @@ public class KlantDAO {
         catch(Exception ex){
             ex.printStackTrace();
         }
-        System.out.println("" + i +" Klants matched this inquiry.");
+        
         return AllKlant;
     }
     

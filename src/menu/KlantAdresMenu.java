@@ -36,7 +36,6 @@ public class KlantAdresMenu {
             switch (select) {
                 case 1:
                     createNieuweKlantMenu();
-                    startMenu();
                     break;
                 case 2:
                     UpdateKlantMenu();
@@ -110,7 +109,7 @@ public class KlantAdresMenu {
         //selecteer een Klant
         System.out.println("Pas een klant aan. \n"
                 + "Voer het Klant ID in: ");
-        Klant outputKlant = KlantDAO.readKlant( Integer.parseInt(input.nextLine()));
+        Klant outputKlant = KlantDAO.readKlant(VerifyInputScanner.verifyInt());
         
         //verkrijg de nieuwe data uit de commandline en zet in de outputKlant
         System.out.println("Voer de nieuwe gegevens in "
@@ -209,10 +208,10 @@ public class KlantAdresMenu {
         ArrayList<Klant> list = KlantDAO.readAllKlantByKlant(new Klant());
         System.out.println("KLANTGEGEVENS \n"
             + "---------------------");
-        System.out.printf("%15s %15s %15s %15s %15s",
+        System.out.printf("%15s %15s %15s %15s %15s \n",
                 "Klant ID", "Voornaam", "Achternaam", "Tussenvoegsel", "Email");
         for(Klant e : list){
-            System.out.printf("%15d %15s %15d %15s %15s %15s\n", 
+            System.out.printf("%15d %15s %15s %15s %15s \n", 
                     e.getKlant_id(), e.getVoornaam(), e.getAchternaam(), 
                     e.getTussenvoegsel(), e.getEmail());
         
@@ -296,16 +295,39 @@ public class KlantAdresMenu {
     /*
     Automatische koppeling van klant en adres, zoals in BestellingenMenu
     */
-    public static void createKoppelKlantAdresMenu(int adresID) 
-            throws MySQLIntegrityConstraintViolationException {
+    public static void createKoppelKlantAdresMenu(int klantID) throws MySQLIntegrityConstraintViolationException {
         Scanner input = new Scanner(System.in);
-        KoppelKlantAdres klantAdresKoppel = new KoppelKlantAdres();
-        klantAdresKoppel.setKoppel_id(adresID);
-        System.out.print("Voer het klant ID in: ");
-        klantAdresKoppel.setKlant_id(input.nextInt());
-        System.out.print("Voer het adres ID in: ");
-        klantAdresKoppel.setAdres_id(input.nextInt());
-        KoppelKlantAdresDAO.createKlantAdresKoppel(klantAdresKoppel);
+        
+        KoppelKlantAdres koppel = new KoppelKlantAdres();
+        koppel.setKlant_id(klantID);
+        
+        //Maak een nieuw adres
+       
+       
+        System.out.println("Voer de straatnaam in:");
+        String straatnaam = input.next();
+        System.out.println("Voer het huisnummer in:");
+        int huisnummer = input.nextInt();
+        System.out.println("Voer de toevoeging in:");
+        String toevoeging = input.next();
+        System.out.println("Voer de postcode in:");
+        String postcode = input.next();
+        System.out.println("Voer de woonplaats in:");
+        String woonplaats = input.next();
+        
+        
+        Adres adres = new Adres();
+        adres.setStraatnaam(straatnaam);
+        adres.setHuisnummer(huisnummer);
+        adres.setToevoeging(toevoeging);
+        adres.setPostcode(postcode);
+        adres.setWoonplaats(woonplaats);
+        
+        adres = AdresDAO.createAdres(adres);
+        
+        koppel.setAdres_id(adres.getAdres_id());
+        
+        KoppelKlantAdresDAO.createKlantAdresKoppel(koppel);
         
     }
 }

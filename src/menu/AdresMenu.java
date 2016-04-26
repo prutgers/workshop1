@@ -89,7 +89,7 @@ public class AdresMenu {
         adres.setPostcode(postcode);
         adres.setWoonplaats(woonplaats);
         
-        AdresDAO aDAO = new AdresDAO(); //schrijf naar database
+       
         AdresDAO.createAdres(adres);
     }
     

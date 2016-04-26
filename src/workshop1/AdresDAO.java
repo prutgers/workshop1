@@ -13,7 +13,7 @@ public class AdresDAO {
     
     static PreparedStatement stmnt;
 
-    public static void createAdres(Adres adres) {
+    public static Adres createAdres(Adres adres) {
         String query = "INSERT INTO adres ("
                 + "straatnaam,"
                 + "huisnummer,"
@@ -60,6 +60,7 @@ public class AdresDAO {
         catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex + "\nProbeer opnieuw.");
             }
+        return adres;
     }
     
     public static ArrayList<Adres> readAdres() {

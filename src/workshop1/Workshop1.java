@@ -16,7 +16,7 @@ import menu.*;
 
 /**
  *
- * @author Peter
+ * @author Peter1
  */
 
 public class Workshop1 {
@@ -25,10 +25,13 @@ public class Workshop1 {
      */
     public static void main(String[] args) {
     
-    HoofdMenu.startMenu();
+   HoofdMenu.startMenu();
 
+    
+
+        
        //testArtikelFirebird();
-       KlantAdresMenu.readKlantByIDMenu();
+      // KlantAdresMenu.readKlantByIDMenu();
    }
     
     public static void testArtikelFirebird(){
