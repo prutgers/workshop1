@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package menu;
 
-import java.math.BigDecimal;
+import formatMessage.PrintFormat;
+import java.util.ArrayList;
 import java.util.Scanner;
 import workshop1.*;
 
@@ -17,55 +13,62 @@ import workshop1.*;
 public class ArtikelMenu {
     
     public static void startMenu(){
-    
-        
-        
-            System.out.println("Kies 1 om een artikel toe te voegen; \n"
-                    + "kies 2 om een artikel up te daten \n"
-                    + "kies 3 om een artikel te verwijderen \n"
-                    + "kies 4 om de lijst van artikelen te bekijken \n"
-                    + "kies 5 quit, \n");
-            Scanner input = new Scanner(System.in);
+        Scanner input = new Scanner(System.in);        
+        PrintFormat.printHeader("ARTIKELMENU"); 
+            System.out.println("1: Maak een nieuw artikel aan \n"
+                    + "\n"
+                + "2: Pas een artikel aan (met artikel ID) \n"
+                    + "\n"
+                + "3: Haal een lijst met alle beschikbare artikelen op \n"
+                + "4: Haal een specifiek artikel op (met artikel ID) \n"
+                    + "\n"
+                + "5: Verwijder een bestaand artikel (met artikel ID) \n"
+                    + "\n"
+                + "0: Keer terug naar het Hoofdmenu \n");
             int select = input.nextInt();
 
             switch (select) {
                 case 1:
-                    createArtikel();
+                    createNieuwArtikelMenu();
+                    startMenu();
                     break;
                 case 2:
-                    UpdateArtikelMenu.startMenu();
+                    updateArtikelMenu();
                     break;
                 case 3:
-                    deleteArtikel();
+                    readAllArtikelenMenu();
                     break;            
                 case 4:
-                   ReadArtikelMenu.startMenu();
+                    readArtikelByIdMenu();
                     break;
                 case 5:
-                    System.exit(0);
+                   deleteArtikelMenu();
+                    break;
+                case 0:
+                    HoofdMenu.startMenu();
                     break;
                 default:
-                    System.out.println("kies 1, 2, 3, 4 of 5");
+                    System.out.println("Maak een keuze: 1, 2, 3, 4, 5 of 0");
                     break;
             }
         
     }
     
-    
-    public static void createArtikel(){
-        Scanner input = new Scanner(System.in);
-        System.out.println("Artikel Naam");
+    /*
+    1. createNieuwArtikelMenu maakt een nieuw artikel aan
+    */
+    public static void createNieuwArtikelMenu(){
+        System.out.println("Voer de artikelnaam in: ");
         String artikel_naam = VerifyInputScanner.verifyString();
         
-        System.out.println("artikelen op voorraad");
-        int artikel_voorraad = input.nextInt();
+        System.out.println("Voer het aantal dat van dit artikel op voorraad is in: ");
+        int artikel_voorraad = VerifyInputScanner.verifyInt();
         
-        System.out.println("artikel prijs");
-        BigDecimal artikel_prijs = input.nextBigDecimal();
+        System.out.println("Voer de artikelprijs in: ");
+        double artikel_prijs = VerifyInputScanner.verifyDouble();
         
         Artikel artikel = new Artikel();                      
 
-        
         artikel.setArtikel_naam(artikel_naam);
         artikel.setArtikel_voorraad(artikel_voorraad);
         artikel.setArtikel_prijs(artikel_prijs);
@@ -73,16 +76,72 @@ public class ArtikelMenu {
         ArtikelDAO.createNewArtikel(artikel);
     }
     
-    public static void deleteArtikel(){
-        Scanner input = new Scanner(System.in);        
-        
-        System.out.println("Het artikel Id van het te verwijderen artikel");
+    /*
+    2. updateArtikelMenu kan een artikel aanpassen
+    */
+    private static void updateArtikelMenu() {
+        System.out.println("Voer het artikel ID van het artikel"
+                + "dat u wilt updaten: ");
         int artikel_id = VerifyInputScanner.verifyInt();
         
+        System.out.println("Artikelnaam: ");
+        String artikel_naam = VerifyInputScanner.verifyString();
         
-        ArtikelDAO.deleteArtikel(artikel_id);
+        System.out.println("Aantal van dit artikel dat op voorraad is: ");
+        int artikel_voorraad = VerifyInputScanner.verifyInt();
         
+        System.out.println("Artikelprijs: ");
+        double artikel_prijs = VerifyInputScanner.verifyDouble();
+        
+        Artikel artikel = new Artikel();                      
+
+        artikel.setArtikel_id(artikel_id);
+        artikel.setArtikel_naam(artikel_naam);
+        artikel.setArtikel_voorraad(artikel_voorraad);
+        artikel.setArtikel_prijs(artikel_prijs);
+        
+        ArtikelDAO.updateArtikel(artikel);
     }
     
-   
+    /*
+    3. readAllArtikelenMenu geeft een ArrayList van alle beschikbare artikelen
+    */
+    private static void readAllArtikelenMenu() {
+        System.out.format("%s, %s, %s, %s\n", 
+                "Artikel ID", "Artikelnaam", "Artikelprijs", "Artikelvoorraad");
+       ArrayList<Artikel> artikelLijst = ArtikelDAO.readArtikel();
+
+       for(Artikel a : artikelLijst){
+        System.out.format("%s, %s, %s, %s\n", a.getArtikel_id(), a.getArtikel_naam(), 
+                a.getArtikel_prijs(), a.getArtikel_voorraad()); 
+        }
+    }
+    
+    /*
+    4. readArtikelByIdMenu geeft de gegevens van een specifiek artikel terug
+       op basis van het artikel ID
+    */
+    private static void readArtikelByIdMenu() {
+        System.out.println("Voer het artikel ID in: ");
+        int artikel_id = VerifyInputScanner.verifyInt();
+
+        Artikel a = ArtikelDAO.readArtikel(artikel_id);
+        System.out.format("%s, %s, %s, %s\n", 
+                "Artikel ID", "Artikelnaam", "Artikelprijs", "Artikelvoorraad");
+        System.out.format("%s, %s, %s, %s\n", a.getArtikel_id(), a.getArtikel_naam(), 
+                a.getArtikel_prijs(), a.getArtikel_voorraad()); 
+    }
+    
+    /*
+    5. deleteArtikelMenu verwijdert een specifiek artikel op basis van artikel ID
+    */
+    public static void deleteArtikelMenu(){
+        Scanner input = new Scanner(System.in); //wordt deze niet redundant door de VerifyInputScanner?       
+        
+        System.out.println("Voer het artikel ID van het "
+                + "te verwijderen artikel in: ");
+        int artikel_id = VerifyInputScanner.verifyInt();
+        
+        ArtikelDAO.deleteArtikel(artikel_id);
+    }
 }

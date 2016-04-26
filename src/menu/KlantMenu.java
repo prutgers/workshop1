@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package menu;
 
 import java.sql.SQLException;
@@ -82,7 +77,7 @@ public class KlantMenu {
             KlantDAO.createKlant(inputKlant);
         }
         catch(com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException ex){
-            System.out.println("\nUw staat al in ons register!\n" );
+            System.out.println("U staat al in ons register!\n" );
         }
         catch(Exception ex){
             ex.printStackTrace();         
