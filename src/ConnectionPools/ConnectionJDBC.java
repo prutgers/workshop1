@@ -17,29 +17,52 @@ import org.slf4j.LoggerFactory;
  * @author lucas
  */
 public class ConnectionJDBC implements ConnectionType, java.io.Closeable {
-    Connection connection;
-    
     static Logger logger = LoggerFactory.getLogger(ConnectionJDBC.class);
     
+    Connection connection;
+    
+    
     public ConnectionJDBC() {
-        try{ 
+        try {
         // Load the JDBC driver
         Class.forName("com.mysql.jdbc.Driver");
-        logger.info("Driver loaded");
+            logger.info("Driver loaded");
         // Connect to a database
         Connection connection = DriverManager.getConnection
-                 ("jdbc:mysql://localhost/workshopdb" , "rsvier", "tiger");
-        logger.info("Database connected");
+                 ("jdbc:mysql://localhost/workshopdb" , usernaam, wachtwoord);
+            logger.info("Database connected");
         this.connection = connection;
         }
-         catch(SQLException | ClassNotFoundException  e){
-            e.printStackTrace();
+        catch(ClassNotFoundException ex){
+            logger.info("Driver failed to load, controleer of je alle libraries hebt die in de dependancies vermeld zijn.");
+            ex.printStackTrace();
+            
+        }
+        catch(SQLException ex){
+            logger.info("Probleem met het verbinden met de Database.");
+            ex.printStackTrace();
         }
     }
     
-    @Override
-    public Connection getConnection() throws SQLException{
-        return connection;
+    /**
+     * De ConnectionJDBC class is niet een Singleton class.
+     * Deze get() is er alleen om compatibiliteit te bieden met de andere ConnectionType classen.
+     * 
+     */
+    public static ConnectionJDBC getConnectionJDBC(){
+        return new ConnectionJDBC();
+    }
+    
+    /**
+     * De JDBC driver ondersteunt geen Pool functionaliteit.
+     * Dit betekend dat als een methode de connectie gebruikt en dan sluit
+     * (bv dmv een try-with-resources blok) alle daarop volgende
+     * connectiepogingen een 'connection closed' error geven.
+     * Om toch een autoclose functie mogelijk te maken wordt er voor iedere
+     * connectie een nieuw ConnectionJDBC-object aangemaakt.
+     */
+    public Connection getConnection() throws SQLException, ClassNotFoundException{
+        return ( new ConnectionJDBC() ).connection;
     }
     
     @Override

@@ -1,6 +1,8 @@
 
 package workshop1;
 
+import ConnectionPools.DBConnectorFirebird;
+import ConnectionPools.DBConnector;
 import ConnectionPools.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

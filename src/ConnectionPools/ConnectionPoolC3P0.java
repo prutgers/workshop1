@@ -29,38 +29,45 @@ import java.sql.SQLException;
     * 
     * verder heb je ook nog de slf4j-api nodig en de slf4j-simple
     * te vinden op http://www.slf4j.org/download.html
-    * play RA2 online : http://redalert2online.com/
  * 
  */
 
-public class ConnectionPoolC3P0 implements ConnectionType {
-    ComboPooledDataSource cpds;
+public final class ConnectionPoolC3P0 implements ConnectionType{
     static Logger logger = LoggerFactory.getLogger(ConnectionPoolC3P0.class);
     
-    public ConnectionPoolC3P0(){
-      cpds = new ComboPooledDataSource();
+    private static ConnectionPoolC3P0 connectionPoolC3P0 = new ConnectionPoolC3P0();
+    ComboPooledDataSource cpds;
+    
+    
+    private ConnectionPoolC3P0(){
+        ComboPooledDataSource cpds = new ComboPooledDataSource();
         try {
             cpds.setDriverClass( "com.mysql.jdbc.Driver" ); //loads the jdbc driver
-            logger.info("C3P0 Driver loaded");
+                logger.info("C3P0 Driver loaded");
+            
             cpds.setJdbcUrl( "jdbc:mysql://localhost/workshopdb" );
-            cpds.setUser("rsvier");
-            cpds.setPassword("tiger");
+            cpds.setUser(usernaam);
+            cpds.setPassword(wachtwoord);
             cpds.setMaxStatements( 50 );
-            logger.info("Database connected");
+            
+                logger.info("Database connected");
+            
+            this.cpds = cpds;
         }
         catch (Exception ex){
             ex.printStackTrace();
         }
+        
     }
+    
+    public static ConnectionPoolC3P0 getConnectionPoolC3P0(){
+            logger.info("C3P0 Connectie gehaalt.");
+        return connectionPoolC3P0;
+    }
+    
     
     @Override
     public Connection getConnection() throws SQLException{
-        System.out.println("hey ik doe het met C3P0");
         return cpds.getConnection();
-    }
-    
-    @Override
-    public void close(){
-        cpds.close();
     }
 }

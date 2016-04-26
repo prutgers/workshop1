@@ -1,6 +1,7 @@
 
 package workshop1;
 
+import ConnectionPools.DBConnector;
 import ConnectionPools.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -13,7 +13,7 @@ import java.sql.SQLException;
 
 /**
  *
- * @author Herman
+ * @author Gebruiker
  */
 
 /**
@@ -30,11 +30,14 @@ import java.sql.SQLException;
  * @author Peter
  */
 
-public class ConnectionPoolHikari implements ConnectionType {
+public final class ConnectionPoolHikari implements ConnectionType {
     static Logger logger = LoggerFactory.getLogger(ConnectionPoolHikari.class);
     
+    private static ConnectionPoolHikari connectionPoolHikari = new ConnectionPoolHikari();
     HikariDataSource ds;
-    public ConnectionPoolHikari(){
+    
+    
+    private ConnectionPoolHikari(){
         HikariConfig config = new HikariConfig();
         config.setMinimumIdle(1);
         config.setMaximumPoolSize(2);
@@ -46,22 +49,21 @@ public class ConnectionPoolHikari implements ConnectionType {
         config.addDataSourceProperty("serverName", "localhost");
         config.addDataSourceProperty("port", "3306");
         config.addDataSourceProperty("databaseName", "workshopdb");
-        config.addDataSourceProperty("user", "rsvier");
-        config.addDataSourceProperty("password", "tiger");
+        config.addDataSourceProperty("user", usernaam);
+        config.addDataSourceProperty("password", wachtwoord);
             logger.info("Database connected");
+        
         this.ds = new HikariDataSource(config);
+    }
+    
+    
+    public static ConnectionPoolHikari getConnectionPoolHikari(){
+            logger.info("Hikari Connectie gehaalt.");
+        return connectionPoolHikari;
     }
     
     @Override
     public Connection getConnection() throws SQLException{
-        System.out.println("hey ik ben Hikari aan het doen");
         return ds.getConnection();
-    }
-    
-    @Override
-    
-    // niet de ds closen maar alleen de connect bouw een extra connection instance variable
-    public void close(){
-     ds.close();
     }
 }

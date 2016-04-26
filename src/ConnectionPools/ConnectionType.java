@@ -12,6 +12,9 @@ import java.sql.SQLException;
  *
  * @author lucas
  */
-public interface ConnectionType extends java.io.Closeable{
+public interface ConnectionType{
+    public final String usernaam = "rsvier";
+    public final String wachtwoord = "tiger";
+    
     public Connection getConnection() throws SQLException, ClassNotFoundException;
-    }
+}

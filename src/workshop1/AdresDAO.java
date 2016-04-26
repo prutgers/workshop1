@@ -5,6 +5,7 @@ package workshop1;
  * @author Sonja
  */
 
+import ConnectionPools.DBConnector;
 import java.sql.*;
 import java.util.ArrayList; 
 

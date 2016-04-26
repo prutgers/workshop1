@@ -5,6 +5,7 @@ package workshop1;
  * @author Sonja
  */
 
+import ConnectionPools.DBConnectorFirebird;
 import java.sql.*;
 import java.util.ArrayList; 
 

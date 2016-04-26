@@ -10,21 +10,36 @@ package ConnectionPools;
  * @author Gebruiker
  */
 import java.sql.*; 
+import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ConnectionPool {
-    private static ConnectionType strategy = new ConnectionPoolHikari();
+public final class ConnectionPool{
+    private static ConnectionPool connectionPool = new ConnectionPool();
+    private ConnectionType strategy;
+    
     static Logger logger = LoggerFactory.getLogger(ConnectionPool.class);
     
-    public ConnectionPool(){
-    }
-   
-    public static Connection getConnection() throws SQLException, ClassNotFoundException{
-        return strategy.getConnection();
+    
+    private ConnectionPool(){
+        strategy = ConnectionPoolHikari.getConnectionPoolHikari();
     }
     
-    public static void setConnectionSettings(ConnectionType connectionType){
-        strategy = connectionType;
+    public static ConnectionPool getConnectionPool(){
+        return connectionPool;
+    }
+    
+    public static Connection getConnection() throws SQLException, ClassNotFoundException{
+        return connectionPool.strategy.getConnection();
+    }
+    
+    
+    public static void setConnectionSettings(ConnectionType setting){
+            logger.info("Nieuw connectie type: ");
+        getConnectionPool().strategy = setting;
+    }
+    
+    public static ConnectionType getConnectionSettings(){
+        return getConnectionPool().strategy;
     }
 }

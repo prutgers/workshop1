@@ -35,6 +35,7 @@ package workshop1;
 
 
 
+import ConnectionPools.DBConnectorFirebird;
 import java.sql.*;
 import java.util.ArrayList;
 
