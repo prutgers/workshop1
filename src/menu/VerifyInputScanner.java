@@ -5,6 +5,7 @@
  */
 package menu;
 
+import java.math.BigDecimal;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import org.apache.commons.validator.EmailValidator;
@@ -24,10 +25,12 @@ public class VerifyInputScanner {
  * @return 
  */    
     public static String verifyString(){
+        
         while(true){
             Scanner input = new Scanner(System.in);
             try{
                 String verified = input.nextLine();
+                
                 return verified;
             }
             catch(InputMismatchException e){
@@ -36,13 +39,37 @@ public class VerifyInputScanner {
             }
         }
     }
+    /*
+    public static String verifyPostcode(){
+        Boolean ver = false;
+        Scanner input = new Scanner(System.in);
+        while(!ver){
+            
+            try{
+                String verified = input.nextLine();
+                if(verified.length() == 6){
+                    
+                }
+                ver = true;
+                
+            }
+            catch(InputMismatchException e){
+                System.out.println("geen juiste lijn");
+
+            }
+        }
+    }
+    */
     
     public static int verifyInt(){
+        
         while(true){
             Scanner input = new Scanner(System.in);
             try{
                 int verified = input.nextInt();
+                
                 return verified;
+                
             }
             catch(InputMismatchException e){
                 System.out.println("geen juist nummer, probeer nogmaals");
@@ -52,27 +79,31 @@ public class VerifyInputScanner {
     }
     
     
-    //ook een methode om te testen
-    public static boolean isInteger(String s, int radix) {
-        if(s.isEmpty()) return false;
-        for(int i = 0; i < s.length(); i++) {
-            if(i == 0 && s.charAt(i) == '-') {
-                if(s.length() == 1) return false;
-                else continue;
-            }
-            if(Character.digit(s.charAt(i),radix) < 0) return false;
-        }
-        return true;
-    }
-    
-    
     // het is onduidelijk of een double een , of een . is 
     // ik moet hem namelijk invoeren met een , maar hij geeft een . terug :D
     public static double verifyDouble(){
+        
         while(true){
             Scanner input = new Scanner(System.in);
             try{
                 Double verified = input.nextDouble();
+                
+                return verified;
+            }
+            catch(InputMismatchException e){
+                System.out.println("geen juist nummer, probeer nogmaals");
+
+            }
+        }
+    }
+    
+    public static BigDecimal verifyBigDecimal(){
+        
+        while(true){
+            Scanner input = new Scanner(System.in);
+            try{
+                BigDecimal verified = input.nextBigDecimal();
+                
                 return verified;
             }
             catch(InputMismatchException e){
@@ -94,12 +125,15 @@ public class VerifyInputScanner {
      * 
      */    
     public static String verifyEmail(){
+        Scanner input = new Scanner(System.in);
+        
         while(true){
             try{
-                Scanner input = new Scanner(System.in);
+                
                 String verified = input.next();
                 EmailValidator emailVal =  EmailValidator.getInstance();
                 if(emailVal.isValid(verified)){
+                    
                 return verified;
                 }
                 else{
@@ -108,8 +142,10 @@ public class VerifyInputScanner {
             }
             catch(InputMismatchException e){
                 System.out.println("Geen juiste invoer probeer opnieuw");
+                
             }
         }
+        
     }
     
     
