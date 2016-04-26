@@ -103,7 +103,7 @@ public class AdresMenu {
         ArrayList<Adres> adresgegevens = AdresDAO.readAdres();
         System.out.println("ADRESGEGEVENS \n"
             + "----------------");
-        System.out.printf("%15s %15s %15s %15s %15s %15s", 
+        System.out.printf("%15s %15s %15s %15s %15s %15s \n", 
                 "Adres ID", "Straatnaam", "Huisnummer", "Toevoeging",
                 "Postcode", "Woonplaats");
         for (Adres a : adresgegevens) {

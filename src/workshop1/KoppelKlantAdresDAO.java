@@ -5,7 +5,11 @@
  */
 package workshop1;
 
+import ConnectionPools.ConnectionPool;
 import com.sun.rowset.CachedRowSetImpl;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 /**
@@ -63,33 +67,30 @@ public class KoppelKlantAdresDAO {
         return allKlant_id;
     }
     
-    public static ArrayList<Integer> readAdresID(int klant_id){
-        ArrayList<Integer> allAdres_id = new ArrayList();
-        int i = 0;
-        try ( CachedRowSetImpl connection = new CachedRowSetImpl();
-                ) {
-            connection.setUrl("jdbc:mysql://localhost/workshopdb");
-            connection.setUsername("rsvier");
-            connection.setPassword("tiger");
+    public static ArrayList<Adres> readAdresID(int klant_id){
+        ArrayList<Adres> adresLijst = new ArrayList();
+        
+        try(Connection connection = ConnectionPool.getConnection()){
             
-            connection.setCommand(
-                    "select adres_id from koppelklantadres "
-                            + "where klant_id LIKE ? ");
+            String sql= "select adres_id from koppelklantadres "
+                            + "where klant_id LIKE ? ";
             
-            connection.setInt(1, klant_id );
-
-            connection.execute();
+            PreparedStatement pstmt = connection.prepareStatement(sql);
             
-            while (connection.next()){
-                i++;
-                allAdres_id.add( connection.getInt("adres_id") );
+            pstmt.setInt(1, klant_id );
+            ResultSet rs = pstmt.executeQuery();
+            
+            
+            while(rs.next()){
+                Adres adres = AdresDAO.readAdresByID(rs.getInt("adres_id"));
+                adresLijst.add(adres);
             }
         }
         catch(Exception ex){
             ex.printStackTrace();     
         }
-        System.out.println("" + i +" adressen gevonden voor deze klant.");
-        return allAdres_id;
+        
+        return adresLijst;
     }
     
     private static void updateKlantAdresKoppel(){

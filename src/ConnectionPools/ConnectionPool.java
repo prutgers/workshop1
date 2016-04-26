@@ -35,7 +35,7 @@ public final class ConnectionPool{
     
     
     public static void setConnectionSettings(ConnectionType setting){
-            logger.info("Nieuw connectie type: ");
+        //    logger.info("Nieuw connectie type: ");
         getConnectionPool().strategy = setting;
     }
     

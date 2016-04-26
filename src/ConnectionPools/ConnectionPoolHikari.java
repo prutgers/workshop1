@@ -44,21 +44,21 @@ public final class ConnectionPoolHikari implements ConnectionType {
         config.setInitializationFailFast(true);
         //config.setConnectionTestQuery("VALUES 1");
         config.setDataSourceClassName("com.mysql.jdbc.jdbc2.optional.MysqlDataSource");
-            logger.info("Hikari Driver loaded");
+           // logger.info("Hikari Driver loaded");
             
         config.addDataSourceProperty("serverName", "localhost");
         config.addDataSourceProperty("port", "3306");
         config.addDataSourceProperty("databaseName", "workshopdb");
         config.addDataSourceProperty("user", usernaam);
         config.addDataSourceProperty("password", wachtwoord);
-            logger.info("Database connected");
+          //  logger.info("Database connected");
         
         this.ds = new HikariDataSource(config);
     }
     
     
     public static ConnectionPoolHikari getConnectionPoolHikari(){
-            logger.info("Hikari Connectie gehaalt.");
+          //  logger.info("Hikari Connectie gehaalt.");
         return connectionPoolHikari;
     }
     

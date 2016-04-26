@@ -63,10 +63,10 @@ public class ArtikelMenu {
         String artikel_naam = VerifyInputScanner.verifyString();
         
         System.out.println("Voer het aantal dat van dit artikel op voorraad is in: ");
-        int artikel_voorraad = input.nextInt();
+        int artikel_voorraad = VerifyInputScanner.verifyInt();
         
         System.out.println("Voer de artikelprijs in: ");
-        BigDecimal artikel_prijs = input.next();
+        BigDecimal artikel_prijs = VerifyInputScanner.verifyBigDecimal();
         
         Artikel artikel = new Artikel();                      
 
@@ -92,7 +92,7 @@ public class ArtikelMenu {
         int artikel_voorraad = VerifyInputScanner.verifyInt();
         
         System.out.println("Artikelprijs: ");
-        BigDecimal artikel_prijs = input.next();
+        BigDecimal artikel_prijs = VerifyInputScanner.verifyBigDecimal();
         
         Artikel artikel = new Artikel();                      
 

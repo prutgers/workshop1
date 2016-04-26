@@ -16,7 +16,7 @@ import workshop1.KoppelKlantAdresDAO;
  * @author Sonja
  */
 public class KlantAdresMenu {
-    public static void startMenu() {
+    public static void startMenu() throws MySQLIntegrityConstraintViolationException {
         Scanner input = new Scanner(System.in);
         while(true){
             PrintFormat.printHeader("KLANT-ADRESMENU");          
@@ -33,40 +33,35 @@ public class KlantAdresMenu {
                     + "\n"
                 + "0: Keer terug naar het Hoofdmenu");
             int select = input.nextInt();
-            try{
-                switch (select) {
-                    case 1:
-                        createNieuweKlantMenu();
-                        startMenu();
-                        break;
-                    case 2:
-                        UpdateKlantMenu();
-                        break;
-                    case 3:
-                        createNieuwAdresVoorKlant();
-                        break;
-                    case 4:
-                        createKoppelKlantAdresMenu();
-                        break;
-                    case 5:
-                        readAllKlantenMenu();
-                        break;
-                    case 6:
-                        readKlantByIDMenu();
-                        break;
-                    case 7:
-                        deleteKlantByIdMenu();
-                        break;
-                    case 0:
-                        HoofdMenu.startMenu();
-                        break;
-                    default:
-                        System.out.println("Maak een keuze: 1, 2, 3, 4, 5, 6, 7 of 0");
-                        break;
-                }
-            }
-            catch(ClassNotFoundException ex){
-                ex.printStackTrace();
+            switch (select) {
+                case 1:
+                    createNieuweKlantMenu();
+                    startMenu();
+                    break;
+                case 2:
+                    UpdateKlantMenu();
+                    break;
+                case 3:
+                    createNieuwAdresVoorKlant();
+                    break;
+                case 4:
+                    createKoppelKlantAdresMenu();
+                    break;
+                case 5:
+                    readAllKlantenMenu();
+                    break;
+                case 6:
+                    readKlantByIDMenu();
+                    break;
+                case 7:
+                    deleteKlantByIdMenu();
+                    break;
+                case 0:
+                    HoofdMenu.startMenu();
+                    break;
+                default:
+                    System.out.println("Maak een keuze: 1, 2, 3, 4, 5, 6, 7 of 0");
+                    break;
             }
         }
     }
@@ -232,7 +227,7 @@ public class KlantAdresMenu {
           niet altijd zo.
        >> verder doet dit het
     */
-    public static void readKlantByIDMenu()throws SQLException, ClassNotFoundException{
+    public static void readKlantByIDMenu() {
         Scanner input = new Scanner(System.in);
         
         //verkrijg data uit de commandline
@@ -247,35 +242,28 @@ public class KlantAdresMenu {
                 e.getTussenvoegsel(), e.getEmail());
         */
         
-        try (Connection connection = new DBConnector().getConnection();) {
+     
             System.out.println("Vul het klant ID in: ");
             int klantId = input.nextInt();
             
-            Statement stmntKBID = connection.createStatement();
-            String query = "SELECT * FROM klant WHERE klant_id=?"
-                    + "INNER JOIN adres on klant_id.id = adres_id.id";
-            ResultSet rs = stmntKBID.executeQuery(query);
-            while (rs.next()) {
-                System.out.printf("%15s %15s %15s %15s %15s %15s %15s %15s %15s %15s %15s", 
-                    "Klant ID", "Voornaam", "Achternaam", "Tussenvoegsel", "Email",
-                    "Adres ID", "Straatnaam", "Huisnummer", "Toevoeging",
-                    "Postcode", "Woonplaats");
-                int klant_id = rs.getInt("klant_id");
-                String voornaam = rs.getString("voornaam");
-                String achternaam = rs.getString("achternaam");
-                String tussenvoegsel = rs.getString("tussenvoegsel");
-                String email = rs.getString("email");
-                int adres_id = rs.getInt("adres_id");
-                String straatnaam = rs.getString("straatnaam");
-                int huisnummer = rs.getInt("huisnummer");
-                String toevoeging = rs.getString("toevoeging");
-                String postcode = rs.getString("postcode");
-                String woonplaats = rs.getString("woonplaats");
-                
-                System.out.printf("%15s %15s %15s %15s %15s %15s %15s %15s %15s %15s %15s", 
-                    klant_id, voornaam, achternaam, tussenvoegsel, email, adres_id,
-                    straatnaam, huisnummer, toevoeging, postcode, woonplaats);
-            }
+            Klant klant = KlantDAO.readKlant(klantId);
+            System.out.println("KLANTGEGEVENS \n"
+            + "---------------------");
+            System.out.printf("%15s %15s %15s %15s %15s \n",
+                "Klant ID", "Voornaam", "Achternaam", "Tussenvoegsel", "Email");
+        
+            System.out.printf("%15d %15s %15s %15s %15s \n", 
+                    klant.getKlant_id(), klant.getVoornaam(), klant.getAchternaam(), 
+                    klant.getTussenvoegsel(), klant.getEmail());
+            
+            System.out.printf("%15s %15s %15s %15s %15s %15s \n", 
+                "Adres ID", "Straatnaam", "Huisnummer", "Toevoeging",
+                "Postcode", "Woonplaats");
+            ArrayList<Adres> adresLijst = KoppelKlantAdresDAO.readAdresID(klantId);
+            for (Adres a : adresLijst) {
+            System.out.printf("%15d %15s %15s %15s %15s %15s\n",
+                    a.getAdres_id(), a.getStraatnaam(), a.getHuisnummer(), 
+                    a.getToevoeging(), a.getPostcode(), a.getWoonplaats());
         }
     }
 
