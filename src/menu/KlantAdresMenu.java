@@ -74,7 +74,7 @@ public class KlantAdresMenu {
     /*
     1. createNieuweKlantMenu maakt een nieuwe klant aan en verstuurt deze naar de DB
     */
-    public static void createNieuweKlantMenu()throws SQLException, ClassNotFoundException{
+    public static void createNieuweKlantMenu(){
         Scanner input = new Scanner(System.in);
         Klant klant = new Klant();   
         
