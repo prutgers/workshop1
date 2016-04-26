@@ -5,6 +5,7 @@
  */
 package menu;
 
+import java.math.BigDecimal;
 import java.util.Scanner;
 import workshop1.*;
 
@@ -73,7 +74,7 @@ public class UpdateArtikelMenu {
         Artikel artikel = ArtikelDAO.readArtikel(artikel_id);
         
         System.out.println("artikel prijs");
-        double artikel_prijs = VerifyInputScanner.verifyDouble();
+         BigDecimal artikel_prijs = input.nextInt();
         artikel.setArtikel_prijs(artikel_prijs);
         
         ArtikelDAO.updateArtikel(artikel);

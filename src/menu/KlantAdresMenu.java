@@ -2,16 +2,10 @@ package menu;
 
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import formatMessage.PrintFormat;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Scanner;
 import workshop1.Adres;
 import workshop1.AdresDAO;
-import workshop1.DBConnector;
 import workshop1.Klant;
 import workshop1.KlantDAO;
 import workshop1.KoppelKlantAdres;
@@ -71,7 +65,7 @@ public class KlantAdresMenu {
                         break;
                 }
             }
-            catch(SQLException | ClassNotFoundException ex){
+            catch(ClassNotFoundException ex){
                 ex.printStackTrace();
             }
         }

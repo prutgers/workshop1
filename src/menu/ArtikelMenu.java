@@ -1,6 +1,7 @@
 package menu;
 
 import formatMessage.PrintFormat;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Scanner;
 import workshop1.*;
@@ -62,10 +63,10 @@ public class ArtikelMenu {
         String artikel_naam = VerifyInputScanner.verifyString();
         
         System.out.println("Voer het aantal dat van dit artikel op voorraad is in: ");
-        int artikel_voorraad = VerifyInputScanner.verifyInt();
+        int artikel_voorraad = input.nextInt();
         
         System.out.println("Voer de artikelprijs in: ");
-        double artikel_prijs = VerifyInputScanner.verifyDouble();
+        BigDecimal artikel_prijs = input.next();
         
         Artikel artikel = new Artikel();                      
 
@@ -91,7 +92,7 @@ public class ArtikelMenu {
         int artikel_voorraad = VerifyInputScanner.verifyInt();
         
         System.out.println("Artikelprijs: ");
-        double artikel_prijs = VerifyInputScanner.verifyDouble();
+        BigDecimal artikel_prijs = input.next();
         
         Artikel artikel = new Artikel();                      
 
