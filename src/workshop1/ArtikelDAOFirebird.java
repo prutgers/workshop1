@@ -37,43 +37,48 @@ package workshop1;
 
 import java.sql.*;
 import java.util.ArrayList;
-import org.firebirdsql.jdbc.FirebirdConnection;
 
 public class ArtikelDAOFirebird {
         
-    public static void createFirebirdDB(Artikel artikel){
+    public static Artikel createArtikelFirebirdDB(Artikel artikel){
 
-        try(Connection connection = DBConnectorFirebird.getConnection();){
+        try(Connection connection = DBConnectorFirebird.getConnection()){
             
-            String sql = "INSERT INTO ARTIKEL (artikel_id, artikel_naam, artikel_voorraad, artikel_prijs) VALUES (?,?,?,?)";
+            String sql = "INSERT INTO ARTIKEL (artikel_naam, artikel_voorraad, artikel_prijs) VALUES (?,?,?) RETURNING artikel_id";
             
             PreparedStatement pstmt = connection.prepareStatement(sql);
 
-            pstmt.setInt(1, artikel.getArtikel_id());
-            pstmt.setString(2, artikel.getArtikel_naam());
-            pstmt.setInt(3, artikel.getArtikel_voorraad());
-            pstmt.setBigDecimal(4, artikel.getArtikel_prijs());
+            pstmt.setString(1, artikel.getArtikel_naam());
+            pstmt.setInt(2, artikel.getArtikel_voorraad());
+            pstmt.setBigDecimal(3, artikel.getArtikel_prijs());
 
-            pstmt.executeUpdate();
+            ResultSet resultSet = pstmt.executeQuery();
+            if ( resultSet.next()){
+                artikel.setArtikel_id(resultSet.getInt("artikel_id"));
+            }
 
         } 
         catch (SQLException | ClassNotFoundException e){
                 System.out.println("SQL fout");
                 e.printStackTrace();
         }
+        return artikel;
     }
-
-    public static void readFirebirdDB(){
-        try(Connection connection = new DBConnectorFirebird().getConnection()){
-            Class.forName("org.firebirdsql.jdbc.FBDriver");
-     
-            String sql = "SELECT * FROM artikel";
+    
+    public static Artikel readArtikelFirebirdDB(int artikel_id){
+        Artikel artikel = new Artikel();
+        try(Connection connection = DBConnectorFirebird.getConnection()){
+            String sql = "SELECT * FROM artikel where artikel_id = " + artikel_id;
             Statement pstmt = connection.createStatement();
+            ResultSet resultSet = pstmt.executeQuery(sql);
 
-            ResultSet poef = pstmt.executeQuery(sql);
-
-            while(poef.next()){
-                System.out.println("artikel id " + poef.getInt("artikel_id") + "naam " + poef.getString("artikel_naam") + " prijs " + poef.getBigDecimal("artikel_prijs"));
+            while(resultSet.next()){
+                
+                artikel.setArtikel_id(resultSet.getInt("artikel_id"));
+                artikel.setArtikel_naam(resultSet.getString("artikel_naam"));
+                artikel.setArtikel_prijs(resultSet.getBigDecimal("artikel_prijs"));
+                artikel.setArtikel_voorraad(resultSet.getInt("artikel_voorraad"));
+                
             }
             pstmt.close();
             
@@ -85,23 +90,24 @@ public class ArtikelDAOFirebird {
         catch(ClassNotFoundException p){
             System.out.println("verdorie mislukt");
         }
-        
+        return artikel;
     }
-    
-    public static void testDeleteFirebirdDB(int artikel_id){
-        String user = "SYSDBA";
-        String password = "masterkey";
-        String datbaseUrl;
-        datbaseUrl = "jdbc:firebirdsql://localhost:3050/C://data\\workshopdb.FDB";
-       
-        try(Connection connection = DriverManager.getConnection(datbaseUrl, user, password)){
-            Class.forName("org.firebirdsql.jdbc.FBDriver");
-            
-            String sql = "DELETE FROM artikel WHERE artikel_id = " + artikel_id;
-            Statement pstmt = connection.createStatement();
 
-           pstmt.executeUpdate(sql);
-                       
+    public static ArrayList<Artikel> readArtikelFirebirdDB(){
+        ArrayList<Artikel> artikelLijst = new ArrayList<>();
+        try(Connection connection = DBConnectorFirebird.getConnection()){
+            String sql = "SELECT * FROM artikel";
+            Statement pstmt = connection.createStatement();
+            ResultSet resultSet = pstmt.executeQuery(sql);
+
+            while(resultSet.next()){
+                Artikel artikel = new Artikel();
+                artikel.setArtikel_id(resultSet.getInt("artikel_id"));
+                artikel.setArtikel_naam(resultSet.getString("artikel_naam"));
+                artikel.setArtikel_prijs(resultSet.getBigDecimal("artikel_prijs"));
+                artikel.setArtikel_voorraad(resultSet.getInt("artikel_voorraad"));
+                artikelLijst.add(artikel);
+            }
             pstmt.close();
             
         } 
@@ -112,65 +118,44 @@ public class ArtikelDAOFirebird {
         catch(ClassNotFoundException p){
             System.out.println("verdorie mislukt");
         }
+        return artikelLijst;
+    }
+    
+    public static void DeleteArtikelFirebirdDB(int artikel_id){
+        try(Connection connection = DBConnectorFirebird.getConnection()){
+            String sql = "DELETE FROM artikel WHERE artikel_id = " + artikel_id;
+            Statement pstmt = connection.createStatement();
+            pstmt.executeUpdate(sql);
+            pstmt.close();
+        } 
+        catch (SQLException e){
+            System.out.println("SQL fout");
+            e.printStackTrace();
+        }
+        catch(ClassNotFoundException p){
+            System.out.println("verdorie mislukt");
+        }
     }
 
     
-    public static void updateFirebirdDB(Artikel artikel){
-        try(Connection connection = DBConnectorFirebird.getConnection();){
-
+    public static void updateArtikelFirebirdDB(Artikel artikel){
+        try(Connection connection = DBConnectorFirebird.getConnection()){
             String sql = "UPDATE ARTIKEL set artikel_naam = ?, artikel_prijs = ?, artikel_voorraad = ? where artikel_id = ?;";
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setString(1, artikel.getArtikel_naam());
             pstmt.setBigDecimal(2, artikel.getArtikel_prijs());
             pstmt.setInt(3, artikel.getArtikel_voorraad());
             pstmt.setInt(4, artikel.getArtikel_id());
-
+            
             pstmt.executeUpdate();
-
+            
             pstmt.close(); 
         } 
         catch (SQLException | ClassNotFoundException e){
-                System.out.println("SQL Update fout");
-                e.printStackTrace();
+            System.out.println("SQL Update fout");
+            e.printStackTrace();
         }
     }
-    
-    public static void testPrepUpdateFirebirdDB(int artikel_id){
-        String user = "SYSDBA";
-        String password = "masterkey";
-        String datbaseUrl;
-        datbaseUrl = "jdbc:firebirdsql://localhost:3050/C://data\\workshopdb.FDB";;
-
-        try(Connection connection = DriverManager.getConnection(datbaseUrl, user, password)){
-            Class.forName("org.firebirdsql.jdbc.FBDriver");
-
-            String opdracht = "UPDATE artikel SET artikel_naam = ? WHERE artikel_id = ?";
-
-            PreparedStatement statement = connection.prepareStatement(opdracht);
-
-            statement.setString(1, "henk");
-            statement.setInt(2, 5);
-            statement.executeUpdate();
-
-
-            // Insert 
-
-            //pstmt.executeUpdate(sql);
-            System.out.println("blue3");
-
-            statement.close();
-
-        } 
-        catch (SQLException e){
-                System.out.println("SQL fout");
-                e.printStackTrace();
-        }
-        catch(ClassNotFoundException p){
-            System.out.println("verdorie mislukt");
-        }
-    }
-            
-            
 }
 
 

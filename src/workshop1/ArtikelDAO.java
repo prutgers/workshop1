@@ -50,12 +50,8 @@ public class ArtikelDAO {
    
    public static ArrayList<Artikel> readArtikel(){
         ArrayList<Artikel> artikelLijst = new ArrayList<Artikel>();
-        String user = "rsvier";
-        String password = "tiger";
-        String datbaseUrl = "jdbc:mysql://localhost/workshopdb";
-        try(Connection connection = DriverManager.getConnection(datbaseUrl, user, password)){
-            Class.forName("com.mysql.jdbc.Driver");
-            String query = "SELECT * FROM artikel";
+        try(Connection connection = ConnectionPool.getConnection()){
+           String query = "SELECT * FROM artikel";
             PreparedStatement pstmt = connection.prepareStatement(query);
             ResultSet rs = pstmt.executeQuery(query);
             while (rs.next()) {
@@ -76,12 +72,7 @@ public class ArtikelDAO {
    
    public static Artikel readArtikel(int artikel_id){
         Artikel artikel = new Artikel();
-        String user = "rsvier";
-        String password = "tiger";
-        String datbaseUrl = "jdbc:mysql://localhost/workshopdb";
-
-        try(Connection connection = DriverManager.getConnection(datbaseUrl, user, password)){
-            Class.forName("com.mysql.jdbc.Driver");
+        try(Connection connection = ConnectionPool.getConnection()){
             String query = "SELECT * FROM artikel WHERE artikel_id = " + artikel_id;
             PreparedStatement pstmt = connection.prepareStatement(query);
             ResultSet rs = pstmt.executeQuery(query);
@@ -100,11 +91,7 @@ public class ArtikelDAO {
     }
    
    public static void updateArtikel(Artikel artikel){
-        String user = "rsvier";
-        String password = "tiger";
-        String datbaseUrl = "jdbc:mysql://localhost/workshopdb";
-        try(Connection connection = DriverManager.getConnection(datbaseUrl, user, password)){
-            Class.forName("com.mysql.jdbc.Driver");
+        try(Connection connection = ConnectionPool.getConnection()){
             String update = "UPDATE artikel SET artikel_naam = ?, "
                       + " artikel_voorraad = ?, "
                       + " artikel_prijs = ? "
@@ -123,11 +110,7 @@ public class ArtikelDAO {
     }
    
    public static void deleteArtikel(int artikel_ID) {
-        String user = "rsvier";
-        String password = "tiger";
-        String datbaseUrl = "jdbc:mysql://localhost/workshopdb";
-        try(Connection connection = DriverManager.getConnection(datbaseUrl, user, password)){
-            Class.forName("com.mysql.jdbc.Driver");
+        try(Connection connection = ConnectionPool.getConnection()){
             String update = "DELETE FROM artikel WHERE artikel_id = ?";
             PreparedStatement pstmt = connection.prepareStatement(update);
             pstmt.setInt(1, artikel_ID);

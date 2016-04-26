@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package testDAO;
+package workshop1;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -11,7 +11,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import workshop1.Artikel;
 
 /**
  *
@@ -44,16 +43,13 @@ public class TestCreateReadArtikelTest {
     @Test
     public void testTestCreateRead() {
         System.out.println("testCreateRead");
-        Artikel artikel = new Artikel();
-        artikel.setArtikel_naam("testaap");
-        artikel.setArtikel_prijs(2);
-        artikel.setArtikel_voorraad(2);
-        
+        Artikel artikel = null;
         TestCreateReadArtikel instance = new TestCreateReadArtikel();
-        String expResult = "testaap";
+        String expResult = "";
         String result = instance.testCreateRead(artikel);
         assertEquals(expResult, result);
-        
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
 
     /**
@@ -62,16 +58,13 @@ public class TestCreateReadArtikelTest {
     @Test
     public void testTestUpdateRead() {
         System.out.println("testUpdateRead");
-        Artikel artikel = new Artikel();
-        artikel.setArtikel_id(42);
-        artikel.setArtikel_naam("vierkant");
-        artikel.setArtikel_prijs(2);
-        artikel.setArtikel_voorraad(2);
+        Artikel artikel = null;
         TestCreateReadArtikel instance = new TestCreateReadArtikel();
-        String expResult = "vierkant";
+        String expResult = "";
         String result = instance.testUpdateRead(artikel);
         assertEquals(expResult, result);
-       
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
     
 }
