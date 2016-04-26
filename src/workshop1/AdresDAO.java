@@ -33,7 +33,7 @@ public class AdresDAO {
             stmntCA.setString(5, adres.getWoonplaats());
             
             stmntCA.executeUpdate();
-            ResultSet generatedKey = stmnt.getGeneratedKeys();
+            ResultSet generatedKey = stmntCA.getGeneratedKeys();
             if(generatedKey.isBeforeFirst()){
                 generatedKey.next();
                 adres.setAdres_id(generatedKey.getInt(1));
