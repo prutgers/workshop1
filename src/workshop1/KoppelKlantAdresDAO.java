@@ -11,12 +11,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author lucas
  */
 public class KoppelKlantAdresDAO {
+    static Logger logger = LoggerFactory.getLogger(KoppelKlantAdresDAO.class);
+    
     public static KoppelKlantAdres createKlantAdresKoppel(KoppelKlantAdres koppel) throws com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException {
         KoppelKlantAdres koppelKlantAdresOut = koppel;
         try (
@@ -35,9 +39,7 @@ public class KoppelKlantAdresDAO {
             koppelKlantAdresOut.setKoppel_id( koppelData.getInt(1) );
             
         }
-        catch(com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException ex){
-            System.out.println("Dit klant_idadres_idKoppel bestaat al; Geen actie ondernomen.");         
-        }
+        
         catch(Exception ex){
             ex.printStackTrace();     
         }

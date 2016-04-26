@@ -16,7 +16,7 @@ import workshop1.KoppelKlantAdresDAO;
  * @author Sonja
  */
 public class KlantAdresMenu {
-    public static void startMenu() throws MySQLIntegrityConstraintViolationException {
+    public static void startMenu() {
         Scanner input = new Scanner(System.in);
         while(true){
             PrintFormat.printHeader("KLANT-ADRESMENU");          
@@ -145,8 +145,7 @@ public class KlantAdresMenu {
     >> Werkt nog niet; kan van alles ingevoerd worden zonder fouten maar 
        wordt niet weggeschreven naar DB
     */
-    private static void createNieuwAdresVoorKlant() 
-            throws MySQLIntegrityConstraintViolationException {
+    private static void createNieuwAdresVoorKlant() {
         Scanner input = new Scanner(System.in);
         KoppelKlantAdres klantAdres = new KoppelKlantAdres();
         Adres inputAdres = new Adres();
@@ -178,8 +177,15 @@ public class KlantAdresMenu {
         AdresDAO.createAdres(inputAdres);
         
         //vervolgens adres koppelen aan een al bestaand klant_id
-        KoppelKlantAdresDAO.createKlantAdresKoppel(klantAdres);
+        try{ 
+            KoppelKlantAdresDAO.createKlantAdresKoppel(klantAdres);
+        }
+        catch(com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException ex){
+            System.out.println("Dit klant_idadres_idKoppel bestaat al; Geen actie ondernomen.");         
+        }
+            
     }
+    
     
     /*
     4. createKoppelKlantAdresMenu koppelt een klant aan een adres op basis van
@@ -187,8 +193,7 @@ public class KlantAdresMenu {
     
     Doet het nog niet; is iets mis in de koppeling naar de database sturen
     */
-    private static void createKoppelKlantAdresMenu() 
-            throws MySQLIntegrityConstraintViolationException {
+    private static void createKoppelKlantAdresMenu() {
         Scanner input = new Scanner(System.in);
         KoppelKlantAdres klantAdresKoppel = new KoppelKlantAdres();
         
@@ -196,7 +201,12 @@ public class KlantAdresMenu {
         klantAdresKoppel.setKlant_id(input.nextInt());
         System.out.print("Voer het adres ID in: ");
         klantAdresKoppel.setAdres_id(input.nextInt());
-        KoppelKlantAdresDAO.createKlantAdresKoppel(klantAdresKoppel);
+        try{
+            KoppelKlantAdresDAO.createKlantAdresKoppel(klantAdresKoppel);
+        }
+        catch(com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException ex){
+            System.out.println("Dit klant_idadres_idKoppel bestaat al; Geen actie ondernomen.");         
+        }
     }
     
     /*

@@ -55,7 +55,7 @@ public class UpdateArtikelMenu {
         int artikel_voorraad = VerifyInputScanner.verifyInt();
         
         System.out.println("artikel rpijs");
-        double artikel_prijs = VerifyInputScanner.verifyDouble();
+        BigDecimal artikel_prijs = VerifyInputScanner.verifyBigDecimal();
         
         Artikel artikel = new Artikel();                      
 
@@ -74,7 +74,7 @@ public class UpdateArtikelMenu {
         Artikel artikel = ArtikelDAO.readArtikel(artikel_id);
         
         System.out.println("artikel prijs");
-         BigDecimal artikel_prijs = input.nextInt();
+         BigDecimal artikel_prijs = VerifyInputScanner.verifyBigDecimal();
         artikel.setArtikel_prijs(artikel_prijs);
         
         ArtikelDAO.updateArtikel(artikel);
