@@ -12,6 +12,7 @@ import java.sql.Statement;
 import static java.sql.Statement.RETURN_GENERATED_KEYS; // help mij hiermee :D
 import javax.sql.RowSet;
 import com.sun.rowset.*;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 /**
@@ -40,22 +41,19 @@ public class KoppelBestellingArtikelDAOFirebird {
     }
     
     public static ArrayList<KoppelBestellingArtikel> readKoppelMetBestellingID(int bestelling_id){
-        ArrayList<KoppelBestellingArtikel> lijst = new ArrayList<KoppelBestellingArtikel>();
+        ArrayList<KoppelBestellingArtikel> lijst = new ArrayList<>();
         
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            RowSet rowSet = new JdbcRowSetImpl();
-            rowSet.setUrl("jdbc:mysql://localhost/workshopdb");
-            rowSet.setUsername("rsvier");
-            rowSet.setPassword("tiger");
-            rowSet.setCommand("SELECT * FROM bestellingartikel WHERE bestelling_id = " + bestelling_id);
-            rowSet.execute();
+        try (Connection connection = DBConnectorFirebird.getConnection()){
+            String sql = "SELECT * FROM bestellingartikel WHERE bestelling_id = " + bestelling_id;
             
-            while(rowSet.next()){
+            Statement pstmt = connection.createStatement();
+            ResultSet rs = pstmt.executeQuery(sql);
+            
+            while(rs.next()){
                 KoppelBestellingArtikel koppel = new KoppelBestellingArtikel();
-                koppel.setKoppel_id(rowSet.getInt("bestellingartikel_id"));
-                koppel.setBestelling_id(rowSet.getInt("bestelling_id"));
-                koppel.setArtikel_id(rowSet.getInt("artikel_id"));
+                koppel.setKoppel_id(rs.getInt("bestellingartikel_id"));
+                koppel.setBestelling_id(rs.getInt("bestelling_id"));
+                koppel.setArtikel_id(rs.getInt("artikel_id"));
                 lijst.add(koppel);
                 
             }
@@ -70,20 +68,16 @@ public class KoppelBestellingArtikelDAOFirebird {
     
     public static ArrayList<KoppelBestellingArtikel> readKoppelMetArtikelID(int artikel_id){
         ArrayList<KoppelBestellingArtikel> lijst = new ArrayList<KoppelBestellingArtikel>();
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            RowSet rowSet = new JdbcRowSetImpl();
-            rowSet.setUrl("jdbc:mysql://localhost/workshopdb");
-            rowSet.setUsername("rsvier");
-            rowSet.setPassword("tiger");
-            rowSet.setCommand("SELECT * FROM bestellingartikel WHERE artikel_id = " + artikel_id);
-            rowSet.execute();
+        try (Connection connection = DBConnectorFirebird.getConnection()){
+            String sql = "SELECT * FROM bestellingartikel WHERE artikel_id = " + artikel_id;
+            Statement pstmt = connection.createStatement();
+            ResultSet rs = pstmt.executeQuery(sql);
             
-            while(rowSet.next()){
+            while(rs.next()){
                 KoppelBestellingArtikel koppel = new KoppelBestellingArtikel();
-                koppel.setKoppel_id(rowSet.getInt("bestellingartikel_id"));
-                koppel.setBestelling_id(rowSet.getInt("bestelling_id"));
-                koppel.setArtikel_id(rowSet.getInt("artikel_id"));
+                koppel.setKoppel_id(rs.getInt("bestellingartikel_id"));
+                koppel.setBestelling_id(rs.getInt("bestelling_id"));
+                koppel.setArtikel_id(rs.getInt("artikel_id"));
                 lijst.add(koppel);
             }
         }
@@ -96,20 +90,16 @@ public class KoppelBestellingArtikelDAOFirebird {
     
     public static KoppelBestellingArtikel readKoppel(int bestelling_id, int artikel_id){
         KoppelBestellingArtikel koppel = new KoppelBestellingArtikel();
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            RowSet rowSet = new JdbcRowSetImpl();
-            rowSet.setUrl("jdbc:mysql://localhost/workshopdb");
-            rowSet.setUsername("rsvier");
-            rowSet.setPassword("tiger");
-            rowSet.setCommand("SELECT * FROM bestellingartikel WHERE bestelling_id = " + bestelling_id + " AND artikel_id = " + artikel_id);
-            rowSet.execute();
+        try (Connection connection = DBConnectorFirebird.getConnection()){
+            String sql = "SELECT * FROM bestellingartikel WHERE bestelling_id = " + bestelling_id + " AND artikel_id = " + artikel_id;
+            Statement pstmt = connection.createStatement();
+            ResultSet rs = pstmt.executeQuery(sql);
 
-            while(rowSet.next()){
-                koppel.setKoppel_id(rowSet.getInt("bestellingartikel_id"));
-                koppel.setBestelling_id(rowSet.getInt("bestelling_id"));
-                koppel.setArtikel_id(rowSet.getInt("artikel_id"));
-                koppel.setAantal(rowSet.getInt("aantal"));
+            while(rs.next()){
+                koppel.setKoppel_id(rs.getInt("bestellingartikel_id"));
+                koppel.setBestelling_id(rs.getInt("bestelling_id"));
+                koppel.setArtikel_id(rs.getInt("artikel_id"));
+                koppel.setAantal(rs.getInt("aantal"));
                 
             }
 
@@ -122,19 +112,11 @@ public class KoppelBestellingArtikelDAOFirebird {
     }
     
     public static void deleteKoppelMetBestellingID(int bestelling_id){
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            RowSet rowSet = new JdbcRowSetImpl();
-            rowSet.setUrl("jdbc:mysql://localhost/workshopdb");
-            rowSet.setUsername("rsvier");
-            rowSet.setPassword("tiger");
-            rowSet.setCommand("SELECT * FROM bestellingartikel WHERE bestelling_id = " + bestelling_id);
-            rowSet.execute();
-            
-            while(rowSet.next()){
-                rowSet.deleteRow();
-                
-            }
+        try(Connection connection = DBConnectorFirebird.getConnection()) {
+            String sql = "DELETE FROM bestellingartikel WHERE bestelling_id = " + bestelling_id;
+            Statement pstmt = connection.createStatement();
+            pstmt.executeUpdate(sql);
+            pstmt.close();
         }
         catch(SQLException | ClassNotFoundException  e){
             System.out.println("Fout in readKoppelMetBestelling");
@@ -144,18 +126,11 @@ public class KoppelBestellingArtikelDAOFirebird {
     
     // dit is waarschijnlijk onzin
     public static void deleteKoppelMetArtikelID(int artikel_id){
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            RowSet rowSet = new JdbcRowSetImpl();
-            rowSet.setUrl("jdbc:mysql://localhost/workshopdb");
-            rowSet.setUsername("rsvier");
-            rowSet.setPassword("tiger");
-            rowSet.setCommand("SELECT * FROM bestellingartikel WHERE artikel_id = " + artikel_id);
-            rowSet.execute();
-            
-            while(rowSet.next()){
-                rowSet.deleteRow();
-            }
+        try(Connection connection = DBConnectorFirebird.getConnection()) {
+            String sql = "DELETE FROM bestellingartikel WHERE artikel_id = " + artikel_id;
+            Statement pstmt = connection.createStatement();
+            pstmt.executeUpdate(sql);
+            pstmt.close();
         }
         catch(SQLException | ClassNotFoundException  e){
             System.out.println("Fout in readKoppelMetBestelling");
@@ -166,19 +141,11 @@ public class KoppelBestellingArtikelDAOFirebird {
     
     
     public static void deleteKoppel(int bestellingID,int artikelID){
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            RowSet rowSet = new JdbcRowSetImpl();
-            rowSet.setUrl("jdbc:mysql://localhost/workshopdb");
-            rowSet.setUsername("rsvier");
-            rowSet.setPassword("tiger");
-            rowSet.setCommand("SELECT * FROM bestellingartikel WHERE bestelling_id = " + bestellingID + " AND artikel_id = " + artikelID);
-            rowSet.execute();
-            
-            while(rowSet.next()){
-                rowSet.deleteRow();
-             }
-            
+        try(Connection connection = DBConnectorFirebird.getConnection()) {
+            String sql = "DELETE FROM bestellingartikel WHERE bestelling_id = " + bestellingID + " AND artikel_id = " + artikelID;
+            Statement pstmt = connection.createStatement();
+            pstmt.executeUpdate(sql);
+            pstmt.close();
         }
         catch(SQLException | ClassNotFoundException  e){
             System.out.println("Fout in readKoppelMetBestelling");
@@ -188,18 +155,19 @@ public class KoppelBestellingArtikelDAOFirebird {
     
     
     public static KoppelBestellingArtikel readKoppelById(int koppelID){
-        KoppelBestellingArtikel koppel = new KoppelBestellingArtikel();
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            RowSet rowSet = new JdbcRowSetImpl();
-            rowSet.setUrl("jdbc:mysql://localhost/workshopdb");
-            rowSet.setUsername("rsvier");
-            rowSet.setPassword("tiger");
-            rowSet.setCommand("SELECT * FROM bestellingartikel WHERE koppel_id = " + koppelID);
-            rowSet.execute();
+       KoppelBestellingArtikel koppel = new KoppelBestellingArtikel();
+        try (Connection connection = DBConnectorFirebird.getConnection()){
+            String sql = "SELECT * FROM bestellingartikel WHERE koppel_id = " + koppelID;
+            Statement pstmt = connection.createStatement();
+            ResultSet rs = pstmt.executeQuery(sql);
 
-            koppel.setBestelling_id(rowSet.getInt("bestelling_id"));
-            koppel.setArtikel_id(rowSet.getInt("artikel_id"));
+            while(rs.next()){
+                koppel.setKoppel_id(rs.getInt("bestellingartikel_id"));
+                koppel.setBestelling_id(rs.getInt("bestelling_id"));
+                koppel.setArtikel_id(rs.getInt("artikel_id"));
+                koppel.setAantal(rs.getInt("aantal"));
+                
+            }
         }
         catch(SQLException | ClassNotFoundException  e){
             System.out.println("Fout in readKoppelMetBestelling");
@@ -215,8 +183,8 @@ public class KoppelBestellingArtikelDAOFirebird {
                     + " aantal = ? " 
                     + " WHERE bestellingartikel_id = ?;";
 
-        try(Connection con = new DBConnector().getConnection();){
-            PreparedStatement pstmt = con.prepareStatement(query);
+        try(Connection connection = DBConnectorFirebird.getConnection()){
+            PreparedStatement pstmt = connection.prepareStatement(query);
             pstmt.setInt(1,koppel.getBestelling_id());
             pstmt.setInt(2,koppel.getArtikel_id());
             pstmt.setInt(3,koppel.getAantal());
@@ -228,36 +196,4 @@ public class KoppelBestellingArtikelDAOFirebird {
             e.printStackTrace();
         }
     }
-        
-    /**
-     * 
-     * dit werk niet maar waarom is nog onbekend gelukkig is er ook een werkende versie hoera voor Herman!!!!!
-    public static void updateKoppel2(KoppelBestellingArtikel koppel){
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            RowSet rowSet = new JdbcRowSetImpl();
-            rowSet.setUrl("jdbc:mysql://localhost/workshopdb");
-            rowSet.setUsername("rsvier");
-            rowSet.setPassword("tiger");
-            
-            rowSet.setCommand("SELECT bestellingartikel SET " 
-                    + " bestelling_id = " + koppel.getBestelling_id()
-                    + " ,artikel_id= " + koppel.getArtikel_id() 
-                    + " ,aantal = " + koppel.getAantal() 
-                    + " WHERE bestellingartikel_id = " + koppel.getKoppel_id() + ";");
-            rowSet.execute();
-            
-            while(rowSet.next()){
-                rowSet.updateRow();
-             }
-            
-        }
-        catch(SQLException | ClassNotFoundException  e){
-            System.out.println("Fout in readKoppelMetBestelling");
-            e.printStackTrace();
-        }
-    }  
-    */    
-        
-        
-}
+ }

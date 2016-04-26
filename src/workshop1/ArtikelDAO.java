@@ -23,7 +23,7 @@ import java.util.logging.Logger;
 
 public class ArtikelDAO {
 
-   public static void createNewArtikel(Artikel artikel){
+   public static Artikel createNewArtikel(Artikel artikel){
         //Connect to database
         
         try(Connection connection = ConnectionPool.getConnection()) {
@@ -32,13 +32,18 @@ public class ArtikelDAO {
             + "artikel_voorraad,"
             + "artikel_prijs) "
             +  "VALUES(?,?,?)";
-            PreparedStatement pstmt = connection.prepareStatement(sql);
+            PreparedStatement pstmt = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
             // Set the values
             pstmt.setString(1, artikel.getArtikel_naam());
             pstmt.setInt(2, artikel.getArtikel_voorraad());
             pstmt.setBigDecimal(3, artikel.getArtikel_prijs());
             // Insert 
             pstmt.executeUpdate();
+            ResultSet rs = pstmt.getGeneratedKeys();
+            if (rs.isBeforeFirst()){
+                rs.next();
+                artikel.setArtikel_id(rs.getInt(1)); 
+            }
             pstmt.close();
         } 
         catch (SQLException e){
@@ -46,6 +51,7 @@ public class ArtikelDAO {
         } catch (ClassNotFoundException ex) {
            Logger.getLogger(ArtikelDAO.class.getName()).log(Level.SEVERE, null, ex);
        }
+        return artikel;
     }
    
    public static ArrayList<Artikel> readArtikel(){
