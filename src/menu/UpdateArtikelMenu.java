@@ -5,9 +5,11 @@
  */
 package menu;
 
+import formatMessage.VerifyInputScanner;
+import POJO.Artikel;
+import DAO.MySQL.ArtikelDAO;
 import java.math.BigDecimal;
 import java.util.Scanner;
-import workshop1.*;
 
 /**
  *

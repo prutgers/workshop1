@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package workshop1;
+package DAO.MySQL;
 
 /**
  *
@@ -18,6 +18,7 @@ package workshop1;
 import java.sql.*;
 import java.util.ArrayList;
 import ConnectionPools.*;
+import POJO.Artikel;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

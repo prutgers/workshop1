@@ -5,6 +5,8 @@
  */
 package workshop1;
 
+import POJO.Artikel;
+import POJO.TestCreateReadArtikel;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

@@ -1,4 +1,4 @@
-package workshop1;
+package DAO.MySQL;
 
 /**
  *
@@ -6,6 +6,7 @@ package workshop1;
  */
 
 import ConnectionPools.DBConnector;
+import POJO.Adres;
 import java.sql.*;
 import java.util.ArrayList; 
 

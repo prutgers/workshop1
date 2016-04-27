@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package workshop1;
+package DAO.MySQL;
 
 import ConnectionPools.DBConnector;
+import POJO.KoppelBestellingArtikel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

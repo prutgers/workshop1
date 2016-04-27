@@ -1,4 +1,4 @@
-package workshop1;
+package POJO;
 
 /**
  *

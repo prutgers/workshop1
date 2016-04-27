@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package workshop1;
+package POJO;
 
+import DAO.MySQL.ArtikelDAO;
 import java.util.ArrayList;
-import workshop1.*;
 
 /**
  *

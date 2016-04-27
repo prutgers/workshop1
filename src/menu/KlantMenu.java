@@ -1,9 +1,10 @@
 package menu;
 
+import DAO.MySQL.KlantDAO;
+import POJO.Klant;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import workshop1.*;
 
 /**
  *
@@ -26,7 +27,6 @@ public class KlantMenu {
                 switch (select) {
                     case 1:
                         createMenu();
-                        startMenu();
                         break;
                     case 2:
                         getByKlant_idMenu();

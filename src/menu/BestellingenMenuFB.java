@@ -5,12 +5,18 @@
  */
 package menu;
 
+import formatMessage.VerifyInputScanner;
+import POJO.Artikel;
+import DAO.MySQL.KoppelBestellingArtikelDAO;
+import POJO.Bestelling;
+import DAO.MySQL.ArtikelDAO;
+import POJO.KoppelBestellingArtikel;
+import DAO.Firebird.BestellingDAOFirebird;
 import formatMessage.PrintFormat;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import workshop1.*;
-import static workshop1.KoppelBestellingArtikelDAO.readKoppelMetBestellingID;
+import static DAO.MySQL.KoppelBestellingArtikelDAO.readKoppelMetBestellingID;
 
 
 /**

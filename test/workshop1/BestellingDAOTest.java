@@ -5,6 +5,8 @@
  */
 package workshop1;
 
+import DAO.MySQL.BestellingDAO;
+import POJO.Bestelling;
 import ConnectionPools.DBConnector;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

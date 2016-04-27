@@ -5,6 +5,7 @@
  */
 package menu;
 
+import formatMessage.VerifyInputScanner;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

@@ -4,11 +4,13 @@ package menu;
  * @author Sonja
  */
 
+import formatMessage.VerifyInputScanner;
+import DAO.MySQL.AdresDAO;
+import POJO.Adres;
 import formatMessage.PrintFormat;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
-import workshop1.*;
 
 public class AdresMenu {
     public static void startMenu() {

@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package workshop1;
+package DAO.MySQL;
 
 /**
  *
  * @author lucas
  */
 import ConnectionPools.ConnectionPool;
+import POJO.Klant;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

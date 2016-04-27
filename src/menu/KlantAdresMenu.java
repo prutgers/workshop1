@@ -1,15 +1,16 @@
 package menu;
 
+import formatMessage.VerifyInputScanner;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import formatMessage.PrintFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
-import workshop1.Adres;
-import workshop1.AdresDAO;
-import workshop1.Klant;
-import workshop1.KlantDAO;
-import workshop1.KoppelKlantAdres;
-import workshop1.KoppelKlantAdresDAO;
+import POJO.Adres;
+import DAO.MySQL.AdresDAO;
+import POJO.Klant;
+import DAO.MySQL.KlantDAO;
+import POJO.KoppelKlantAdres;
+import DAO.MySQL.KoppelKlantAdresDAO;
 
 /**
  *

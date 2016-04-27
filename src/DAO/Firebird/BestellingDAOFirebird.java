@@ -1,9 +1,10 @@
 
-package workshop1;
+package DAO.Firebird;
 
 import ConnectionPools.DBConnectorFirebird;
 import ConnectionPools.DBConnector;
 import ConnectionPools.*;
+import POJO.Bestelling;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

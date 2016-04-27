@@ -6,9 +6,11 @@
 package menu;
 
 
+import formatMessage.VerifyInputScanner;
+import POJO.Artikel;
+import DAO.MySQL.ArtikelDAO;
 import java.util.ArrayList;
 import java.util.Scanner;
-import workshop1.*;
 
 /**
  *

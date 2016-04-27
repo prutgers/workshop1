@@ -1,10 +1,16 @@
 package menu;
 
+import formatMessage.VerifyInputScanner;
+import POJO.Artikel;
+import DAO.MySQL.BestellingDAO;
+import DAO.MySQL.KoppelBestellingArtikelDAO;
+import POJO.Bestelling;
+import DAO.MySQL.ArtikelDAO;
+import POJO.KoppelBestellingArtikel;
 import formatMessage.PrintFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
-import workshop1.*;
-import static workshop1.KoppelBestellingArtikelDAO.readKoppelMetBestellingID;
+import static DAO.MySQL.KoppelBestellingArtikelDAO.readKoppelMetBestellingID;
 
 
 /**

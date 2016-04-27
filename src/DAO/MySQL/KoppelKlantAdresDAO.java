@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package workshop1;
+package DAO.MySQL;
 
 import ConnectionPools.ConnectionPool;
+import POJO.Adres;
+import POJO.KoppelKlantAdres;
 import com.sun.rowset.CachedRowSetImpl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

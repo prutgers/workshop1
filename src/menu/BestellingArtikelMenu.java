@@ -5,12 +5,12 @@
  */
 package menu;
 
+import POJO.KoppelBestellingArtikel;
 import static formatMessage.PrintFormat.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import workshop1.*;
-import static workshop1.KoppelBestellingArtikelDAO.*;
+import static DAO.MySQL.KoppelBestellingArtikelDAO.*;
 
 /**
  *

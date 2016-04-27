@@ -1,5 +1,7 @@
 package workshop1;
 
+import POJO.Adres;
+import DAO.MySQL.AdresDAO;
 import ConnectionPools.DBConnector;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
