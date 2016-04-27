@@ -16,6 +16,7 @@ public class HoofdMenu {
             + "2: Ga naar het bestellingmenu \n"
             + "3: Ga naar het artikelmenu \n"
             + "4: Ga naar het adresmenu \n"
+            + "5: Ga naar connectionsettings \n"
                 + "\n"
             + "0: Stop de applicatie\n");
         int select = input.nextInt();
@@ -33,11 +34,14 @@ public class HoofdMenu {
             case 4:
                 AdresMenu.startMenu();
                 break;
+            case 5:
+                SetConnectionTypeMenu.startMenu();
+                break;
             case 0:
                 System.exit(0);
                 break;
             default:
-                System.out.println("Maak een keuze: 1, 2, 3, 4 of 0");
+                System.out.println("Maak een keuze: 1, 2, 3, 4, 5 of 0");
                 break;
         }
     }
