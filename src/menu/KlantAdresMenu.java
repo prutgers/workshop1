@@ -9,8 +9,8 @@ import POJO.Adres;
 import DAO.MySQL.AdresDAO;
 import POJO.Klant;
 import DAO.MySQL.KlantDAO;
-import POJO.KoppelKlantAdres;
-import DAO.MySQL.KoppelKlantAdresDAO;
+import POJO.KlantAdres;
+import DAO.MySQL.KlantAdresDAO;
 
 /**
  *
@@ -148,7 +148,7 @@ public class KlantAdresMenu {
     */
     private static void createNieuwAdresVoorKlant() {
         Scanner input = new Scanner(System.in);
-        KoppelKlantAdres klantAdres = new KoppelKlantAdres();
+        KlantAdres klantAdres = new KlantAdres();
         Adres inputAdres = new Adres();
         
         //vragen om klant_id van de klant voor wie een adres toegevoegd moet worden
@@ -179,7 +179,7 @@ public class KlantAdresMenu {
         
         //vervolgens adres koppelen aan een al bestaand klant_id
         try{ 
-            KoppelKlantAdresDAO.createKlantAdresKoppel(klantAdres);
+            KlantAdresDAO.createKlantAdresKoppel(klantAdres);
         }
         catch(com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException ex){
             System.out.println("Dit klant_idadres_idKoppel bestaat al; Geen actie ondernomen.");         
@@ -196,14 +196,14 @@ public class KlantAdresMenu {
     */
     private static void createKoppelKlantAdresMenu() {
         Scanner input = new Scanner(System.in);
-        KoppelKlantAdres klantAdresKoppel = new KoppelKlantAdres();
+        KlantAdres klantAdresKoppel = new KlantAdres();
         
         System.out.print("Voer het klant ID in: ");
         klantAdresKoppel.setKlant_id(input.nextInt());
         System.out.print("Voer het adres ID in: ");
         klantAdresKoppel.setAdres_id(input.nextInt());
         try{
-            KoppelKlantAdresDAO.createKlantAdresKoppel(klantAdresKoppel);
+            KlantAdresDAO.createKlantAdresKoppel(klantAdresKoppel);
         }
         catch(com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException ex){
             System.out.println("Dit klant_idadres_idKoppel bestaat al; Geen actie ondernomen.");         
@@ -269,7 +269,7 @@ public class KlantAdresMenu {
             System.out.printf("%15s %15s %15s %15s %15s %15s \n", 
                 "Adres ID", "Straatnaam", "Huisnummer", "Toevoeging",
                 "Postcode", "Woonplaats");
-            ArrayList<Adres> adresLijst = KoppelKlantAdresDAO.readAdresID(klantId);
+            ArrayList<Adres> adresLijst = KlantAdresDAO.readAdresID(klantId);
             for (Adres a : adresLijst) {
             System.out.printf("%15d %15s %15s %15s %15s %15s\n",
                     a.getAdres_id(), a.getStraatnaam(), a.getHuisnummer(), 
@@ -309,7 +309,7 @@ public class KlantAdresMenu {
     public static void createKoppelKlantAdresMenu(int klantID) throws MySQLIntegrityConstraintViolationException {
         Scanner input = new Scanner(System.in);
         
-        KoppelKlantAdres koppel = new KoppelKlantAdres();
+        KlantAdres koppel = new KlantAdres();
         koppel.setKlant_id(klantID);
         
         //Maak een nieuw adres
@@ -338,7 +338,7 @@ public class KlantAdresMenu {
         
         koppel.setAdres_id(adres.getAdres_id());
         
-        KoppelKlantAdresDAO.createKlantAdresKoppel(koppel);
+        KlantAdresDAO.createKlantAdresKoppel(koppel);
         
     }
 }

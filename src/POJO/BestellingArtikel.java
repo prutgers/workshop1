@@ -9,7 +9,7 @@ package POJO;
  *
  * @author Peter
  */
-public class KoppelBestellingArtikel {
+public class BestellingArtikel {
     
     private int bestelling_id;
     private int artikel_id;

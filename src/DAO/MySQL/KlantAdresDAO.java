@@ -7,11 +7,12 @@ package DAO.MySQL;
 
 import ConnectionPools.ConnectionPool;
 import POJO.Adres;
-import POJO.KoppelKlantAdres;
+import POJO.KlantAdres;
 import com.sun.rowset.CachedRowSetImpl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,25 +21,30 @@ import org.slf4j.LoggerFactory;
  *
  * @author lucas
  */
-public class KoppelKlantAdresDAO {
-    static Logger logger = LoggerFactory.getLogger(KoppelKlantAdresDAO.class);
+public class KlantAdresDAO {
+    static Logger logger = LoggerFactory.getLogger(KlantAdresDAO.class);
     
-    public static KoppelKlantAdres createKlantAdresKoppel(KoppelKlantAdres koppel) throws com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException {
-        KoppelKlantAdres koppelKlantAdresOut = koppel;
+    public static KlantAdres createKlantAdresKoppel(KlantAdres koppel) throws com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException {
+        KlantAdres koppelKlantAdresOut = koppel;
         try (
             Connection connection = ConnectionPool.getConnection();
                 ) {
-            PreparedStatement createKoppel = connection.prepareStatement("insert into koppelklantadres ("
+            
+            String sql = "insert into koppelklantadres ("
                     + "klant_id, adres_id)"
-                    + "values (?, ?)"); //1, 2
+                    + "values (?, ?)";
+            
+            PreparedStatement createKoppel = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS); //1, 2
             createKoppel.setInt(1, koppel.getKlant_id() );
             createKoppel.setInt(2, koppel.getAdres_id() );
             
-            createKoppel.execute();
+            createKoppel.executeUpdate();
             
-            ResultSet koppelData = createKoppel.getGeneratedKeys();
-            koppelData.next();
-            koppelKlantAdresOut.setKoppel_id( koppelData.getInt(1) );
+            ResultSet resultSet = createKoppel.getGeneratedKeys();
+            if (resultSet.isBeforeFirst()){
+                resultSet.next();
+                koppelKlantAdresOut.setKlant_id(resultSet.getInt(1)); //wijs door db gegenereerde id toe aan klant
+            }
             
         }
         

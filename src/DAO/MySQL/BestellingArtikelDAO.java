@@ -6,7 +6,7 @@
 package DAO.MySQL;
 
 import ConnectionPools.DBConnector;
-import POJO.KoppelBestellingArtikel;
+import POJO.BestellingArtikel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -20,12 +20,12 @@ import java.util.ArrayList;
  *
  * @author Peter
  */
-public class KoppelBestellingArtikelDAO {
+public class BestellingArtikelDAO {
     
     
     // Toe te voegen is Statement.RETURN_GENERATED_KEYS zoals in KlantDAO
     
-    public static void createKoppelBestellingArtikel(KoppelBestellingArtikel koppelBestellingArtikel){
+    public static void createKoppelBestellingArtikel(BestellingArtikel koppelBestellingArtikel){
         String query = "INSERT INTO bestellingartikel (bestelling_id, artikel_id, aantal)"
                 + " values (?, ?, ?)";
         try(Connection con = new DBConnector().getConnection();){
@@ -41,8 +41,8 @@ public class KoppelBestellingArtikelDAO {
         }
     }
     
-    public static ArrayList<KoppelBestellingArtikel> readKoppelMetBestellingID(int bestelling_id){
-        ArrayList<KoppelBestellingArtikel> lijst = new ArrayList<KoppelBestellingArtikel>();
+    public static ArrayList<BestellingArtikel> readKoppelMetBestellingID(int bestelling_id){
+        ArrayList<BestellingArtikel> lijst = new ArrayList<BestellingArtikel>();
         
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -54,7 +54,7 @@ public class KoppelBestellingArtikelDAO {
             rowSet.execute();
             
             while(rowSet.next()){
-                KoppelBestellingArtikel koppel = new KoppelBestellingArtikel();
+                BestellingArtikel koppel = new BestellingArtikel();
                 koppel.setAantal(rowSet.getInt("aantal"));
                 koppel.setBestelling_id(rowSet.getInt("bestelling_id"));
                 koppel.setArtikel_id(rowSet.getInt("artikel_id"));
@@ -70,8 +70,8 @@ public class KoppelBestellingArtikelDAO {
         return lijst;
     }
     
-    public static ArrayList<KoppelBestellingArtikel> readKoppelMetArtikelID(int artikel_id){
-        ArrayList<KoppelBestellingArtikel> lijst = new ArrayList<KoppelBestellingArtikel>();
+    public static ArrayList<BestellingArtikel> readKoppelMetArtikelID(int artikel_id){
+        ArrayList<BestellingArtikel> lijst = new ArrayList<BestellingArtikel>();
         try {
             Class.forName("com.mysql.jdbc.Driver");
             RowSet rowSet = new JdbcRowSetImpl();
@@ -82,7 +82,7 @@ public class KoppelBestellingArtikelDAO {
             rowSet.execute();
             
             while(rowSet.next()){
-                KoppelBestellingArtikel koppel = new KoppelBestellingArtikel();
+                BestellingArtikel koppel = new BestellingArtikel();
                 koppel.setKoppel_id(rowSet.getInt("bestellingartikel_id"));
                 koppel.setBestelling_id(rowSet.getInt("bestelling_id"));
                 koppel.setArtikel_id(rowSet.getInt("artikel_id"));
@@ -98,8 +98,8 @@ public class KoppelBestellingArtikelDAO {
         return lijst;
     }
     
-    public static KoppelBestellingArtikel readKoppel(int bestelling_id, int artikel_id){
-        KoppelBestellingArtikel koppel = new KoppelBestellingArtikel();
+    public static BestellingArtikel readKoppel(int bestelling_id, int artikel_id){
+        BestellingArtikel koppel = new BestellingArtikel();
         try {
             Class.forName("com.mysql.jdbc.Driver");
             RowSet rowSet = new JdbcRowSetImpl();
@@ -191,8 +191,8 @@ public class KoppelBestellingArtikelDAO {
     }
     
     
-    public static KoppelBestellingArtikel readKoppelById(int koppelID){
-        KoppelBestellingArtikel koppel = new KoppelBestellingArtikel();
+    public static BestellingArtikel readKoppelById(int koppelID){
+        BestellingArtikel koppel = new BestellingArtikel();
         try {
             Class.forName("com.mysql.jdbc.Driver");
             RowSet rowSet = new JdbcRowSetImpl();
@@ -212,7 +212,7 @@ public class KoppelBestellingArtikelDAO {
         return koppel;
     }
     
-    public static void updateKoppel(KoppelBestellingArtikel koppel){
+    public static void updateKoppel(BestellingArtikel koppel){
        String query = "UPDATE bestellingartikel SET " 
                     + " bestelling_id = ?, "
                     + " artikel_id = ?, "

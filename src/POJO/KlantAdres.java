@@ -9,7 +9,7 @@ package POJO;
  *
  * @author lucas
  */
-public class KoppelKlantAdres {
+public class KlantAdres {
     private int klant_id;
     private int adres_id;
     private int koppel_id = 0;

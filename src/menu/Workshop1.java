@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package POJO;
+package menu;
 
 import DAO.Firebird.ArtikelDAOFirebird;
 import ConnectionPools.ConnectionPool;
 import ConnectionPools.ConnectionPoolHikari;
+import POJO.Artikel;
 import POJO.Artikel;
 import formatMessage.*;
 import java.math.BigDecimal;

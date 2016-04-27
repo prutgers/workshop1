@@ -3,14 +3,14 @@ package menu;
 import formatMessage.VerifyInputScanner;
 import POJO.Artikel;
 import DAO.MySQL.BestellingDAO;
-import DAO.MySQL.KoppelBestellingArtikelDAO;
+import DAO.MySQL.BestellingArtikelDAO;
 import POJO.Bestelling;
 import DAO.MySQL.ArtikelDAO;
-import POJO.KoppelBestellingArtikel;
+import POJO.BestellingArtikel;
 import formatMessage.PrintFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
-import static DAO.MySQL.KoppelBestellingArtikelDAO.readKoppelMetBestellingID;
+import static DAO.MySQL.BestellingArtikelDAO.readKoppelMetBestellingID;
 
 
 /**
@@ -114,14 +114,14 @@ public class BestellingenMenu {
      */
     public static void createBestellingMetArtikelMenu() {
         Scanner input = new Scanner(System.in);
-        KoppelBestellingArtikel bestellingArtikel = new KoppelBestellingArtikel();
+        BestellingArtikel bestellingArtikel = new BestellingArtikel();
         System.out.print("Voer het bestelling ID in: ");
         bestellingArtikel.setBestelling_id(input.nextInt());
         System.out.print("Voer het artikel ID in: ");
         bestellingArtikel.setArtikel_id(input.nextInt());
         System.out.print("Voer het aantal artikelen in: ");
         bestellingArtikel.setAantal(input.nextInt());
-        KoppelBestellingArtikelDAO.createKoppelBestellingArtikel(bestellingArtikel);
+        BestellingArtikelDAO.createKoppelBestellingArtikel(bestellingArtikel);
     }
     
      //3) update het aantal bestellen artikelen van een bestelling
@@ -130,13 +130,13 @@ public class BestellingenMenu {
         int bestellingId = VerifyInputScanner.verifyInt();
         System.out.println("Voer het artikel ID in: ");
         int artikelId = VerifyInputScanner.verifyInt();
-        KoppelBestellingArtikel koppel = KoppelBestellingArtikelDAO.readKoppel
+        BestellingArtikel koppel = BestellingArtikelDAO.readKoppel
             (bestellingId, artikelId);
         
         System.out.println("Voer het aantal dat u wilt bestellen in: ");
         koppel.setAantal(VerifyInputScanner.verifyInt());
         
-        KoppelBestellingArtikelDAO.updateKoppel(koppel);
+        BestellingArtikelDAO.updateKoppel(koppel);
     }
     
     //4) overzicht van alle bestellingen van alle bestelling van alle klanten
@@ -184,10 +184,10 @@ public class BestellingenMenu {
     public static void readArtikelenInBestellingMenu(){
         Scanner input = new Scanner(System.in);
         System.out.println("Voer het bestelling ID in: ");
-        ArrayList<KoppelBestellingArtikel> lijst = readKoppelMetBestellingID(input.nextInt());
+        ArrayList<BestellingArtikel> lijst = readKoppelMetBestellingID(input.nextInt());
         System.out.printf("%15s %15s %15s %15s %15s\n","Koppel ID", "Artikel ID", 
                 "Aantal", "Artikel naam", "Artikel prijs");
-        for(KoppelBestellingArtikel e : lijst){
+        for(BestellingArtikel e : lijst){
              Artikel artikel = ArtikelDAO.readArtikel(e.getArtikel_id());
              System.out.printf("%15s %15d %15s %15s %15s\n",e.getKoppel_id(), 
                      e.getArtikel_id(), e.getAantal(), artikel.getArtikel_naam(), 
@@ -202,7 +202,7 @@ public class BestellingenMenu {
         int bestellingId = VerifyInputScanner.verifyInt();
         System.out.println("Voer het artikel ID in: ");
         int artikelId = VerifyInputScanner.verifyInt();
-        KoppelBestellingArtikelDAO.deleteKoppel(bestellingId, artikelId);
+        BestellingArtikelDAO.deleteKoppel(bestellingId, artikelId);
     }
 
     //9) verwijdert een bestelling op basis van bestellingID
@@ -214,7 +214,7 @@ public class BestellingenMenu {
         int bestellingId = input.nextInt();
         
         //verwijdert alle artikelen die bij deze bestelling horen
-        KoppelBestellingArtikelDAO.deleteKoppelMetBestellingID(bestellingId);
+        BestellingArtikelDAO.deleteKoppelMetBestellingID(bestellingId);
         
         //verwijdert de bestelling
         BestellingDAO.deleteBestelling(bestellingId);
@@ -228,13 +228,13 @@ public class BestellingenMenu {
      */
     public static void createBestellingMetArtikelMenu(int bestellingID){
         Scanner input = new Scanner(System.in);
-        KoppelBestellingArtikel bestellingArtikel = new KoppelBestellingArtikel();
+        BestellingArtikel bestellingArtikel = new BestellingArtikel();
         bestellingArtikel.setBestelling_id(bestellingID);
         System.out.print("Voer het artikel ID in: ");
         bestellingArtikel.setArtikel_id(input.nextInt());
         System.out.print("Voer het aantal in: ");
         bestellingArtikel.setAantal(input.nextInt());
-        KoppelBestellingArtikelDAO.createKoppelBestellingArtikel(bestellingArtikel);
+        BestellingArtikelDAO.createKoppelBestellingArtikel(bestellingArtikel);
         
     }
     

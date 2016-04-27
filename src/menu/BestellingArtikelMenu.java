@@ -5,12 +5,12 @@
  */
 package menu;
 
-import POJO.KoppelBestellingArtikel;
+import POJO.BestellingArtikel;
 import static formatMessage.PrintFormat.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import static DAO.MySQL.KoppelBestellingArtikelDAO.*;
+import static DAO.MySQL.BestellingArtikelDAO.*;
 
 /**
  *
@@ -54,7 +54,7 @@ public class BestellingArtikelMenu {
 
     private static void createBestelArtikelMenu() {
         Scanner input = new Scanner(System.in);
-        KoppelBestellingArtikel bestellingArtikel = new KoppelBestellingArtikel();
+        BestellingArtikel bestellingArtikel = new BestellingArtikel();
         System.out.println("Enter bestellingID");
         bestellingArtikel.setBestelling_id(input.nextInt());
         System.out.println("Enter artikelID");
@@ -67,9 +67,9 @@ public class BestellingArtikelMenu {
     public static void getBestelArtikelMenu(){
         Scanner input = new Scanner(System.in);
         System.out.println("Enter bestellingID");
-        ArrayList<KoppelBestellingArtikel> lijst = readKoppelMetBestellingID(input.nextInt());
+        ArrayList<BestellingArtikel> lijst = readKoppelMetBestellingID(input.nextInt());
         System.out.printf("%15s %15s %15s\n","KoppelID", "AtikelID", "Aantal");
-        for(KoppelBestellingArtikel e : lijst){
+        for(BestellingArtikel e : lijst){
              System.out.printf("%15s %15d %15d\n",e.getKoppel_id(), e.getArtikel_id(), e.getAantal());
         }
     }
@@ -77,7 +77,7 @@ public class BestellingArtikelMenu {
     private static void updateBestelArtikelMenu() {
        Scanner input = new Scanner(System.in);
         System.out.println("Enter koppelID");
-        KoppelBestellingArtikel koppel = readKoppelById(input.nextInt());
+        BestellingArtikel koppel = readKoppelById(input.nextInt());
         System.out.println("Enter aantal");
         koppel.setAantal(input.nextInt());
         System.out.println("Enter artikelID");
