@@ -43,7 +43,7 @@ public class KlantAdresDAO {
             ResultSet resultSet = createKoppel.getGeneratedKeys();
             if (resultSet.isBeforeFirst()){
                 resultSet.next();
-                koppelKlantAdresOut.setKlant_id(resultSet.getInt(1)); //wijs door db gegenereerde id toe aan klant
+                koppelKlantAdresOut.setKoppel_id(resultSet.getInt(1)); //wijs door db gegenereerde id toe aan klant
             }
             
         }
