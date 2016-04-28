@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package menu;
 
 import DAO.Firebird.ArtikelDAOFirebird;
@@ -12,11 +7,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
-
 /**
  *
- * @author Peter1
+ * @author Peter
  */
 
 public class HoofdMenu {
@@ -35,9 +28,10 @@ public class HoofdMenu {
             + "2: Ga naar het bestellingmenu \n"
             + "3: Ga naar het artikelmenu \n"
             + "4: Ga naar het adresmenu \n"
-            + "5: Ga naar connectionsettings \n"
                 + "\n"
-            + "0: Stop de applicatie\n");
+            + "5: Ga naar de connection settings \n"
+                + "\n"
+            + "0: Stop de applicatie \n");
         int select = input.nextInt();
         
         switch (select) {

@@ -25,7 +25,7 @@ public class KlantAdresMenu {
                     + "\n"
                 + "2: Pas de gegevens van een bestaande klant aan (met klant ID) \n"
                 + "3: Voer een nieuw adres voor een bestaande klant in (met klant ID) \n"
-                + "4: Koppel een adres aan een klant \n"
+                + "4: Koppel een adres aan een bestaande klant \n"
                     + "\n"
                 + "5: Haal alle klanten op \n"
                 + "6: Haal een specifieke klant op (met klant ID) \n"
@@ -135,23 +135,20 @@ public class KlantAdresMenu {
         if ( !nieuwEmail.equals("") ) {
             outputKlant.setEmail( nieuwEmail );
                 }
-        //Nieuwe versie van klant word nu verstuurd naar DB
+        //Nieuwe versie van klant wordt nu verstuurd naar DB
         KlantDAO.updateKlant(outputKlant);
     }
     
     /*
     3. createNieuwAdresVoorKlant maakt een adres voor een bestaande klant aan
        op basis van het klant ID
-    
-    >> Werkt nog niet; kan van alles ingevoerd worden zonder fouten maar 
-       wordt niet weggeschreven naar DB
     */
     private static void createNieuwAdresVoorKlant() {
         Scanner input = new Scanner(System.in);
         KlantAdres klantAdres = new KlantAdres();
         Adres inputAdres = new Adres();
         
-        //vragen om klant_id van de klant voor wie een adres toegevoegd moet worden
+        //invoeren van klant_id van de klant voor wie een adres toegevoegd moet worden
         System.out.println("Voer het klant ID van de klant voor wie een adres " +
                 "toegevoegd moet worden in: ");
         klantAdres.setKlant_id(input.nextInt());
@@ -172,12 +169,10 @@ public class KlantAdresMenu {
         System.out.print("Adres ID: ");
         klantAdres.setAdres_id(input.nextInt());
         
-        //schrijf naar db 
-        //(...)
         AdresDAO aDAO = new AdresDAO(); 
         AdresDAO.createAdres(inputAdres);
         
-        //vervolgens adres koppelen aan een al bestaand klant_id
+        //adres koppelen aan een al bestaand klant_id
         try{ 
             KlantAdresDAO.createKlantAdresKoppel(klantAdres);
         }
@@ -191,8 +186,6 @@ public class KlantAdresMenu {
     /*
     4. createKoppelKlantAdresMenu koppelt een klant aan een adres op basis van
        adres ID en klant ID
-    
-    Doet het nog niet; is iets mis in de koppeling naar de database sturen
     */
     private static void createKoppelKlantAdresMenu() {
         Scanner input = new Scanner(System.in);
@@ -206,14 +199,13 @@ public class KlantAdresMenu {
             KlantAdresDAO.createKlantAdresKoppel(klantAdresKoppel);
         }
         catch(com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException ex){
-            System.out.println("Dit klant_idadres_idKoppel bestaat al; Geen actie ondernomen.");         
+            System.out.println("Dit klant-adreskoppel bestaat al.\n "
+                    + "Er is geen actie ondernomen.");         
         }
     }
     
     /*
     5. readAllKlantenMenu geeft een ArrayList van alle bestaande klanten
-       >> geeft op moment alleen null values mee wanneer geprint naar console
-       >> komt door KlantDAO?
     */
     public static void readAllKlantenMenu() {
         ArrayList<Klant> list = KlantDAO.readAllKlantByKlant(new Klant());
@@ -232,10 +224,6 @@ public class KlantAdresMenu {
     /*
     6. readKlantByIDMenu geeft de gegevens van een specifieke klant 
        op basis van het klant ID
-       >> inner join statement moet nog even naar gekeken worden, zoals ik het nu heb
-          gedaan moet de klant en adres IDs hetzelfde zijn en dat is natuurlijk
-          niet altijd zo.
-       >> verder doet dit het
     */
     public static void readKlantByIDMenu() {
         Scanner input = new Scanner(System.in);
@@ -253,7 +241,7 @@ public class KlantAdresMenu {
         */
         
      
-            System.out.println("Vul het klant ID in: ");
+            System.out.println("Voer het klant ID in: ");
             int klantId = input.nextInt();
             
             Klant klant = KlantDAO.readKlant(klantId);
@@ -279,8 +267,6 @@ public class KlantAdresMenu {
 
     /*
     7. deleteKlantByIdMenu verwijdert een specifieke klant
-    
-       >> functioneert
     */
     public static void deleteKlantByIdMenu(){
         Scanner input = new Scanner(System.in);
@@ -291,12 +277,12 @@ public class KlantAdresMenu {
 
         try {
             KlantDAO.deleteKlant(klantId);
-            System.out.println("De volgende klant is gedelete: " + klantId);
+            System.out.println("De volgende klant is verwijderd: " + klantId);
         }
         catch(com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException ex){
             System.out.println("De klant kan niet worden verwijderd.\n"
                     + "Het klant ID " + klantId + " is nog in gebruik in "
-                    + "de KoppelKlantAdres tabel of de Bestellingentabel." );
+                    + "de klant-adres tabel of de bestellingentabel." );
         }
         catch(Exception ex){
             ex.printStackTrace();         
@@ -311,10 +297,7 @@ public class KlantAdresMenu {
         
         KlantAdres koppel = new KlantAdres();
         koppel.setKlant_id(klantID);
-        
-        //Maak een nieuw adres
-       
-       
+
         System.out.println("Voer de straatnaam in:");
         String straatnaam = input.next();
         System.out.println("Voer het huisnummer in:");
@@ -325,7 +308,6 @@ public class KlantAdresMenu {
         String postcode = input.next();
         System.out.println("Voer de woonplaats in:");
         String woonplaats = input.next();
-        
         
         Adres adres = new Adres();
         adres.setStraatnaam(straatnaam);

@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import static DAO.MySQL.BestellingArtikelDAO.readKoppelMetBestellingID;
 
-
 /**
  *
  * @author Peter
@@ -25,13 +24,13 @@ public class BestellingenMenu {
             PrintFormat.printHeader("BESTELLINGMENU");        
             System.out.println("1: Maak een nieuwe bestelling aan\n"
                     + "\n"
-                + "2: Voeg een artikel toe aan een bestelling (met bestelling ID) \n"
+                + "2: Voeg een artikel aan een bestelling toe (met bestelling ID) \n"
                 + "3: Pas het aantal bestelde artikelen aan (met bestelling ID en artikel ID) \n"
                     + "\n"
                 + "4: Haal alle bestellingen van alle klanten op \n"
                 + "5: Haal een specifieke bestelling op (met bestelling ID) \n"
                 + "6: Haal alle bestellingen van een specifieke klant op (met klant ID) \n"
-                + "7: Haal alle artikelen van één bestelling op (met bestelling ID) \n"
+                + "7: Haal alle artikelen van een specifieke bestelling op (met bestelling ID) \n"
                     + "\n"
                 + "8: Verwijder één artikel uit een bestelling (met bestelling ID en artikel ID) \n"
                 + "9: Verwijder een bestaande bestelling (met bestelling ID) \n"
@@ -124,7 +123,8 @@ public class BestellingenMenu {
         BestellingArtikelDAO.createKoppelBestellingArtikel(bestellingArtikel);
     }
     
-     //3) update het aantal bestellen artikelen van een bestelling
+     //3) updateBestellingAantalMenu update het aantal te bestellen artikelen 
+    //    van een bestelling
     public static void updateBestellingAantalMenu(){
         System.out.println("Voer het bestelling ID in: ");
         int bestellingId = VerifyInputScanner.verifyInt();
@@ -139,7 +139,7 @@ public class BestellingenMenu {
         BestellingArtikelDAO.updateKoppel(koppel);
     }
     
-    //4) overzicht van alle bestellingen van alle bestelling van alle klanten
+    //4. readAllBestellingenMenu overzicht van alle bestellingen van alle bestelling van alle klanten
     public static void readAllBestellingenMenu(){
         ArrayList<Bestelling> list = BestellingDAO.getAllBestelling();
         
@@ -149,8 +149,8 @@ public class BestellingenMenu {
         }
     }
     
-    //5) Geeft voor een gegeven bestelling ID de hele bestelling terug 
-    //(KlantID, Totaal Prijs, etc)
+    //5. readBestellingByIdMenu geeft voor een gegeven bestelling de hele bestelling terug 
+    //(Klant ID, Totaalprijs, etc)
     public static void readBestellingByIdMenu(){
         Scanner input = new Scanner(System.in);
         
@@ -159,34 +159,36 @@ public class BestellingenMenu {
         int BestellingId = input.nextInt();
         
         Bestelling bestelling = BestellingDAO.getBestellingById(BestellingId);
-        System.out.println("Bestel ID: " + bestelling.getBestellingID() + " " + 
+        System.out.println("Bestelling ID: " + bestelling.getBestellingID() + " " + 
                 "Klant ID: " + bestelling.getKlantID());
         
     }
     
-    //6) Geeft een lijst van bestellingen terug van een klant, op basis van klantID
+    //6. readBestellingByKlantIdMenu Geeft een lijst van bestellingen terug 
+    //   van een klant, op basis van klantID
     public static void readBestellingByKlantIdMenu(){
         Scanner input = new Scanner(System.in);
         
         //verkrijg data uit de commandline
-        System.out.println("Voer het Klant ID in: ");
+        System.out.println("Voer het klant ID in: ");
         int klantId = input.nextInt();
         ArrayList<Bestelling> list = BestellingDAO.getBestellingByKlantId(klantId);
         System.out.println("\n"
                 + "LIJST MET BESTELLINGEN VAN KLANT " + klantId + "\n");
         for(Bestelling e : list){
             System.out.println("Bestelling ID: " + e.getBestellingID() + 
-                    " KlantID: " + e.getKlantID());
+                    "; Klant ID: " + e.getKlantID());
         }
     }   
    
-    //7) Geeft een lijst terug met bestelde artikelen van 1 bestelling op basis van bestelling ID
+    //7. readArtikelenInBestellingMenu geeft een lijst terug met bestelde 
+    //   artikelen van 1 bestelling op basis van bestelling ID
     public static void readArtikelenInBestellingMenu(){
         Scanner input = new Scanner(System.in);
         System.out.println("Voer het bestelling ID in: ");
         ArrayList<BestellingArtikel> lijst = readKoppelMetBestellingID(input.nextInt());
-        System.out.printf("%15s %15s %15s %15s %15s\n","Koppel ID", "Artikel ID", 
-                "Aantal", "Artikel naam", "Artikel prijs");
+        System.out.printf("%15s %15s %15s %15s %15s\n", "Koppel ID", "Artikel ID", 
+                "Aantal", "Artikelnaam", "Artikelprijs");
         for(BestellingArtikel e : lijst){
              Artikel artikel = ArtikelDAO.readArtikel(e.getArtikel_id());
              System.out.printf("%15s %15d %15s %15s %15s\n",e.getKoppel_id(), 
@@ -196,7 +198,7 @@ public class BestellingenMenu {
         }
     } 
     
-    //8) verwijdert een artikel uit een bestelling
+    //8. deleteArtikelUitBestellingMenu verwijdert een artikel uit een bestelling
     public static void deleteArtikelUitBestellingMenu(){
         System.out.println("Voer het bestelling ID in: ");
         int bestellingId = VerifyInputScanner.verifyInt();
@@ -205,7 +207,7 @@ public class BestellingenMenu {
         BestellingArtikelDAO.deleteKoppel(bestellingId, artikelId);
     }
 
-    //9) verwijdert een bestelling op basis van bestellingID
+    //9. deleteBestellingByIdMenu verwijdert een bestelling op basis van bestellingID
     public static void deleteBestellingByIdMenu(){
         Scanner input = new Scanner(System.in);
         
@@ -213,11 +215,14 @@ public class BestellingenMenu {
         System.out.println("Voer het bestelling ID in: ");
         int bestellingId = input.nextInt();
         
-        //verwijdert alle artikelen die bij deze bestelling horen
+        //verwijder alle artikelen die bij deze bestelling horen
         BestellingArtikelDAO.deleteKoppelMetBestellingID(bestellingId);
         
-        //verwijdert de bestelling
+        //verwijder de bestelling
         BestellingDAO.deleteBestelling(bestellingId);
+        
+        System.out.println("De volgende bestelling is verwijderd: " +
+                bestellingId);
     }
     
         

@@ -8,7 +8,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
 /**
  *
  * @author Peter
@@ -82,8 +81,8 @@ public class ArtikelMenu {
     2. updateArtikelMenu kan een artikel aanpassen
     */
     private static void updateArtikelMenu() {
-        System.out.println("Voer het artikel ID van het artikel"
-                + "dat u wilt updaten: ");
+        System.out.println("Voer het artikel ID van het artikel "
+                + "dat u wilt aanpassen in: ");
         int artikel_id = VerifyInputScanner.verifyInt();
         
         System.out.println("Artikelnaam: ");
@@ -138,7 +137,8 @@ public class ArtikelMenu {
     5. deleteArtikelMenu verwijdert een specifiek artikel op basis van artikel ID
     */
     public static void deleteArtikelMenu(){
-        Scanner input = new Scanner(System.in); //wordt deze niet redundant door de VerifyInputScanner?       
+        Scanner input = new Scanner(System.in); 
+        //wordt deze niet redundant door de VerifyInputScanner?       
         
         System.out.println("Voer het artikel ID van het "
                 + "te verwijderen artikel in: ");

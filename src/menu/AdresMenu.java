@@ -20,7 +20,7 @@ public class AdresMenu {
             PrintFormat.printHeader("ADRESMENU");
             System.out.println("1: Maak een nieuw adres aan\n"
                     + "\n"
-                + "2: Pas een al bestaand adres aan (met adres ID)\n"
+                + "2: Pas een bestaand adres aan (met adres ID)\n"
                     + "\n"
                 + "3: Haal alle adresgegevens op\n"
                 + "4: Haal een specifiek adres op (met adres ID)\n"
@@ -63,8 +63,6 @@ public class AdresMenu {
     
     /* 
     1. createAdresMenu vraagt de gebruiker om een adres in te voeren
-    Heeft nog return_generated_keys statement nodig als vervanging 
-    voor de handmatige adres ID invoer
     */
     
     private static void createAdresMenu() throws SQLException, ClassNotFoundException {
@@ -90,7 +88,6 @@ public class AdresMenu {
         adres.setToevoeging(toevoeging);
         adres.setPostcode(postcode);
         adres.setWoonplaats(woonplaats);
-        
        
         AdresDAO.createAdres(adres);
     }
@@ -143,32 +140,31 @@ public class AdresMenu {
 
     /*
     4. updateAdresMenu stelt de gebruiker in staat om een bestaand adres aan te passen
-    Moet nog herschreven worden zodat velden blanco gelaten kunnen worden
     */
     
     private static void updateAdresMenu() throws SQLException {
         Scanner input = new Scanner(System.in);
         
-        System.out.println("Welk adres wilt u updaten? \n"
-                + "Voer adres ID in: ");
+        System.out.println("Welk adres wilt u aanpassen? \n"
+                + "Voer het adres ID in: ");
         int adres_id = input.nextInt();
         
         Adres adres = AdresDAO.readAdresByID(adres_id);  
 
-        System.out.println("Huidige straanaam: " + adres.getStraatnaam() + "\n"
-                + "Voer een nieuwe straatnaam in:");
+        System.out.println("Huidige straatnaam: " + adres.getStraatnaam() + "\n"
+                + "Voer een nieuwe straatnaam in: ");
         String straatnaam = VerifyInputScanner.verifyString();
         System.out.println("Huidig huisnummer: " + adres.getHuisnummer() + "\n"
-                + "Voer een nieuw huisnummer in:");
+                + "Voer een nieuw huisnummer in: ");
         int huisnummer = input.nextInt();
         System.out.println("Huidige toevoeging: " + adres.getToevoeging() + "\n"
-                + "Voer een nieuwe toevoeging in:");
+                + "Voer een nieuwe toevoeging in: ");
         String toevoeging = input.next();
         System.out.println("Huidige postcode: " + adres.getPostcode() + "\n"
-                + "Voer een nieuwe postcode in:");
+                + "Voer een nieuwe postcode in: ");
         String postcode = input.next();
         System.out.println("Huidige woonplaats: " + adres.getWoonplaats() + "\n"
-                + "Voer een nieuwe woonplaats in:");
+                + "Voer een nieuwe woonplaats in: ");
         String woonplaats = input.next();
 
         adres.setStraatnaam(straatnaam); 
@@ -239,6 +235,6 @@ public class AdresMenu {
         AdresDAO.deleteAdres(adres_id);
         
         //terugkoppeling gebruiker 
-        System.out.println("Het adres is verwijderd."); 
+        System.out.println("Het volgende adres is verwijderd: " + adres_id); 
     }
 }
