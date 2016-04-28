@@ -3,7 +3,8 @@ package DAO.MySQL;
 
 import ConnectionPools.DBConnector;
 import ConnectionPools.*;
-import POJO.Bestelling;
+import POJO.*;
+import POJO.Bestelling.BestellingBuilder;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -41,6 +42,7 @@ public class BestellingDAO {
     }
     
     public static Bestelling getBestellingById(int BestellingId){
+        
         Bestelling bestelling = new Bestelling();
         try(Connection con = new DBConnector().getConnection();){
             PreparedStatement stmt = con.prepareStatement("select * from Bestelling where bestelling_id = ?");
@@ -63,9 +65,7 @@ public class BestellingDAO {
             PreparedStatement stmt = con.prepareStatement("select * from Bestelling");
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
-                Bestelling bestelling = new Bestelling();
-                bestelling.setKlantID(rs.getInt("klant_id"));
-                bestelling.setBestellingID(rs.getInt("bestelling_id"));
+                Bestelling bestelling = new Bestelling.BestellingBuilder().bestellingID(rs.getInt("bestelling_id")).klantID(rs.getInt("klant_id")).build();
                 bestellingLijst.add(bestelling);
             }
         }
@@ -80,12 +80,8 @@ public class BestellingDAO {
             PreparedStatement stmt = con.prepareStatement("select * from bestelling where klant_id = ?");
             stmt.setInt(1, klantId);
             ResultSet rs = stmt.executeQuery();
-            while(rs.next()){
-                Bestelling bestelling = new Bestelling();
-                
-                bestelling.setKlantID(rs.getInt("klant_id"));
-                bestelling.setBestellingID(rs.getInt("bestelling_id"));
-                
+            while(rs.next()){    
+                Bestelling bestelling = new Bestelling.BestellingBuilder().bestellingID(rs.getInt("bestelling_id")).klantID(rs.getInt("klant_id")).build();
                 bestellingLijst.add(bestelling);
             }
         }
@@ -123,5 +119,4 @@ public class BestellingDAO {
             e.printStackTrace();
         }
     }
-      
 }
