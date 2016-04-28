@@ -5,21 +5,37 @@
  */
 package ConnectionPools;
 
+/**
+ *
+ * @author lucas
+ */
 import java.sql.*;
 
-public class DBConnector{
-    final String url = "jdbc:mysql://localhost/workshopdb";
-    final String user = "rsvier";
-    final String password = "tiger";
+//This class is legacy code, avoid use if possible
+
+public class DBConnector implements java.io.Closeable {
     Connection connection;
+    
     public DBConnector() throws SQLException, ClassNotFoundException {
-        Class.forName("com.mysql.jdbc.Driver");
-       
-        Connection con = DriverManager.getConnection(url, user, password);
-        
-        this.connection = con;
+        this.connection = ConnectionPool.getConnection();
     }
-    public Connection getConnection(){
-        return connection;
+    
+    public Connection getConnection() throws SQLException, ClassNotFoundException {
+        return ConnectionPool.getConnection();
+    }
+    
+    @Override
+    public void close(){
+          // Close the connection
+          try{
+              connection.close();
+          }
+          catch (SQLException ex){
+            ex.printStackTrace();
+              
+          }
+          catch (Exception ex){
+            ex.printStackTrace();              
+          }
     }
 }
