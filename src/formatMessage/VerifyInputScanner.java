@@ -123,6 +123,7 @@ public class VerifyInputScanner {
      * create
      * dan add the file commons-validator-1.5.0 aan de classpath
      * 
+     * @return 
      */    
     public static String verifyEmail(){
         Scanner input = new Scanner(System.in);
@@ -135,9 +136,6 @@ public class VerifyInputScanner {
                 if(emailVal.isValid(verified)){
                     
                 return verified;
-                }
-                else{
-                    System.out.println("Ongeldig Emailadres");
                 }
             }
             catch(InputMismatchException e){
