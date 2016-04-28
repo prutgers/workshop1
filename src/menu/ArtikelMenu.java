@@ -33,7 +33,6 @@ public class ArtikelMenu {
             switch (select) {
                 case 1:
                     createNieuwArtikelMenu();
-                    startMenu();
                     break;
                 case 2:
                     updateArtikelMenu();
