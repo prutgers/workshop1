@@ -19,6 +19,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import ConnectionPools.*;
 import POJO.Artikel;
+import java.math.BigDecimal;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -88,6 +89,11 @@ public class ArtikelDAO {
                 artikel.setArtikel_naam(rs.getString("artikel_naam"));
                 artikel.setArtikel_voorraad(rs.getInt("artikel_voorraad"));
                 artikel.setArtikel_prijs(rs.getBigDecimal("artikel_prijs"));
+                
+                /**
+                 * kan ook met artikelbuilder
+                 */
+                //artikel = new Artikel.ArtikelBuilder().artikel_naam(rs.getString("artikel_naam")).artikel_prijs(rs.getBigDecimal("artikel_prijs")).artikel_voorraad(rs.getInt("artikel_voorraad")).artikel_id(rs.getInt("artikel_id")).build();
             }
             pstmt.close();
         }
