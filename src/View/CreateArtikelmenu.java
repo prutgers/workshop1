@@ -11,6 +11,8 @@ import java.math.BigDecimal;
 /**
  *
  * @author Peter
+ * 
+ * dit is een echte view volgens het view model principe
  */
 public class CreateArtikelmenu {
     private int artikel_id;
