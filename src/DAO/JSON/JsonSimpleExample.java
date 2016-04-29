@@ -37,6 +37,7 @@ public class JsonSimpleExample {
 
 		FileWriter file = new FileWriter("c:\\data/test.json");
 		file.write(obj.toJSONString());
+                file.a
                 file.flush();
 		file.close();
 
