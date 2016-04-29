@@ -1,4 +1,4 @@
-package menu;
+package View;
 
 import DAO.Firebird.ArtikelDAOFirebird;
 import POJO.Artikel;

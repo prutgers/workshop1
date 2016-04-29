@@ -1,4 +1,4 @@
-package menu;
+package View;
 
 import formatMessage.VerifyInputScanner;
 import POJO.Artikel;

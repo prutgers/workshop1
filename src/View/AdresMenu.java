@@ -1,4 +1,4 @@
-package menu;
+package View;
 /**
  *
  * @author Sonja
