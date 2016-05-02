@@ -11,7 +11,7 @@ package Controller;
  */
 
 
-import View.CreateArtikelmenu;
+import View.ArtikelView;
 import DAO.MySQL.ArtikelDAO;
 import POJO.Artikel;
 
@@ -23,7 +23,7 @@ import POJO.Artikel;
 public class ArtikelController {
     
     
-    CreateArtikelmenu menu = new CreateArtikelmenu();
+    ArtikelView menu = new ArtikelView();
    
     public void createArtikelMenu(){
         menu.create();

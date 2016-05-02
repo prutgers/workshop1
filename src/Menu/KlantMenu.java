@@ -1,4 +1,4 @@
-package View;
+package Menu;
 
 import DAO.MySQL.KlantDAO;
 import POJO.Klant;

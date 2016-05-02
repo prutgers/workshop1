@@ -14,7 +14,7 @@ import java.math.BigDecimal;
  * 
  * dit is een echte view volgens het view model principe
  */
-public class CreateArtikelmenu {
+public class ArtikelView {
     private int artikel_id;
     private String artikel_naam;
     private int artikel_voorraad;
@@ -31,10 +31,19 @@ public class CreateArtikelmenu {
         BigDecimal artikel_prijs = VerifyInputScanner.verifyBigDecimal();
 
     }
-    public void update(){
+    public static void updateArtikel(){
         
     }
-
+    public static void readAllArtikelen(){
+        
+    }
+    public static void readArtikelByIdMenu(){
+        
+    }
+    public static void deleteArtikelMenu(){
+    
+    }
+    
     /**
      * @return the artikel_id
      */

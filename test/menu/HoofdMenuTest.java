@@ -5,7 +5,7 @@
  */
 package menu;
 
-import View.HoofdMenu;
+import Menu.HoofdMenu;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
