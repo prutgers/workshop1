@@ -18,7 +18,6 @@ import static Menu.ArtikelMenu.deleteArtikelMenu;
 import Menu.HoofdMenu;
 import POJO.Artikel;
 
-
 /**
  *
  * @author Peter
