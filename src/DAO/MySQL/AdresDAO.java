@@ -63,7 +63,7 @@ public class AdresDAO {
                 adres.setStraatnaam(rs.getString("straatnaam"));
                 adres.setHuisnummer(rs.getInt("huisnummer"));
                 adres.setToevoeging(rs.getString("toevoeging"));
-                adres.setPostcode(rs.getString("postcode"));
+                adres.setPostcode(rs.getString("postcode")); 
                 adres.setWoonplaats(rs.getString("woonplaats"));
                 adres.setAdres_id(rs.getInt("adres_id"));
                 
