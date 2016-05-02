@@ -35,7 +35,7 @@ public class JsonSimpleExample {
         objArtikel.put("artikel_prijs", 2);
         objArtikel.put("artikel_voorraad", 15);
         
-        JSONObject artikelLijst = new JSONOjbect();
+        JSONObject artikelLijst = new JSONObject();
         
         artikelLijst.put("test", objArtikel);
 	

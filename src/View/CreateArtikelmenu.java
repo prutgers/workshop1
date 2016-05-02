@@ -31,6 +31,9 @@ public class CreateArtikelmenu {
         BigDecimal artikel_prijs = VerifyInputScanner.verifyBigDecimal();
 
     }
+    public void update(){
+        
+    }
 
     /**
      * @return the artikel_id

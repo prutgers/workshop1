@@ -30,6 +30,7 @@ public class ArtikelController {
         Artikel artikel = new Artikel();
         artikel.setArtikel_naam(menu.getArtikel_naam());
         ArtikelDAO.createNewArtikel(artikel);
+
     }
     
 }
