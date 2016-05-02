@@ -36,19 +36,19 @@ public class ArtikelController {
                     createArtikelView();
                     break;
                 case 2:
-                    updateArtikelMenu();
+                    //updateArtikelMenu();
                     break;
                 case 3:
-                    readAllArtikelenMenu();
+                    //readAllArtikelenMenu();
                     break;            
                 case 4:
-                    readArtikelByIdMenu();
+                    //readArtikelByIdMenu();
                     break;
                 case 5:
-                   deleteArtikelMenu();
+                   //deleteArtikelMenu();
                     break;
                 case 0:
-                    HoofdMenu.startMenu();
+                    //HoofdMenu.startMenu();
                     break;
                 default:
                     System.out.println("Maak een keuze: 1, 2, 3, 4, 5 of 0");
