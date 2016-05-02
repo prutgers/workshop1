@@ -2,7 +2,7 @@ package Menu;
 
 import formatMessage.VerifyInputScanner;
 import POJO.Artikel;
-import DAO.MySQL.ArtikelDAO;
+import DAO.MySQL.ArtikelDAOMySQL;
 import formatMessage.PrintFormat;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -74,7 +74,7 @@ public class ArtikelMenu {
         artikel.setArtikel_voorraad(artikel_voorraad);
         artikel.setArtikel_prijs(artikel_prijs);
         
-        ArtikelDAO.createNewArtikel(artikel);
+        ArtikelDAOMySQL.createNewArtikel(artikel);
     }
     
     /*
@@ -101,7 +101,7 @@ public class ArtikelMenu {
         artikel.setArtikel_voorraad(artikel_voorraad);
         artikel.setArtikel_prijs(artikel_prijs);
         
-        ArtikelDAO.updateArtikel(artikel);
+        ArtikelDAOMySQL.updateArtikel(artikel);
     }
     
     /*
@@ -110,7 +110,7 @@ public class ArtikelMenu {
     private static void readAllArtikelenMenu() {
         System.out.format("%s, %s, %s, %s\n", 
                 "Artikel ID", "Artikelnaam", "Artikelprijs", "Artikelvoorraad");
-       ArrayList<Artikel> artikelLijst = ArtikelDAO.readArtikel();
+       ArrayList<Artikel> artikelLijst = ArtikelDAOMySQL.readArtikel();
 
        for(Artikel a : artikelLijst){
         System.out.format("%s, %s, %s, %s\n", a.getArtikel_id(), a.getArtikel_naam(), 
@@ -126,7 +126,7 @@ public class ArtikelMenu {
         System.out.println("Voer het artikel ID in: ");
         int artikel_id = VerifyInputScanner.verifyInt();
 
-        Artikel a = ArtikelDAO.readArtikel(artikel_id);
+        Artikel a = ArtikelDAOMySQL.readArtikel(artikel_id);
         System.out.format("%s, %s, %s, %s\n", 
                 "Artikel ID", "Artikelnaam", "Artikelprijs", "Artikelvoorraad");
         System.out.format("%s, %s, %s, %s\n", a.getArtikel_id(), a.getArtikel_naam(), 
@@ -144,6 +144,6 @@ public class ArtikelMenu {
                 + "te verwijderen artikel in: ");
         int artikel_id = VerifyInputScanner.verifyInt();
         
-        ArtikelDAO.deleteArtikel(artikel_id);
+        ArtikelDAOMySQL.deleteArtikel(artikel_id);
     }
 }

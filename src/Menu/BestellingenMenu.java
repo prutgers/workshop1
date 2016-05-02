@@ -5,7 +5,7 @@ import POJO.Artikel;
 import DAO.MySQL.BestellingDAO;
 import DAO.MySQL.BestellingArtikelDAO;
 import POJO.Bestelling;
-import DAO.MySQL.ArtikelDAO;
+import DAO.MySQL.ArtikelDAOMySQL;
 import POJO.BestellingArtikel;
 import formatMessage.PrintFormat;
 import java.util.ArrayList;
@@ -190,7 +190,7 @@ public class BestellingenMenu {
         System.out.printf("%15s %15s %15s %15s %15s\n", "Koppel ID", "Artikel ID", 
                 "Aantal", "Artikelnaam", "Artikelprijs");
         for(BestellingArtikel e : lijst){
-             Artikel artikel = ArtikelDAO.readArtikel(e.getArtikel_id());
+             Artikel artikel = ArtikelDAOMySQL.readArtikel(e.getArtikel_id());
              System.out.printf("%15s %15d %15s %15s %15s\n",e.getKoppel_id(), 
                      e.getArtikel_id(), e.getAantal(), artikel.getArtikel_naam(), 
                      artikel.getArtikel_prijs());

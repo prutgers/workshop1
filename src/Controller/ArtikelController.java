@@ -12,7 +12,7 @@ package Controller;
 
 
 import View.ArtikelView;
-import DAO.MySQL.ArtikelDAO;
+import DAO.MySQL.ArtikelDAOMySQL;
 import static Menu.ArtikelMenu.createNieuwArtikelMenu;
 import static Menu.ArtikelMenu.deleteArtikelMenu;
 import Menu.HoofdMenu;
@@ -58,7 +58,7 @@ public class ArtikelController {
         menu.create();
         Artikel artikel = new Artikel();
         artikel.setArtikel_naam(menu.getArtikel_naam());
-        ArtikelDAO.createNewArtikel(artikel);
+        ArtikelDAOMySQL.createNewArtikel(artikel);
 
     }
     

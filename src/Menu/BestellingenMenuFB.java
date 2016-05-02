@@ -9,7 +9,7 @@ import formatMessage.VerifyInputScanner;
 import POJO.Artikel;
 import DAO.MySQL.BestellingArtikelDAO;
 import POJO.Bestelling;
-import DAO.MySQL.ArtikelDAO;
+import DAO.MySQL.ArtikelDAOMySQL;
 import POJO.BestellingArtikel;
 import DAO.Firebird.BestellingDAOFirebird;
 import formatMessage.PrintFormat;
@@ -172,7 +172,7 @@ public class BestellingenMenuFB {
         ArrayList<BestellingArtikel> lijst = readKoppelMetBestellingID(input.nextInt());
         System.out.printf("%15s %15s %15s %15s %15s\n","KoppelID", "AtikelID", "Aantal", "artikel Naam", "Artikel Prijs");
         for(BestellingArtikel e : lijst){
-             Artikel artikel = ArtikelDAO.readArtikel(e.getArtikel_id());
+             Artikel artikel = ArtikelDAOMySQL.readArtikel(e.getArtikel_id());
              System.out.printf("%15s %15d %15s %15s %15s\n",e.getKoppel_id(), e.getArtikel_id(), e.getAantal(), artikel.getArtikel_naam(), artikel.getArtikel_prijs());
              
         }

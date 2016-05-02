@@ -8,7 +8,7 @@ package Menu;
 
 import formatMessage.VerifyInputScanner;
 import POJO.Artikel;
-import DAO.MySQL.ArtikelDAO;
+import DAO.MySQL.ArtikelDAOMySQL;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -51,14 +51,14 @@ public class ReadArtikelMenu {
         System.out.println("Wat is het artikel ID dat u zoekt, \n");
         int artikel_id = VerifyInputScanner.verifyInt();
 
-        Artikel a = ArtikelDAO.readArtikel(artikel_id);
+        Artikel a = ArtikelDAOMySQL.readArtikel(artikel_id);
         System.out.format("%s, %s, %s, %s\n", "id", "artikel_naam", "artikel_prijs", "artikel_voorraad");
         System.out.format("%s, %s, %s, %s\n", a.getArtikel_id(), a.getArtikel_naam(), a.getArtikel_prijs(), a.getArtikel_voorraad());    
     }
 
     public static void readMenuArtikel(){
        System.out.format("%s, %s, %s, %s\n", "id", "artikel_naam", "artikel_prijs", "artikel_voorraad");
-       ArrayList<Artikel> artikelLijst = ArtikelDAO.readArtikel();
+       ArrayList<Artikel> artikelLijst = ArtikelDAOMySQL.readArtikel();
 
        for(Artikel a : artikelLijst){
         System.out.format("%s, %s, %s, %s\n", a.getArtikel_id(), a.getArtikel_naam(), a.getArtikel_prijs(), a.getArtikel_voorraad());

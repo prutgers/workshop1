@@ -23,7 +23,7 @@ import java.math.BigDecimal;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ArtikelDAO {
+public class ArtikelDAOMySQL {
 
    public static Artikel createNewArtikel(Artikel artikel){
         //Connect to database
@@ -51,7 +51,7 @@ public class ArtikelDAO {
         catch (SQLException e){
                 System.out.println("verdorie mislukt");
         } catch (ClassNotFoundException ex) {
-           Logger.getLogger(ArtikelDAO.class.getName()).log(Level.SEVERE, null, ex);
+           Logger.getLogger(ArtikelDAOMySQL.class.getName()).log(Level.SEVERE, null, ex);
        }
         return artikel;
     }

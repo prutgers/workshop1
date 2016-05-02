@@ -9,7 +9,7 @@ package DAO.JSON;
  *
  * @author Peter
  */
-import DAO.MySQL.ArtikelDAO;
+import DAO.MySQL.ArtikelDAOMySQL;
 import POJO.Artikel;
 import java.io.FileWriter;
 import java.io.IOException;

@@ -7,7 +7,7 @@ package Menu;
 
 import formatMessage.VerifyInputScanner;
 import POJO.Artikel;
-import DAO.MySQL.ArtikelDAO;
+import DAO.MySQL.ArtikelDAOMySQL;
 import java.math.BigDecimal;
 import java.util.Scanner;
 
@@ -66,19 +66,19 @@ public class UpdateArtikelMenu {
         artikel.setArtikel_voorraad(artikel_voorraad);
         artikel.setArtikel_prijs(artikel_prijs);
         
-        ArtikelDAO.updateArtikel(artikel);
+        ArtikelDAOMySQL.updateArtikel(artikel);
     }
      
      public static void updateArtikelPrijs(){
         System.out.println("Wat is het artikel ID dat u wilt updaten");
         int artikel_id = VerifyInputScanner.verifyInt();
         
-        Artikel artikel = ArtikelDAO.readArtikel(artikel_id);
+        Artikel artikel = ArtikelDAOMySQL.readArtikel(artikel_id);
         
         System.out.println("artikel prijs");
          BigDecimal artikel_prijs = VerifyInputScanner.verifyBigDecimal();
         artikel.setArtikel_prijs(artikel_prijs);
         
-        ArtikelDAO.updateArtikel(artikel);
+        ArtikelDAOMySQL.updateArtikel(artikel);
     }
 }
