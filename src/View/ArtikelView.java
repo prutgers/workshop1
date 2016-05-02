@@ -5,8 +5,10 @@
  */
 package View;
 
+import formatMessage.PrintFormat;
 import formatMessage.VerifyInputScanner;
 import java.math.BigDecimal;
+import java.util.Scanner;
 
 /**
  *
@@ -15,11 +17,28 @@ import java.math.BigDecimal;
  * dit is een echte view volgens het view model principe
  */
 public class ArtikelView {
+    private int select;
     private int artikel_id;
     private String artikel_naam;
     private int artikel_voorraad;
     private BigDecimal artikel_prijs;
     
+        public void startMenu(){
+
+        Scanner input = new Scanner(System.in);        
+        PrintFormat.printHeader("ARTIKELMENU"); 
+            System.out.println("1: Maak een nieuw artikel aan \n"
+                    + "\n"
+                + "2: Pas een artikel aan (met artikel ID) \n"
+                    + "\n"
+                + "3: Haal een lijst met alle beschikbare artikelen op \n"
+                + "4: Haal een specifiek artikel op (met artikel ID) \n"
+                    + "\n"
+                + "5: Verwijder een bestaand artikel (met artikel ID) \n"
+                    + "\n"
+                + "0: Keer terug naar het Hoofdmenu \n");
+        setSelect(input.nextInt());
+        }
     public void create(){
         System.out.println("Voer de artikelnaam in: ");
         String artikel_naam = VerifyInputScanner.verifyString();
@@ -31,16 +50,16 @@ public class ArtikelView {
         BigDecimal artikel_prijs = VerifyInputScanner.verifyBigDecimal();
 
     }
-    public static void updateArtikel(){
+    public  void updateArtikel(){
         
     }
-    public static void readAllArtikelen(){
+    public void readAllArtikelen(){
         
     }
-    public static void readArtikelByIdMenu(){
+    public void readArtikelByIdMenu(){
         
     }
-    public static void deleteArtikelMenu(){
+    public void deleteArtikelMenu(){
     
     }
     
@@ -98,6 +117,20 @@ public class ArtikelView {
      */
     public void setArtikel_prijs(BigDecimal artikel_prijs) {
         this.artikel_prijs = artikel_prijs;
+    }
+
+    /**
+     * @return the select
+     */
+    public int getSelect() {
+        return select;
+    }
+
+    /**
+     * @param select the select to set
+     */
+    public void setSelect(int select) {
+        this.select = select;
     }
     
 }
