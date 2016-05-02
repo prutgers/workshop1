@@ -27,18 +27,25 @@ public class JsonSimpleExampleReader {
 
 		JSONObject jsonObject = (JSONObject) obj;
 
-		String name = (String) jsonObject.get("name");
-		System.out.println(name);
-
-		long age = (Long) jsonObject.get("age");
-		System.out.println(age);
+		          System.out.println("size " + jsonObject.size());
 
 		// loop array
-		JSONArray msg = (JSONArray) jsonObject.get("messages");
-		Iterator<String> iterator = msg.iterator();
-		while (iterator.hasNext()) {
-			System.out.println(iterator.next());
-		}
+                for(int i = 0; i<jsonObject.size()+1; i++){
+                    
+                    JSONArray msg = (JSONArray) jsonObject.get(Integer.toString(i));
+                  
+                    
+                    for(int j = 0;j<4;j++){
+//                        System.out.println("artikel id " + msg.get(j));
+                    }
+                    
+                    //if(msg.isEmpty())"woot"
+		          System.out.println("Artikel ID " + i + " " + msg);
+                         
+                    
+                }
+		
+                
 
 	} catch (FileNotFoundException e) {
 		e.printStackTrace();

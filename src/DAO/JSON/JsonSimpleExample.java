@@ -31,9 +31,9 @@ public class JsonSimpleExample {
 	JSONObject obj = new JSONObject();
 	
 
-	
+	/**ja
          ArrayList<Artikel> artikelLijst = ArtikelDAO.readArtikel();
-
+         
        for(Artikel a : artikelLijst){
         JSONArray artikel = new JSONArray();
             
@@ -46,8 +46,8 @@ public class JsonSimpleExample {
             obj.put(a.getArtikel_id(), artikel);
         
         }
+        */
         
-        /*
         for(int i = 1; i<5;i++){
             JSONArray artikel = new JSONArray();
             System.out.println("i " + i);
@@ -59,7 +59,7 @@ public class JsonSimpleExample {
         
             obj.put(i, artikel);
         }
-        */
+        
         
         
                 
