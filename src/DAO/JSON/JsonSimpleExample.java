@@ -43,7 +43,7 @@ public class JsonSimpleExample {
 	//obj.put("artikelList", artikelList);
         
         
-        for(int i = 1; i<10;i++){
+        for(int i = 1; i<5;i++){
             JSONArray artikel = new JSONArray();
             System.out.println("i " + i);
             artikel.add(i); //artikel id
@@ -52,8 +52,8 @@ public class JsonSimpleExample {
             artikel.add("5"); //artikel voorraad
             
             System.out.println("artikel " + artikel);
-            obj.put(i, obj.put("artikel ", artikel));
-            
+            //obj.put(i, obj.put("artikel ", artikel));
+            obj.put(i, artikel);
         }
         
         //obj.put("artikel", artikel);
