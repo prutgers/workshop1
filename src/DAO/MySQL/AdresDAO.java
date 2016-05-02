@@ -9,6 +9,8 @@ import ConnectionPools.*;
 import POJO.Adres;
 import java.sql.*;
 import java.util.ArrayList; 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class AdresDAO {
     
@@ -44,7 +46,10 @@ public class AdresDAO {
             }
         }
         catch (ClassNotFoundException | SQLException ex) {
-            System.out.println(ex + "\nProbeer opnieuw.");
+            System.out.println("Probeer opnieuw.");
+            
+            Logger.getLogger(AdresDAO.class.getName()).log(Level.SEVERE, null, ex);
+            
             }
         return adres;
     }
