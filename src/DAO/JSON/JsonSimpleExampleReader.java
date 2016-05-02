@@ -23,17 +23,15 @@ public class JsonSimpleExampleReader {
 
 	try {
 
-
 		Object obj = parser.parse(new FileReader("c:\\data/test.json"));
-            System.out.println("ik ben");
+
 		JSONObject jsonObject = (JSONObject) obj;
-                
-                System.out.println("ik ben hier");
 
 		String name = (String) jsonObject.get("name");
 		System.out.println(name);
 
-		
+		long age = (Long) jsonObject.get("age");
+		System.out.println(age);
 
 		// loop array
 		JSONArray msg = (JSONArray) jsonObject.get("messages");
@@ -41,10 +39,6 @@ public class JsonSimpleExampleReader {
 		while (iterator.hasNext()) {
 			System.out.println(iterator.next());
 		}
-                
-               
-                
-                lapply(readLines(filename), fromJSON, flatten = TRUE);
 
 	} catch (FileNotFoundException e) {
 		e.printStackTrace();

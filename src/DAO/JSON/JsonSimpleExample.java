@@ -16,29 +16,55 @@ import java.math.BigDecimal;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+
+/**
+ * Array 1 
+ *      Array 2 met artikelen
+ * @author Peter
+ */
+
 public class JsonSimpleExample {
- 
      public static void main(String[] args) {
 
 	JSONObject obj = new JSONObject();
-	obj.put("name", "mkyong.cfom");
-	obj.put("age", new Integer(100));
+	
 
-	JSONArray list = new JSONArray();
-	list.add("msgf 1");
-	list.add("msg 2");
-	list.add("msg 3");
-
-	obj.put("messages", list);
+	JSONArray artikelList = new JSONArray();
+        //JSONArray artikel = new JSONArray();
+        
+        
+        //obj.put("artikel_naam", artikel);
+        
+	
+	//artikelList.add(artikel);
+        
         
 
+	//obj.put("artikelList", artikelList);
+        
+        
+        for(int i = 1; i<10;i++){
+            JSONArray artikel = new JSONArray();
+            System.out.println("i " + i);
+            artikel.add(i); //artikel id
+            artikel.add("koe"); //artikel naam
+            artikel.add("23"); //artikel prijs
+            artikel.add("5"); //artikel voorraad
+            
+            System.out.println("artikel " + artikel);
+            obj.put(i, obj.put("artikel ", artikel));
+            
+        }
+        
+        //obj.put("artikel", artikel);
+        
+                
 
 	try {
 
 		FileWriter file = new FileWriter("c:\\data/test.json");
 		file.write(obj.toJSONString());
-                file.a
-                file.flush();
+		file.flush();
 		file.close();
 
 	} catch (IOException e) {
