@@ -9,10 +9,12 @@ package DAO.JSON;
  *
  * @author Peter
  */
+import DAO.MySQL.ArtikelDAO;
 import POJO.Artikel;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -29,20 +31,23 @@ public class JsonSimpleExample {
 	JSONObject obj = new JSONObject();
 	
 
-	JSONArray artikelList = new JSONArray();
-        //JSONArray artikel = new JSONArray();
-        
-        
-        //obj.put("artikel_naam", artikel);
-        
 	
-	//artikelList.add(artikel);
-        
-        
+         ArrayList<Artikel> artikelLijst = ArtikelDAO.readArtikel();
 
-	//obj.put("artikelList", artikelList);
+       for(Artikel a : artikelLijst){
+        JSONArray artikel = new JSONArray();
+            
+            artikel.add(a.getArtikel_id()); //artikel id
+            artikel.add(a.getArtikel_naam()); //artikel naam
+            artikel.add(a.getArtikel_prijs()); //artikel prijs
+            artikel.add(a.getArtikel_voorraad()); //artikel voorraad
+            
         
+            obj.put(a.getArtikel_id(), artikel);
         
+        }
+        
+        /*
         for(int i = 1; i<5;i++){
             JSONArray artikel = new JSONArray();
             System.out.println("i " + i);
@@ -51,12 +56,11 @@ public class JsonSimpleExample {
             artikel.add("23"); //artikel prijs
             artikel.add("5"); //artikel voorraad
             
-            System.out.println("artikel " + artikel);
-            //obj.put(i, obj.put("artikel ", artikel));
+        
             obj.put(i, artikel);
         }
+        */
         
-        //obj.put("artikel", artikel);
         
                 
 
