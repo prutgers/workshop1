@@ -103,5 +103,4 @@ public class ArtikelView {
     public void setArtikel_prijs(BigDecimal artikel_prijs) {
         this.artikel_prijs = artikel_prijs;
     }
-    
 }

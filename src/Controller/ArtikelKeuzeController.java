@@ -15,7 +15,6 @@ public class ArtikelKeuzeController {
        public void artikelStart(){
        ArtikelKeuzeView view = new ArtikelKeuzeView();   
        int select = view.getSelect();
-       
                    switch (select) {
                 case 1:
                     ArtikelController.createArtikelView();

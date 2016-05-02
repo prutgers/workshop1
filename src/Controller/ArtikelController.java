@@ -24,6 +24,7 @@ import POJO.Artikel;
  */
 public class ArtikelController {
 
+    
     public static void createArtikelView(){
         ArtikelView menu = new ArtikelView();
         menu.create();

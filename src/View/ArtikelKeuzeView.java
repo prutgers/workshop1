@@ -32,7 +32,6 @@ public class ArtikelKeuzeView {
     public void herhaalKeuze(){
         System.out.println("Maak een keuze: 1, 2, 3, 4, 5 of 0");
     }
-
     /**
      * @return the select
      */

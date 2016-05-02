@@ -11,5 +11,4 @@ package View;
  */
 public class BestellingView {
     
-    
 }
