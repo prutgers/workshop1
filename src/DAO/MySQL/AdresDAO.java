@@ -5,7 +5,6 @@ package DAO.MySQL;
  * @author Sonja
  */
 
-import ConnectionPools.DBConnector;
 import ConnectionPools.*;
 import POJO.Adres;
 import java.sql.*;
@@ -72,7 +71,7 @@ public class AdresDAO {
             }
         }
         catch (ClassNotFoundException | SQLException ex) {
-            System.out.println("Probeer opnieuw.");
+            System.out.println(ex + "\nProbeer opnieuw.");
             }
         
         
@@ -101,7 +100,7 @@ public class AdresDAO {
                 adres.setAdres_id(rs.getInt("adres_id"));
         }
             catch (ClassNotFoundException | SQLException ex) {
-                System.out.println(ex+ "Probeer opnieuw.\n");
+                System.out.println(ex + "\nProbeer opnieuw.");
             }
         
         return adres;
@@ -127,11 +126,11 @@ public class AdresDAO {
             stmntUA.setString(5, adres.getWoonplaats());
             stmntUA.setInt(6, adres.getAdres_id());
             
-            stmntUA.executeUpdate();
-            
+            stmntUA.executeUpdate();          
         }
+        
         catch (SQLException | ClassNotFoundException ex) {
-            System.out.println(ex + "Probeer opnieuw.\n");
+            System.out.println(ex + "\nProbeer opnieuw.");
         }
     }
     
@@ -141,10 +140,11 @@ public class AdresDAO {
             
             stmnt = connection.prepareStatement(query);
             stmnt.setInt(1, adres_id);
-            stmnt.executeUpdate();
-            
-        } catch (SQLException | ClassNotFoundException ex) {
-            System.out.println(ex + "Probeer opnieuw.\n");
+            stmnt.executeUpdate();    
+        } 
+        
+        catch (SQLException | ClassNotFoundException ex) {
+            System.out.println(ex + "\nProbeer opnieuw.");
         }
     }
 }
