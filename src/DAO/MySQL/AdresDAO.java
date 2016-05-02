@@ -46,11 +46,11 @@ public class AdresDAO {
             }
         }
         catch (ClassNotFoundException | SQLException ex) {
-            System.out.println("Probeer opnieuw.");
+            System.out.println(ex + "\nProbeer opnieuw.");
             
-            Logger.getLogger(AdresDAO.class.getName()).log(Level.SEVERE, null, ex);
-            
+            Logger.getLogger(AdresDAO.class.getName()).log(Level.SEVERE, null, ex);            
             }
+        
         return adres;
     }
     
@@ -71,15 +71,17 @@ public class AdresDAO {
                 adres.setWoonplaats(rs.getString("woonplaats"));
                 adres.setAdres_id(rs.getInt("adres_id"));
                 
-                adresGegevens.add(adres);
+                /* ADRESBUILDER VERSIE
                 
+                Adres adres = new Adres.AdresBuilder().straatnaam(rs.getString("straatnaam")).huisnummer(rs.getInt("huisnummer")).toevoeging(rs.getString("toevoeging")).postcode(rs.getString("postcode")).woonplaats(rs.getString("woonplaats")).adres_id(rs.getInt("adres_id")).build();
+                */
+                
+                adresGegevens.add(adres);
             }
         }
         catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex + "\nProbeer opnieuw.");
             }
-        
-        
         
         return adresGegevens;
     }
