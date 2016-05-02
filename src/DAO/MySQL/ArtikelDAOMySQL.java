@@ -22,6 +22,8 @@ import POJO.Artikel;
 import java.math.BigDecimal;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.sql.Statement;
+import static java.sql.Statement.RETURN_GENERATED_KEYS; 
 
 public class ArtikelDAOMySQL {
 
