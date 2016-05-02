@@ -24,9 +24,9 @@ import POJO.Artikel;
  * @author Peter
  */
 public class ArtikelController {
-    
-    
+
    ArtikelView menu = new ArtikelView();
+   
    public void artikelStart(){
        menu.startMenu();
        int select = menu.getSelect();
