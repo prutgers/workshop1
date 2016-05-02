@@ -28,7 +28,16 @@ import org.json.simple.JSONObject;
 public class JsonSimpleExample {
      public static void main(String[] args) {
 
-	JSONObject obj = new JSONObject();
+	JSONObject objArtikel = new JSONObject();
+        
+        objArtikel.put("artikel_id", 1);
+        objArtikel.put("artikel_naam", "koe");
+        objArtikel.put("artikel_prijs", 2);
+        objArtikel.put("artikel_voorraad", 15);
+        
+        JSONObject artikelLijst = new JSONOjbect();
+        
+        artikelLijst.put("test", objArtikel);
 	
 
 	/**ja
