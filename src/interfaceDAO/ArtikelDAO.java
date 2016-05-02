@@ -13,13 +13,13 @@ import java.util.ArrayList;
  * @author Peter
  */
 public interface ArtikelDAO {
-    Artikel createArtikelFirebirdDB(Artikel artikel);
+    Artikel createArtikel(Artikel artikel);
     
-    Artikel readArtikelFirebirdDB(int artikel_id);
+    Artikel readArtikel(int artikel_id);
 
-    ArrayList<Artikel> readArtikelFirebirdDB();
+    ArrayList<Artikel> readArtikel();
     
-    void DeleteArtikelFirebirdDB(int artikel_id);
+    void DeleteArtikel(int artikel_id);
 
-    void updateArtikelFirebirdDB(Artikel artikel);
+    void updateArtikel(Artikel artikel);
 }
