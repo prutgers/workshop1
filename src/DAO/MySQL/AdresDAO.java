@@ -6,6 +6,7 @@ package DAO.MySQL;
  */
 
 import ConnectionPools.DBConnector;
+import ConnectionPools.*;
 import POJO.Adres;
 import java.sql.*;
 import java.util.ArrayList; 
@@ -16,47 +17,32 @@ public class AdresDAO {
 
     public static Adres createAdres(Adres adres) {
         String query = "INSERT INTO adres ("
+                + "adres_id"
                 + "straatnaam,"
                 + "huisnummer,"
                 + "toevoeging,"
                 + "postcode,"
                 + "woonplaats)"
-                + "values (?, ?, ?, ?, ?)";
-        try (Connection connection = new DBConnector().getConnection();){
+                + "values (?, ?, ?, ?, ?, ?)";
+        try (Connection connection = ConnectionPool.getConnection();){
             
             PreparedStatement stmntCA = connection.prepareStatement(query,
                     Statement.RETURN_GENERATED_KEYS);
             
-            stmntCA.setString(1, adres.getStraatnaam());
-            stmntCA.setInt(2, adres.getHuisnummer());
-            stmntCA.setString(3, adres.getToevoeging());
-            stmntCA.setString(4, adres.getPostcode());
-            stmntCA.setString(5, adres.getWoonplaats());
+            stmntCA.setInt(1, adres.getAdres_id());
+            stmntCA.setString(2, adres.getStraatnaam());
+            stmntCA.setInt(3, adres.getHuisnummer());
+            stmntCA.setString(4, adres.getToevoeging());
+            stmntCA.setString(5, adres.getPostcode());
+            stmntCA.setString(6, adres.getWoonplaats());
             
             stmntCA.executeUpdate();
+            
             ResultSet generatedKey = stmntCA.getGeneratedKeys();
             if(generatedKey.isBeforeFirst()){
                 generatedKey.next();
                 adres.setAdres_id(generatedKey.getInt(1));
             }
-            
-           /*
-            werkt dit wel? Ik krijg rare errors over de ConnectionPool als ik wil testen
-            snap sowieso niet zoveel van die generatedkeys maar toe maar
-            
-            ResultSet generatedKey = stmnt.getGeneratedKeys();
-           
-            generatedKey.next();
-            adres.setAdres_id(generatedKey.getInt(1));
-            
-           /*
-           Hey Sonja deze code werkt nog niet daarom heb ik het even in de comments gezet
-           
-           if (resultSet.isBeforeFirst()){
-                resultSet.next();
-                adres.setAdres_id(resultSet.getInt(1));
-            }  
-            */
         }
         catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex + "\nProbeer opnieuw.");
@@ -66,8 +52,8 @@ public class AdresDAO {
     
     public static ArrayList<Adres> readAdres() {
         ArrayList<Adres> adresGegevens = new ArrayList<>();
-        try (Connection connection = new DBConnector().getConnection();) { 
-            //Class.forName("com.mysql.jdbc.Driver");
+        try (Connection connection = ConnectionPool.getConnection();) { 
+
             PreparedStatement stmntRA = connection.prepareStatement(
                     "SELECT * FROM adres ");
             ResultSet rs = stmntRA.executeQuery();
@@ -97,28 +83,26 @@ public class AdresDAO {
     public static Adres readAdresByID(int adresID) {
         Adres adres = new Adres();
     
-        try (Connection connection = new DBConnector().getConnection();) {
-            //Class.forName("com.mysql.jdbc.Driver");
+        try (Connection connection = ConnectionPool.getConnection();) {
+
             PreparedStatement stmntRAID = connection.prepareStatement(
                     "SELECT * FROM adres " 
                 + "WHERE adres_id=?");
             stmntRAID.setInt(1, adresID);     
+            
             ResultSet rs = stmntRAID.executeQuery();
             rs.next();
+            
                 adres.setStraatnaam(rs.getString("straatnaam"));
                 adres.setHuisnummer(rs.getInt("huisnummer"));
                 adres.setToevoeging(rs.getString("toevoeging"));
                 adres.setPostcode(rs.getString("postcode"));
                 adres.setWoonplaats(rs.getString("woonplaats"));
                 adres.setAdres_id(rs.getInt("adres_id"));
-
-            
         }
             catch (ClassNotFoundException | SQLException ex) {
-                System.out.println("Probeer opnieuw.");
+                System.out.println(ex+ "Probeer opnieuw.\n");
             }
-        
-       
         
         return adres;
     }
@@ -132,7 +116,7 @@ public class AdresDAO {
                 + "woonplaats=?"
                 + "WHERE adres_id=?";
         
-        try (Connection connection = new DBConnector().getConnection();) {
+        try (Connection connection = ConnectionPool.getConnection();) {
             
             PreparedStatement stmntUA = connection.prepareStatement(query);
             
@@ -147,20 +131,20 @@ public class AdresDAO {
             
         }
         catch (SQLException | ClassNotFoundException ex) {
-            System.out.println("Probeer opnieuw.");
+            System.out.println(ex + "Probeer opnieuw.\n");
         }
     }
     
     public static void deleteAdres(int adres_id) {
         String query = "DELETE FROM adres WHERE adres_id=?";
-        try (Connection connection = new DBConnector().getConnection();) {
+        try (Connection connection = ConnectionPool.getConnection();) {
             
             stmnt = connection.prepareStatement(query);
             stmnt.setInt(1, adres_id);
             stmnt.executeUpdate();
             
         } catch (SQLException | ClassNotFoundException ex) {
-            System.out.println("Probeer opnieuw.");
+            System.out.println(ex + "Probeer opnieuw.\n");
         }
     }
 }
