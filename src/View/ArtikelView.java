@@ -63,6 +63,7 @@ public class ArtikelView {
     
     }
     
+    
     /**
      * @return the artikel_id
      */
