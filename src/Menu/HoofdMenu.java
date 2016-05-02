@@ -1,6 +1,7 @@
 package Menu;
 
 import DAO.Firebird.ArtikelDAOFirebird;
+import DAO.JSON.ArtikelDAOJSON;
 import POJO.Artikel;
 import formatMessage.*;
 import java.math.BigDecimal;
@@ -19,6 +20,26 @@ public class HoofdMenu {
     public static void main(String[] args) {
     
         startMenu();
+        
+       
+    }
+ 
+    
+    public static void testArtikelJSON(){
+        ArtikelDAOJSON test = new ArtikelDAOJSON();
+        Artikel a = new Artikel();
+        a.setArtikel_naam("VoorHerman");
+        a.setArtikel_prijs(new BigDecimal(2));
+        a.setArtikel_voorraad(5);
+        test.createArtikel(a);
+        
+       ArrayList<Artikel> artikelLijst = test.readArtikel();
+       for(Artikel b : artikelLijst){
+        System.out.format("%s, %s, %s, %s\n", b.getArtikel_id(), b.getArtikel_naam(), 
+                b.getArtikel_prijs(), b.getArtikel_voorraad()); 
+        }
+        
+        
     }
     
     public static void startMenu() {
