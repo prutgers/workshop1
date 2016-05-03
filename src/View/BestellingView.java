@@ -5,10 +5,7 @@
  */
 package View;
 
-import DAO.MySQL.BestellingDAO;
-import static Menu.BestellingenMenu.createBestellingMetArtikelMenu;
 import POJO.Bestelling;
-import POJO.BestellingArtikel;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -36,12 +33,12 @@ public class BestellingView {
     }
     int bestellingID;
     
-    public void readBestellingByKlantID(){
+    public void readKlantID(){
         Scanner input = new Scanner(System.in);
         System.out.print("Voer het klant ID in: ");    
         this.klandID = input.nextInt();
     }
-    public void readBestellingByID(){
+    public void readBestellingID(){
         Scanner input = new Scanner(System.in);
         System.out.println("Voer het bestelling ID in: ");
         this.bestellingID = input.nextInt();

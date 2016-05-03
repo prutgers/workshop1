@@ -22,7 +22,7 @@ import View.BestellingArtikelView;
 public class BestellingController {
     public static void create(){
         BestellingView view = new BestellingView();
-        view.readBestellingByKlantID();
+        view.readKlantID();
         
         Bestelling bestelling = new Bestelling();
         bestelling.setKlantID(view.getKlandID());
@@ -45,7 +45,7 @@ public class BestellingController {
     }
     public static void deleteBestelling(){
         BestellingView view = new BestellingView();
-        view.readBestellingByID();
+        view.readBestellingID();
         
         BestellingArtikelDAOMySQL baDao = new BestellingArtikelDAOMySQL();
         baDao.deleteKoppelMetBestellingID(view.getBestellingID());
@@ -71,14 +71,14 @@ public class BestellingController {
     }
     public static void readByID(){
         BestellingView view = new BestellingView();
-        view.readBestellingByID();
+        view.readBestellingID();
         BestellingDAOMySQL dao = new BestellingDAOMySQL();
         Bestelling bestelling = dao.getBestellingById(view.getBestellingID());
         view.print(bestelling);
     }
     public static void readByKlantID(){
         BestellingView view = new BestellingView();
-        view.readBestellingByKlantID();
+        view.readKlantID();
         BestellingDAOMySQL dao = new BestellingDAOMySQL();
         ArrayList<Bestelling> list = dao.getBestellingByKlantId(view.getKlandID());
         view.print(list);
