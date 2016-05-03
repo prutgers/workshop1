@@ -30,7 +30,6 @@ import org.json.simple.parser.ParseException;
  *
  * @author Gebruiker
  */
-
 public class BestellingDAOJSON {
     public static Bestelling createBestelling(Bestelling bestelling) {
         JSONArray list = new JSONArray();
