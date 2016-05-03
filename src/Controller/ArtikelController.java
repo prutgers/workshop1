@@ -22,17 +22,17 @@ import POJO.Artikel;
 public class ArtikelController {
 
     
-    public static void createArtikel(){
+    public static void create(){
         ArtikelView aView = new ArtikelView();
         aView.create();
         Artikel artikel = new Artikel();
         artikel.setArtikel_naam(aView.getArtikel_naam());
         
-        ArtikelDAOMySQL aDAOMySql= new ArtikelDAOMySQL();
-        aDAOMySql.createNewArtikel(artikel);
+        ArtikelDAOMySQL dao = new ArtikelDAOMySQL();
+        dao.createNewArtikel(artikel);
     }
     
-    public static void updateArtikel(){
+    public static void update(){
         ArtikelView aView = new ArtikelView();
         Artikel artikel = new Artikel();                      
 
@@ -41,28 +41,29 @@ public class ArtikelController {
         artikel.setArtikel_voorraad(aView.getArtikel_voorraad());
         artikel.setArtikel_prijs(aView.getArtikel_prijs());
         
-        ArtikelDAOMySQL aDAOMySql= new ArtikelDAOMySQL();
-        aDAOMySql.updateArtikel(artikel);
+        ArtikelDAOMySQL dao= new ArtikelDAOMySQL();
+        dao.updateArtikel(artikel);
     }
     
-    public static void deleteArtikel(){
+    public static void delete(){
         ArtikelView aView = new ArtikelView();
         aView.delete();
         
-        ArtikelDAOMySQL aDAOMySql= new ArtikelDAOMySQL();
-        aDAOMySql.deleteArtikel(aView.getArtikel_id());
+        ArtikelDAOMySQL dao = new ArtikelDAOMySQL();
+        dao.deleteArtikel(aView.getArtikel_id());
     }
     
-    public static void readArtikelByID(){
+    public static void readByID(){
         ArtikelView aView = new ArtikelView();
         aView.readArtikelById();
         
-        ArtikelDAOMySQL aDAOMySql= new ArtikelDAOMySQL();
-        aDAOMySql.readArtikel(aView.getArtikel_id()));
-        
-        ArrayList<Artikel> artikelLijst;
-        
+        ArtikelDAOMySQL dao = new ArtikelDAOMySQL();
+        aView.print(dao.readArtikel(aView.getArtikel_id()));
     }
     
-    
+    public static void readAll(){
+        ArtikelView aView = new ArtikelView();
+        ArtikelDAOMySQL dao= new ArtikelDAOMySQL();
+        aView.print(dao.readArtikel(aView.getArtikel_id()));
+    }
 }

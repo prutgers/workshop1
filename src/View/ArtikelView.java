@@ -34,7 +34,6 @@ public class ArtikelView {
         
         System.out.println("Voer de artikelprijs in: ");
         this.artikel_prijs = VerifyInputScanner.verifyBigDecimal();
-
     }
     
     public  void update(){
@@ -52,10 +51,6 @@ public class ArtikelView {
         this.artikel_prijs = VerifyInputScanner.verifyBigDecimal();
     }
     
-    public void readAllArtikelen(){
-        
-    }
-    
     public void readArtikelById(){
         System.out.println("Voer het artikel ID in: ");
         artikel_id = VerifyInputScanner.verifyInt();
@@ -67,23 +62,30 @@ public class ArtikelView {
         this.artikel_id = VerifyInputScanner.verifyInt();
     }
     
-    public void printArtikel(ArrayList<Artikel> artikelLijst){
-        //is het mooi om hier alleen artikel view
+    public void print(ArrayList<Artikel> artikelLijst){
+        System.out.format("%s, %s, %s, %s\n", 
+                "Artikel ID", "Artikelnaam", "Artikelprijs", "Artikelvoorraad");
+        
+        for(Artikel a : artikelLijst){
+            System.out.format("%s, %s, %s, %s\n", a.getArtikel_id(), a.getArtikel_naam(), 
+            a.getArtikel_prijs(), a.getArtikel_voorraad()); 
+        }
     }
     
+    public void print(Artikel artikel){
+        PrintFormat.printHeader("Artikel met artikel ID " + artikel.getArtikel_id());
+        System.out.println("Artikel ID " + artikel.getArtikel_id());
+        System.out.println("Artikel Naam " + artikel.getArtikel_naam());
+        System.out.println("Artikel Prijs" + artikel.getArtikel_prijs());
+        System.out.println("Artikel Voorraad " + artikel.getArtikel_voorraad());
+        
+    }
     
     /**
      * @return the artikel_id
      */
     public int getArtikel_id() {
         return artikel_id;
-    }
-
-    /**
-     * @param artikel_id the artikel_id to set
-     */
-    public void setArtikel_id(int artikel_id) {
-        this.artikel_id = artikel_id;
     }
 
     /**
@@ -94,13 +96,6 @@ public class ArtikelView {
     }
 
     /**
-     * @param artikel_naam the artikel_naam to set
-     */
-    public void setArtikel_naam(String artikel_naam) {
-        this.artikel_naam = artikel_naam;
-    }
-
-    /**
      * @return the artikel_voorraad
      */
     public int getArtikel_voorraad() {
@@ -108,23 +103,9 @@ public class ArtikelView {
     }
 
     /**
-     * @param artikel_voorraad the artikel_voorraad to set
-     */
-    public void setArtikel_voorraad(int artikel_voorraad) {
-        this.artikel_voorraad = artikel_voorraad;
-    }
-
-    /**
      * @return the artikel_prijs
      */
     public BigDecimal getArtikel_prijs() {
         return artikel_prijs;
-    }
-
-    /**
-     * @param artikel_prijs the artikel_prijs to set
-     */
-    public void setArtikel_prijs(BigDecimal artikel_prijs) {
-        this.artikel_prijs = artikel_prijs;
     }
 }
