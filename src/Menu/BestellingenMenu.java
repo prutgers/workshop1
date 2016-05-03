@@ -120,7 +120,7 @@ public class BestellingenMenu {
         bestellingArtikel.setArtikel_id(input.nextInt());
         System.out.print("Voer het aantal artikelen in: ");
         bestellingArtikel.setAantal(input.nextInt());
-        BestellingArtikelDAOMySQL.createKoppelBestellingArtikel(bestellingArtikel);
+        new BestellingArtikelDAOMySQL().createKoppelBestellingArtikel(bestellingArtikel);
     }
     
      //3) updateBestellingAantalMenu update het aantal te bestellen artikelen 
@@ -130,7 +130,7 @@ public class BestellingenMenu {
         int bestellingId = VerifyInputScanner.verifyInt();
         System.out.println("Voer het artikel ID in: ");
         int artikelId = VerifyInputScanner.verifyInt();
-        BestellingArtikel koppel = BestellingArtikelDAOMySQL.readKoppel
+        BestellingArtikel koppel = new BestellingArtikelDAOMySQL().readKoppel
             (bestellingId, artikelId);
         
         System.out.println("Voer het aantal dat u wilt bestellen in: ");

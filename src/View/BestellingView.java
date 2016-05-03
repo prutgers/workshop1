@@ -8,6 +8,7 @@ package View;
 import DAO.MySQL.BestellingDAO;
 import static Menu.BestellingenMenu.createBestellingMetArtikelMenu;
 import POJO.Bestelling;
+import POJO.BestellingArtikel;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -35,25 +36,25 @@ public class BestellingView {
     }
     int bestellingID;
     
-    public void createBestelling(){
+    public void readBestellingByKlantID(){
         Scanner input = new Scanner(System.in);
         System.out.print("Voer het klant ID in: ");    
         this.klandID = input.nextInt();
     }
-    public void readBestelling(ArrayList<Bestelling> list){
+    public void readBestellingByID(){
+        Scanner input = new Scanner(System.in);
+        System.out.println("Voer het bestelling ID in: ");
+        this.bestellingID = input.nextInt();
+    }
+    
+    public void print(ArrayList<Bestelling> list){
         System.out.printf("%15s %15s\n", "Bestelling ID", "Klant ID");
         for(Bestelling e : list){
             System.out.printf("%15d %15d\n",e.getBestellingID(), e.getKlantID());
         }
     }
-    public void readBestelling(){
-        Scanner input = new Scanner(System.in);
-        
-        System.out.println("Voer het bestelling ID in: ");
-        this.bestellingID = input.nextInt();
-        
-        System.out.println("Bestelling ID: " + bestelling.getBestellingID() + " " + 
-                "Klant ID: " + bestelling.getKlantID());
-        
+    public void print(Bestelling bestelling){
+        System.out.println("Bestelling ID: " + bestelling.getBestellingID());
+        System.out.println("Klant ID: " + bestelling.getKlantID());
     }
 }
