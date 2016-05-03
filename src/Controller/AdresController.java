@@ -62,6 +62,10 @@ public class AdresController {
     }
     
     public static void deleteAdresView() {
-        //...
+        AdresView menu = new AdresView();
+        menu.delete();
+  
+        AdresDAO aDAO = new AdresDAO();
+        AdresDAO.deleteAdres(menu.getAdres_id());
     }
 }
