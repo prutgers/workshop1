@@ -20,12 +20,12 @@ import java.util.ArrayList;
  *
  * @author Peter
  */
-public class BestellingArtikelDAO {
+public class BestellingArtikelDAOMySQL {
     
     
     // Toe te voegen is Statement.RETURN_GENERATED_KEYS zoals in KlantDAO
     
-    public static void createKoppelBestellingArtikel(BestellingArtikel koppelBestellingArtikel){
+    public void createKoppelBestellingArtikel(BestellingArtikel koppelBestellingArtikel){
         String query = "INSERT INTO bestellingartikel (bestelling_id, artikel_id, aantal)"
                 + " values (?, ?, ?)";
         try(Connection con = new DBConnector().getConnection();){
@@ -41,7 +41,7 @@ public class BestellingArtikelDAO {
         }
     }
     
-    public static ArrayList<BestellingArtikel> readKoppelMetBestellingID(int bestelling_id){
+    public ArrayList<BestellingArtikel> readKoppelMetBestellingID(int bestelling_id){
         ArrayList<BestellingArtikel> lijst = new ArrayList<BestellingArtikel>();
         
         try {
@@ -70,7 +70,7 @@ public class BestellingArtikelDAO {
         return lijst;
     }
     
-    public static ArrayList<BestellingArtikel> readKoppelMetArtikelID(int artikel_id){
+    public ArrayList<BestellingArtikel> readKoppelMetArtikelID(int artikel_id){
         ArrayList<BestellingArtikel> lijst = new ArrayList<BestellingArtikel>();
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -98,7 +98,7 @@ public class BestellingArtikelDAO {
         return lijst;
     }
     
-    public static BestellingArtikel readKoppel(int bestelling_id, int artikel_id){
+    public BestellingArtikel readKoppel(int bestelling_id, int artikel_id){
         BestellingArtikel koppel = new BestellingArtikel();
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -125,7 +125,7 @@ public class BestellingArtikelDAO {
         return koppel;
     }
     
-    public static void deleteKoppelMetBestellingID(int bestelling_id){
+    public void deleteKoppelMetBestellingID(int bestelling_id){
         try {
             Class.forName("com.mysql.jdbc.Driver");
             RowSet rowSet = new JdbcRowSetImpl();
@@ -147,7 +147,7 @@ public class BestellingArtikelDAO {
     }
     
     // dit is waarschijnlijk onzin
-    public static void deleteKoppelMetArtikelID(int artikel_id){
+    public void deleteKoppelMetArtikelID(int artikel_id){
         try {
             Class.forName("com.mysql.jdbc.Driver");
             RowSet rowSet = new JdbcRowSetImpl();
@@ -169,7 +169,7 @@ public class BestellingArtikelDAO {
     
     
     
-    public static void deleteKoppel(int bestellingID,int artikelID){
+    public void deleteKoppel(int bestellingID,int artikelID){
         try {
             Class.forName("com.mysql.jdbc.Driver");
             RowSet rowSet = new JdbcRowSetImpl();
@@ -191,7 +191,7 @@ public class BestellingArtikelDAO {
     }
     
     
-    public static BestellingArtikel readKoppelById(int koppelID){
+    public BestellingArtikel readKoppelById(int koppelID){
         BestellingArtikel koppel = new BestellingArtikel();
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -212,7 +212,7 @@ public class BestellingArtikelDAO {
         return koppel;
     }
     
-    public static void updateKoppel(BestellingArtikel koppel){
+    public void updateKoppel(BestellingArtikel koppel){
        String query = "UPDATE bestellingartikel SET " 
                     + " bestelling_id = ?, "
                     + " artikel_id = ?, "

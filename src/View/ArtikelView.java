@@ -5,9 +5,11 @@
  */
 package View;
 
+import POJO.Artikel;
 import formatMessage.PrintFormat;
 import formatMessage.VerifyInputScanner;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -35,17 +37,38 @@ public class ArtikelView {
 
     }
     
-    public  void updateArtikel(){
+    public  void update(){
+        System.out.println("Voer het artikel ID van het artikel "
+                + "dat u wilt aanpassen in: ");
+        this.artikel_id = VerifyInputScanner.verifyInt();
         
+        System.out.println("Artikelnaam: ");
+        this.artikel_naam = VerifyInputScanner.verifyString();
+        
+        System.out.println("Aantal van dit artikel dat op voorraad is: ");
+        this.artikel_voorraad = VerifyInputScanner.verifyInt();
+        
+        System.out.println("Artikelprijs: ");
+        this.artikel_prijs = VerifyInputScanner.verifyBigDecimal();
     }
+    
     public void readAllArtikelen(){
         
     }
-    public void readArtikelByIdMenu(){
-        
-    }
-    public void deleteArtikelMenu(){
     
+    public void readArtikelById(){
+        System.out.println("Voer het artikel ID in: ");
+        artikel_id = VerifyInputScanner.verifyInt();
+    }
+    
+    public void delete(){
+        System.out.println("Voer het artikel ID van het "
+                + "te verwijderen artikel in: ");
+        this.artikel_id = VerifyInputScanner.verifyInt();
+    }
+    
+    public void printArtikel(ArrayList<Artikel> artikelLijst){
+        //is het mooi om hier alleen artikel view
     }
     
     

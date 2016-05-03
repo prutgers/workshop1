@@ -8,7 +8,7 @@ package interfaceDAO;
 import POJO.Adres;
 import java.util.ArrayList; 
 
-public interface AdresDAOInterface {
+public interface AdresDAO {
     
     Adres createAdres(Adres adres);
     

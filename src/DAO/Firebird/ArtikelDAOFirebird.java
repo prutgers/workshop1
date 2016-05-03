@@ -42,7 +42,7 @@ import java.util.ArrayList;
 
 public class ArtikelDAOFirebird {
         
-    public static Artikel createArtikelFirebirdDB(Artikel artikel){
+    public Artikel createArtikelFirebirdDB(Artikel artikel){
 
         try(Connection connection = DBConnectorFirebird.getConnection()){
             
@@ -67,7 +67,7 @@ public class ArtikelDAOFirebird {
         return artikel;
     }
     
-    public static Artikel readArtikelFirebirdDB(int artikel_id){
+    public Artikel readArtikelFirebirdDB(int artikel_id){
         Artikel artikel = new Artikel();
         try(Connection connection = DBConnectorFirebird.getConnection()){
             String sql = "SELECT * FROM artikel where artikel_id = " + artikel_id;
@@ -95,7 +95,7 @@ public class ArtikelDAOFirebird {
         return artikel;
     }
 
-    public static ArrayList<Artikel> readArtikelFirebirdDB(){
+    public ArrayList<Artikel> readArtikelFirebirdDB(){
         ArrayList<Artikel> artikelLijst = new ArrayList<>();
         try(Connection connection = DBConnectorFirebird.getConnection()){
             String sql = "SELECT * FROM artikel";

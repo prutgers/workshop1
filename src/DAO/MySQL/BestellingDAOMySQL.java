@@ -12,8 +12,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class BestellingDAO {
-    public static Bestelling createBestelling(Bestelling bestelling) {
+public class BestellingDAOMySQL {
+    public Bestelling createBestelling(Bestelling bestelling) {
 
         String query = "INSERT INTO Bestelling (klant_id) values (?)";
       
@@ -41,7 +41,7 @@ public class BestellingDAO {
         return bestelling;
     }
     
-    public static Bestelling getBestellingById(int BestellingId){
+    public Bestelling getBestellingById(int BestellingId){
         
         Bestelling bestelling = new Bestelling();
         try(Connection con = new DBConnector().getConnection();){
@@ -59,7 +59,7 @@ public class BestellingDAO {
         return bestelling;
     }
 
-    public static ArrayList<Bestelling> getAllBestelling(){
+    public ArrayList<Bestelling> getAllBestelling(){
         ArrayList<Bestelling> bestellingLijst = new ArrayList<Bestelling>();
         try(Connection con = new DBConnector().getConnection();){
             PreparedStatement stmt = con.prepareStatement("select * from Bestelling");
@@ -74,7 +74,7 @@ public class BestellingDAO {
         }
         return bestellingLijst;
     }
-    public  static ArrayList<Bestelling> getBestellingByKlantId(int klantId){
+    public ArrayList<Bestelling> getBestellingByKlantId(int klantId){
         ArrayList<Bestelling> bestellingLijst = new ArrayList<Bestelling>();
         try(Connection con = new DBConnector().getConnection();){
             PreparedStatement stmt = con.prepareStatement("select * from bestelling where klant_id = ?");
@@ -91,7 +91,7 @@ public class BestellingDAO {
         return bestellingLijst;
     }
 
-    public static void updateBestelling(Bestelling bestelling){
+    public void updateBestelling(Bestelling bestelling){
         String query =  "UPDATE Bestelling SET klant_id=? WHERE bestelling_id = ?;";
 
         try(Connection con = new DBConnector().getConnection();){
@@ -108,7 +108,7 @@ public class BestellingDAO {
         }
     }
     
-    public static void deleteBestelling(int bestelling_id){
+    public void deleteBestelling(int bestelling_id){
         String sql = "DELETE FROM bestelling WHERE bestelling_id=?";
         try(Connection con = new DBConnector().getConnection();){
             PreparedStatement stmt = con.prepareStatement(sql);

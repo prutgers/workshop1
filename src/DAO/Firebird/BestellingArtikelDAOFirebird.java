@@ -26,7 +26,7 @@ public class BestellingArtikelDAOFirebird {
     
     // Toe te voegen is Statement.RETURN_GENERATED_KEYS zoals in KlantDAO
     
-    public static void createKoppelBestellingArtikel(BestellingArtikel koppelBestellingArtikel){
+    public void createKoppelBestellingArtikel(BestellingArtikel koppelBestellingArtikel){
         String query = "INSERT INTO bestellingartikel (bestelling_id, artikel_id, aantal)"
                 + " values (?, ?, ?)";
        try(Connection connection = DBConnectorFirebird.getConnection();){
@@ -42,7 +42,7 @@ public class BestellingArtikelDAOFirebird {
         }
     }
     
-    public static ArrayList<BestellingArtikel> readKoppelMetBestellingID(int bestelling_id){
+    public ArrayList<BestellingArtikel> readKoppelMetBestellingID(int bestelling_id){
         ArrayList<BestellingArtikel> lijst = new ArrayList<>();
         
         try (Connection connection = DBConnectorFirebird.getConnection()){
@@ -68,7 +68,7 @@ public class BestellingArtikelDAOFirebird {
         return lijst;
     }
     
-    public static ArrayList<BestellingArtikel> readKoppelMetArtikelID(int artikel_id){
+    public ArrayList<BestellingArtikel> readKoppelMetArtikelID(int artikel_id){
         ArrayList<BestellingArtikel> lijst = new ArrayList<BestellingArtikel>();
         try (Connection connection = DBConnectorFirebird.getConnection()){
             String sql = "SELECT * FROM bestellingartikel WHERE artikel_id = " + artikel_id;
@@ -90,7 +90,7 @@ public class BestellingArtikelDAOFirebird {
         return lijst;
     }
     
-    public static BestellingArtikel readKoppel(int bestelling_id, int artikel_id){
+    public BestellingArtikel readKoppel(int bestelling_id, int artikel_id){
         BestellingArtikel koppel = new BestellingArtikel();
         try (Connection connection = DBConnectorFirebird.getConnection()){
             String sql = "SELECT * FROM bestellingartikel WHERE bestelling_id = " + bestelling_id + " AND artikel_id = " + artikel_id;
@@ -113,7 +113,7 @@ public class BestellingArtikelDAOFirebird {
         return koppel;
     }
     
-    public static void deleteKoppelMetBestellingID(int bestelling_id){
+    public void deleteKoppelMetBestellingID(int bestelling_id){
         try(Connection connection = DBConnectorFirebird.getConnection()) {
             String sql = "DELETE FROM bestellingartikel WHERE bestelling_id = " + bestelling_id;
             Statement pstmt = connection.createStatement();
@@ -127,7 +127,7 @@ public class BestellingArtikelDAOFirebird {
     }
     
     // dit is waarschijnlijk onzin
-    public static void deleteKoppelMetArtikelID(int artikel_id){
+    public void deleteKoppelMetArtikelID(int artikel_id){
         try(Connection connection = DBConnectorFirebird.getConnection()) {
             String sql = "DELETE FROM bestellingartikel WHERE artikel_id = " + artikel_id;
             Statement pstmt = connection.createStatement();
@@ -142,7 +142,7 @@ public class BestellingArtikelDAOFirebird {
     
     
     
-    public static void deleteKoppel(int bestellingID,int artikelID){
+    public void deleteKoppel(int bestellingID,int artikelID){
         try(Connection connection = DBConnectorFirebird.getConnection()) {
             String sql = "DELETE FROM bestellingartikel WHERE bestelling_id = " + bestellingID + " AND artikel_id = " + artikelID;
             Statement pstmt = connection.createStatement();
@@ -156,7 +156,7 @@ public class BestellingArtikelDAOFirebird {
     }
     
     
-    public static BestellingArtikel readKoppelById(int koppelID){
+    public BestellingArtikel readKoppelById(int koppelID){
        BestellingArtikel koppel = new BestellingArtikel();
         try (Connection connection = DBConnectorFirebird.getConnection()){
             String sql = "SELECT * FROM bestellingartikel WHERE koppel_id = " + koppelID;
@@ -178,7 +178,7 @@ public class BestellingArtikelDAOFirebird {
         return koppel;
     }
     
-    public static void updateKoppel(BestellingArtikel koppel){
+    public void updateKoppel(BestellingArtikel koppel){
        String query = "UPDATE bestellingartikel SET " 
                     + " bestelling_id = ?, "
                     + " artikel_id = ?, "

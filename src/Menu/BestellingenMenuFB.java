@@ -7,7 +7,7 @@ package Menu;
 
 import formatMessage.VerifyInputScanner;
 import POJO.Artikel;
-import DAO.MySQL.BestellingArtikelDAO;
+import DAO.MySQL.BestellingArtikelDAOMySQL;
 import POJO.Bestelling;
 import DAO.MySQL.ArtikelDAOMySQL;
 import POJO.BestellingArtikel;
@@ -16,7 +16,7 @@ import formatMessage.PrintFormat;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import static DAO.MySQL.BestellingArtikelDAO.readKoppelMetBestellingID;
+import static DAO.MySQL.BestellingArtikelDAOMySQL.readKoppelMetBestellingID;
 
 
 /**
@@ -118,7 +118,7 @@ public class BestellingenMenuFB {
         bestellingArtikel.setArtikel_id(input.nextInt());
         System.out.print("Enter aantal: ");
         bestellingArtikel.setAantal(input.nextInt());
-        BestellingArtikelDAO.createKoppelBestellingArtikel(bestellingArtikel);
+        BestellingArtikelDAOMySQL.createKoppelBestellingArtikel(bestellingArtikel);
     }
     
      //3) update het aantal bestellen artikelen van een bestelling
@@ -127,12 +127,12 @@ public class BestellingenMenuFB {
         int bestellingId = VerifyInputScanner.verifyInt();
         System.out.println("Enter artikellen ID :");
         int artikelId = VerifyInputScanner.verifyInt();
-        BestellingArtikel koppel = BestellingArtikelDAO.readKoppel(bestellingId, artikelId);
+        BestellingArtikel koppel = BestellingArtikelDAOMySQL.readKoppel(bestellingId, artikelId);
         
         System.out.println("aantal dat u wilt bestellen :");
         koppel.setAantal(VerifyInputScanner.verifyInt());
         
-        BestellingArtikelDAO.updateKoppel(koppel);
+        BestellingArtikelDAOMySQL.updateKoppel(koppel);
         
         
     }
@@ -194,7 +194,7 @@ public class BestellingenMenuFB {
         int bestellingId = VerifyInputScanner.verifyInt();
         System.out.println("Enter atikel ID :");
         int artikelId = VerifyInputScanner.verifyInt();
-        BestellingArtikelDAO.deleteKoppel(bestellingId,artikelId);
+        BestellingArtikelDAOMySQL.deleteKoppel(bestellingId,artikelId);
     }
 
     //9) verwijdert een bestelling op basis van bestellingID
@@ -206,7 +206,7 @@ public class BestellingenMenuFB {
         int bestellingId = input.nextInt();
         
         //verwijdert alle artikelen die bij deze bestelling horen
-        BestellingArtikelDAO.deleteKoppelMetBestellingID(bestellingId);
+        BestellingArtikelDAOMySQL.deleteKoppelMetBestellingID(bestellingId);
         
         //verwijdert de bestelling
         BestellingDAOFirebird.deleteBestelling(bestellingId);
@@ -226,7 +226,7 @@ public class BestellingenMenuFB {
         bestellingArtikel.setArtikel_id(input.nextInt());
         System.out.print("Enter aantal: ");
         bestellingArtikel.setAantal(input.nextInt());
-        BestellingArtikelDAO.createKoppelBestellingArtikel(bestellingArtikel);
+        BestellingArtikelDAOMySQL.createKoppelBestellingArtikel(bestellingArtikel);
     }
 }
 

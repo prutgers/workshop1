@@ -14,7 +14,7 @@ public class AdresDAOFirebird {
     
     static PreparedStatement stmnt;
 
-    public static void createFirebirdDBAdres(Adres adres) {
+    public void createFirebirdDBAdres(Adres adres) {
         try (Connection connection = new DBConnectorFirebird().getConnection()) {
             Class.forName("org.firebirdsql.jdbc.FBDriver");
             String query = "INSERT INTO adres (straatnaam, huisnummer, "
@@ -37,7 +37,7 @@ public class AdresDAOFirebird {
         }
     }            
     
-    public static ArrayList<Adres> readFireBirdDBAdres() {
+    public ArrayList<Adres> readFireBirdDBAdres() {
         ArrayList<Adres> adresGegevens = new ArrayList<>();
         try (Connection connection = new DBConnectorFirebird().getConnection()) { 
             Class.forName("org.firebirdsql.jdbc.FBDriver");
@@ -73,7 +73,7 @@ public class AdresDAOFirebird {
         return adresGegevens;
     }
     
-    public static Adres readFirebirdDBAdresByID(int adresID) {
+    public Adres readFirebirdDBAdresByID(int adresID) {
         Adres adres = new Adres();
     
         try (Connection connection = new DBConnectorFirebird().getConnection();) {
@@ -98,7 +98,7 @@ public class AdresDAOFirebird {
         return adres;
     }
     
-    public static void updateFirebirdDBAdres(Adres adres) {
+    public void updateFirebirdDBAdres(Adres adres) {
         try (Connection connection = new DBConnectorFirebird().getConnection();) {
             Class.forName("org.firebirdsql.jdbc.FBDriver");
             
@@ -127,7 +127,7 @@ public class AdresDAOFirebird {
         }
     }
     
-    public static void deleteAdres(int adres_id) {
+    public void deleteAdres(int adres_id) {
         String query = "DELETE FROM adres WHERE adres_id=?";
         try (Connection connection = new DBConnectorFirebird().getConnection();) {
             Class.forName("org.firebirdsql.jdbc.FBDriver");

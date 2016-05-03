@@ -5,11 +5,12 @@
  */
 package Controller;
 
-import DAO.MySQL.BestellingDAO;
+import DAO.MySQL.BestellingDAOMySQL;
 import static Menu.BestellingenMenu.createBestellingMetArtikelMenu;
 import POJO.Bestelling;
 import View.BestellingView;
 import java.util.ArrayList;
+import static Menu.BestellingenMenu.createBestellingMetArtikelMenu;
 
 /**
  *
@@ -22,19 +23,19 @@ public class BestellingController {
         
         Bestelling bestelling = new Bestelling();
         bestelling.setKlantID(view.getKlandID());
-        Bestelling newBestelling =BestellingDAO.createBestelling(bestelling);
+        Bestelling newBestelling =BestellingDAOMySQL.createBestelling(bestelling);
         
         createBestellingMetArtikelMenu(newBestelling.getBestellingID()); 
     }
     public static void readBestelling(){
         BestellingView view = new BestellingView();
-        ArrayList<Bestelling> list = BestellingDAO.getAllBestelling();
+        ArrayList<Bestelling> list = BestellingDAOMySQL.getAllBestelling();
         view.readBestelling(list);
     }
     public static void readBestelling(int bestellingID){
         BestellingView view = new BestellingView();
         view.readBestelling();
-        Bestelling bestelling = BestellingDAO.getBestellingById(BestellingId);
+        Bestelling bestelling = BestellingDAOMySQL.getBestellingById(BestellingId);
     }
                     
 }

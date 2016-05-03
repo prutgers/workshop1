@@ -11,23 +11,21 @@ package DAO.MySQL;
  */
 import ConnectionPools.ConnectionPool;
 import POJO.Klant;
+import interfaceDAO.KlantDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import javax.sql.rowset.JdbcRowSet;
-import com.sun.rowset.CachedRowSetImpl;
 import formatMessage.PrintFormat;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class KlantDAO {
-     static Logger logger = LoggerFactory.getLogger(KlantDAO.class);
+public class KlantDAOMySQL implements KlantDAO{
+     static Logger logger = LoggerFactory.getLogger(KlantDAOMySQL.class);
  
-    public static Klant createKlant(Klant klant) throws com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException {
+    @Override
+    public Klant createKlant(Klant klant) throws com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException {
         
         try(Connection connection = ConnectionPool.getConnection()){
              String sql = "insert into klant ("
@@ -60,7 +58,8 @@ public class KlantDAO {
         return klant;
     }
     
-    public static Klant readKlant(int klant_id){
+    @Override
+    public Klant readKlant(int klant_id){
         Klant klant = new Klant();
 
         try (
@@ -91,7 +90,8 @@ public class KlantDAO {
         return klant;
     }
     
-    public static Klant updateKlant(Klant klant){
+    @Override
+    public Klant updateKlant(Klant klant){
         Klant klantOut = klant;
         try (
             Connection connection = ConnectionPool.getConnection();
@@ -121,7 +121,8 @@ public class KlantDAO {
         return klantOut;
     }
 
-    public static void deleteKlant(int klant_id) throws com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException {
+    @Override
+    public void deleteKlant(int klant_id) throws com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException {
         try (
             Connection connection = ConnectionPool.getConnection();
                 ) {
@@ -140,7 +141,8 @@ public class KlantDAO {
         }
     }
     
-    public static ArrayList<Klant> readAllKlantByKlant(Klant klant){
+    @Override
+    public ArrayList<Klant> readAllKlantByKlant(Klant klant){
         ArrayList<Klant> AllKlant = new ArrayList();
         int i = 0;
         try (

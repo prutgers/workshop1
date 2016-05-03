@@ -21,10 +21,10 @@ import org.slf4j.LoggerFactory;
  *
  * @author lucas
  */
-public class KlantAdresDAO {
-    static Logger logger = LoggerFactory.getLogger(KlantAdresDAO.class);
+public class KlantAdresDAOMySQL {
+    static Logger logger = LoggerFactory.getLogger(KlantAdresDAOMySQL.class);
     
-    public static KlantAdres createKlantAdresKoppel(KlantAdres koppel) throws com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException {
+    public KlantAdres createKlantAdresKoppel(KlantAdres koppel) throws com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException {
         KlantAdres koppelKlantAdresOut = koppel;
         try (
             Connection connection = ConnectionPool.getConnection();
@@ -54,7 +54,7 @@ public class KlantAdresDAO {
         return koppelKlantAdresOut;
     }
     
-     public static ArrayList<Integer> readKlantID(int adres_id){
+     public ArrayList<Integer> readKlantID(int adres_id){
         ArrayList<Integer> allKlant_id = new ArrayList();
         int i = 0;
         try (
@@ -83,7 +83,7 @@ public class KlantAdresDAO {
     
      
      //helemaal aangepast
-    public static ArrayList<Adres> readAdresID(int klant_id){
+    public ArrayList<Adres> readAdresID(int klant_id){
         ArrayList<Adres> adresLijst = new ArrayList();
         
         try(Connection connection = ConnectionPool.getConnection()){
@@ -98,7 +98,7 @@ public class KlantAdresDAO {
             
             
             while(rs.next()){
-                Adres adres = AdresDAO.readAdresByID(rs.getInt("adres_id"));
+                Adres adres = AdresDAOMySQL.readAdresByID(rs.getInt("adres_id"));
                 adresLijst.add(adres);
             }
         }
@@ -109,11 +109,11 @@ public class KlantAdresDAO {
         return adresLijst;
     }
     
-    private static void updateKlantAdresKoppel(){
+    private void updateKlantAdresKoppel(){
     }
             
             
-    public static void deleteKlantAdresKoppel(int klant_id){
+    public void deleteKlantAdresKoppel(int klant_id){
         try (
             Connection connection = ConnectionPool.getConnection();
                 ) {
@@ -129,7 +129,7 @@ public class KlantAdresDAO {
         }
     }
     
-    public static void deleteAdresKlantKoppel(int adres_id){
+    public void deleteAdresKlantKoppel(int adres_id){
         try (
             Connection connection = ConnectionPool.getConnection();
                 ) {

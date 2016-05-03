@@ -13,7 +13,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class BestellingDAOFirebird {
-    public static Bestelling createBestelling(Bestelling bestelling) {
+    
+    public Bestelling createBestelling(Bestelling bestelling) {
         String query = "INSERT INTO Bestelling (klant_id) values (?) RETURNING bestelling_id";
         try(Connection connection = DBConnectorFirebird.getConnection();){
             PreparedStatement pstmt = connection.prepareStatement(query);
@@ -32,7 +33,7 @@ public class BestellingDAOFirebird {
         return bestelling;
     }
 
-    public static Bestelling getBestellingById(int BestellingId){
+    public Bestelling getBestellingById(int BestellingId){
         Bestelling bestelling = new Bestelling();
         try(Connection connection = DBConnectorFirebird.getConnection();){
             PreparedStatement stmt = connection.prepareStatement("select * from Bestelling where bestelling_id = ?");
@@ -49,7 +50,7 @@ public class BestellingDAOFirebird {
         return bestelling;
     }
 
-    public static ArrayList<Bestelling> getAllBestelling(){
+    public ArrayList<Bestelling> getAllBestelling(){
         ArrayList<Bestelling> bestellingLijst = new ArrayList<Bestelling>();
         try(Connection connection = DBConnectorFirebird.getConnection();){
             PreparedStatement stmt = connection.prepareStatement("select * from Bestelling");
@@ -66,7 +67,7 @@ public class BestellingDAOFirebird {
         }
         return bestellingLijst;
     }
-    public  static ArrayList<Bestelling> getBestellingByKlantId(int klantId){
+    public ArrayList<Bestelling> getBestellingByKlantId(int klantId){
         ArrayList<Bestelling> bestellingLijst = new ArrayList<Bestelling>();
         try(Connection connection = DBConnectorFirebird.getConnection();){
             PreparedStatement stmt = connection.prepareStatement("select * from bestelling where klant_id = ?");
@@ -87,7 +88,7 @@ public class BestellingDAOFirebird {
         return bestellingLijst;
     }
 
-    public static void updateBestelling(Bestelling bestelling){
+    public void updateBestelling(Bestelling bestelling){
         String query =  "UPDATE Bestelling SET klant_id=? WHERE bestelling_id = ?;";
     
         try(Connection con = new DBConnector().getConnection();){
@@ -104,7 +105,7 @@ public class BestellingDAOFirebird {
         }
     }
     
-    public static void deleteBestelling(int bestelling_id){
+    public void deleteBestelling(int bestelling_id){
         String sql = "DELETE FROM bestelling WHERE bestelling_id=?";
         try(Connection connection = DBConnectorFirebird.getConnection();){
             PreparedStatement stmt = connection.prepareStatement(sql);

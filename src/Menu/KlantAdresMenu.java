@@ -6,11 +6,11 @@ import formatMessage.PrintFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 import POJO.Adres;
-import DAO.MySQL.AdresDAO;
+import DAO.MySQL.AdresDAOMySQL;
 import POJO.Klant;
 import DAO.MySQL.KlantDAO;
 import POJO.KlantAdres;
-import DAO.MySQL.KlantAdresDAO;
+import DAO.MySQL.KlantAdresDAOMySQL;
 
 /**
  *
@@ -169,12 +169,12 @@ public class KlantAdresMenu {
         System.out.print("Adres ID: ");
         klantAdres.setAdres_id(input.nextInt());
         
-        AdresDAO aDAO = new AdresDAO(); 
-        AdresDAO.createAdres(inputAdres);
+        AdresDAOMySQL aDAO = new AdresDAOMySQL(); 
+        AdresDAOMySQL.createAdres(inputAdres);
         
         //adres koppelen aan een al bestaand klant_id
         try{ 
-            KlantAdresDAO.createKlantAdresKoppel(klantAdres);
+            KlantAdresDAOMySQL.createKlantAdresKoppel(klantAdres);
         }
         catch(com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException ex){
             System.out.println("Dit klant_idadres_idKoppel bestaat al; Geen actie ondernomen.");         
@@ -196,7 +196,7 @@ public class KlantAdresMenu {
         System.out.print("Voer het adres ID in: ");
         klantAdresKoppel.setAdres_id(input.nextInt());
         try{
-            KlantAdresDAO.createKlantAdresKoppel(klantAdresKoppel);
+            KlantAdresDAOMySQL.createKlantAdresKoppel(klantAdresKoppel);
         }
         catch(com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException ex){
             System.out.println("Dit klant-adreskoppel bestaat al.\n "
@@ -257,7 +257,7 @@ public class KlantAdresMenu {
             System.out.printf("%15s %15s %15s %15s %15s %15s \n", 
                 "Adres ID", "Straatnaam", "Huisnummer", "Toevoeging",
                 "Postcode", "Woonplaats");
-            ArrayList<Adres> adresLijst = KlantAdresDAO.readAdresID(klantId);
+            ArrayList<Adres> adresLijst = KlantAdresDAOMySQL.readAdresID(klantId);
             for (Adres a : adresLijst) {
             System.out.printf("%15d %15s %15s %15s %15s %15s\n",
                     a.getAdres_id(), a.getStraatnaam(), a.getHuisnummer(), 
@@ -316,11 +316,11 @@ public class KlantAdresMenu {
         adres.setPostcode(postcode);
         adres.setWoonplaats(woonplaats);
         
-        adres = AdresDAO.createAdres(adres);
+        adres = AdresDAOMySQL.createAdres(adres);
         
         koppel.setAdres_id(adres.getAdres_id());
         
-        KlantAdresDAO.createKlantAdresKoppel(koppel);
+        KlantAdresDAOMySQL.createKlantAdresKoppel(koppel);
         
     }
 }

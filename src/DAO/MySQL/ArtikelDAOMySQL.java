@@ -27,7 +27,7 @@ import static java.sql.Statement.RETURN_GENERATED_KEYS;
 
 public class ArtikelDAOMySQL {
 
-   public static Artikel createNewArtikel(Artikel artikel){
+   public Artikel createNewArtikel(Artikel artikel){
         //Connect to database
         
         try(Connection connection = ConnectionPool.getConnection()) {
@@ -58,7 +58,7 @@ public class ArtikelDAOMySQL {
         return artikel;
     }
    
-   public static ArrayList<Artikel> readArtikel(){
+   public ArrayList<Artikel> readArtikel(){
         ArrayList<Artikel> artikelLijst = new ArrayList<Artikel>();
         try(Connection connection = ConnectionPool.getConnection()){
            String query = "SELECT * FROM artikel";
@@ -80,7 +80,7 @@ public class ArtikelDAOMySQL {
        return artikelLijst;
    }
    
-   public static Artikel readArtikel(int artikel_id){
+   public Artikel readArtikel(int artikel_id){
         Artikel artikel = new Artikel();
         try(Connection connection = ConnectionPool.getConnection()){
             String query = "SELECT * FROM artikel WHERE artikel_id = " + artikel_id;
@@ -105,7 +105,7 @@ public class ArtikelDAOMySQL {
        return artikel;
     }
    
-   public static void updateArtikel(Artikel artikel){
+   public void updateArtikel(Artikel artikel){
         try(Connection connection = ConnectionPool.getConnection()){
             String update = "UPDATE artikel SET artikel_naam = ?, "
                       + " artikel_voorraad = ?, "
@@ -124,7 +124,7 @@ public class ArtikelDAOMySQL {
         } 
     }
    
-   public static void deleteArtikel(int artikel_ID) {
+   public void deleteArtikel(int artikel_ID) {
         try(Connection connection = ConnectionPool.getConnection()){
             String update = "DELETE FROM artikel WHERE artikel_id = ?";
             PreparedStatement pstmt = connection.prepareStatement(update);

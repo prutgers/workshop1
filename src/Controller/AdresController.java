@@ -6,7 +6,7 @@ package Controller;
  */
 
 import View.AdresView;
-import DAO.MySQL.AdresDAO;
+import DAO.MySQL.AdresDAOMySQL;
 import POJO.Adres;
 import java.util.ArrayList;
 
@@ -24,7 +24,7 @@ public class AdresController {
         adres.setPostcode(menu.getPostcode());
         adres.setWoonplaats(menu.getWoonplaats());
         
-        AdresDAO.createAdres(adres);
+        AdresDAOMySQL.createAdres(adres);
     }
     
     public static void updateAdresView() {
@@ -38,7 +38,7 @@ public class AdresController {
         adres.setPostcode(menu.getPostcode());
         adres.setWoonplaats(menu.getWoonplaats());
         
-        AdresDAO.updateAdres(adres);
+        AdresDAOMySQL.updateAdres(adres);
     }
     
     /*
@@ -48,7 +48,7 @@ public class AdresController {
         AdresView menu = new AdresView();
         menu.readAll();
         
-        ArrayList<Adres> adresgegevens = AdresDAO.readAdres();
+        ArrayList<Adres> adresgegevens = AdresDAOMySQL.readAdres();
         
         for (Adres adres : adresgegevens) {
             System.out.printf("%15d %15s %15d %15s %15s %15s\n",
@@ -65,7 +65,7 @@ public class AdresController {
         AdresView menu = new AdresView();
         menu.delete();
   
-        AdresDAO aDAO = new AdresDAO();
-        AdresDAO.deleteAdres(menu.getAdres_id());
+        AdresDAOMySQL aDAO = new AdresDAOMySQL();
+        AdresDAOMySQL.deleteAdres(menu.getAdres_id());
     }
 }

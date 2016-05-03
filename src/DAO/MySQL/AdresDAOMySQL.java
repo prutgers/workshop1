@@ -13,11 +13,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.Statement; 
 
-public class AdresDAO {
+public class AdresDAOMySQL {
     
     static PreparedStatement stmnt;
 
-    public static Adres createAdres(Adres adres) {
+    public Adres createAdres(Adres adres) {
         String query = "INSERT INTO adres ("
                 + "adres_id"
                 + "straatnaam,"
@@ -49,13 +49,13 @@ public class AdresDAO {
         catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex + "\nProbeer opnieuw.");
             
-            Logger.getLogger(AdresDAO.class.getName()).log(Level.SEVERE, null, ex);            
+            Logger.getLogger(AdresDAOMySQL.class.getName()).log(Level.SEVERE, null, ex);            
             }
         
         return adres;
     }
     
-    public static ArrayList<Adres> readAdres() {
+    public ArrayList<Adres> readAdres() {
         ArrayList<Adres> adresGegevens = new ArrayList<>();
         try (Connection connection = ConnectionPool.getConnection();) { 
 
@@ -87,7 +87,7 @@ public class AdresDAO {
         return adresGegevens;
     }
     
-    public static Adres readAdresByID(int adresID) {
+    public Adres readAdresByID(int adresID) {
         Adres adres = new Adres();
     
         try (Connection connection = ConnectionPool.getConnection();) {
@@ -114,7 +114,7 @@ public class AdresDAO {
         return adres;
     }
     
-    public static void updateAdres(Adres adres) {
+    public void updateAdres(Adres adres) {
         String query = "UPDATE adres SET "
                 + "straatnaam=?,"
                 + "huisnummer=?,"
@@ -142,7 +142,7 @@ public class AdresDAO {
         }
     }
     
-    public static void deleteAdres(int adres_id) {
+    public void deleteAdres(int adres_id) {
         String query = "DELETE FROM adres WHERE adres_id=?";
         try (Connection connection = ConnectionPool.getConnection();) {
             

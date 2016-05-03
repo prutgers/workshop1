@@ -31,7 +31,7 @@ import org.json.simple.parser.ParseException;
  * @author Gebruiker
  */
 public class BestellingDAOJSON {
-    public static Bestelling createBestelling(Bestelling bestelling) {
+    public Bestelling createBestelling(Bestelling bestelling) {
         JSONArray list;
         JSONParser parser = new JSONParser();
         File file = new File("c:/data/json/bestellingen.json");
@@ -66,7 +66,7 @@ public class BestellingDAOJSON {
         return bestelling;
     }
     
-    public static Bestelling getBestellingById(int bestellingID){
+    public Bestelling getBestellingById(int bestellingID){
         JSONArray list = new JSONArray();
         JSONParser parser = new JSONParser();
         Bestelling bestelling = new Bestelling();
@@ -101,7 +101,7 @@ public class BestellingDAOJSON {
         return bestelling;
     }
 
-    public static ArrayList<Bestelling> getAllBestelling(){
+    public ArrayList<Bestelling> getAllBestelling(){
         JSONParser parser = new JSONParser();
         JSONArray list = new JSONArray();
         File file = new File("c:/data/json/bestellingen.json");
@@ -134,7 +134,7 @@ public class BestellingDAOJSON {
         return bestellingLijst;
     }
     
-    public  static ArrayList<Bestelling> getBestellingByKlantId(int klantID){
+    public ArrayList<Bestelling> getBestellingByKlantId(int klantID){
         JSONParser parser = new JSONParser();
         JSONArray list = new JSONArray();
         File file = new File("c:/data/json/bestellingen.json");
@@ -173,7 +173,7 @@ public class BestellingDAOJSON {
         return bestellingLijst;
     }
 
-    public static void updateBestelling(Bestelling bestelling){
+    public void updateBestelling(Bestelling bestelling){
         JSONParser parser = new JSONParser();
         JSONArray list = new JSONArray();
         File file = new File("c:/data/json/bestellingen.json");
@@ -206,7 +206,7 @@ public class BestellingDAOJSON {
 	}
     }
     
-    public static void deleteBestelling(int bestellingID){
+    public void deleteBestelling(int bestellingID){
         JSONArray list = new JSONArray();
         File file = new File("c:/data/json/bestellingen.json");
         JSONParser parser = new JSONParser();

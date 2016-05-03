@@ -5,7 +5,7 @@ package Menu;
  */
 
 import formatMessage.VerifyInputScanner;
-import DAO.MySQL.AdresDAO;
+import DAO.MySQL.AdresDAOMySQL;
 import POJO.Adres;
 import formatMessage.PrintFormat;
 import java.sql.*;
@@ -89,7 +89,7 @@ public class AdresMenu {
         adres.setPostcode(postcode);
         adres.setWoonplaats(woonplaats);
        
-        AdresDAO.createAdres(adres);
+        AdresDAOMySQL.createAdres(adres);
     }
     
     /*
@@ -98,8 +98,8 @@ public class AdresMenu {
     
     private static void readAdresMenu() throws SQLException {
         
-        AdresDAO aDAO = new AdresDAO();
-        ArrayList<Adres> adresgegevens = AdresDAO.readAdres();
+        AdresDAOMySQL aDAO = new AdresDAOMySQL();
+        ArrayList<Adres> adresgegevens = AdresDAOMySQL.readAdres();
         System.out.println("ADRESGEGEVENS \n"
             + "----------------");
         System.out.printf("%15s %15s %15s %15s %15s %15s \n", 
@@ -128,8 +128,8 @@ public class AdresMenu {
         System.out.println("Voer het adres ID in: ");
         int adresID = input.nextInt();
         
-        AdresDAO aDAO = new AdresDAO();
-        Adres adresGegevens = AdresDAO.readAdresByID(adresID);
+        AdresDAOMySQL aDAO = new AdresDAOMySQL();
+        Adres adresGegevens = AdresDAOMySQL.readAdresByID(adresID);
             System.out.println("Adres ID: " + adresGegevens.getAdres_id() + "\n"
             + "Straatnaam: " + adresGegevens.getStraatnaam() + "\n"
             + "Huisnummer: " + adresGegevens.getHuisnummer() + "\n"
@@ -149,7 +149,7 @@ public class AdresMenu {
                 + "Voer het adres ID in: ");
         int adres_id = input.nextInt();
         
-        Adres adres = AdresDAO.readAdresByID(adres_id);  
+        Adres adres = AdresDAOMySQL.readAdresByID(adres_id);  
 
         System.out.println("Huidige straatnaam: " + adres.getStraatnaam() + "\n"
                 + "Voer een nieuwe straatnaam in: ");
@@ -173,7 +173,7 @@ public class AdresMenu {
         adres.setPostcode(postcode);
         adres.setWoonplaats(woonplaats);
         
-        AdresDAO.updateAdres(adres);
+        AdresDAOMySQL.updateAdres(adres);
         
         //terugkoppeling gebruiker
         System.out.println("Het adres is aangepast.");  
@@ -231,8 +231,8 @@ public class AdresMenu {
                 + "Voer het adres ID in: ");
         int adres_id = input.nextInt();
         
-        AdresDAO aDAO = new AdresDAO();
-        AdresDAO.deleteAdres(adres_id);
+        AdresDAOMySQL aDAO = new AdresDAOMySQL();
+        AdresDAOMySQL.deleteAdres(adres_id);
         
         //terugkoppeling gebruiker 
         System.out.println("Het volgende adres is verwijderd: " + adres_id); 
