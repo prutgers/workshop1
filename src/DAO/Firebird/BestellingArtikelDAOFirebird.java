@@ -14,6 +14,7 @@ import java.sql.Statement;
 import static java.sql.Statement.RETURN_GENERATED_KEYS; // help mij hiermee :D
 import javax.sql.RowSet;
 import com.sun.rowset.*;
+import interfaceDAO.BestellingArtikelDAO;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
@@ -21,11 +22,12 @@ import java.util.ArrayList;
  *
  * @author Peter
  */
-public class BestellingArtikelDAOFirebird {
+public class BestellingArtikelDAOFirebird implements BestellingArtikelDAO {
     
     
     // Toe te voegen is Statement.RETURN_GENERATED_KEYS zoals in KlantDAO
     
+    @Override
     public void createKoppelBestellingArtikel(BestellingArtikel koppelBestellingArtikel){
         String query = "INSERT INTO bestellingartikel (bestelling_id, artikel_id, aantal)"
                 + " values (?, ?, ?)";
@@ -42,6 +44,7 @@ public class BestellingArtikelDAOFirebird {
         }
     }
     
+    @Override
     public ArrayList<BestellingArtikel> readKoppelMetBestellingID(int bestelling_id){
         ArrayList<BestellingArtikel> lijst = new ArrayList<>();
         
@@ -68,6 +71,7 @@ public class BestellingArtikelDAOFirebird {
         return lijst;
     }
     
+    @Override
     public ArrayList<BestellingArtikel> readKoppelMetArtikelID(int artikel_id){
         ArrayList<BestellingArtikel> lijst = new ArrayList<BestellingArtikel>();
         try (Connection connection = DBConnectorFirebird.getConnection()){
@@ -90,6 +94,7 @@ public class BestellingArtikelDAOFirebird {
         return lijst;
     }
     
+    @Override
     public BestellingArtikel readKoppel(int bestelling_id, int artikel_id){
         BestellingArtikel koppel = new BestellingArtikel();
         try (Connection connection = DBConnectorFirebird.getConnection()){
@@ -113,6 +118,7 @@ public class BestellingArtikelDAOFirebird {
         return koppel;
     }
     
+    @Override
     public void deleteKoppelMetBestellingID(int bestelling_id){
         try(Connection connection = DBConnectorFirebird.getConnection()) {
             String sql = "DELETE FROM bestellingartikel WHERE bestelling_id = " + bestelling_id;
@@ -127,6 +133,7 @@ public class BestellingArtikelDAOFirebird {
     }
     
     // dit is waarschijnlijk onzin
+    @Override
     public void deleteKoppelMetArtikelID(int artikel_id){
         try(Connection connection = DBConnectorFirebird.getConnection()) {
             String sql = "DELETE FROM bestellingartikel WHERE artikel_id = " + artikel_id;
@@ -142,6 +149,7 @@ public class BestellingArtikelDAOFirebird {
     
     
     
+    @Override
     public void deleteKoppel(int bestellingID,int artikelID){
         try(Connection connection = DBConnectorFirebird.getConnection()) {
             String sql = "DELETE FROM bestellingartikel WHERE bestelling_id = " + bestellingID + " AND artikel_id = " + artikelID;
@@ -156,6 +164,7 @@ public class BestellingArtikelDAOFirebird {
     }
     
     
+    @Override
     public BestellingArtikel readKoppelById(int koppelID){
        BestellingArtikel koppel = new BestellingArtikel();
         try (Connection connection = DBConnectorFirebird.getConnection()){
@@ -178,6 +187,7 @@ public class BestellingArtikelDAOFirebird {
         return koppel;
     }
     
+    @Override
     public void updateKoppel(BestellingArtikel koppel){
        String query = "UPDATE bestellingartikel SET " 
                     + " bestelling_id = ?, "
