@@ -5,7 +5,7 @@
  */
 package workshop1;
 
-import DAO.MySQL.BestellingDAO;
+import DAO.MySQL.BestellingDAOMySQL;
 import POJO.Bestelling;
 import ConnectionPools.DBConnector;
 import java.sql.Connection;
@@ -55,7 +55,7 @@ public class BestellingDAOTest {
         Bestelling bestelling = new Bestelling();
         bestelling.setKlantID(999);
        
-        Bestelling result = BestellingDAO.createBestelling(bestelling);
+        Bestelling result = BestellingDAOMySQL.createBestelling(bestelling);
         try(Connection con = new DBConnector().getConnection();){
             PreparedStatement stmt = con.prepareStatement("select * from bestelling where bestelling_id = ?");
             stmt.setInt(1, result.getBestellingID());
@@ -75,9 +75,9 @@ public class BestellingDAOTest {
     public void testGetBestellingById() {
         Bestelling bestelling = new Bestelling();
         bestelling.setKlantID(888);
-        Bestelling newBestelling = BestellingDAO.createBestelling(bestelling);
+        Bestelling newBestelling = BestellingDAOMySQL.createBestelling(bestelling);
         
-        Bestelling result = BestellingDAO.getBestellingById(newBestelling.getBestellingID());
+        Bestelling result = BestellingDAOMySQL.getBestellingById(newBestelling.getBestellingID());
         try(Connection con = new DBConnector().getConnection();){
             PreparedStatement stmt = con.prepareStatement("select * from bestelling where bestelling_id = ?");
             stmt.setInt(1,result.getBestellingID());
@@ -96,7 +96,7 @@ public class BestellingDAOTest {
     @Test
     public void testGetAllBestelling() {
         //get test result
-        ArrayList<Bestelling> resultList = BestellingDAO.getAllBestelling();
+        ArrayList<Bestelling> resultList = BestellingDAOMySQL.getAllBestelling();
         
         //get expected result
         try(Connection con = new DBConnector().getConnection();){
@@ -119,7 +119,7 @@ public class BestellingDAOTest {
     @Test
     public void testGetBestellingByKlantId() {
         //get test result
-        ArrayList<Bestelling> resultList = BestellingDAO.getBestellingByKlantId(0);
+        ArrayList<Bestelling> resultList = BestellingDAOMySQL.getBestellingByKlantId(0);
         
         //get expected result
         try(Connection con = new DBConnector().getConnection();){
@@ -144,11 +144,11 @@ public class BestellingDAOTest {
         //create bestelling
         Bestelling bestelling = new Bestelling();
         bestelling.setKlantID(777);
-        Bestelling updateBestelling = BestellingDAO.createBestelling(bestelling);
+        Bestelling updateBestelling = BestellingDAOMySQL.createBestelling(bestelling);
         
         //update bestelling
         updateBestelling.setKlantID(777);
-        BestellingDAO.updateBestelling(updateBestelling);
+        BestellingDAOMySQL.updateBestelling(updateBestelling);
     
         try(Connection con = new DBConnector().getConnection();){
             PreparedStatement stmt = con.prepareStatement("SELECT  * Bestelling WHERE bestelling_id = ?;");
@@ -170,10 +170,10 @@ public class BestellingDAOTest {
         //create bestelling
         Bestelling bestelling = new Bestelling();
         bestelling.setKlantID(777);
-        Bestelling deleteBestelling = BestellingDAO.createBestelling(bestelling);
+        Bestelling deleteBestelling = BestellingDAOMySQL.createBestelling(bestelling);
         
         //delete bestelling
-        BestellingDAO.deleteBestelling(deleteBestelling.getBestellingID());
+        BestellingDAOMySQL.deleteBestelling(deleteBestelling.getBestellingID());
         try(Connection con = new DBConnector().getConnection();){
             PreparedStatement stmt = con.prepareStatement("SELECT  * Bestelling WHERE bestelling_id = ?;");
             stmt.setInt(1, deleteBestelling.getBestellingID());
