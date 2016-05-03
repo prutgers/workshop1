@@ -7,6 +7,7 @@ package DAO.JSON;
 
 import POJO.Artikel;
 import interfaceDAO.ArtikelDAO;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -32,7 +33,8 @@ public class ArtikelDAOJSON implements ArtikelDAO {
         JSONArray artikelList = new JSONArray();
         JSONParser parser = new JSONParser();
         
-        
+      //  File file = new File("c:/data/json/artikel.json");
+     //   System.out.println("file exixsts " + file.exists());
         try {
             artikelList = (JSONArray)parser.parse(new FileReader("c:/data/json/artikel.json"));
         } catch (FileNotFoundException e) {
