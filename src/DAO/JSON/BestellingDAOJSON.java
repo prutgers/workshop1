@@ -32,21 +32,20 @@ import org.json.simple.parser.ParseException;
  */
 public class BestellingDAOJSON {
     public static Bestelling createBestelling(Bestelling bestelling) {
-        JSONArray list = new JSONArray();
+        JSONArray list;
         JSONParser parser = new JSONParser();
         File file = new File("c:/data/json/bestellingen.json");
-         int bestellingID;
-       try {
-           if(file.exists()){
-            list = (JSONArray)parser.parse(new FileReader("c:/data/json/bestellingen.json"));
-            JSONObject json = (JSONObject)list.get(list.size()-1);
-            bestellingID = (int)(long)json.get("bestelling_id");
-        }
-        else{
-            bestellingID = 1;
-        }
-        
-           
+        int bestellingID;
+        try {
+            if(file.exists()){
+                list = (JSONArray)parser.parse(new FileReader("c:/data/json/bestellingen.json"));
+                JSONObject json = (JSONObject)list.get(list.size()-1);
+                bestellingID = (int)(long)json.get("bestelling_id");
+            }
+            else{
+                list= new JSONArray();
+                bestellingID = 1;
+            }
             //create newe JSONObject
             JSONObject obj = new JSONObject();
             obj.put("bestelling_id", bestellingID+1);
@@ -61,22 +60,25 @@ public class BestellingDAOJSON {
             fileWriter.flush();
             fileWriter.close();
 	} 
-        catch (IOException e) {
+        catch (IOException | ParseException e) {
             e.printStackTrace();
 	}
-       catch (ParseException e){
-           e.printStackTrace();
-       }
         return bestelling;
     }
     
     public static Bestelling getBestellingById(int bestellingID){
+        JSONArray list = new JSONArray();
         JSONParser parser = new JSONParser();
         Bestelling bestelling = new Bestelling();
+        File file = new File("c:/data/json/bestellingen.json");
         try{
-            //get current data in JSONArray
-            JSONArray list = (JSONArray)parser.parse(new FileReader("c:/data/json/bestellingen.json"));
-
+            if(file.exists()){
+                list = (JSONArray)parser.parse(new FileReader("c:/data/json/bestellingen.json"));
+            }
+            else{
+                System.out.println("Er is nog geen data");
+                System.exit(1);
+            }     
             //get JSONObject by Id
             for(Object o : list){
                 JSONObject json = (JSONObject)o;
@@ -88,12 +90,10 @@ public class BestellingDAOJSON {
                     bestelling.setKlantID(tempKlantID);
                 }
             }
-
-            
-            FileWriter file = new FileWriter("c:/data/json/bestellingen.json");
-            file.write(list.toJSONString());
-            file.flush();
-            file.close();
+            FileWriter fileWriter = new FileWriter("c:/data/json/bestellingen.json");
+            fileWriter.write(list.toJSONString());
+            fileWriter.flush();
+            fileWriter.close();
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -106,10 +106,19 @@ public class BestellingDAOJSON {
 
     public static ArrayList<Bestelling> getAllBestelling(){
         JSONParser parser = new JSONParser();
+        JSONArray list = new JSONArray();
+        File file = new File("c:/data/json/bestellingen.json");
         ArrayList<Bestelling> bestellingLijst = new ArrayList();
 	try {
-             //get current data in JSONArray
-            JSONArray list = (JSONArray)parser.parse(new FileReader("c:/data/json/bestellingen.json"));
+            if(file.exists()){
+                list = (JSONArray)parser.parse(new FileReader("c:/data/json/bestellingen.json"));
+            }
+            else{
+                System.out.println("Er is nog geen data");
+                System.exit(1);
+            }    
+
+            list = (JSONArray)parser.parse(new FileReader("c:/data/json/bestellingen.json"));
             for(Object o : list) {
                 JSONObject json = (JSONObject)o;
                 Bestelling bestelling = new Bestelling();
@@ -117,10 +126,10 @@ public class BestellingDAOJSON {
                 bestelling.setKlantID((int)(long)json.get("klant_id"));
                 bestellingLijst.add(bestelling);
             }
-            FileWriter file = new FileWriter("c:/data/json/bestellingen.json");
-            file.write(list.toJSONString());
-            file.flush();
-            file.close();
+            FileWriter fileWriter = new FileWriter("c:/data/json/bestellingen.json");
+            fileWriter.write(list.toJSONString());
+            fileWriter.flush();
+            fileWriter.close();
 	} 
         catch (FileNotFoundException e) {
 		e.printStackTrace();
@@ -133,10 +142,19 @@ public class BestellingDAOJSON {
     
     public  static ArrayList<Bestelling> getBestellingByKlantId(int klantID){
         JSONParser parser = new JSONParser();
+        JSONArray list = new JSONArray();
+        File file = new File("c:/data/json/bestellingen.json");
         ArrayList<Bestelling> bestellingLijst = new ArrayList();
 	try {
+            if(file.exists()){
+                list = (JSONArray)parser.parse(new FileReader("c:/data/json/bestellingen.json"));
+            }
+            else{
+                System.out.println("Er is nog geen data");
+                System.exit(1);
+            }  
              //get current data in JSONArray
-            JSONArray list = (JSONArray)parser.parse(new FileReader("c:/data/json/bestellingen.json"));
+            list = (JSONArray)parser.parse(new FileReader("c:/data/json/bestellingen.json"));
             for(Object o : list) {
                 JSONObject json = (JSONObject)o;
                 Bestelling bestelling = new Bestelling();
@@ -150,10 +168,10 @@ public class BestellingDAOJSON {
                     bestellingLijst.add(bestelling);
                 }
             }
-            FileWriter file = new FileWriter("c:/data/json/bestellingen.json");
-            file.write(list.toJSONString());
-            file.flush();
-            file.close();
+            FileWriter fileWriter = new FileWriter("c:/data/json/bestellingen.json");
+            fileWriter.write(list.toJSONString());
+            fileWriter.flush();
+            fileWriter.close();
 	} 
         catch (FileNotFoundException e) {
 		e.printStackTrace();
@@ -166,9 +184,18 @@ public class BestellingDAOJSON {
 
     public static void updateBestelling(Bestelling bestelling){
         JSONParser parser = new JSONParser();
+        JSONArray list = new JSONArray();
+        File file = new File("c:/data/json/bestellingen.json");
         try {
+            if(file.exists()){
+                list = (JSONArray)parser.parse(new FileReader("c:/data/json/bestellingen.json"));
+            }
+            else{
+                System.out.println("Er is nog geen data");
+                System.exit(1);
+            }  
             //get current data in JSONArray
-            JSONArray list = (JSONArray)parser.parse(new FileReader("c:/data/json/bestellingen.json"));
+            list = (JSONArray)parser.parse(new FileReader("c:/data/json/bestellingen.json"));
 
             for(Object obj : list) {
                 JSONObject json = (JSONObject)obj;
@@ -178,10 +205,10 @@ public class BestellingDAOJSON {
                 }
             }
             //write updated JSONArray to file
-            FileWriter file = new FileWriter("c:/data/json/bestellingen.json");
-            file.write(list.toJSONString());
-            file.flush();
-            file.close();
+            FileWriter fileWriter = new FileWriter("c:/data/json/bestellingen.json");
+            fileWriter.write(list.toJSONString());
+            fileWriter.flush();
+            fileWriter.close();
 	} 
         catch (IOException e) {
             e.printStackTrace();
@@ -192,10 +219,17 @@ public class BestellingDAOJSON {
     }
     
     public static void deleteBestelling(int bestellingID){
-        
-       JSONArray list = new JSONArray();
+        JSONArray list = new JSONArray();
+        File file = new File("c:/data/json/bestellingen.json");
         JSONParser parser = new JSONParser();
         try {
+            if(file.exists()){
+                list = (JSONArray)parser.parse(new FileReader("c:/data/json/bestellingen.json"));
+            }
+            else{
+                System.out.println("Er is nog geen data");
+                System.exit(1);
+            } 
             //get current data in JSONArray
             list = (JSONArray)parser.parse(new FileReader("c:/data/json/bestellingen.json"));
             for(int i = 0; i< list.size();i++){
@@ -205,9 +239,9 @@ public class BestellingDAOJSON {
                     list.remove(i);
                 }
             }
-            FileWriter file = new FileWriter("c:/data/json/bestellingen.json");
-            file.write(list.toJSONString());
-            file.flush();
+            FileWriter fileWriter = new FileWriter("c:/data/json/bestellingen.json");
+            fileWriter.write(list.toJSONString());
+            fileWriter.flush();
 	}         
         catch (IOException e) {
             e.printStackTrace();
