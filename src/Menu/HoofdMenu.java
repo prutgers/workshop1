@@ -20,6 +20,8 @@ public class HoofdMenu {
     public static void main(String[] args) {
     
         startMenu();
+       
+      // testArtikelJSON();
         
        
     }
@@ -28,10 +30,21 @@ public class HoofdMenu {
     public static void testArtikelJSON(){
         ArtikelDAOJSON test = new ArtikelDAOJSON();
         Artikel a = new Artikel();
-        a.setArtikel_naam("VoorHerman");
-        a.setArtikel_prijs(new BigDecimal(2));
+        a.setArtikel_id(1000);
+        a.setArtikel_naam("update");
+        a.setArtikel_prijs(new BigDecimal(151155));
         a.setArtikel_voorraad(5);
         test.createArtikel(a);
+    test.updateArtikel(a);
+//        test.DeleteArtikel(2);
+
+
+        System.out.println("SINGEL ARTIKEL");
+        Artikel bassie = test.readArtikel(6);
+        System.out.println("naam" + bassie.getArtikel_naam());
+                
+        
+        System.out.println("SINGEL ARTIKEL");
         
        ArrayList<Artikel> artikelLijst = test.readArtikel();
        for(Artikel b : artikelLijst){
