@@ -64,18 +64,22 @@ public class BestellingDAOJSON {
         return bestelling;
     }
     
-    public static Bestelling getBestellingById(int BestellingId){
+    public static Bestelling getBestellingById(int bestellingID){
         JSONParser parser = new JSONParser();
         Bestelling bestelling = new Bestelling();
         try{
-            //get current data in JSONArray
             JSONArray list = (JSONArray)parser.parse(new FileReader("c:/data/json/bestellingen.json"));
 
-            //get JSONObject by Id
-            JSONObject json = (JSONObject)list.get(BestellingId);
-           //set bestelling Object with JSONObject
-            bestelling.setBestellingID((int)(long)json.get("bestelling_id"));
-            bestelling.setKlantID((int)(long)json.get("klant_id"));
+            for(Object o : list){
+                JSONObject json = (JSONObject)o;
+                int tempBestellingID = ((int)(long)json.get("bestelling_id"));
+                int tempKlantID = ((int)(long)json.get("klant_id"));
+
+                if(bestellingID == tempBestellingID){
+                    bestelling.setBestellingID(tempBestellingID);
+                    bestelling.setKlantID(tempKlantID);
+                }
+            }
             
             FileWriter file = new FileWriter("c:/data/json/bestellingen.json");
             file.write(list.toJSONString());
@@ -179,26 +183,26 @@ public class BestellingDAOJSON {
     }
     
     public static void deleteBestelling(int bestellingID){
+        
+       JSONArray list = new JSONArray();
         JSONParser parser = new JSONParser();
         try {
             //get current data in JSONArray
-            JSONArray list = (JSONArray)parser.parse(new FileReader("c:/data/json/bestellingen.json"));
-            for(Object obj : list) {
-                JSONObject json = (JSONObject)obj;
+            list = (JSONArray)parser.parse(new FileReader("c:/data/json/bestellingen.json"));
+            for(int i = 0; i< list.size();i++){
+                JSONObject json = (JSONObject)list.get(i);
                 int tempestellingID = (int)(long)json.get("bestelling_id");   
                 if(tempestellingID == bestellingID){
-                    list.remove(obj);
+                    list.remove(i);
                 }
             }
-            //write updated JSONArray to file
             FileWriter file = new FileWriter("c:/data/json/bestellingen.json");
             file.write(list.toJSONString());
             file.flush();
-            file.close();
-	} 
+	}         
         catch (IOException e) {
             e.printStackTrace();
-	}
+        }
         catch (ParseException e) {
             e.printStackTrace();
 	}
