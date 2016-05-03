@@ -47,6 +47,7 @@ public class BestellingDAOJSON {
             bestellingID = 1;
         }
         
+           
             //create newe JSONObject
             JSONObject obj = new JSONObject();
             obj.put("bestelling_id", bestellingID+1);

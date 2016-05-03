@@ -24,5 +24,6 @@ public class Test {
         //Bestelling b = BestellingDAOJSON.getBestellingById(25);
         //System.out.println(b.getBestellingID() + " " + b.getKlantID());
         
+        
     }
 }
