@@ -13,16 +13,16 @@ import POJO.Bestelling;
  */
 public class Test {
     public static void main(String[]args){
-        //Bestelling b = new Bestelling();
+        Bestelling b = new Bestelling();
         //b.setBestellingID(22);
-        //b.setKlantID(888);
-        //BestellingDAOJSON.createBestelling(b);
+        b.setKlantID(888);
+        BestellingDAOJSON.createBestelling(b);
         
         //BestellingDAOJSON.updateBestelling(b);
         //BestellingDAOJSON.deleteBestelling(22);
         
-        Bestelling b = BestellingDAOJSON.getBestellingById(25);
-        System.out.println(b.getBestellingID() + " " + b.getKlantID());
+        //Bestelling b = BestellingDAOJSON.getBestellingById(25);
+        //System.out.println(b.getBestellingID() + " " + b.getKlantID());
         
     }
 }

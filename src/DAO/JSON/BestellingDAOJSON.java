@@ -8,6 +8,7 @@ package DAO.JSON;
 import ConnectionPools.DBConnector;
 import ConnectionPools.*;
 import POJO.*;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -32,15 +33,20 @@ import org.json.simple.parser.ParseException;
 
 public class BestellingDAOJSON {
     public static Bestelling createBestelling(Bestelling bestelling) {
+        JSONArray list = new JSONArray();
         JSONParser parser = new JSONParser();
-        try {
-            //get current data in JSONArray
-            JSONArray list = (JSONArray)parser.parse(new FileReader("c:/data/json/bestellingen.json"));
-
-            //get highest id
+        File file = new File("c:/data/json/bestellingen.json");
+         int bestellingID;
+       try {
+           if(file.exists()){
+            list = (JSONArray)parser.parse(new FileReader("c:/data/json/bestellingen.json"));
             JSONObject json = (JSONObject)list.get(list.size()-1);
-            int bestellingID = (int)(long)json.get("bestelling_id");
-
+            bestellingID = (int)(long)json.get("bestelling_id");
+        }
+        else{
+            bestellingID = 1;
+        }
+        
             //create newe JSONObject
             JSONObject obj = new JSONObject();
             obj.put("bestelling_id", bestellingID+1);
@@ -50,17 +56,17 @@ public class BestellingDAOJSON {
             list.add(obj);
 
             //write updated JSONArray to file
-            FileWriter file = new FileWriter("c:/data/json/bestellingen.json");
-            file.write(list.toJSONString());
-            file.flush();
-            file.close();
+            FileWriter fileWriter = new FileWriter("c:/data/json/bestellingen.json");
+            fileWriter.write(list.toJSONString());
+            fileWriter.flush();
+            fileWriter.close();
 	} 
         catch (IOException e) {
             e.printStackTrace();
 	}
-        catch (ParseException e) {
-            e.printStackTrace();
-	}
+       catch (ParseException e){
+           e.printStackTrace();
+       }
         return bestelling;
     }
     
@@ -68,18 +74,21 @@ public class BestellingDAOJSON {
         JSONParser parser = new JSONParser();
         Bestelling bestelling = new Bestelling();
         try{
+            //get current data in JSONArray
             JSONArray list = (JSONArray)parser.parse(new FileReader("c:/data/json/bestellingen.json"));
 
+            //get JSONObject by Id
             for(Object o : list){
                 JSONObject json = (JSONObject)o;
                 int tempBestellingID = ((int)(long)json.get("bestelling_id"));
                 int tempKlantID = ((int)(long)json.get("klant_id"));
-
+                
                 if(bestellingID == tempBestellingID){
                     bestelling.setBestellingID(tempBestellingID);
                     bestelling.setKlantID(tempKlantID);
                 }
             }
+
             
             FileWriter file = new FileWriter("c:/data/json/bestellingen.json");
             file.write(list.toJSONString());
