@@ -25,15 +25,16 @@ public class ArtikelView {
 
     public void create(){
         System.out.println("Voer de artikelnaam in: ");
-        String artikel_naam = VerifyInputScanner.verifyString();
+        this.artikel_naam = VerifyInputScanner.verifyString();
         
         System.out.println("Voer het aantal dat van dit artikel op voorraad is in: ");
-        int artikel_voorraad = VerifyInputScanner.verifyInt();
+        this.artikel_id = VerifyInputScanner.verifyInt();
         
         System.out.println("Voer de artikelprijs in: ");
-        BigDecimal artikel_prijs = VerifyInputScanner.verifyBigDecimal();
+        this.artikel_prijs = VerifyInputScanner.verifyBigDecimal();
 
     }
+    
     public  void updateArtikel(){
         
     }
