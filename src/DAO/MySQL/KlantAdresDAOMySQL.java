@@ -8,7 +8,6 @@ package DAO.MySQL;
 import ConnectionPools.ConnectionPool;
 import POJO.Adres;
 import POJO.KlantAdres;
-import com.sun.rowset.CachedRowSetImpl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -98,7 +97,7 @@ public class KlantAdresDAOMySQL {
             
             
             while(rs.next()){
-                Adres adres = AdresDAOMySQL.readAdresByID(rs.getInt("adres_id"));
+                Adres adres = (new AdresDAOMySQL()).readAdresByID(rs.getInt("adres_id"));
                 adresLijst.add(adres);
             }
         }

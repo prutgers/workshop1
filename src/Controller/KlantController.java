@@ -10,23 +10,29 @@ package Controller;
  * @author lucas
  */
 
-import View.CreateKlantMenu;
+import View.KlantView;
 import DAO.MySQL.KlantDAOMySQL;
 import POJO.Klant;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+import interfaceDAO.KlantDAO;
+import DAOFactory.KlantDAOFactory;
 
 
 public class KlantController {
+    private KlantDAO klantDAO;
+    private KlantView kView = new KlantView();
     
-    public void createKlantMenu(){
-        CreateKlantMenu menu = CreateKlantMenu.create();
+    public void create(){
+        kView.create();
         Klant klant = new Klant();
-        klant.setVoornaam(menu.getVoornaam());
-        klant.setAchternaam(menu.getAchternaam());
-        klant.setTussenvoegsel(menu.getTussenvoegsel());
-        klant.setEmail(menu.getEmail());
+        klant.setVoornaam(kView.getVoornaam());
+        klant.setAchternaam(kView.getAchternaam());
+        klant.setTussenvoegsel(kView.getTussenvoegsel());
+        klant.setEmail(kView.getEmail());
+        
+        klantDAO = new KlantDAOFactory().getKlantDAO();
         try {
-            (new KlantDAOMySQL() ).createKlant(klant);
+            klantDAO.createKlant(klant);
         }
         catch (MySQLIntegrityConstraintViolationException ex){
             System.out.print("Uw naam staat al in de database.");
@@ -34,8 +40,39 @@ public class KlantController {
 
     }
     
-    public void readKlantMenu(){}
-    public void updateKlantMenu(){}
-    public void deleteKlantMenu(){}
+    public void read(){
+        kView.read();
+        kView.print(
+                new KlantDAOFactory().getKlantDAO().readKlant( kView.getKlant_id() )
+        );
+    }
     
+    public void update(){
+        Klant klant = klantViewToKlant( kView.update() );
+        kView.print(
+                new KlantDAOFactory().getKlantDAO().updateKlant(klant)
+        );
+    }
+    
+    public void delete(){
+        kView.delete();
+        kView.print(
+                new KlantDAOFactory().getKlantDAO().readKlant( kView.getKlant_id() )
+        );
+    }
+    
+    public void readAllByObject(){}
+    
+    
+    
+    public static Klant klantViewToKlant(KlantView kview){
+        Klant klant = new Klant();
+        klant.setKlant_id(kview.getKlant_id());
+        klant.setVoornaam(kview.getVoornaam());
+        klant.setAchternaam(kview.getAchternaam());
+        klant.setTussenvoegsel(kview.getTussenvoegsel());
+        klant.setEmail(kview.getEmail());
+        
+        return klant;
+    }
 }
