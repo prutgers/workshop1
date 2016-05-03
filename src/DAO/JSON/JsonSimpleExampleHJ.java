@@ -13,6 +13,7 @@ import POJO.Artikel;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -38,7 +39,7 @@ public class JsonSimpleExampleHJ {
         obj.put("artikel_prijs", artikel.getArtikel_prijs());
         obj.put("artikel_voorraad", artikel.getArtikel_voorraad());
 
-	JSONArray artikelList = new JSONArray();
+	JSONArray artikelList = (JSONArray)(new ArrayList<Artikel>());
 	artikelList.add(obj);
 	artikelList.add(obj);
 	artikelList.add(obj);
