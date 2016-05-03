@@ -31,18 +31,29 @@ public class ArtikelDAOJSON implements ArtikelDAO {
     public Artikel createArtikel(Artikel artikel) {
         JSONArray artikelList = new JSONArray();
         JSONParser parser = new JSONParser();
+        
+        
         try {
-            artikelList = (JSONArray)parser.parse(new FileReader("c:/data/test.json"));
+            artikelList = (JSONArray)parser.parse(new FileReader("c:/data/json/artikel.json"));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
 	} catch (IOException e) {
-            e.printStackTrace();
 	} catch (ParseException ex) {
             Logger.getLogger(ArtikelDAOJSON.class.getName()).log(Level.SEVERE, null, ex);
         }
-        JSONObject json = (JSONObject) artikelList.get(artikelList.size()-1);
-        //vindt het hoogste artikel_id
-        int artikel_id = (int)(long)json.get("artikel_id") + 1;
+        
+        int artikel_id;
+        if(artikelList.isEmpty()){
+            artikel_id = 1;
+        } else {
+            JSONObject json = (JSONObject) artikelList.get(artikelList.size()-1);
+            //vindt het hoogste artikel_id
+            artikel_id = (int)(long)json.get("artikel_id") + 1;
+        }
+        
+        
+        
+        
+        
         //Create het nieuwe artikel dat is meegegeven aan public Artikel createArtikel
         JSONObject obj = new JSONObject();
         obj.put("artikel_id", artikel_id);
@@ -51,7 +62,7 @@ public class ArtikelDAOJSON implements ArtikelDAO {
         obj.put("artikel_voorraad", artikel.getArtikel_voorraad());
         artikelList.add(obj);
 	try {
-            FileWriter file = new FileWriter("c:/data/test.json");
+            FileWriter file = new FileWriter("c:/data/json/artikel.json");
             file.write(artikelList.toJSONString());
             file.flush();
             file.close();
@@ -67,7 +78,7 @@ public class ArtikelDAOJSON implements ArtikelDAO {
         JSONParser parser = new JSONParser();
         Artikel artikel = new Artikel();
          try {
-            artikelList = (JSONArray)parser.parse(new FileReader("c:/data/test.json"));
+            artikelList = (JSONArray)parser.parse(new FileReader("c:/data/json/artikel.json"));
              for(int i = 0; i< artikelList.size();i++){
                  JSONObject json = (JSONObject)artikelList.get(i);
                  if((int)(long)json.get("artikel_id") == artikel_id){
@@ -92,7 +103,7 @@ public class ArtikelDAOJSON implements ArtikelDAO {
         JSONParser parser = new JSONParser();
         ArrayList<Artikel> artikelLijst = new ArrayList();
         try {
-            JSONArray list = (JSONArray)parser.parse(new FileReader("c:/data/test.json"));
+            JSONArray list = (JSONArray)parser.parse(new FileReader("c:/data/json/artikel.json"));
             for(Object o : list) {
                 JSONObject json = (JSONObject)o;
                 Artikel artikel = new Artikel();
@@ -117,11 +128,13 @@ public class ArtikelDAOJSON implements ArtikelDAO {
         JSONArray artikelList = new JSONArray();
         JSONParser parser = new JSONParser();
         try {
-            artikelList = (JSONArray)parser.parse(new FileReader("c:/data/test.json"));
-            for(int i = 0; i< artikelList.size();i++){
-                JSONObject json = (JSONObject)artikelList.get(i);
-                if((int)(long)json.get("artikel_id") == artikel_id){
-                    artikelList.remove(i);
+            artikelList = (JSONArray)parser.parse(new FileReader("c:/data/json/artikel.json"));
+            if(!artikelList.isEmpty()){
+                for(int i = 0; i< artikelList.size();i++){
+                    JSONObject json = (JSONObject)artikelList.get(i);
+                    if((int)(long)json.get("artikel_id") == artikel_id){
+                        artikelList.remove(i);
+                    }
                 }
             }
         } catch (FileNotFoundException e) {
@@ -133,7 +146,7 @@ public class ArtikelDAOJSON implements ArtikelDAO {
         }
         //Schrijf de aangepaste Array weer naar JSON
         try {
-            FileWriter file = new FileWriter("c:/data/test.json");
+            FileWriter file = new FileWriter("c:/data/json/artikel.json");
             file.write(artikelList.toJSONString());
             file.flush();
             file.close();
@@ -147,7 +160,7 @@ public class ArtikelDAOJSON implements ArtikelDAO {
        JSONArray artikelList = new JSONArray();
         JSONParser parser = new JSONParser();
         try {
-            artikelList = (JSONArray)parser.parse(new FileReader("c:/data/test.json"));
+            artikelList = (JSONArray)parser.parse(new FileReader("c:/data/json/artikel.json"));
             for(int i = 0; i< artikelList.size();i++){
                 JSONObject json = (JSONObject)artikelList.get(i);
                 if((int)(long)json.get("artikel_id") == artikel.getArtikel_id()){
@@ -165,7 +178,7 @@ public class ArtikelDAOJSON implements ArtikelDAO {
         }
         //Schrijf de aangepaste Array weer naar JSON
         try {
-            FileWriter file = new FileWriter("c:/data/test.json");
+            FileWriter file = new FileWriter("c:/data/json/artikel.json");
             file.write(artikelList.toJSONString());
             file.flush();
             file.close();
