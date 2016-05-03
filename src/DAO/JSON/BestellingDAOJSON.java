@@ -95,10 +95,7 @@ public class BestellingDAOJSON {
             fileWriter.flush();
             fileWriter.close();
         }
-        catch (IOException e) {
-            e.printStackTrace();
-	}
-        catch (ParseException e) {
+        catch (IOException | ParseException e) {
             e.printStackTrace();
 	}
         return bestelling;
@@ -131,11 +128,8 @@ public class BestellingDAOJSON {
             fileWriter.flush();
             fileWriter.close();
 	} 
-        catch (FileNotFoundException e) {
-		e.printStackTrace();
-	} 
         catch (IOException | ParseException e) {
-		e.printStackTrace();
+            e.printStackTrace();
 	}
         return bestellingLijst;
     }
@@ -173,11 +167,8 @@ public class BestellingDAOJSON {
             fileWriter.flush();
             fileWriter.close();
 	} 
-        catch (FileNotFoundException e) {
-		e.printStackTrace();
-	} 
         catch (IOException | ParseException e) {
-		e.printStackTrace();
+            e.printStackTrace();
 	}
         return bestellingLijst;
     }
@@ -210,10 +201,7 @@ public class BestellingDAOJSON {
             fileWriter.flush();
             fileWriter.close();
 	} 
-        catch (IOException e) {
-            e.printStackTrace();
-	}
-        catch (ParseException e) {
+        catch (IOException | ParseException e) {
             e.printStackTrace();
 	}
     }
@@ -243,10 +231,7 @@ public class BestellingDAOJSON {
             fileWriter.write(list.toJSONString());
             fileWriter.flush();
 	}         
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        catch (ParseException e) {
+        catch (IOException | ParseException e) {
             e.printStackTrace();
 	}
     }
