@@ -14,14 +14,39 @@ package Controller;
 import View.ArtikelView;
 import DAO.MySQL.ArtikelDAOMySQL;
 import POJO.Artikel;
+import View.ArtikelKeuzeView;
 
 /**
  *
  * @author Peter
  */
 public class ArtikelController {
-
-    
+       public void artikelStart(){
+       ArtikelKeuzeView view = new ArtikelKeuzeView();   
+       int select = view.getSelect();
+                   switch (select) {
+                case 1:
+                    ArtikelController.create();
+                    break;
+                case 2:
+                    ArtikelController.update();
+                    break;
+                case 3:
+                    ArtikelController.readAll();
+                    break;            
+                case 4:
+                    ArtikelController.readByID();
+                    break;
+                case 5:
+                    ArtikelController.delete();
+                    break;
+                case 0:
+                    break;
+                default:
+                    view.herhaalKeuze();
+                    break;
+            }
+       }
     public static void create(){
         ArtikelView aView = new ArtikelView();
         aView.create();

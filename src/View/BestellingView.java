@@ -5,7 +5,10 @@
  */
 package View;
 
+import DAO.MySQL.ArtikelDAOMySQL;
+import POJO.Artikel;
 import POJO.Bestelling;
+import POJO.BestellingArtikel;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -48,6 +51,15 @@ public class BestellingView {
         System.out.printf("%15s %15s\n", "Bestelling ID", "Klant ID");
         for(Bestelling e : list){
             System.out.printf("%15d %15d\n",e.getBestellingID(), e.getKlantID());
+        }
+    }
+    public void printArtikelLijst(ArrayList<BestellingArtikel> list){
+        Scanner input = new Scanner(System.in);;
+        System.out.printf("%15s %15s %15s %15s %15s\n", "Koppel ID", "Artikel ID", 
+                "Aantal", "Artikelnaam", "Artikelprijs");
+        for(BestellingArtikel e : list){
+             System.out.printf("%15s %15d %15s %15s %15s\n",e.getKoppel_id(), 
+                     e.getArtikel_id(), e.getAantal());  
         }
     }
     public void print(Bestelling bestelling){
