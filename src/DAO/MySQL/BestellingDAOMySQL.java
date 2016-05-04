@@ -65,7 +65,10 @@ public class BestellingDAOMySQL {
             PreparedStatement stmt = con.prepareStatement("select * from Bestelling");
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
-                Bestelling bestelling = new Bestelling.BestellingBuilder().bestellingID(rs.getInt("bestelling_id")).klantID(rs.getInt("klant_id")).build();
+                //Bestelling bestelling = new Bestelling.BestellingBuilder().bestellingID(rs.getInt("bestelling_id")).klantID(rs.getInt("klant_id")).build();
+                Bestelling bestelling = new Bestelling();
+                bestelling.setBestellingID(rs.getInt("bestelling_id"));
+                bestelling.setKlantID(rs.getInt("klant_id"));
                 bestellingLijst.add(bestelling);
             }
         }

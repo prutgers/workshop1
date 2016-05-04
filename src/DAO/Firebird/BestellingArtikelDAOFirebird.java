@@ -164,28 +164,7 @@ public class BestellingArtikelDAOFirebird implements BestellingArtikelDAO {
     }
     
     
-    @Override
-    public BestellingArtikel readKoppelById(int koppelID){
-       BestellingArtikel koppel = new BestellingArtikel();
-        try (Connection connection = DBConnectorFirebird.getConnection()){
-            String sql = "SELECT * FROM bestellingartikel WHERE koppel_id = " + koppelID;
-            Statement pstmt = connection.createStatement();
-            ResultSet rs = pstmt.executeQuery(sql);
-
-            while(rs.next()){
-                koppel.setKoppel_id(rs.getInt("bestellingartikel_id"));
-                koppel.setBestelling_id(rs.getInt("bestelling_id"));
-                koppel.setArtikel_id(rs.getInt("artikel_id"));
-                koppel.setAantal(rs.getInt("aantal"));
-                
-            }
-        }
-        catch(SQLException | ClassNotFoundException  e){
-            System.out.println("Fout in readKoppelMetBestelling");
-            e.printStackTrace();
-        }
-        return koppel;
-    }
+   
     
     @Override
     public void updateKoppel(BestellingArtikel koppel){

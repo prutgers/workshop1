@@ -40,7 +40,7 @@ public final class ConnectionPoolHikari implements ConnectionType {
     private ConnectionPoolHikari(){
         HikariConfig config = new HikariConfig();
         config.setMinimumIdle(1);
-        config.setMaximumPoolSize(2);
+        config.setMaximumPoolSize(5);
         config.setInitializationFailFast(true);
         //config.setConnectionTestQuery("VALUES 1");
         config.setDataSourceClassName("com.mysql.jdbc.jdbc2.optional.MysqlDataSource");

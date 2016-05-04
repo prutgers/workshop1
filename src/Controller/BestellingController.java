@@ -24,13 +24,15 @@ public class BestellingController {
     public static void startKeuze(){
         BestellingKeuzeView view = new BestellingKeuzeView();
         view.keuzeView();
+        
+      
         switch (view.getSelect()) {
             case 1:
-                create();
-                startKeuze();
+                BestellingController.create();
                 break;
             case 2:
                 createKoppel();
+                
                 break;
             case 3:
                 update();
@@ -60,6 +62,9 @@ public class BestellingController {
                 view.keuzeFout();
                 break;
             }
+        if(view.getSelect() != 0){
+            startKeuze();
+        }
         
     }
     public static void create(){
@@ -71,7 +76,6 @@ public class BestellingController {
         
         BestellingDAOMySQL dao = new BestellingDAOMySQL();
         Bestelling newBestelling =dao.createBestelling(bestelling);
-        
         createKoppel(newBestelling.getBestellingID());
         
     }
@@ -159,6 +163,7 @@ public class BestellingController {
         koppel.setBestelling_id(bestellingID);
         koppel.setArtikel_id(view.getArtikelID());
         koppel.setAantal(view.getAantal());
+        
         
         BestellingArtikelDAOMySQL baDAO = new BestellingArtikelDAOMySQL();      
         baDAO.createKoppelBestellingArtikel(koppel);

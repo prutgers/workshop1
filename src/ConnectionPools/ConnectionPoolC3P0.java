@@ -49,6 +49,8 @@ public final class ConnectionPoolC3P0 implements ConnectionType{
             cpds.setUser(usernaam);
             cpds.setPassword(wachtwoord);
             cpds.setMaxStatements( 50 );
+            cpds.setMaxPoolSize(5);
+            
             
                 logger.info("Database connected");
             

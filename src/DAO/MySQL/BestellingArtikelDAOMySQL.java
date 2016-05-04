@@ -199,27 +199,7 @@ public class BestellingArtikelDAOMySQL implements BestellingArtikelDAO {
     }
     
     
-    @Override
-    public BestellingArtikel readKoppelById(int koppelID){
-        BestellingArtikel koppel = new BestellingArtikel();
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            RowSet rowSet = new JdbcRowSetImpl();
-            rowSet.setUrl("jdbc:mysql://localhost/workshopdb");
-            rowSet.setUsername("rsvier");
-            rowSet.setPassword("tiger");
-            rowSet.setCommand("SELECT * FROM bestellingartikel WHERE koppel_id = " + koppelID);
-            rowSet.execute();
-
-            koppel.setBestelling_id(rowSet.getInt("bestelling_id"));
-            koppel.setArtikel_id(rowSet.getInt("artikel_id"));
-        }
-        catch(SQLException | ClassNotFoundException  e){
-            System.out.println("Fout in readKoppelMetBestelling");
-            e.printStackTrace();
-        }
-        return koppel;
-    }
+  
     
     @Override
     public void updateKoppel(BestellingArtikel koppel){

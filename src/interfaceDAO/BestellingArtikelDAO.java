@@ -29,7 +29,5 @@ public interface BestellingArtikelDAO {
     
     public void deleteKoppel(int bestellingID,int artikelID);
     
-    public BestellingArtikel readKoppelById(int koppelID);
-    
     public void updateKoppel(BestellingArtikel koppel);
 }

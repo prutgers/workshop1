@@ -178,13 +178,5 @@ public class BestellingArtikelDAOJSON implements BestellingArtikelDAO {
 	}
     }
     
-    
-    //wordt niet meer gebruikt
-    @Override
-    public BestellingArtikel readKoppelById(int koppelID) {
-        //wordt niet meer gebruikt als het goed is
-        System.out.println("Ik ben een niet werkende methode");
-        return new BestellingArtikel();
-    }
-    
+  
 }
