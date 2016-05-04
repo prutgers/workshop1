@@ -33,13 +33,14 @@ public class BestellingDAOJSON implements BestellingDAO{
             }
             else{
                 list= new JSONArray();
-                bestellingID = 1;
+                bestellingID = 0;
             }
             //create newe JSONObject
             JSONObject obj = new JSONObject();
             obj.put("bestelling_id", bestellingID+1);
             obj.put("klant_id", bestelling.getKlantID());     
-
+            
+            bestelling.setBestellingID(bestellingID+1);
             //add new JSONObject to JSONArray
             list.add(obj);
 
@@ -74,7 +75,7 @@ public class BestellingDAOJSON implements BestellingDAO{
                 JSONObject json = (JSONObject)o;
                 int tempBestellingID = ((int)(long)json.get("bestelling_id"));
                 int tempKlantID = ((int)(long)json.get("klant_id"));
-                
+                System.out.println("tempBestelling id en bestellingID " + tempBestellingID + " " + bestellingID);
                 if(bestellingID == tempBestellingID){
                     bestelling.setBestellingID(tempBestellingID);
                     bestelling.setKlantID(tempKlantID);

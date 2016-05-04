@@ -78,7 +78,7 @@ public class BestellingController {
     //maakt nieuw koppel aan voor bestaande bestelling
     public static void createKoppel(){
         BestellingArtikelView view  = new BestellingArtikelView();
-        view.readAll();
+        view.readUpdate();
 
         BestellingArtikel koppel = new BestellingArtikel();
         koppel.setBestelling_id(view.getBestellingID());
@@ -90,7 +90,7 @@ public class BestellingController {
     }
     public static void update(){
         BestellingArtikelView view = new BestellingArtikelView();
-        view.readAll();
+        view.readUpdate();
         
         BestellingArtikelDAO dao = DAOFactory.getBestellingArtikelDAO();   
         BestellingArtikel koppel = dao.readKoppel(view.getBestellingID(), view.getArtikelID());
@@ -111,7 +111,7 @@ public class BestellingController {
     }
     public static void deleteKoppel(){
         BestellingArtikelView view = new BestellingArtikelView();
-        view.readAll();
+        view.readDelete();
         
         BestellingArtikelDAO dao = DAOFactory.getBestellingArtikelDAO();
         dao.deleteKoppel(view.getBestellingID(), view.getArtikelID());
@@ -153,7 +153,7 @@ public class BestellingController {
      */
     public static void createKoppel(int bestellingID){
         BestellingArtikelView view  = new BestellingArtikelView();
-        view.read();
+        view.readCreate();
 
         BestellingArtikel koppel = new BestellingArtikel();
         koppel.setBestelling_id(bestellingID);

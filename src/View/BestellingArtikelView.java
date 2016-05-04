@@ -27,14 +27,24 @@ public class BestellingArtikelView {
         return aantal;
     }
 
-    public void read(){
+    public void readCreate(){
         Scanner input = new Scanner(System.in);
         System.out.print("Voer het artikel ID in: ");
         artikelID = input.nextInt();
         System.out.print("Voer het aantal artikelen in: ");
         aantal = input.nextInt();
     }
-    public void readAll(){
+    public void readUpdate(){
+        Scanner input = new Scanner(System.in);
+        System.out.print("Voer het bestelling ID in: ");
+        bestellingID = input.nextInt();
+        System.out.print("Voer het artikel ID in: ");
+        artikelID = input.nextInt();
+        System.out.print("Voer het aantal artikelen in: ");
+        aantal = input.nextInt();
+    }
+    
+    public void readDelete(){
         Scanner input = new Scanner(System.in);
         System.out.print("Voer het bestelling ID in: ");
         bestellingID = input.nextInt();

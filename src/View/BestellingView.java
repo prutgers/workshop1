@@ -58,7 +58,7 @@ public class BestellingView {
         System.out.printf("%15s %15s\n", "Artikel ID", 
                 "Aantal");
         for(BestellingArtikel e : list){
-             System.out.printf("%15s %15d %15s\n",e.getArtikel_id(), e.getAantal());  
+             System.out.printf("%15s %15d \n",e.getArtikel_id(), e.getAantal());  
         }
     }
     public void print(Bestelling bestelling){
