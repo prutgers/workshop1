@@ -26,6 +26,7 @@ public class MainController {
                 //Aanroepen van het klantcontroler (in het menu
                 // was het de KlantAdresMenu.startMenu();
                 break;
+                        
             case 2:
                 BestellingController.startKeuze();
                 break;

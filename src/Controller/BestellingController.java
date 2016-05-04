@@ -5,16 +5,13 @@
  */
 package Controller;
 
-import DAO.MySQL.BestellingArtikelDAOMySQL;
-import DAO.MySQL.BestellingDAOMySQL;
-import POJO.Bestelling;
-import View.BestellingView;
+import DAO.MySQL.*;
+import DAOFactory.DAOFactory;
+import POJO.*;
+import View.*;
+import interfaceDAO.*;
 import java.util.ArrayList;
 
-import Menu.HoofdMenu;
-import POJO.BestellingArtikel;
-import View.BestellingArtikelView;
-import View.BestellingKeuzeView;
 
 /**
  *
@@ -32,7 +29,6 @@ public class BestellingController {
                 break;
             case 2:
                 createKoppel();
-                
                 break;
             case 3:
                 update();
@@ -56,7 +52,7 @@ public class BestellingController {
                 delete();
                 break;
             case 0:
-                HoofdMenu.startMenu();
+                MainController.hoofdMenu();
                 break;
             default:
                 view.keuzeFout();
@@ -74,8 +70,8 @@ public class BestellingController {
         Bestelling bestelling = new Bestelling();
         bestelling.setKlantID(view.getKlandID());
         
-        BestellingDAOMySQL dao = new BestellingDAOMySQL();
-        Bestelling newBestelling =dao.createBestelling(bestelling);
+        BestellingDAO dao = DAOFactory.getBestellingDAO();
+        Bestelling newBestelling = dao.createBestelling(bestelling);
         createKoppel(newBestelling.getBestellingID());
         
     }
@@ -89,14 +85,14 @@ public class BestellingController {
         koppel.setArtikel_id(view.getArtikelID());
         koppel.setAantal(view.getAantal());
         
-        BestellingArtikelDAOMySQL baDAO = new BestellingArtikelDAOMySQL();      
-        baDAO.createKoppelBestellingArtikel(koppel);
+        BestellingArtikelDAO dao = DAOFactory.getBestellingArtikelDAO();
+        dao.createKoppelBestellingArtikel(koppel);
     }
     public static void update(){
         BestellingArtikelView view = new BestellingArtikelView();
         view.readAll();
         
-        BestellingArtikelDAOMySQL dao = new BestellingArtikelDAOMySQL();    
+        BestellingArtikelDAO dao = DAOFactory.getBestellingArtikelDAO();   
         BestellingArtikel koppel = dao.readKoppel(view.getBestellingID(), view.getArtikelID());
         koppel.setAantal(view.getAantal());
        
@@ -106,10 +102,10 @@ public class BestellingController {
         BestellingView view = new BestellingView();
         view.readBestellingID();
         
-        BestellingArtikelDAOMySQL baDao = new BestellingArtikelDAOMySQL();
-        baDao.deleteKoppelMetBestellingID(view.getBestellingID());
+        BestellingArtikelDAO baDAO = DAOFactory.getBestellingArtikelDAO();
+        baDAO.deleteKoppelMetBestellingID(view.getBestellingID());
         
-        BestellingDAOMySQL dao = new BestellingDAOMySQL(); 
+        BestellingDAO dao = DAOFactory.getBestellingDAO();
         dao.deleteBestelling(view.getBestellingID());
 
     }
@@ -117,34 +113,34 @@ public class BestellingController {
         BestellingArtikelView view = new BestellingArtikelView();
         view.readAll();
         
-        BestellingArtikelDAOMySQL dao = new BestellingArtikelDAOMySQL();
+        BestellingArtikelDAO dao = DAOFactory.getBestellingArtikelDAO();
         dao.deleteKoppel(view.getBestellingID(), view.getArtikelID());
     }
 
     public static void readAll(){
         BestellingView view = new BestellingView();
-        BestellingDAOMySQL dao = new BestellingDAOMySQL();
+        BestellingDAO dao = DAOFactory.getBestellingDAO();
         ArrayList<Bestelling> list = dao.getAllBestelling();
         view.print(list);
     }
     public static void readByID(){
         BestellingView view = new BestellingView();
         view.readBestellingID();
-        BestellingDAOMySQL dao = new BestellingDAOMySQL();
+        BestellingDAO dao = DAOFactory.getBestellingDAO();
         Bestelling bestelling = dao.getBestellingById(view.getBestellingID());
         view.print(bestelling);
     }
     public static void readByKlantID(){
         BestellingView view = new BestellingView();
         view.readKlantID();
-        BestellingDAOMySQL dao = new BestellingDAOMySQL();
+        BestellingDAO dao = DAOFactory.getBestellingDAO();
         ArrayList<Bestelling> list = dao.getBestellingByKlantId(view.getKlandID());
         view.print(list);
     }
     public static void readKoppel(){
         BestellingView view = new BestellingView();
         view.readBestellingID();
-        BestellingArtikelDAOMySQL dao = new BestellingArtikelDAOMySQL();
+        BestellingArtikelDAO dao = DAOFactory.getBestellingArtikelDAO();
         ArrayList<BestellingArtikel> list = dao.readKoppelMetBestellingID(view.getBestellingID());
         view.printArtikelLijst(list);
     }
@@ -165,9 +161,7 @@ public class BestellingController {
         koppel.setAantal(view.getAantal());
         
         
-        BestellingArtikelDAOMySQL baDAO = new BestellingArtikelDAOMySQL();      
+        BestellingArtikelDAO baDAO = DAOFactory.getBestellingArtikelDAO();      
         baDAO.createKoppelBestellingArtikel(koppel);
     }
-    
-                    
 }

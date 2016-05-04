@@ -68,6 +68,7 @@ public class ArtikelController {
     
     public static void update(){
         ArtikelView aView = new ArtikelView();
+        aView.update();
         Artikel artikel = new Artikel();                      
 
         artikel.setArtikel_id(aView.getArtikel_id());
@@ -98,6 +99,6 @@ public class ArtikelController {
     public static void readAll(){
         ArtikelView aView = new ArtikelView();
         ArtikelDAO dao = DAOFactory.getArtikelDAO();
-        aView.print(dao.readArtikel(aView.getArtikel_id()));
+        aView.print(dao.readArtikel());
     }
 }
