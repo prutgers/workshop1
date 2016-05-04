@@ -20,14 +20,11 @@ public class DAOFactory {
     public KlantDAO getKlantDAO(String db){
         if(db.equals("Firebird")) {
             return new KlantDAOFirebird();
-        } 
-        else if(db.equals("JSON")) {
+        } else if(db.equals("JSON")) {
             return new KlantDAOJSON();
-        } 
-        else if(db.equals("XML")) {
+        } else if(db.equals("XML")) {
             return new KlantDAOXML();
-        } 
-        else {
+        } else {
             return new KlantDAOMySQL();
         }
     }
