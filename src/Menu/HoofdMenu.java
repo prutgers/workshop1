@@ -1,5 +1,6 @@
 package Menu;
 
+import Controller.ArtikelController;
 import DAO.Firebird.ArtikelDAOFirebird;
 import DAO.JSON.ArtikelDAOJSON;
 import POJO.Artikel;
@@ -19,8 +20,10 @@ public class HoofdMenu {
      */
     public static void main(String[] args) {
     
-        startMenu();
+        //startMenu();
        
+        ArtikelController.artikelStart();
+        
       // testArtikelJSON();
         
        
@@ -70,7 +73,7 @@ public class HoofdMenu {
         
         switch (select) {
             case 1:
-                ArtikelController.
+                
                 KlantAdresMenu.startMenu();
                 break;
             case 2:

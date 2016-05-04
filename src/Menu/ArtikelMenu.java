@@ -3,7 +3,9 @@ package Menu;
 import formatMessage.VerifyInputScanner;
 import POJO.Artikel;
 import DAO.MySQL.ArtikelDAOMySQL;
+import DAOFactory.DAOFactory;
 import formatMessage.PrintFormat;
+import interfaceDAO.ArtikelDAO;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -74,7 +76,8 @@ public class ArtikelMenu {
         artikel.setArtikel_voorraad(artikel_voorraad);
         artikel.setArtikel_prijs(artikel_prijs);
         
-        ArtikelDAOMySQL.createNewArtikel(artikel);
+        ArtikelDAO dao = DAOFactory.getArtikelDAO();
+        dao.createArtikel(artikel);
     }
     
     /*
