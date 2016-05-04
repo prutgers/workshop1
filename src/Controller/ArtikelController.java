@@ -23,7 +23,7 @@ import interfaceDAO.ArtikelDAO;
  * @author Peter
  */
 public class ArtikelController {
-       public static void artikelStart(){
+       public static void startKeuze(){
        ArtikelKeuzeView view = new ArtikelKeuzeView();   
        view.keuze();
        int select = view.getSelect();

@@ -17,7 +17,7 @@ public final class ConnectionPool{
     private static ConnectionPool connectionPool = new ConnectionPool();
     private ConnectionType strategy;
     
-    static Logger logger = LoggerFactory.getLogger(ConnectionPool.class);
+   // static Logger logger = LoggerFactory.getLogger(ConnectionPool.class);
     
     
     private ConnectionPool(){

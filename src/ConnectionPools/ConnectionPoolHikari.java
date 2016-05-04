@@ -31,7 +31,7 @@ import java.sql.SQLException;
  */
 
 public final class ConnectionPoolHikari implements ConnectionType {
-    static Logger logger = LoggerFactory.getLogger(ConnectionPoolHikari.class);
+    //static Logger logger = LoggerFactory.getLogger(ConnectionPoolHikari.class);
     
     private static ConnectionPoolHikari connectionPoolHikari = new ConnectionPoolHikari();
     HikariDataSource ds;
