@@ -31,7 +31,7 @@ public class ArtikelDAOXML implements ArtikelDAO{
     }
 
     @Override
-    public void DeleteArtikel(int artikel_id) {
+    public void deleteArtikel(int artikel_id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

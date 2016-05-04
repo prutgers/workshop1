@@ -126,7 +126,7 @@ public class ArtikelDAOJSON implements ArtikelDAO {
     }
 
     @Override
-    public void DeleteArtikel(int artikel_id) {
+    public void deleteArtikel(int artikel_id) {
         JSONArray artikelList = new JSONArray();
         JSONParser parser = new JSONParser();
         try {

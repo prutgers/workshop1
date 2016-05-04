@@ -8,6 +8,8 @@ package DAO.MySQL;
 import ConnectionPools.ConnectionPool;
 import POJO.Adres;
 import POJO.KlantAdres;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+import interfaceDAO.KlantAdresDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,10 +22,11 @@ import org.slf4j.LoggerFactory;
  *
  * @author lucas
  */
-public class KlantAdresDAOMySQL {
+public class KlantAdresDAOMySQL implements KlantAdresDAO {
     static Logger logger = LoggerFactory.getLogger(KlantAdresDAOMySQL.class);
     
-    public KlantAdres createKlantAdresKoppel(KlantAdres koppel) throws com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException {
+    @Override
+    public KlantAdres createKlantAdresKoppel(KlantAdres koppel) throws MySQLIntegrityConstraintViolationException{
         KlantAdres koppelKlantAdresOut = koppel;
         try (
             Connection connection = ConnectionPool.getConnection();
@@ -53,6 +56,7 @@ public class KlantAdresDAOMySQL {
         return koppelKlantAdresOut;
     }
     
+    @Override
      public ArrayList<Integer> readKlantID(int adres_id){
         ArrayList<Integer> allKlant_id = new ArrayList();
         int i = 0;
@@ -82,6 +86,7 @@ public class KlantAdresDAOMySQL {
     
      
      //helemaal aangepast
+    @Override
     public ArrayList<Adres> readAdresID(int klant_id){
         ArrayList<Adres> adresLijst = new ArrayList();
         
@@ -108,10 +113,12 @@ public class KlantAdresDAOMySQL {
         return adresLijst;
     }
     
-    private void updateKlantAdresKoppel(){
+    @Override
+    public void updateKlantAdresKoppel(){
     }
             
             
+    @Override
     public void deleteKlantAdresKoppel(int klant_id){
         try (
             Connection connection = ConnectionPool.getConnection();
@@ -128,6 +135,7 @@ public class KlantAdresDAOMySQL {
         }
     }
     
+    @Override
     public void deleteAdresKlantKoppel(int adres_id){
         try (
             Connection connection = ConnectionPool.getConnection();

@@ -19,7 +19,7 @@ public interface ArtikelDAO {
 
     ArrayList<Artikel> readArtikel();
     
-    void DeleteArtikel(int artikel_id);
+    void deleteArtikel(int artikel_id);
 
     void updateArtikel(Artikel artikel);
 }

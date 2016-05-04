@@ -19,15 +19,17 @@ import java.sql.*;
 import java.util.ArrayList;
 import ConnectionPools.*;
 import POJO.Artikel;
+import interfaceDAO.ArtikelDAO;
 import java.math.BigDecimal;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.Statement;
 import static java.sql.Statement.RETURN_GENERATED_KEYS; 
 
-public class ArtikelDAOMySQL {
+public class ArtikelDAOMySQL implements ArtikelDAO {
 
-   public Artikel createNewArtikel(Artikel artikel){
+   @Override
+   public Artikel createArtikel(Artikel artikel){
         //Connect to database
         
         try(Connection connection = ConnectionPool.getConnection()) {
@@ -58,6 +60,7 @@ public class ArtikelDAOMySQL {
         return artikel;
     }
    
+   @Override
    public ArrayList<Artikel> readArtikel(){
         ArrayList<Artikel> artikelLijst = new ArrayList<Artikel>();
         try(Connection connection = ConnectionPool.getConnection()){
@@ -80,6 +83,7 @@ public class ArtikelDAOMySQL {
        return artikelLijst;
    }
    
+   @Override
    public Artikel readArtikel(int artikel_id){
         Artikel artikel = new Artikel();
         try(Connection connection = ConnectionPool.getConnection()){
@@ -105,6 +109,7 @@ public class ArtikelDAOMySQL {
        return artikel;
     }
    
+   @Override
    public void updateArtikel(Artikel artikel){
         try(Connection connection = ConnectionPool.getConnection()){
             String update = "UPDATE artikel SET artikel_naam = ?, "
@@ -124,6 +129,7 @@ public class ArtikelDAOMySQL {
         } 
     }
    
+   @Override
    public void deleteArtikel(int artikel_ID) {
         try(Connection connection = ConnectionPool.getConnection()){
             String update = "DELETE FROM artikel WHERE artikel_id = ?";

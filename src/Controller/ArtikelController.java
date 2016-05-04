@@ -54,7 +54,7 @@ public class ArtikelController {
         artikel.setArtikel_naam(aView.getArtikel_naam());
         
         ArtikelDAOMySQL dao = new ArtikelDAOMySQL();
-        dao.createNewArtikel(artikel);
+        dao.createArtikel(artikel);
     }
     
     public static void update(){

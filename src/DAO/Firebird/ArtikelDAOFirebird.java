@@ -37,12 +37,14 @@ package DAO.Firebird;
 
 import ConnectionPools.DBConnectorFirebird;
 import POJO.Artikel;
+import interfaceDAO.ArtikelDAO;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class ArtikelDAOFirebird {
+public class ArtikelDAOFirebird implements ArtikelDAO {
         
-    public Artikel createArtikelFirebirdDB(Artikel artikel){
+    @Override
+    public Artikel createArtikel(Artikel artikel){
 
         try(Connection connection = DBConnectorFirebird.getConnection()){
             
@@ -67,7 +69,8 @@ public class ArtikelDAOFirebird {
         return artikel;
     }
     
-    public Artikel readArtikelFirebirdDB(int artikel_id){
+    @Override
+    public Artikel readArtikel(int artikel_id){
         Artikel artikel = new Artikel();
         try(Connection connection = DBConnectorFirebird.getConnection()){
             String sql = "SELECT * FROM artikel where artikel_id = " + artikel_id;
@@ -95,7 +98,8 @@ public class ArtikelDAOFirebird {
         return artikel;
     }
 
-    public ArrayList<Artikel> readArtikelFirebirdDB(){
+    @Override
+    public ArrayList<Artikel> readArtikel(){
         ArrayList<Artikel> artikelLijst = new ArrayList<>();
         try(Connection connection = DBConnectorFirebird.getConnection()){
             String sql = "SELECT * FROM artikel";
@@ -123,7 +127,8 @@ public class ArtikelDAOFirebird {
         return artikelLijst;
     }
     
-    public static void DeleteArtikelFirebirdDB(int artikel_id){
+    @Override
+    public void deleteArtikel(int artikel_id){
         try(Connection connection = DBConnectorFirebird.getConnection()){
             String sql = "DELETE FROM artikel WHERE artikel_id = " + artikel_id;
             Statement pstmt = connection.createStatement();
@@ -140,7 +145,8 @@ public class ArtikelDAOFirebird {
     }
 
     
-    public static void updateArtikelFirebirdDB(Artikel artikel){
+    @Override
+    public void updateArtikel(Artikel artikel){
         try(Connection connection = DBConnectorFirebird.getConnection()){
             String sql = "UPDATE ARTIKEL set artikel_naam = ?, artikel_prijs = ?, artikel_voorraad = ? where artikel_id = ?;";
             PreparedStatement pstmt = connection.prepareStatement(sql);
