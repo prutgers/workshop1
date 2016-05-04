@@ -38,28 +38,28 @@ public class testDAOXML {
             NodeList listOfArtikelen = doc.getElementsByTagName("artikel");
             int totalArtikelen = listOfArtikelen.getLength();
             System.out.println("tel de artieklen " + totalArtikelen);
-            ArrayList<Artikel> artikelLijst = new ArrayList();
+            //ArrayList<Artikel> artikelLijst = new ArrayList();
 
 
             for(int s=0; s<listOfArtikelen.getLength() ; s++){
-                Node firstArtikelNode = listOfArtikelen.item(s);
-                if(firstArtikelNode.getNodeType() == Node.ELEMENT_NODE){
+                Node artikelNode = listOfArtikelen.item(s);
+                if(artikelNode.getNodeType() == Node.ELEMENT_NODE){
                     Artikel artikel = new Artikel();
-                    Element firstArtikelElement = (Element)firstArtikelNode; 
+                    Element artikelElement = (Element)artikelNode; 
 
                     //-------
-                    NodeList artikelNameList = firstArtikelElement.getElementsByTagName("artikel_naam");
+                    NodeList artikelNameList = artikelElement.getElementsByTagName("artikel_naam");
                     Element artikelNaamElement = (Element)artikelNameList.item(0);
 
-                    NodeList artikelIDList = firstArtikelElement.getElementsByTagName("artikel_id");
+                    NodeList artikelIDList = artikelElement.getElementsByTagName("artikel_id");
                     Element artikelIDElement = (Element)artikelIDList.item(0);
 
                     NodeList textFNList = artikelNaamElement.getChildNodes();
-                   // System.out.println("Artikel Naam : " + ((Node)textFNList.item(0)).getNodeValue().trim());
+                  
 
                     artikel.setArtikel_naam(  ((Node)textFNList.item(0)).getNodeValue().trim().toString()   );
 
-                   // System.out.println("artikel naam afasdf safsaf " + artikel.getArtikel_naam());
+                  
 
                     System.out.println("Artikel Naam " + artikel.getArtikel_naam());
 
