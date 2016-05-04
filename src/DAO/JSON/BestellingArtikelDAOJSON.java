@@ -29,94 +29,162 @@ public class BestellingArtikelDAOJSON implements BestellingArtikelDAO {
     private final String filePath = "c:/data/json/bestellingartikel.json";
 
     
+    
     @Override
     public void createKoppelBestellingArtikel(BestellingArtikel bestellingArtikel) {
-        JSONArray artikelList = new JSONArray();
-        JSONParser parser = new JSONParser();
-        
-      //  File file = new File("c:/data/json/artikel.json");
-     //   System.out.println("file exixsts " + file.exists());
-        try {
-            artikelList = (JSONArray)parser.parse(new FileReader(filePath));
-        } catch (FileNotFoundException e) {
-	} catch (IOException e) {
-	} catch (ParseException ex) {
-            Logger.getLogger(ArtikelDAOJSON.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+        //Haal de JSONFile op
+        JSONArray koppel = this.readFromFile();
         //Create het nieuwe artikel dat is meegegeven aan public Artikel createArtikel
         JSONObject obj = new JSONObject();
         obj.put("bestelling_id", bestellingArtikel.getBestelling_id());
         obj.put("artikel_id", bestellingArtikel.getArtikel_id());
         obj.put("artikel_aantal", bestellingArtikel.getAantal());
-        
-	try {
-            FileWriter file = new FileWriter(filePath);
-            file.write(artikelList.toJSONString());
-            file.flush();
-            file.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+        koppel.add(obj);
+        //Schrijf de geupdate JSON file weg
+        this.writeToFile(koppel);
 	}
-    }
 
     @Override
     public ArrayList<BestellingArtikel> readKoppelMetBestellingID(int bestelling_id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ArrayList<BestellingArtikel> readKoppelMetArtikelID(int artikel_id) {
-        JSONParser parser = new JSONParser();
         ArrayList<BestellingArtikel> koppelLijst = new ArrayList();
-        try {
-            JSONArray list = (JSONArray)parser.parse(new FileReader(filePath));
-            for(Object o : list) {
-                JSONObject json = (JSONObject)o;
+        JSONArray list = this.readFromFile();
+        for(Object o : list) {
+            JSONObject json = (JSONObject)o;
+            if(bestelling_id == (int)(long)json.get("bestelling_id")){
                 BestellingArtikel koppel = new BestellingArtikel();
                 koppel.setBestelling_id((int)(long)json.get("bestelling_id"));
                 koppel.setArtikel_id((int)(long)json.get("artikel_id"));
                 koppel.setAantal((int)(long)json.get("artikel_aantal"));
                 koppelLijst.add(koppel);
             }
-        } catch (FileNotFoundException e) {
-		e.printStackTrace();
-	} catch (IOException e) {
-		e.printStackTrace();
-	} catch (ParseException e) {
-		e.printStackTrace();
-	}
+        }
+        return koppelLijst;
+    }
+
+    @Override
+    public ArrayList<BestellingArtikel> readKoppelMetArtikelID(int artikel_id) {
+        ArrayList<BestellingArtikel> koppelLijst = new ArrayList();
+        JSONArray list = this.readFromFile();
+        for(Object o : list) {
+            JSONObject json = (JSONObject)o;
+            if(artikel_id == (int)(long)json.get("artikel_id")){
+                BestellingArtikel koppel = new BestellingArtikel();
+                koppel.setBestelling_id((int)(long)json.get("bestelling_id"));
+                koppel.setArtikel_id((int)(long)json.get("artikel_id"));
+                koppel.setAantal((int)(long)json.get("artikel_aantal"));
+                koppelLijst.add(koppel);
+            }
+        }
         return koppelLijst;
     }
 
     @Override
     public BestellingArtikel readKoppel(int bestelling_id, int artikel_id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        BestellingArtikel bestellingArtikel = new BestellingArtikel();
+        JSONArray list = this.readFromFile();
+        for(Object o : list) {
+            JSONObject json = (JSONObject)o;
+            if((bestelling_id == (int)(long)json.get("bestelling_id")) && (artikel_id == (int)(long)json.get("artikel_id"))) {
+                bestellingArtikel.setBestelling_id((int)(long)json.get("bestelling_id"));
+                bestellingArtikel.setArtikel_id((int)(long)json.get("artikel_id"));
+                bestellingArtikel.setAantal((int)(long)json.get("artikel_aantal"));
+                
+            }
+        }
+        return bestellingArtikel;
     }
 
     @Override
     public void deleteKoppelMetBestellingID(int bestelling_id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        JSONArray koppelList = this.readFromFile();
+        if(!koppelList.isEmpty()){
+            for(int i = 0; i< koppelList.size();i++){
+                JSONObject json = (JSONObject)koppelList.get(i);
+                if((int)(long)json.get("bestelling_id") == bestelling_id){
+                    koppelList.remove(i);
+                    i--;
+                }
+            }
+        }
+        this.writeToFile(koppelList);
     }
 
     @Override
     public void deleteKoppelMetArtikelID(int artikel_id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       JSONArray koppelList = this.readFromFile();
+        if(!koppelList.isEmpty()){
+            for(int i = 0; i< koppelList.size();i++){
+                JSONObject json = (JSONObject)koppelList.get(i);
+                if((int)(long)json.get("artikel_id") == artikel_id){
+                    koppelList.remove(i);
+                    i--;
+                }
+            }
+        }
+        this.writeToFile(koppelList);
     }
 
     @Override
     public void deleteKoppel(int bestellingID, int artikelID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public BestellingArtikel readKoppelById(int koppelID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       JSONArray koppelList = this.readFromFile();
+        if(!koppelList.isEmpty()){
+            for(int i = 0; i< koppelList.size();i++){
+                JSONObject json = (JSONObject)koppelList.get(i);
+                if(((int)(long)json.get("artikel_id") == artikelID) && ((int)(long)json.get("bestelling_id") == bestellingID))  {
+                    koppelList.remove(i);
+                    i--;
+                }
+            }
+        }
+        this.writeToFile(koppelList);
     }
 
     @Override
     public void updateKoppel(BestellingArtikel koppel) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       
+       JSONArray koppelList = this.readFromFile();
+        if(!koppelList.isEmpty()){
+            for(int i = 0; i< koppelList.size();i++){
+                JSONObject json = (JSONObject)koppelList.get(i);
+                if(((int)(long)json.get("artikel_id") == koppel.getArtikel_id()) && ((int)(long)json.get("bestelling_id") == koppel.getBestelling_id()))  {
+                    json.put("artikel_aantal", koppel.getAantal());
+                }
+            }
+        }
+        this.writeToFile(koppelList);
+    }
+    
+    private JSONArray readFromFile(){
+        JSONArray jsonArray = new JSONArray();
+        JSONParser parser = new JSONParser();
+        try {
+            jsonArray = (JSONArray)parser.parse(new FileReader(filePath));
+        } catch (FileNotFoundException e) {
+	} catch (IOException e) {
+	} catch (ParseException ex) {
+            Logger.getLogger(ArtikelDAOJSON.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return jsonArray;
+    }
+    
+    private void writeToFile(JSONArray jsonArray){
+         try {
+            FileWriter file = new FileWriter(filePath);
+            file.write(jsonArray.toJSONString());
+            file.flush();
+            file.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+	}
+    }
+    
+    
+    //wordt niet meer gebruikt
+    @Override
+    public BestellingArtikel readKoppelById(int koppelID) {
+        //wordt niet meer gebruikt als het goed is
+        System.out.println("Ik ben een niet werkende methode");
+        return new BestellingArtikel();
     }
     
 }
