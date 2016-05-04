@@ -5,7 +5,9 @@ package View;
  * @author Sonja
  */
 
+import POJO.Adres;
 import formatMessage.VerifyInputScanner;
+import java.util.ArrayList;
 
 public class AdresView {
     private int adres_id;
@@ -31,7 +33,7 @@ public class AdresView {
     public void update() {
         System.out.println("Welk adres wilt u aanpassen? \n"
                 + "Voer het adres ID in: ");
-        int adres_id = VerifyInputScanner.verifyInt();
+        this.adres_id = VerifyInputScanner.verifyInt();
 
         System.out.println("Voer een nieuwe straatnaam in: ");
         this.straatnaam = VerifyInputScanner.verifyString();
