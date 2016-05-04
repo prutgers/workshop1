@@ -17,7 +17,13 @@ import interfaceDAO.*;
  */
 public class DAOFactory {
     
-    public KlantDAO getKlantDAO(String db){
+    private static String db = "MySQL";
+
+    public static void setDB(String database){
+        db = database;
+    }
+    
+    public static KlantDAO getKlantDAO(){
         if(db.equals("Firebird")) {
             return new KlantDAOFirebird();
         } else if(db.equals("JSON")) {
@@ -29,7 +35,7 @@ public class DAOFactory {
         }
     }
     
-    public ArtikelDAO getArtikelDAO(String db){
+    public static ArtikelDAO getArtikelDAO(){
         if(db.equals("Firebird")) {
             return new ArtikelDAOFirebird();
         } else if(db.equals("JSON")) {
@@ -41,7 +47,7 @@ public class DAOFactory {
         }
     }
     
-    public BestellingDAO getBestellingDAO(String db){
+    public static BestellingDAO getBestellingDAO(){
         if(db.equals("Firebird")) {
             return new BestellingDAOFirebird();
         } else if(db.equals("JSON")) {
@@ -53,7 +59,7 @@ public class DAOFactory {
         }
     }
     
-    public AdresDAO getAdresDAO(String db){
+    public static AdresDAO getAdresDAO(){
         if(db.equals("Firebird")) {
             return new AdresDAOFirebird();
         } else if(db.equals("JSON")) {
@@ -65,7 +71,7 @@ public class DAOFactory {
         }
     }
     
-    public BestellingArtikelDAO getBestellingArtikelDAO(String db){
+    public static BestellingArtikelDAO getBestellingArtikelDAO(){
         if(db.equals("Firebird")) {
             return new BestellingArtikelDAOFirebird();
         } else if(db.equals("JSON")) {
@@ -78,7 +84,7 @@ public class DAOFactory {
     }
     
     
-    public KlantAdresDAO getKlantAdresDAO(String db){
+    public static KlantAdresDAO getKlantAdresDAO(){
         /* Werkt pas als alle klasses er zijn
         if(db.equals("Firebird")) {
             return new KlantAdresDAOFirebird();

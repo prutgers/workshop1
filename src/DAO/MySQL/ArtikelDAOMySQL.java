@@ -32,6 +32,8 @@ public class ArtikelDAOMySQL implements ArtikelDAO {
    public Artikel createArtikel(Artikel artikel){
         //Connect to database
         
+        System.out.println("artikel prijs " + artikel.getArtikel_prijs() );
+        
         try(Connection connection = ConnectionPool.getConnection()) {
             String sql = "INSERT INTO artikel("
             + "artikel_naam,"
@@ -54,6 +56,7 @@ public class ArtikelDAOMySQL implements ArtikelDAO {
         } 
         catch (SQLException e){
                 System.out.println("verdorie mislukt");
+                e.printStackTrace();
         } catch (ClassNotFoundException ex) {
            Logger.getLogger(ArtikelDAOMySQL.class.getName()).log(Level.SEVERE, null, ex);
        }

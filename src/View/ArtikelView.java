@@ -34,6 +34,8 @@ public class ArtikelView {
         
         System.out.println("Voer de artikelprijs in: ");
         this.artikel_prijs = VerifyInputScanner.verifyBigDecimal();
+        
+      
     }
     
     public  void update(){

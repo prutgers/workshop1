@@ -13,16 +13,19 @@ package Controller;
 
 import View.ArtikelView;
 import DAO.MySQL.ArtikelDAOMySQL;
+import DAOFactory.DAOFactory;
 import POJO.Artikel;
 import View.ArtikelKeuzeView;
+import interfaceDAO.ArtikelDAO;
 
 /**
  *
  * @author Peter
  */
 public class ArtikelController {
-       public void artikelStart(){
+       public static void artikelStart(){
        ArtikelKeuzeView view = new ArtikelKeuzeView();   
+       view.keuze();
        int select = view.getSelect();
                    switch (select) {
                 case 1:
@@ -52,8 +55,9 @@ public class ArtikelController {
         aView.create();
         Artikel artikel = new Artikel();
         artikel.setArtikel_naam(aView.getArtikel_naam());
-        
-        ArtikelDAOMySQL dao = new ArtikelDAOMySQL();
+        artikel.setArtikel_prijs(aView.getArtikel_prijs());
+        artikel.setArtikel_voorraad(aView.getArtikel_voorraad());
+        ArtikelDAO dao = DAOFactory.getArtikelDAO();
         dao.createArtikel(artikel);
     }
     
