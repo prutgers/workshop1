@@ -16,18 +16,16 @@ public class AdresView {
     private String woonplaats;
     
     public void create() {
-        //moet nog iets met de return_generated_key statement voor het adres_id
-        //maar daar ben ik nog niet helemaal uit
         System.out.println("Voer de straatnaam in:");
         this.straatnaam = VerifyInputScanner.verifyString();
         System.out.println("Voer het huisnummer in:");
-        int huisnummer = VerifyInputScanner.verifyInt();
+        this.huisnummer = VerifyInputScanner.verifyInt();
         System.out.println("Voer de toevoeging in:");
-        String toevoeging = VerifyInputScanner.verifyString();
+        this.toevoeging = VerifyInputScanner.verifyString();
         System.out.println("Voer de postcode in:");
-        String postcode = VerifyInputScanner.verifyString();
+        this.postcode = VerifyInputScanner.verifyString();
         System.out.println("Voer de woonplaats in:");
-        String woonplaats = VerifyInputScanner.verifyString();
+        this.woonplaats = VerifyInputScanner.verifyString();
     }
     
     public void update() {
@@ -36,35 +34,39 @@ public class AdresView {
         int adres_id = VerifyInputScanner.verifyInt();
 
         System.out.println("Voer een nieuwe straatnaam in: ");
-        String straatnaam = VerifyInputScanner.verifyString();
+        this.straatnaam = VerifyInputScanner.verifyString();
         System.out.println("Voer een nieuw huisnummer in: ");
-        int huisnummer = VerifyInputScanner.verifyInt();
+        this.huisnummer = VerifyInputScanner.verifyInt();
         System.out.println("Voer een nieuwe toevoeging in: ");
-        String toevoeging = VerifyInputScanner.verifyString();
+        this.toevoeging = VerifyInputScanner.verifyString();
         System.out.println("Voer een nieuwe postcode in: ");
-        String postcode = VerifyInputScanner.verifyString();
+        this.postcode = VerifyInputScanner.verifyString();
         System.out.println("Voer een nieuwe woonplaats in: ");
-        String woonplaats = VerifyInputScanner.verifyString();
+        this.woonplaats = VerifyInputScanner.verifyString();
     }
     
-    public void readAll() {
-        System.out.println("ADRESGEGEVENS \n"
-            + "----------------");
-        System.out.printf("%15s %15s %15s %15s %15s %15s \n", 
-                "Adres ID", "Straatnaam", "Huisnummer", "Toevoeging",
+    public void readAll(ArrayList<Adres> adresGegevens) {
+        System.out.format("%s, %s, %s, %s, %s, %s\n",
+            "Adres ID", "Straatnaam", "Huisnummer", "Toevoeging",
                 "Postcode", "Woonplaats");
+        
+        for(Adres a : adresGegevens) {
+            System.out.format("%s, %s, %s, %s, %s, %s\n", a.getAdres_id(),
+                    a.getStraatnaam(), a.getHuisnummer(), a.getToevoeging(),
+                    a.getPostcode(), a.getWoonplaats());            
+        }
+
     }
     
-    public void readAllByID() {
-        //...
+    public void readAdresByID() {
+        System.out.println("Voer het adres ID in: ");
+        adres_id = VerifyInputScanner.verifyInt();
     }
     
     public void delete() {
         System.out.println("Welk adres wilt u verwijderen? \n"
                 + "Voer het adres ID in: ");
-        int adres_id = VerifyInputScanner.verifyInt();
-        
-        System.out.println("Het volgende adres is verwijderd: " + adres_id);
+        this.adres_id = VerifyInputScanner.verifyInt();
     }
 
     /**
