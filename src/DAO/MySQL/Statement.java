@@ -39,8 +39,8 @@ public class Statement {
         String sqlTableName = klant.getClass().getSimpleName().toLowerCase();
         System.out.println(sqlTableName);
         try{
-            
-        KlantDAO.createKlant(klant);
+        KlantDAOMySQL dao = new KlantDAOMySQL();
+        dao.createKlant(klant);
 
         }
         catch(Exception e){
