@@ -7,16 +7,18 @@ package DAO.MySQL;
 
 import ConnectionPools.*;
 import POJO.Adres;
+import interfaceDAO.AdresDAO;
 import java.sql.*;
 import java.util.ArrayList; 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.Statement; 
 
-public class AdresDAOMySQL {
+public class AdresDAOMySQL implements AdresDAO {
     
     static PreparedStatement stmnt;
 
+    @Override
     public Adres createAdres(Adres adres) {
         String query = "INSERT INTO adres ("
                 + "adres_id"
@@ -55,6 +57,7 @@ public class AdresDAOMySQL {
         return adres;
     }
     
+    @Override
     public ArrayList<Adres> readAdres() {
         ArrayList<Adres> adresGegevens = new ArrayList<>();
         try (Connection connection = ConnectionPool.getConnection();) { 
@@ -87,6 +90,7 @@ public class AdresDAOMySQL {
         return adresGegevens;
     }
     
+    @Override
     public Adres readAdresByID(int adresID) {
         Adres adres = new Adres();
     
@@ -114,6 +118,7 @@ public class AdresDAOMySQL {
         return adres;
     }
     
+    @Override
     public void updateAdres(Adres adres) {
         String query = "UPDATE adres SET "
                 + "straatnaam=?,"
@@ -142,6 +147,7 @@ public class AdresDAOMySQL {
         }
     }
     
+    @Override
     public void deleteAdres(int adres_id) {
         String query = "DELETE FROM adres WHERE adres_id=?";
         try (Connection connection = ConnectionPool.getConnection();) {

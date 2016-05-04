@@ -7,14 +7,17 @@ package DAO.Firebird;
 
 import ConnectionPools.DBConnectorFirebird;
 import POJO.Adres;
+import interfaceDAO.AdresDAO;
 import java.sql.*;
 import java.util.ArrayList; 
 
-public class AdresDAOFirebird {
+public class AdresDAOFirebird implements AdresDAO {
     
     static PreparedStatement stmnt;
 
-    public void createFirebirdDBAdres(Adres adres) {
+    
+    @Override
+    public Adres createAdres(Adres adres) {
         try (Connection connection = new DBConnectorFirebird().getConnection()) {
             Class.forName("org.firebirdsql.jdbc.FBDriver");
             String query = "INSERT INTO adres (straatnaam, huisnummer, "
@@ -35,9 +38,13 @@ public class AdresDAOFirebird {
         catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex + "\nProbeer opnieuw.");
         }
+        //dit is exact het zelfde adres als dat je kreeg alleen even neergezet
+        // om de code te laten werken hier moet nog een generated Key aan toegevoegd worden
+        return adres;
     }            
     
-    public ArrayList<Adres> readFireBirdDBAdres() {
+    @Override
+    public ArrayList<Adres> readAdres() {
         ArrayList<Adres> adresGegevens = new ArrayList<>();
         try (Connection connection = new DBConnectorFirebird().getConnection()) { 
             Class.forName("org.firebirdsql.jdbc.FBDriver");
@@ -73,7 +80,8 @@ public class AdresDAOFirebird {
         return adresGegevens;
     }
     
-    public Adres readFirebirdDBAdresByID(int adresID) {
+    @Override
+    public Adres readAdresByID(int adresID) {
         Adres adres = new Adres();
     
         try (Connection connection = new DBConnectorFirebird().getConnection();) {
@@ -98,7 +106,8 @@ public class AdresDAOFirebird {
         return adres;
     }
     
-    public void updateFirebirdDBAdres(Adres adres) {
+    @Override
+    public void updateAdres(Adres adres) {
         try (Connection connection = new DBConnectorFirebird().getConnection();) {
             Class.forName("org.firebirdsql.jdbc.FBDriver");
             
@@ -127,6 +136,7 @@ public class AdresDAOFirebird {
         }
     }
     
+    @Override
     public void deleteAdres(int adres_id) {
         String query = "DELETE FROM adres WHERE adres_id=?";
         try (Connection connection = new DBConnectorFirebird().getConnection();) {
