@@ -37,7 +37,7 @@ public class ConfigController {
     
     public static void setDatabase(){
         ConfigView view = new ConfigView();
-        view.readConnectionSettings();
+        view.readDatabaseSettings();
         switch (view.getSelectDatabase()) {
             case 1: 
                     DAOFactory.setDB("MySQL");

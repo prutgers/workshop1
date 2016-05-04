@@ -30,9 +30,7 @@ public class ConfigView {
         System.out.println("Selecteer een setting:\n"
                     + "Kies 1 voor Hikari; \n"
                     + "Kies 2 voor C3P0; \n"
-                    + "Kies 3 voor een directe JDBC connectie \n"
-                    + "       (Waarschuwing, deze ondersteund geen pools, gebruik op eigen risico); \n"
-                    + "kies 0 ga naar hoofdmenu.");
+                    + "Kies 3 voor een directe JDBC connectie \n");
         this.selectConnection = VerifyInputScanner.verifyInt();
     }
     
@@ -42,9 +40,7 @@ public class ConfigView {
                     + "Kies 1 MySQL; \n"
                     + "Kies 2 Firebird; \n"
                     + "Kies 3 JSON \n"
-                    + "Kies 4 XML  \n"
-                    + "       (Waarschuwing, deze ondersteund geen pools, gebruik op eigen risico); \n"
-                    + "kies 0 ga naar hoofdmenu.");
+                    + "Kies 4 XML  \n");
         this.selectDatabase = VerifyInputScanner.verifyInt();
     }
 }

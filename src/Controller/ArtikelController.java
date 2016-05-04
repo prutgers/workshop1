@@ -23,33 +23,38 @@ import interfaceDAO.ArtikelDAO;
  * @author Peter
  */
 public class ArtikelController {
-       public static void startKeuze(){
-       ArtikelKeuzeView view = new ArtikelKeuzeView();   
-       view.keuze();
-       int select = view.getSelect();
-                   switch (select) {
-                case 1:
-                    ArtikelController.create();
-                    break;
-                case 2:
-                    ArtikelController.update();
-                    break;
-                case 3:
-                    ArtikelController.readAll();
-                    break;            
-                case 4:
-                    ArtikelController.readByID();
-                    break;
-                case 5:
-                    ArtikelController.delete();
-                    break;
-                case 0:
-                    break;
-                default:
-                    view.herhaalKeuze();
-                    break;
-            }
-       }
+        
+    public static void startKeuze(){
+        ArtikelKeuzeView view = new ArtikelKeuzeView();   
+        view.keuze();
+        switch (view.getSelect()) {
+            case 1:
+                ArtikelController.create();
+                break;
+            case 2:
+                ArtikelController.update();
+                break;
+            case 3:
+                ArtikelController.readAll();
+                break;            
+            case 4:
+                ArtikelController.readByID();
+                break;
+            case 5:
+                ArtikelController.delete();
+                break;
+            case 0:
+                MainController.hoofdMenu();
+                break;
+            default:
+                view.herhaalKeuze();
+                break;
+        }
+        if(view.getSelect() != 0){
+            startKeuze();
+        }
+    }
+    
     public static void create(){
         ArtikelView aView = new ArtikelView();
         aView.create();
@@ -70,7 +75,7 @@ public class ArtikelController {
         artikel.setArtikel_voorraad(aView.getArtikel_voorraad());
         artikel.setArtikel_prijs(aView.getArtikel_prijs());
         
-        ArtikelDAOMySQL dao= new ArtikelDAOMySQL();
+        ArtikelDAO dao = DAOFactory.getArtikelDAO();
         dao.updateArtikel(artikel);
     }
     
@@ -78,7 +83,7 @@ public class ArtikelController {
         ArtikelView aView = new ArtikelView();
         aView.delete();
         
-        ArtikelDAOMySQL dao = new ArtikelDAOMySQL();
+        ArtikelDAO dao = DAOFactory.getArtikelDAO();
         dao.deleteArtikel(aView.getArtikel_id());
     }
     
@@ -86,13 +91,13 @@ public class ArtikelController {
         ArtikelView aView = new ArtikelView();
         aView.readArtikelById();
         
-        ArtikelDAOMySQL dao = new ArtikelDAOMySQL();
+        ArtikelDAO dao = DAOFactory.getArtikelDAO();
         aView.print(dao.readArtikel(aView.getArtikel_id()));
     }
     
     public static void readAll(){
         ArtikelView aView = new ArtikelView();
-        ArtikelDAOMySQL dao= new ArtikelDAOMySQL();
+        ArtikelDAO dao = DAOFactory.getArtikelDAO();
         aView.print(dao.readArtikel(aView.getArtikel_id()));
     }
 }

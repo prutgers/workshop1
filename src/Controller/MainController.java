@@ -48,5 +48,6 @@ public class MainController {
                 System.out.println("Maak een keuze: 1, 2, 3, 4, 5 of 0");
                 break;
         }
+        hoofdMenu(); //Klopt dat is ook de bedoeling
     }
 }
