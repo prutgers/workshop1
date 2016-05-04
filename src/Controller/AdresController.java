@@ -9,7 +9,6 @@ import View.AdresView;
 import DAO.MySQL.AdresDAOMySQL;
 import POJO.Adres;
 import View.AdresKeuzeView;
-import DAOFactory.DAOFactory;
 import java.util.ArrayList;
 
 public class AdresController {
@@ -88,7 +87,7 @@ public class AdresController {
         adresView.readAdresByID();
         
         AdresDAOMySQL aDAO = new AdresDAOMySQL();
-        Adres adres = aDAO.readAdresByID(adresView.readAdresByID());
+        Adres adres = aDAO.readAdresByID(adresView.getAdres_id());
         adresView.readAdresByID(adres);
     }
     
