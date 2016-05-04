@@ -19,7 +19,7 @@ public class AdresView {
         //moet nog iets met de return_generated_key statement voor het adres_id
         //maar daar ben ik nog niet helemaal uit
         System.out.println("Voer de straatnaam in:");
-        String straatnaam = VerifyInputScanner.verifyString();
+        this.straatnaam = VerifyInputScanner.verifyString();
         System.out.println("Voer het huisnummer in:");
         int huisnummer = VerifyInputScanner.verifyInt();
         System.out.println("Voer de toevoeging in:");
