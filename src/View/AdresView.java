@@ -62,7 +62,16 @@ public class AdresView {
     
     public void readAdresByID() {
         System.out.println("Voer het adres ID in: ");
-        adres_id = VerifyInputScanner.verifyInt();
+        this.adres_id = VerifyInputScanner.verifyInt();
+    }
+    
+    public void readAdresByID(Adres adres) {
+        System.out.println("Adres ID: " + adres.getAdres_id());
+        System.out.println("Straatnaam: " + adres.getStraatnaam());
+        System.out.println("Huisnummer: " + adres.getHuisnummer());
+        System.out.println("Toevoeging: " + adres.getToevoeging());
+        System.out.println("Postcode: " + adres.getPostcode());
+        System.out.println("Woonplaats: " + adres.getWoonplaats());
     }
     
     public void delete() {
