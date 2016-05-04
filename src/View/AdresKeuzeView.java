@@ -8,7 +8,8 @@ import java.util.Scanner;
  * @author Sonja
  */
 public class AdresKeuzeView {
-    private int select;
+    int select;
+    
     public void keuze() {
         Scanner input = new Scanner(System.in);
         PrintFormat.printHeader("ADRESMENU");
@@ -22,7 +23,7 @@ public class AdresKeuzeView {
             + "5: Verwijder een bestaand adres\n"
                 + "\n"
             + "0: Keer terug naar het Hoofdmenu");
-        setSelect(input.nextInt());
+        select = input.nextInt();
     }
     
     public void herhaalKeuze() {
@@ -31,9 +32,5 @@ public class AdresKeuzeView {
     
     public int getSelect() {
         return select;
-    }
-    
-    public void setSelect(int select) {
-        this.select = select;
     }
 }
