@@ -55,11 +55,10 @@ public class BestellingView {
     }
     public void printArtikelLijst(ArrayList<BestellingArtikel> list){
         Scanner input = new Scanner(System.in);;
-        System.out.printf("%15s %15s %15s %15s %15s\n", "Koppel ID", "Artikel ID", 
-                "Aantal", "Artikelnaam", "Artikelprijs");
+        System.out.printf("%15s %15s\n", "Artikel ID", 
+                "Aantal");
         for(BestellingArtikel e : list){
-             System.out.printf("%15s %15d %15s %15s %15s\n",e.getKoppel_id(), 
-                     e.getArtikel_id(), e.getAantal());  
+             System.out.printf("%15s %15d %15s\n",e.getArtikel_id(), e.getAantal());  
         }
     }
     public void print(Bestelling bestelling){
