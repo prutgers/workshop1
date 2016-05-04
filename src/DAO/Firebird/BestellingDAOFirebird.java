@@ -1,19 +1,16 @@
 
 package DAO.Firebird;
 
-import ConnectionPools.DBConnectorFirebird;
-import ConnectionPools.DBConnector;
+
 import ConnectionPools.*;
 import POJO.Bestelling;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import interfaceDAO.BestellingDAO;
+import java.sql.*;
 import java.util.ArrayList;
 
-public class BestellingDAOFirebird {
+public class BestellingDAOFirebird implements BestellingDAO {
     
+    @Override
     public Bestelling createBestelling(Bestelling bestelling) {
         String query = "INSERT INTO Bestelling (klant_id) values (?) RETURNING bestelling_id";
         try(Connection connection = DBConnectorFirebird.getConnection();){
@@ -33,6 +30,7 @@ public class BestellingDAOFirebird {
         return bestelling;
     }
 
+    @Override
     public Bestelling getBestellingById(int BestellingId){
         Bestelling bestelling = new Bestelling();
         try(Connection connection = DBConnectorFirebird.getConnection();){
@@ -50,6 +48,7 @@ public class BestellingDAOFirebird {
         return bestelling;
     }
 
+    @Override
     public ArrayList<Bestelling> getAllBestelling(){
         ArrayList<Bestelling> bestellingLijst = new ArrayList<Bestelling>();
         try(Connection connection = DBConnectorFirebird.getConnection();){
@@ -67,6 +66,7 @@ public class BestellingDAOFirebird {
         }
         return bestellingLijst;
     }
+    @Override
     public ArrayList<Bestelling> getBestellingByKlantId(int klantId){
         ArrayList<Bestelling> bestellingLijst = new ArrayList<Bestelling>();
         try(Connection connection = DBConnectorFirebird.getConnection();){
@@ -88,6 +88,7 @@ public class BestellingDAOFirebird {
         return bestellingLijst;
     }
 
+    @Override
     public void updateBestelling(Bestelling bestelling){
         String query =  "UPDATE Bestelling SET klant_id=? WHERE bestelling_id = ?;";
     
@@ -105,6 +106,7 @@ public class BestellingDAOFirebird {
         }
     }
     
+    @Override
     public void deleteBestelling(int bestelling_id){
         String sql = "DELETE FROM bestelling WHERE bestelling_id=?";
         try(Connection connection = DBConnectorFirebird.getConnection();){

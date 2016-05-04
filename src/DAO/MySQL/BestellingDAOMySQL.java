@@ -1,10 +1,9 @@
 
 package DAO.MySQL;
 
-import ConnectionPools.DBConnector;
 import ConnectionPools.*;
 import POJO.*;
-import POJO.Bestelling.BestellingBuilder;
+import interfaceDAO.BestellingDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,7 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class BestellingDAOMySQL {
+public class BestellingDAOMySQL implements BestellingDAO{
     public Bestelling createBestelling(Bestelling bestelling) {
 
         String query = "INSERT INTO Bestelling (klant_id) values (?)";

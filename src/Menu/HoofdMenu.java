@@ -70,6 +70,7 @@ public class HoofdMenu {
         
         switch (select) {
             case 1:
+                ArtikelController.
                 KlantAdresMenu.startMenu();
                 break;
             case 2:

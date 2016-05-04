@@ -5,23 +5,11 @@
  */
 package DAO.JSON;
 
-import ConnectionPools.DBConnector;
-import ConnectionPools.*;
 import POJO.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
+import interfaceDAO.BestellingDAO;
+import java.io.*;
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -30,7 +18,8 @@ import org.json.simple.parser.ParseException;
  *
  * @author Gebruiker
  */
-public class BestellingDAOJSON {
+public class BestellingDAOJSON implements BestellingDAO{
+    @Override
     public Bestelling createBestelling(Bestelling bestelling) {
         JSONArray list;
         JSONParser parser = new JSONParser();
@@ -66,6 +55,7 @@ public class BestellingDAOJSON {
         return bestelling;
     }
     
+    @Override
     public Bestelling getBestellingById(int bestellingID){
         JSONArray list = new JSONArray();
         JSONParser parser = new JSONParser();
@@ -101,6 +91,7 @@ public class BestellingDAOJSON {
         return bestelling;
     }
 
+    @Override
     public ArrayList<Bestelling> getAllBestelling(){
         JSONParser parser = new JSONParser();
         JSONArray list = new JSONArray();
@@ -134,6 +125,7 @@ public class BestellingDAOJSON {
         return bestellingLijst;
     }
     
+    @Override
     public ArrayList<Bestelling> getBestellingByKlantId(int klantID){
         JSONParser parser = new JSONParser();
         JSONArray list = new JSONArray();
@@ -173,6 +165,7 @@ public class BestellingDAOJSON {
         return bestellingLijst;
     }
 
+    @Override
     public void updateBestelling(Bestelling bestelling){
         JSONParser parser = new JSONParser();
         JSONArray list = new JSONArray();
@@ -206,6 +199,7 @@ public class BestellingDAOJSON {
 	}
     }
     
+    @Override
     public void deleteBestelling(int bestellingID){
         JSONArray list = new JSONArray();
         File file = new File("c:/data/json/bestellingen.json");
