@@ -55,7 +55,6 @@ public class AdresDAOJSON implements AdresDAO {
         try (FileWriter fileWriter = new FileWriter(
                 "C:/data/JSON/adresgegevens.json")) {
             fileWriter.write(adresGegevens.toJSONString());
-            fileWriter.flush();
         }
         
         catch (IOException ex) {
@@ -87,8 +86,7 @@ public class AdresDAOJSON implements AdresDAO {
             
             try (FileWriter fileWriter = new FileWriter(
                     "C:/data/JSON/adresgegevens.json")) {
-                fileWriter.write(adresGegevens.toJSONString());
-                fileWriter.flush();
+                fileWriter.write(adresGegevens.toJSONString());    
             }
         }
         
@@ -124,8 +122,7 @@ public class AdresDAOJSON implements AdresDAO {
             
             try (FileWriter fileWriter = new FileWriter(
                     "C:/data/JSON/adresgegevens.json")) {
-                fileWriter.write(adresGegevens.toJSONString());
-                fileWriter.flush();
+                fileWriter.write(adresGegevens.toJSONString());     
             }
         }
         
@@ -162,7 +159,6 @@ public class AdresDAOJSON implements AdresDAO {
             try (FileWriter fileWriter = new FileWriter(
                     "C:/data/JSON/adresgegevens.json")) {
                 fileWriter.write(adresGegevens.toJSONString());
-                fileWriter.flush();
             }
         }
         
@@ -193,7 +189,6 @@ public class AdresDAOJSON implements AdresDAO {
             try (FileWriter fileWriter = new FileWriter(
                     "C:/data/JSON/adresgegevens.json")) {
                 fileWriter.write(adresGegevens.toJSONString());
-                fileWriter.flush();
             }
         }
         
