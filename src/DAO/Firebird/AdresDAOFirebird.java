@@ -89,7 +89,7 @@ public class AdresDAOFirebird implements AdresDAO {
     public Adres readAdresByID(int adresID) {
         Adres adres = new Adres();
     
-        try (Connection connection = new DBConnectorFirebird().getConnection();) {
+        try (Connection connection = new DBConnectorFirebird().getConnection()) {
             Class.forName("org.firebirdsql.jdbc.FBDriver");
             PreparedStatement stmntRAID = connection.prepareStatement(
                     "SELECT * FROM adres WHERE adres_id=?");
