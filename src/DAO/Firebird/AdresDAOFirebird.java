@@ -23,7 +23,7 @@ public class AdresDAOFirebird implements AdresDAO {
             String query = "INSERT INTO adres (straatnaam, huisnummer, "
                     + "toevoeging, postcode, woonplaats) "
                 + "values (?, ?, ?, ?, ?) RETURNING adres_id";
-            PreparedStatement stmntCA = connection.prepareStatement(query);
+            PreparedStatement stmntCA = connection.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
             
             stmntCA.setInt(1, adres.getAdres_id());
             stmntCA.setString(2, adres.getStraatnaam());
@@ -33,13 +33,18 @@ public class AdresDAOFirebird implements AdresDAO {
             stmntCA.setString(6, adres.getWoonplaats());
 
             stmntCA.executeUpdate();
+            
+                ResultSet generatedKey = stmntCA.getGeneratedKeys();
+                if(generatedKey.isBeforeFirst()){
+                    generatedKey.next();
+                    adres.setAdres_id(generatedKey.getInt(1));
+                }
             }
         
         catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex + "\nProbeer opnieuw.");
         }
-        //dit is exact het zelfde adres als dat je kreeg alleen even neergezet
-        // om de code te laten werken hier moet nog een generated Key aan toegevoegd worden
+
         return adres;
     }            
     
