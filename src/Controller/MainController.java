@@ -23,9 +23,8 @@ public class MainController {
         view.readMain();
         switch (view.getSelect()) {
             case 1:
-                // KlantController mist nog een menu
+                
                 KlantController.startKeuze();
-                break;
                         
             case 2:
                 BestellingController.startKeuze();

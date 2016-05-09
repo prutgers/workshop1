@@ -8,12 +8,13 @@ package POJO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
+import java.io.Serializable;
 
 /**
  *
  * @author lucas
  */
-public class Klant {
+public class Klant implements Serializable {
     private int klant_id;
     private String voornaam;
     private String achternaam;

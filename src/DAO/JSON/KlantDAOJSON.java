@@ -27,7 +27,7 @@ import java.io.FileWriter;
 public class KlantDAOJSON implements KlantDAO{
     static Logger logger = LoggerFactory.getLogger(KlantDAOJSON.class);
  
-    private String fileLocation = "c:/data/json/klant.json";
+    private String fileLocation = "/home/lucas/Documents/Java/workshopdb.json";
     
     @Override
     public Klant createKlant(Klant klant){
@@ -35,6 +35,7 @@ public class KlantDAOJSON implements KlantDAO{
         JSONArray klantLijst = this.readFile();
         
         //check for dubs!
+        if (!klantLijst.isEmpty()){
         for(Object o : klantLijst) {
             JSONObject klantJson = (JSONObject)o;
             if (   (
@@ -53,13 +54,17 @@ public class KlantDAOJSON implements KlantDAO{
                     break;
                 }
         }
-        
+        }
         //Schrijf de klant in de JSONArray
         if (!klantAlreadyInDB){
             
             //vind hoogste klant_id ; moet eigelijk met Collections.max(JSONObject) maar dat duurt veel te lang
-            JSONObject lastKlant = (JSONObject)klantLijst.get( klantLijst.size()-1 );
-            int klant_id = (int)(long)lastKlant.get("klant_id")+1;
+            
+            int klant_id = 0;
+            if (!klantLijst.isEmpty()){
+                JSONObject lastKlant = (JSONObject)klantLijst.get( klantLijst.size()-1 );
+                klant_id = (int)(long)lastKlant.get("klant_id")+1;
+            }
             klant.setKlant_id(klant_id);
             
             // Converteer klant naar JSONObject en voeg toe aan JSONArray
@@ -209,13 +214,13 @@ public class KlantDAOJSON implements KlantDAO{
         }
         catch (IOException ex){
             logger.error("Input/Output Exception!");
+            
             ex.printStackTrace();
             list = null;
         }
         catch (ParseException ex){
-            logger.error("Parse Exception!");
-            ex.printStackTrace();
-            list = null;
+            logger.error("Parse Exception! Waarschijnlijk is de database leeg.");
+            list = new JSONArray();
         }
         return list;
     }
