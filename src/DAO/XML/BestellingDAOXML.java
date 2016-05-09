@@ -96,7 +96,7 @@ public class BestellingDAOXML implements BestellingDAO{
         File file = new File("c:/data/xml/bestelling.xml");
         if(!file.exists()){
             System.out.println("Er is nog geen Data");
-            return new ArrayList<Bestelling>();
+            //return new ArrayList<Bestelling>();
         }
         try{
             FileInputStream fis = new FileInputStream(file);
