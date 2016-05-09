@@ -22,6 +22,7 @@ import DAOFactory.DAOFactory;
 public class KlantController {
     private KlantDAO klantDAO;
     private KlantView kView = new KlantView();
+    
     public static void startKeuze(){
         KlantController deze = new KlantController();
         KlantKeuzeView keuze = new KlantKeuzeView();
