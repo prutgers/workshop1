@@ -52,7 +52,8 @@ public class AdresDaoTest {
         adres.setAdres_id(11);
         
         Adres adresResultaat = null; 
-        AdresDAOMySQL.createAdres(adresResultaat);
+        AdresDAOMySQL dao = new AdresDAOMySQL();
+        dao.createAdres(adresResultaat);
         
         try (Connection connection = new DBConnector().getConnection();) {
             PreparedStatement stmnt = connection.prepareStatement(
@@ -71,8 +72,8 @@ public class AdresDaoTest {
      */
     @Test
     public void testReadAdres() {
-        
-        ArrayList<Adres> adresGegevens = AdresDAOMySQL.readAdres(); 
+        AdresDAOMySQL dao = new AdresDAOMySQL();
+        ArrayList<Adres> adresGegevens = dao.readAdres(); 
         try(Connection connection = new DBConnector().getConnection();){
             PreparedStatement stmnt = connection.prepareStatement(
                     "select * from adres");
@@ -97,7 +98,8 @@ public class AdresDaoTest {
     @Test
     public void testReadAdresByID() {
         
-        Adres adresTest = AdresDAOMySQL.readAdresByID(0);
+        AdresDAOMySQL dao = new AdresDAOMySQL();
+        Adres adresTest = dao.readAdresByID(0);
         //get expected result
         try(Connection connection = new DBConnector().getConnection();){
             PreparedStatement stmnt = connection.prepareStatement("select * from adres");
@@ -117,10 +119,11 @@ public class AdresDaoTest {
         Adres adres = new Adres();
         adres.setAdres_id(22);
         Adres updateAdres = null; 
-        AdresDAOMySQL.createAdres(adres);
+        AdresDAOMySQL dao = new AdresDAOMySQL();
+        dao.createAdres(adres);
         
         updateAdres.setAdres_id(22);
-        AdresDAOMySQL.updateAdres(updateAdres);
+        dao.updateAdres(updateAdres);
         
         try(Connection con = new DBConnector().getConnection();){
             PreparedStatement stmnt = con.prepareStatement(
@@ -143,9 +146,12 @@ public class AdresDaoTest {
         Adres adres = new Adres();
         adres.setAdres_id(33);
         Adres deleteAdres = null; 
-        AdresDAOMySQL.createAdres(adres);
         
-        AdresDAOMySQL.deleteAdres(deleteAdres.getAdres_id());
+        AdresDAOMySQL dao = new AdresDAOMySQL();
+        
+        dao.createAdres(adres);
+        
+        dao.deleteAdres(deleteAdres.getAdres_id());
         
         try(Connection con = new DBConnector().getConnection();){
             PreparedStatement stmnt = con.prepareStatement(
