@@ -22,7 +22,7 @@ public class HoofdMenu {
     
         //startMenu();
        
-        ArtikelController.artikelStart();
+       // ArtikelController.artikelStart();
         
       // testArtikelJSON();
         

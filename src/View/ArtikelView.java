@@ -30,7 +30,7 @@ public class ArtikelView {
         this.artikel_naam = VerifyInputScanner.verifyString();
         
         System.out.println("Voer het aantal dat van dit artikel op voorraad is in: ");
-        this.artikel_id = VerifyInputScanner.verifyInt();
+        this.artikel_voorraad = VerifyInputScanner.verifyInt();
         
         System.out.println("Voer de artikelprijs in: ");
         this.artikel_prijs = VerifyInputScanner.verifyBigDecimal();

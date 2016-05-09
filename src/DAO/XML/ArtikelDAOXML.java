@@ -16,6 +16,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.math.BigDecimal;
 
 /**
  *
@@ -102,10 +103,12 @@ public class ArtikelDAOXML implements ArtikelDAO{
     }
     
     private void writeFile (ArrayList<Artikel> lijst) {
+        
         try{
             FileOutputStream fos = new FileOutputStream("c:/data/xml/Artikel.xml");
             BufferedOutputStream bos = new BufferedOutputStream(fos);
             XMLEncoder xmlEncoder = new XMLEncoder(bos);
+            xmlEncoder.setPersistenceDelegate(java.math.BigDecimal.class,  xmlEncoder.getPersistenceDelegate(Integer.class));
             xmlEncoder.writeObject(lijst);
             xmlEncoder.close();
         }
