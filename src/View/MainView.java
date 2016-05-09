@@ -23,7 +23,7 @@ public class MainView {
             + "3: Ga naar het artikelmenu \n"
             + "4: Ga naar het adresmenu \n"
                 + "\n"
-            + "5: Ga naar de applicatie configuratier \n"
+            + "5: Ga naar de applicatie configuratie \n"
                 + "\n"
             + "0: Stop de applicatie \n");
         this.select = VerifyInputScanner.verifyInt();

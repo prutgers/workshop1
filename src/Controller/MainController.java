@@ -23,8 +23,8 @@ public class MainController {
         view.readMain();
         switch (view.getSelect()) {
             case 1:
-                //Aanroepen van het klantcontroler (in het menu
-                // was het de KlantAdresMenu.startMenu();
+                // KlantController mist nog een menu
+                KlantController.startKeuze();
                 break;
                         
             case 2:
@@ -34,8 +34,7 @@ public class MainController {
                 ArtikelController.startKeuze();
                 break;            
             case 4:
-                //Net als de vorige twee
-                //AdresController.startKeuze();
+                AdresController.startKeuze();
                 break;
             case 5:
                 ConfigController.setConnection();

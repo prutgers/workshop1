@@ -22,6 +22,10 @@ public class KlantController {
     private KlantDAO klantDAO;
     private KlantView kView = new KlantView();
     
+    public static void startKeuze(){
+        
+    }
+    
     public void create(){
         kView.create();
         Klant klant = new Klant();
