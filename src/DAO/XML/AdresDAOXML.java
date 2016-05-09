@@ -111,6 +111,7 @@ public class AdresDAOXML implements AdresDAO {
             xmlEncoder.writeObject(adresGegevens);
             xmlEncoder.close();
         } 
+        
         catch (FileNotFoundException ex) {
             Logger.getLogger(AdresDAOXML.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println(ex + "\nHet bestand kon niet worden gevonden. Probeer opnieuw.");
