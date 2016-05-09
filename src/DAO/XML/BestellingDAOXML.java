@@ -21,7 +21,7 @@ import org.json.simple.JSONObject;
 
 /**
  *
- * @author Gebruiker
+ * @author Herman rules
  */
 public class BestellingDAOXML implements BestellingDAO{
 
