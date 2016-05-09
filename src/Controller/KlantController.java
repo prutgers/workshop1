@@ -12,10 +12,15 @@ package Controller;
 
 import View.KlantView;
 import View.KlantKeuzeView;
+import View.AdresView;
 import DAO.MySQL.KlantDAOMySQL;
 import POJO.Klant;
+import POJO.Adres;
+import POJO.KlantAdres;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import interfaceDAO.KlantDAO;
+import interfaceDAO.AdresDAO;
+import interfaceDAO.KlantAdresDAO;
 import DAOFactory.DAOFactory;
 
 
@@ -71,6 +76,34 @@ public class KlantController {
         }
         catch (MySQLIntegrityConstraintViolationException ex){
             kView.KlantBestaatAl();
+        }
+        
+        //create adres
+        AdresView adresView = new AdresView();
+        adresView.create();
+        
+        Adres adres = new Adres();
+        adres.setAdres_id(adresView.getAdres_id());
+        adres.setStraatnaam(adresView.getStraatnaam());
+        adres.setHuisnummer(adresView.getHuisnummer());
+        adres.setToevoeging(adresView.getToevoeging());
+        adres.setPostcode(adresView.getPostcode());
+        adres.setWoonplaats(adresView.getWoonplaats());
+        
+        AdresDAO aDAO = DAOFactory.getAdresDAO();
+        aDAO.createAdres(adres);
+        
+        //koppel de klant ana het adres
+        KlantAdres klantAdres = new KlantAdres();
+        klantAdres.setKlant_id( klant.getKlant_id() );
+        klantAdres.setAdres_id( adres.getAdres_id() );
+        
+        
+        KlantAdresDAO klantAdresDAO = new DAOFactory().getKlantAdresDAO();
+        try {
+            klantAdresDAO.createKlantAdresKoppel(klantAdres);
+        }
+        catch (MySQLIntegrityConstraintViolationException ex){
         }
 
     }
