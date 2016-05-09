@@ -9,10 +9,13 @@ import POJO.Bestelling;
 import POJO.BestellingArtikel;
 import interfaceDAO.BestellingArtikelDAO;
 import java.beans.XMLDecoder;
+import java.beans.XMLEncoder;
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 /**
@@ -29,6 +32,7 @@ public class BestellingArtikelDAOXML implements BestellingArtikelDAO {
             lijst = readFile();
         }
         lijst.add(koppel);
+        writeFile(lijst);
     }
 
     @Override
@@ -71,6 +75,7 @@ public class BestellingArtikelDAOXML implements BestellingArtikelDAO {
             if(ba.getBestelling_id() == bestellingID)
                 lijst.remove(ba);
         }
+        writeFile(lijst);
     }
 
     @Override
@@ -80,6 +85,7 @@ public class BestellingArtikelDAOXML implements BestellingArtikelDAO {
             if(ba.getArtikel_id() == artikelID)
                 lijst.remove(ba);
         }
+        writeFile(lijst);
     }
 
     @Override
@@ -89,6 +95,7 @@ public class BestellingArtikelDAOXML implements BestellingArtikelDAO {
             if(ba.getArtikel_id() == artikelID && ba.getBestelling_id() == bestellingID)
                 lijst.remove(ba);
         }
+        writeFile(lijst);
     }
 
     @Override
@@ -100,6 +107,7 @@ public class BestellingArtikelDAOXML implements BestellingArtikelDAO {
                 ba.setBestelling_id(koppel.getBestelling_id());
                 ba.setAantal(koppel.getAantal());
         }
+        writeFile(lijst);
     }
     
     //private method
@@ -120,6 +128,20 @@ public class BestellingArtikelDAOXML implements BestellingArtikelDAO {
         e.printStackTrace();
     }
     return lijst;
+    }
+    
+        private void writeFile (ArrayList<BestellingArtikel> lijst) {
+        try{
+            FileOutputStream fos = new FileOutputStream("c:/data/xml/bestellingArtikel.xml");
+            BufferedOutputStream bos = new BufferedOutputStream(fos);
+            XMLEncoder xmlEncoder = new XMLEncoder(bos);
+            //xmlEncoder.writeObject(bestelling);
+            xmlEncoder.writeObject(lijst);
+            xmlEncoder.close();
+        }
+        catch(FileNotFoundException e){
+            e.printStackTrace();
+        }
     }
     
 }

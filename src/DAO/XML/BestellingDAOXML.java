@@ -8,10 +8,13 @@ package DAO.XML;
 import POJO.Bestelling;
 import interfaceDAO.BestellingDAO;
 import java.beans.XMLDecoder;
+import java.beans.XMLEncoder;
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import org.json.simple.JSONObject;
@@ -35,6 +38,7 @@ public class BestellingDAOXML implements BestellingDAO{
             bestelling.setBestellingID(1);
         }
         lijst.add(bestelling);
+        writeFile(lijst);
         return bestelling;
     }
 
@@ -73,6 +77,7 @@ public class BestellingDAOXML implements BestellingDAO{
             if(b.getBestellingID() == bestelling.getBestellingID())
                 b.setKlantID(bestelling.getKlantID());
         }
+        writeFile(lijst);
     }
 
     @Override
@@ -83,6 +88,7 @@ public class BestellingDAOXML implements BestellingDAO{
             if(b.getBestellingID() == bestellingID)
                 lijst.remove(b);
         }
+        writeFile(lijst);
     }
     
     private ArrayList<Bestelling> readFile() {
@@ -102,6 +108,19 @@ public class BestellingDAOXML implements BestellingDAO{
             e.printStackTrace();
         }
         return lijst;
+    }
+    private void writeFile (ArrayList<Bestelling> lijst) {
+        try{
+            FileOutputStream fos = new FileOutputStream("c:/data/xml/bestellingArtikel.xml");
+            BufferedOutputStream bos = new BufferedOutputStream(fos);
+            XMLEncoder xmlEncoder = new XMLEncoder(bos);
+            //xmlEncoder.writeObject(bestelling);
+            xmlEncoder.writeObject(lijst);
+            xmlEncoder.close();
+        }
+        catch(FileNotFoundException e){
+            e.printStackTrace();
+        }
     }
     
 }
