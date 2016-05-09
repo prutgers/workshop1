@@ -31,6 +31,7 @@ public class KlantController {
         switch (keuze.getSelect()) {
             case 1:
                 deze.create();
+                
                 break;
             case 2:
                 deze.read();
@@ -48,10 +49,12 @@ public class KlantController {
                 deze.readAll();
                 break;
             case 0:
-                break;
+                MainController.hoofdMenu();
+                return;
             default:
                 break;
         }
+        startKeuze();
     }
     
     public void create(){
