@@ -83,7 +83,6 @@ public class BestellingDAOXML implements BestellingDAO{
     @Override
     public void deleteBestelling(int bestellingID) {
         ArrayList<Bestelling> lijst = readFile();
-        int i = 0;
         for(Bestelling b : lijst){
             if(b.getBestellingID() == bestellingID)
                 lijst.remove(b);
@@ -96,7 +95,6 @@ public class BestellingDAOXML implements BestellingDAO{
         File file = new File("c:/data/xml/bestelling.xml");
         if(!file.exists()){
             System.out.println("Er is nog geen Data");
-            return new ArrayList<Bestelling>();
         }
         try{
             FileInputStream fis = new FileInputStream(file);
@@ -111,7 +109,7 @@ public class BestellingDAOXML implements BestellingDAO{
     }
     private void writeFile (ArrayList<Bestelling> lijst) {
         try{
-            FileOutputStream fos = new FileOutputStream("c:/data/xml/bestellingArtikel.xml");
+            FileOutputStream fos = new FileOutputStream("c:/data/xml/bestelling.xml");
             BufferedOutputStream bos = new BufferedOutputStream(fos);
             XMLEncoder xmlEncoder = new XMLEncoder(bos);
             //xmlEncoder.writeObject(bestelling);
