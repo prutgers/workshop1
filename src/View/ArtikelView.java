@@ -10,7 +10,7 @@ import formatMessage.PrintFormat;
 import formatMessage.VerifyInputScanner;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Scanner;
+
 
 /**
  *
