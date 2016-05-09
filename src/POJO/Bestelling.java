@@ -5,11 +5,13 @@
  */
 package POJO;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Gebruiker
  */
-public class Bestelling {
+public class Bestelling implements Serializable {
     private int bestellingID;
     private int klantID;
 

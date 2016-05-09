@@ -14,7 +14,7 @@ public class DAOFactorySonja {
     
     private String database = "MySQL";
     
-    public AdresDAO getAdresDAO() {
+    public interfaceDAO.AdresDAO getAdresDAO() {
         if(database.equalsIgnoreCase("XML")) {
             return new AdresDAOXML();
         }
@@ -29,7 +29,7 @@ public class DAOFactorySonja {
         }
     }
     
-    public ArtikelDAO getArtikelDAO() {
+    public interfaceDAO.ArtikelDAO getArtikelDAO() {
         if(database.equalsIgnoreCase("XML")) {
             return new ArtikelDAOXML();
         }
@@ -44,7 +44,7 @@ public class DAOFactorySonja {
         }
     }
     
-    public BestellingDAO getBestellingDAO() {
+    public interfaceDAO.BestellingDAO getBestellingDAO() {
         if(database.equalsIgnoreCase("XML")) {
             return new BestellingDAOXML();
         }
@@ -59,7 +59,7 @@ public class DAOFactorySonja {
         }
     }
     
-    public BestellingArtikelDAO getBestellingArtikelDAO() {
+    public interfaceDAO.BestellingArtikelDAO getBestellingArtikelDAO() {
         if(database.equalsIgnoreCase("XML")) {
             return new BestellingArtikelDAOXML();
         }
@@ -74,7 +74,7 @@ public class DAOFactorySonja {
         }
     }
     
-    public KlantDAO getKlantDAO() {
+    public interfaceDAO.KlantDAO getKlantDAO() {
         if(database.equalsIgnoreCase("XML")) {
             return new KlantDAOXML();
         }
