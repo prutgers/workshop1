@@ -18,12 +18,12 @@ public class AdresDAOFirebird implements AdresDAO {
     
     @Override
     public Adres createAdres(Adres adres) {
-        try (Connection connection = new DBConnectorFirebird().getConnection()) {
+        try (Connection connection = DBConnectorFirebird.getConnection()) {
             Class.forName("org.firebirdsql.jdbc.FBDriver");
             String query = "INSERT INTO adres (straatnaam, huisnummer, "
                     + "toevoeging, postcode, woonplaats) "
                 + "values (?, ?, ?, ?, ?) RETURNING adres_id";
-            PreparedStatement stmntCA = connection.prepareStatement(query);
+            PreparedStatement stmntCA = connection.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
             
             stmntCA.setInt(1, adres.getAdres_id());
             stmntCA.setString(2, adres.getStraatnaam());
@@ -33,20 +33,25 @@ public class AdresDAOFirebird implements AdresDAO {
             stmntCA.setString(6, adres.getWoonplaats());
 
             stmntCA.executeUpdate();
+            
+                ResultSet generatedKey = stmntCA.getGeneratedKeys();
+                if(generatedKey.isBeforeFirst()){
+                    generatedKey.next();
+                    adres.setAdres_id(generatedKey.getInt(1));
+                }
             }
         
         catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex + "\nProbeer opnieuw.");
         }
-        //dit is exact het zelfde adres als dat je kreeg alleen even neergezet
-        // om de code te laten werken hier moet nog een generated Key aan toegevoegd worden
+
         return adres;
     }            
     
     @Override
     public ArrayList<Adres> readAdres() {
         ArrayList<Adres> adresGegevens = new ArrayList<>();
-        try (Connection connection = new DBConnectorFirebird().getConnection()) { 
+        try (Connection connection = DBConnectorFirebird.getConnection()) { 
             Class.forName("org.firebirdsql.jdbc.FBDriver");
             PreparedStatement stmntRA = connection.prepareStatement(
                     "SELECT * FROM adres ");
@@ -84,7 +89,7 @@ public class AdresDAOFirebird implements AdresDAO {
     public Adres readAdresByID(int adresID) {
         Adres adres = new Adres();
     
-        try (Connection connection = new DBConnectorFirebird().getConnection();) {
+        try (Connection connection = DBConnectorFirebird.getConnection()) {
             Class.forName("org.firebirdsql.jdbc.FBDriver");
             PreparedStatement stmntRAID = connection.prepareStatement(
                     "SELECT * FROM adres WHERE adres_id=?");
@@ -108,7 +113,7 @@ public class AdresDAOFirebird implements AdresDAO {
     
     @Override
     public void updateAdres(Adres adres) {
-        try (Connection connection = new DBConnectorFirebird().getConnection();) {
+        try (Connection connection = DBConnectorFirebird.getConnection()) {
             Class.forName("org.firebirdsql.jdbc.FBDriver");
             
             String query = "UPDATE adres SET "
@@ -139,7 +144,7 @@ public class AdresDAOFirebird implements AdresDAO {
     @Override
     public void deleteAdres(int adres_id) {
         String query = "DELETE FROM adres WHERE adres_id=?";
-        try (Connection connection = new DBConnectorFirebird().getConnection();) {
+        try (Connection connection = DBConnectorFirebird.getConnection()) {
             Class.forName("org.firebirdsql.jdbc.FBDriver");
             
             stmnt = connection.prepareStatement(query);
@@ -147,7 +152,7 @@ public class AdresDAOFirebird implements AdresDAO {
             stmnt.executeUpdate();
             
         } catch (SQLException | ClassNotFoundException ex) {
-            System.out.println("Probeer opnieuw.");
+            System.out.println(ex + "\nProbeer opnieuw.");
         }
     }
 }
