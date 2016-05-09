@@ -37,6 +37,7 @@ public class test {
                     System.out.println(bestelling.getBestellingID());
                     System.out.println(bestelling.getKlantID());
             }
+            xmlDecoder.close();
 
 	}
     
