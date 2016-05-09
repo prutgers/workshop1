@@ -92,11 +92,13 @@ public class KlantAdresController {
     
     public void deleteByKlant(){
         kView.deleteByKlant();
+        klantAdresDAO = new DAOFactory().getKlantAdresDAO();
         klantAdresDAO.deleteKlantAdresKoppel( kView.getKlant_id() );
     }
     
     public void deleteByAdres(){
         kView.deleteByAdres();
+        klantAdresDAO = new DAOFactory().getKlantAdresDAO();
         klantAdresDAO.deleteAdresKlantKoppel( kView.getAdres_id() );
     }
     
