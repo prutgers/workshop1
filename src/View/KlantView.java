@@ -51,7 +51,7 @@ public class KlantView {
         //select a Klant
         System.out.println("\nUpdate een Klant! \nWat is je Klant_id?");
         int klant_idlocal = VerifyInputScanner.verifyInt();
-        
+        this.setKlant_id(klant_idlocal);
         System.out.println("Welkom terug "+ new DAOFactory().getKlantDAO().readKlant( klant_idlocal ).getVoornaam() );
         
         //verkrijg de nieuwe data uit de commandline en zet in de Outputklant

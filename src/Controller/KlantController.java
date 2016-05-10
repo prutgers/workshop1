@@ -36,7 +36,6 @@ public class KlantController {
         switch (keuze.getSelect()) {
             case 1:
                 deze.create();
-                
                 break;
             case 2:
                 deze.read();
@@ -122,6 +121,8 @@ public class KlantController {
     
     public void delete(){
         kView.delete();
+        KlantAdresDAO klantAdresDAO = new DAOFactory().getKlantAdresDAO();
+        klantAdresDAO.deleteKlantAdresKoppel( kView.getKlant_id() );
         try {
         new DAOFactory().getKlantDAO().deleteKlant( kView.getKlant_id() );
         }
