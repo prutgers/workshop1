@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author Gebruiker
+ * @author Peter
  */
 public class ArtikelKeuzeView {
     private int select;
