@@ -17,7 +17,7 @@ public class BestellingDAOMySQL implements BestellingDAO{
         String query = "INSERT INTO Bestelling (klant_id) values (?)";
       
 
-        try(Connection con = ConnectionPool.getConnection()){
+        try(Connection con = ConnectionPool.getConnection();){
         
             PreparedStatement stmt = con.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
 
@@ -83,7 +83,11 @@ public class BestellingDAOMySQL implements BestellingDAO{
             stmt.setInt(1, klantId);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){    
-                Bestelling bestelling = new Bestelling.BestellingBuilder().bestellingID(rs.getInt("bestelling_id")).klantID(rs.getInt("klant_id")).build();
+                // Er is iets met deze builder dat niet klopt, bestelling_id wordt wel goed mee gegeven maar klant_id niet
+                //Bestelling bestelling = new Bestelling.BestellingBuilder().bestellingID(rs.getInt("bestelling_id")).klantID(rs.getInt("klant_id")).build();
+                Bestelling bestelling = new Bestelling();
+                bestelling.setBestellingID(rs.getInt("bestelling_id"));
+                bestelling.setKlantID(rs.getInt("klant_id"));
                 bestellingLijst.add(bestelling);
             }
         }
