@@ -21,24 +21,23 @@ public class AdresDAOMySQL implements AdresDAO {
     @Override
     public Adres createAdres(Adres adres) {
         String query = "INSERT INTO adres ("
-                + "adres_id"
                 + "straatnaam,"
                 + "huisnummer,"
                 + "toevoeging,"
                 + "postcode,"
                 + "woonplaats)"
-                + "values (?, ?, ?, ?, ?, ?)";
+                + "values (?, ?, ?, ?, ?)";
         try (Connection connection = ConnectionPool.getConnection();){
             
             PreparedStatement stmntCA = connection.prepareStatement(query,
                     Statement.RETURN_GENERATED_KEYS);
             
-            stmntCA.setInt(1, adres.getAdres_id());
-            stmntCA.setString(2, adres.getStraatnaam());
-            stmntCA.setInt(3, adres.getHuisnummer());
-            stmntCA.setString(4, adres.getToevoeging());
-            stmntCA.setString(5, adres.getPostcode());
-            stmntCA.setString(6, adres.getWoonplaats());
+            
+            stmntCA.setString(1, adres.getStraatnaam());
+            stmntCA.setInt(2, adres.getHuisnummer());
+            stmntCA.setString(3, adres.getToevoeging());
+            stmntCA.setString(4, adres.getPostcode());
+            stmntCA.setString(5, adres.getWoonplaats());
             
             stmntCA.executeUpdate();
             
