@@ -128,12 +128,14 @@ public class ArtikelDAOMySQL implements ArtikelDAO {
             pstmt.close();
         }
         catch (ClassNotFoundException | SQLException e){
-            System.out.println("verdorie misluktFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
+            System.out.println("verdorie mislukt");
         } 
     }
    
    @Override
    public void deleteArtikel(int artikel_ID) {
+        BestellingArtikelDAOMySQL baDAO = new BestellingArtikelDAOMySQL();
+        baDAO.deleteKoppelMetArtikelID(artikel_ID);
         try(Connection connection = ConnectionPool.getConnection();){
             String update = "DELETE FROM artikel WHERE artikel_id = ?";
             PreparedStatement pstmt = connection.prepareStatement(update);
