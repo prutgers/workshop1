@@ -12,7 +12,6 @@ package Controller;
 
 
 import View.ArtikelView;
-import DAO.MySQL.ArtikelDAOMySQL;
 import DAOFactory.DAOFactory;
 import POJO.Artikel;
 import View.ArtikelKeuzeView;
