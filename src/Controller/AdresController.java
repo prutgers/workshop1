@@ -10,6 +10,7 @@ import DAOFactory.DAOFactory;
 import POJO.Adres;
 import View.AdresKeuzeView;
 import interfaceDAO.AdresDAO;
+import interfaceDAO.KlantAdresDAO;
 import java.util.ArrayList;
 
 public class AdresController {
@@ -94,7 +95,10 @@ public class AdresController {
     
     public static void delete() {
         AdresView adresView = new AdresView();
-        adresView.delete();
+        adresView.readAdresByID();
+        
+        KlantAdresDAO kaDAO = DAOFactory.getKlantAdresDAO();
+        kaDAO.deleteAdresKlantKoppel(adresView.getAdres_id());
   
         AdresDAO aDAO = DAOFactory.getAdresDAO();
         aDAO.deleteAdres(adresView.getAdres_id());
