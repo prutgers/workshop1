@@ -34,7 +34,7 @@ public class ArtikelDAOMySQL implements ArtikelDAO {
         
         System.out.println("artikel prijs " + artikel.getArtikel_prijs() );
         
-        try(Connection connection = ConnectionPool.getConnection()) {
+        try(Connection connection = ConnectionPool.getConnection();) {
             String sql = "INSERT INTO artikel("
             + "artikel_naam,"
             + "artikel_voorraad,"
@@ -89,7 +89,7 @@ public class ArtikelDAOMySQL implements ArtikelDAO {
    @Override
    public Artikel readArtikel(int artikel_id){
         Artikel artikel = new Artikel();
-        try(Connection connection = ConnectionPool.getConnection()){
+        try(Connection connection = ConnectionPool.getConnection();){
             String query = "SELECT * FROM artikel WHERE artikel_id = " + artikel_id;
             PreparedStatement pstmt = connection.prepareStatement(query);
             ResultSet rs = pstmt.executeQuery(query);
@@ -114,7 +114,7 @@ public class ArtikelDAOMySQL implements ArtikelDAO {
    
    @Override
    public void updateArtikel(Artikel artikel){
-        try(Connection connection = ConnectionPool.getConnection()){
+        try(Connection connection = ConnectionPool.getConnection();){
             String update = "UPDATE artikel SET artikel_naam = ?, "
                       + " artikel_voorraad = ?, "
                       + " artikel_prijs = ? "
@@ -134,7 +134,7 @@ public class ArtikelDAOMySQL implements ArtikelDAO {
    
    @Override
    public void deleteArtikel(int artikel_ID) {
-        try(Connection connection = ConnectionPool.getConnection()){
+        try(Connection connection = ConnectionPool.getConnection();){
             String update = "DELETE FROM artikel WHERE artikel_id = ?";
             PreparedStatement pstmt = connection.prepareStatement(update);
             pstmt.setInt(1, artikel_ID);
