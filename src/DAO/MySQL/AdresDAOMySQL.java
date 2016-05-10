@@ -15,7 +15,6 @@ import java.util.logging.Logger;
 import java.sql.Statement; 
 
 public class AdresDAOMySQL implements AdresDAO {
-    static PreparedStatement stmnt; 
 
     @Override
     public Adres createAdres(Adres adres) {
@@ -33,6 +32,7 @@ public class AdresDAOMySQL implements AdresDAO {
                     Statement.RETURN_GENERATED_KEYS);
             
             //set values
+            stmntCA.setInt(1, adres.getAdres_id());
             stmntCA.setString(1, adres.getStraatnaam());
             stmntCA.setInt(2, adres.getHuisnummer());
             stmntCA.setString(3, adres.getToevoeging());
@@ -151,6 +151,8 @@ public class AdresDAOMySQL implements AdresDAO {
     public void deleteAdres(int adres_id) {
         String query = "DELETE FROM adres WHERE adres_id=?";
         try (Connection connection = ConnectionPool.getConnection();) {
+            
+            PreparedStatement stmnt;
             
             stmnt = connection.prepareStatement(query);
             stmnt.setInt(1, adres_id);
