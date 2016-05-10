@@ -6,6 +6,7 @@
 package POJO;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  *
@@ -14,7 +15,7 @@ import java.io.Serializable;
 public class Bestelling implements Serializable {
     private int bestellingID;
     private int klantID;
-    private int totaalPrijs;
+    private BigDecimal totaalPrijs;
 
     public int getBestellingID() {
         return bestellingID;
@@ -42,14 +43,14 @@ public class Bestelling implements Serializable {
     /**
      * @return the totaalPrijs
      */
-    public int getTotaalPrijs() {
+    public BigDecimal getTotaalPrijs() {
         return totaalPrijs;
     }
 
     /**
      * @param totaalPrijs the totaalPrijs to set
      */
-    public void setTotaalPrijs(int totaalPrijs) {
+    public void setTotaalPrijs(BigDecimal totaalPrijs) {
         this.totaalPrijs = totaalPrijs;
     }
 

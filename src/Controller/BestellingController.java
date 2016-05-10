@@ -9,6 +9,7 @@ import DAOFactory.DAOFactory;
 import POJO.*;
 import View.*;
 import interfaceDAO.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 
@@ -159,8 +160,21 @@ public class BestellingController {
         koppel.setArtikel_id(view.getArtikelID());
         koppel.setAantal(view.getAantal());
         
+      
         
         BestellingArtikelDAO baDAO = DAOFactory.getBestellingArtikelDAO();      
         baDAO.createKoppelBestellingArtikel(koppel);
+        
     }
+    
+    
+    //deze code wordtnog niet gebruikt
+    public static BigDecimal getArtikelPrijs(int artikel_id){
+        ArtikelDAO dao = DAOFactory.getArtikelDAO();
+        Artikel artikel = dao.readArtikel(artikel_id);
+        BigDecimal totaal = artikel.getArtikel_prijs(); // moet nog vermenigvuldien met het aantal
+        return totaal;
+    }
+    
+    
 }

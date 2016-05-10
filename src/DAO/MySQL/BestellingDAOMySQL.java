@@ -114,6 +114,23 @@ public class BestellingDAOMySQL implements BestellingDAO{
         }
     }
     
+    public void updateBestellingPrijs(Bestelling bestelling){
+        String query =  "UPDATE Bestelling SET totaal_prijs = ? WHERE bestelling_id = ?;";
+
+        try(Connection con = new DBConnector().getConnection();){
+   
+            PreparedStatement stmt = con.prepareStatement(query);
+
+            stmt.setBigDecimal(1, bestelling.getTotaalPrijs());
+            stmt.setInt(2, bestelling.getBestellingID());
+            
+            stmt.executeUpdate();
+        }
+        catch(SQLException | ClassNotFoundException  e){
+            e.printStackTrace();
+        }
+    }
+    
     public void deleteBestelling(int bestelling_id){
         String sql = "DELETE FROM bestelling WHERE bestelling_id=?";
         try(Connection con = new DBConnector().getConnection();){
