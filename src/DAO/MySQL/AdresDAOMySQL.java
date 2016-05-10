@@ -26,7 +26,7 @@ public class AdresDAOMySQL implements AdresDAO {
                 + "toevoeging,"
                 + "postcode,"
                 + "woonplaats)"
-                + "values (?, ?, ?, ?, ?)";
+                + " values (?, ?, ?, ?, ?)";
         try (Connection connection = ConnectionPool.getConnection();){
             
             PreparedStatement stmntCA = connection.prepareStatement(query,
