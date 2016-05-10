@@ -134,8 +134,7 @@ public class ArtikelDAOMySQL implements ArtikelDAO {
    
    @Override
    public void deleteArtikel(int artikel_ID) {
-        BestellingArtikelDAOMySQL baDAO = new BestellingArtikelDAOMySQL();
-        baDAO.deleteKoppelMetArtikelID(artikel_ID);
+        
         try(Connection connection = ConnectionPool.getConnection();){
             String update = "DELETE FROM artikel WHERE artikel_id = ?";
             PreparedStatement pstmt = connection.prepareStatement(update);

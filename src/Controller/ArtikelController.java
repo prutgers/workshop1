@@ -11,11 +11,13 @@ package Controller;
  */
 
 
+import DAO.MySQL.BestellingArtikelDAOMySQL;
 import View.ArtikelView;
 import DAOFactory.DAOFactory;
 import POJO.Artikel;
 import View.ArtikelKeuzeView;
 import interfaceDAO.ArtikelDAO;
+import interfaceDAO.BestellingArtikelDAO;
 
 /**
  *
@@ -82,6 +84,9 @@ public class ArtikelController {
     public static void delete(){
         ArtikelView aView = new ArtikelView();
         aView.delete();
+        
+        BestellingArtikelDAO baDAO = DAOFactory.getBestellingArtikelDAO();
+        baDAO.deleteKoppelMetArtikelID(aView.getArtikel_id());
         
         ArtikelDAO dao = DAOFactory.getArtikelDAO();
         dao.deleteArtikel(aView.getArtikel_id());
