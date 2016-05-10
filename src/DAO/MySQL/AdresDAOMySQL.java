@@ -15,20 +15,20 @@ import java.util.logging.Logger;
 import java.sql.Statement; 
 
 public class AdresDAOMySQL implements AdresDAO {
-    
-    static PreparedStatement stmnt;
+    static PreparedStatement stmnt; 
 
     @Override
     public Adres createAdres(Adres adres) {
         
         try (Connection connection = ConnectionPool.getConnection();){
             String query = "INSERT INTO adres ("
-                + "straatnaam,"
-                + "huisnummer,"
-                + "toevoeging,"
-                + "postcode,"
-                + "woonplaats)"
-                + " values (?, ?, ?, ?, ?)";
+                + "adres_id, "
+                + "straatnaam, "
+                + "huisnummer, "
+                + "toevoeging, "
+                + "postcode, "
+                + "woonplaats) "
+                + "values (?, ?, ?, ?, ?, ?)";
             
             PreparedStatement stmntCA = connection.prepareStatement(query,
                     Statement.RETURN_GENERATED_KEYS);
