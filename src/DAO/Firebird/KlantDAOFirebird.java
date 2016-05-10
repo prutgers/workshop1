@@ -155,11 +155,11 @@ public class KlantDAOFirebird implements KlantDAO{
                 ) {
             PreparedStatement readKlant = connection.prepareStatement(
                     "select * from klant where "
-                            + "Klant_id LIKE ? "           //1
-                            + "and voornaam LIKE ? "       //2
-                            + "and achternaam LIKE ? "     //3
-                            + "and tussenvoegsel LIKE ? "  //4
-                            + "and email LIKE ? ");        //5
+                            + "Klant_id LIKE ? "                        //1
+                            + "and voornaam LIKE ? "                    //2
+                            + "and achternaam LIKE ? "                  //3
+                            + "and IFNULL(tussenvoegsel,'') LIKE ? "    //4
+                            + "and IFNULL(email,'') LIKE ? ");          //5
             
             readKlant.setString(1, (klant.getKlant_id() == 0)?
                     "%" : Integer.toString( klant.getKlant_id() ) );
