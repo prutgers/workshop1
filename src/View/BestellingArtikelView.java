@@ -50,7 +50,5 @@ public class BestellingArtikelView {
         bestellingID = input.nextInt();
         System.out.print("Voer het artikel ID in: ");
         artikelID = input.nextInt();
-        System.out.print("Voer het aantal artikelen in: ");
-        aantal = input.nextInt();
     }
 }
