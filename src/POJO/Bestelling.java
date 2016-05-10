@@ -14,6 +14,7 @@ import java.io.Serializable;
 public class Bestelling implements Serializable {
     private int bestellingID;
     private int klantID;
+    private int totaalPrijs;
 
     public int getBestellingID() {
         return bestellingID;
@@ -36,6 +37,20 @@ public class Bestelling implements Serializable {
     public Bestelling(BestellingBuilder builder){
         this.bestellingID = builder.bestellingID;
         this.klantID = builder.klantID;
+    }
+
+    /**
+     * @return the totaalPrijs
+     */
+    public int getTotaalPrijs() {
+        return totaalPrijs;
+    }
+
+    /**
+     * @param totaalPrijs the totaalPrijs to set
+     */
+    public void setTotaalPrijs(int totaalPrijs) {
+        this.totaalPrijs = totaalPrijs;
     }
 
     public static class BestellingBuilder{
