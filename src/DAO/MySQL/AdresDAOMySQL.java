@@ -20,25 +20,26 @@ public class AdresDAOMySQL implements AdresDAO {
 
     @Override
     public Adres createAdres(Adres adres) {
-        String query = "INSERT INTO adres ("
+        
+        try (Connection connection = ConnectionPool.getConnection();){
+            String query = "INSERT INTO adres ("
                 + "straatnaam,"
                 + "huisnummer,"
                 + "toevoeging,"
                 + "postcode,"
                 + "woonplaats)"
                 + " values (?, ?, ?, ?, ?)";
-        try (Connection connection = ConnectionPool.getConnection();){
             
             PreparedStatement stmntCA = connection.prepareStatement(query,
                     Statement.RETURN_GENERATED_KEYS);
             
-            
+            //set values
             stmntCA.setString(1, adres.getStraatnaam());
             stmntCA.setInt(2, adres.getHuisnummer());
             stmntCA.setString(3, adres.getToevoeging());
             stmntCA.setString(4, adres.getPostcode());
             stmntCA.setString(5, adres.getWoonplaats());
-            
+            //insert into DB
             stmntCA.executeUpdate();
             
             ResultSet generatedKey = stmntCA.getGeneratedKeys();
@@ -46,6 +47,7 @@ public class AdresDAOMySQL implements AdresDAO {
                 generatedKey.next();
                 adres.setAdres_id(generatedKey.getInt(1));
             }
+            stmntCA.close();
         }
         catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex + "\nProbeer opnieuw.");
