@@ -130,11 +130,12 @@ public class KlantView {
     
     public void print(Klant e){
         System.out.printf("%12s| %31s| %32s| %13s| %31s|\n", "Klant_id", "Voornaam", "Achternaam", "Tussenvoegsel", "Email");
-        System.out.printf("%12s| %31s| %32s| %13s| %31s|\n", e.getKlant_id(), e.getVoornaam(), e.getAchternaam(), e.getTussenvoegsel(), e.getEmail());
+        System.out.printf("%12d| %31s| %32s| %13s| %31s|\n", e.getKlant_id(), e.getVoornaam(), e.getAchternaam(), e.getTussenvoegsel(), e.getEmail());
     }
     
     public void printUpdate(Klant e){
         System.out.println("Uw gegevens zijn geupdate.");
+        System.out.println("klant ID " + e.getKlant_id());
         this.print(e);
     }
 
@@ -144,7 +145,7 @@ public class KlantView {
     }
     
     public void KlantInKlantAdresTabel(){
-        System.out.println("De Klant die u probeerd te verwijderen heeft nog"
+        System.out.println("De Klant die u probeert te verwijderen heeft nog"
                 + " geassoceerde adressen of bestellingen."
                 + " \nVerwijder eerst deze koppels en probeer het dan nog eens.");
     }

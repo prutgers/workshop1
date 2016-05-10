@@ -102,7 +102,7 @@ public class KlantDAOMySQL implements KlantDAO{
                             + " achternaam = ?,"        //2
                             + " tussenvoegsel = ?,"     //3
                             + " email = ?"              //4
-                            +"where Klant_id = ?");     //5
+                            + " where Klant_id = ?");     //5
             
             updateKlant.setString(1, klant.getVoornaam() );
             updateKlant.setString(2, klant.getAchternaam() );
@@ -118,7 +118,7 @@ public class KlantDAOMySQL implements KlantDAO{
         catch(Exception ex){
             ex.printStackTrace();     
         }
-        return klantOut;
+        return klant;
     }
 
     @Override
