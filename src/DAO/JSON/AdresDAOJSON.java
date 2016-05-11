@@ -58,6 +58,7 @@ public class AdresDAOJSON implements AdresDAO {
         }
         
         catch (IOException ex) {
+            System.out.println(ex + "\n\nProbeer opnieuw.");
         } 
         
         return adres;
@@ -92,6 +93,7 @@ public class AdresDAOJSON implements AdresDAO {
         
         catch (IOException | ParseException ex) {
             java.util.logging.Logger.getLogger(AdresDAOJSON.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex + "\n\nProbeer opnieuw.");
         }
         
         return adressenLijst;
@@ -127,8 +129,10 @@ public class AdresDAOJSON implements AdresDAO {
         }
         
         catch (FileNotFoundException ex) {
+            System.out.println(ex + "\n\nProbeer opnieuw.");
         }        
         catch (IOException | ParseException ex) {
+            System.out.println(ex + "\n\nProbeer opnieuw.");
         }
         
         return adres;
@@ -163,8 +167,10 @@ public class AdresDAOJSON implements AdresDAO {
         }
         
         catch (FileNotFoundException ex) {
+            System.out.println(ex + "\n\nProbeer opnieuw.");
         }
         catch (IOException | ParseException ex) {
+            System.out.println(ex + "\n\nProbeer opnieuw.");
         }
     }
 
@@ -193,8 +199,10 @@ public class AdresDAOJSON implements AdresDAO {
         }
         
         catch (FileNotFoundException ex) {
+            System.out.println(ex + "\n\nProbeer opnieuw.");
         }
         catch (IOException | ParseException ex) {
+            System.out.println(ex + "\n\nProbeer opnieuw.");
         }
     }
 }

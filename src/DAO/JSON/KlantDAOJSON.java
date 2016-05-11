@@ -34,7 +34,7 @@ public class KlantDAOJSON implements KlantDAO{
         boolean klantAlreadyInDB = false;        
         JSONArray klantLijst = this.readFile();
         
-        //check for dubs!
+        //check voor duplicaten
         if (!klantLijst.isEmpty()){
         for(Object o : klantLijst) {
             JSONObject klantJson = (JSONObject)o;
@@ -50,7 +50,8 @@ public class KlantDAOJSON implements KlantDAO{
                             ) )
                   ) {
                     klantAlreadyInDB = true;
-                    System.out.print("Klant staat al in Database");
+                    System.out.print("Deze klant staat al in de database."
+                            + "\nProbeer opnieuw.");
                     break;
                 }
         }
@@ -58,7 +59,7 @@ public class KlantDAOJSON implements KlantDAO{
         //Schrijf de klant in de JSONArray
         if (!klantAlreadyInDB){
             
-            //vind hoogste klant_id ; moet eigelijk met Collections.max(JSONObject) maar dat duurt veel te lang
+            //vind het hoogste klant ID ; moet eigelijk met Collections.max(JSONObject) maar dat duurt veel te lang
             
             int klant_id = 0;
             if (!klantLijst.isEmpty()){
@@ -77,7 +78,7 @@ public class KlantDAOJSON implements KlantDAO{
             klantLijst.add(obj);
         }
         
-        //sla JSONArray op
+        //sla de JSONArray op
         this.JSONArrayToJSONFile( klantLijst );
         
         return klant;        
@@ -105,7 +106,8 @@ public class KlantDAOJSON implements KlantDAO{
             }
         }
         if (klantFound == false){
-            System.out.print("Geen klant gevonden!");
+            System.out.print("Er is geen klant met dit ID gevonden!"
+                    + "\nProbeer opnieuw.");
         }
         
         return outputKlant;
@@ -129,7 +131,7 @@ public class KlantDAOJSON implements KlantDAO{
             }
         }
         
-        //sla JSONArray op
+        //sla de JSONArray op
         this.JSONArrayToJSONFile( klantLijst );
         
         return klant; 
@@ -149,7 +151,7 @@ public class KlantDAOJSON implements KlantDAO{
                     break;
                 }
         }
-        //coverteer allKlant naar JSON en sla die op
+        //coverteer allKlant naar JSON en sla dit op
         this.JSONArrayToJSONFile( klantLijst );
         
     }
@@ -188,7 +190,7 @@ public class KlantDAOJSON implements KlantDAO{
                 klantLijst.add(outputKlant);
                 }
             }
-        System.out.println("" + i +" Klants matched this inquiry.");
+        System.out.println("Er zijn " + i + " klanten die met de zoekopdracht overeenkomen:\n");
         return klantLijst;
     }
     
@@ -213,13 +215,13 @@ public class KlantDAOJSON implements KlantDAO{
             list = (JSONArray)parser.parse(new FileReader(fileLocation));
         }
         catch (IOException ex){
-            logger.error("Input/Output Exception!");
+            logger.error("Input/Output Exception. \n\nProbeer opnieuw.");
             
             ex.printStackTrace();
             list = null;
         }
         catch (ParseException ex){
-            logger.error("Parse Exception! Waarschijnlijk is de database leeg.");
+            logger.error("Waarschijnlijk is de database leeg.\n\nProbeer opnieuw.");
             list = new JSONArray();
         }
         return list;
@@ -233,6 +235,7 @@ public class KlantDAOJSON implements KlantDAO{
             file.close();
 
 	} catch (IOException e) {
+            System.out.println("Probeer opnieuw.\n\n");
             e.printStackTrace();
 	}
     }

@@ -34,7 +34,7 @@ public class ArtikelDAOJSON implements ArtikelDAO {
         JSONParser parser = new JSONParser();
         
       //  File file = new File("c:/data/json/artikel.json");
-     //   System.out.println("file exixsts " + file.exists());
+     //   System.out.println("Bestaat het bestand? " + file.exists());
         try {
             artikelList = (JSONArray)parser.parse(new FileReader("c:/data/json/artikel.json"));
         } catch (FileNotFoundException e) {
@@ -51,12 +51,8 @@ public class ArtikelDAOJSON implements ArtikelDAO {
             //vindt het hoogste artikel_id
             artikel_id = (int)(long)json.get("artikel_id") + 1;
         }
-        
-        
-        
-        
-        
-        //Create het nieuwe artikel dat is meegegeven aan public Artikel createArtikel
+ 
+        //Maak het nieuwe artikel dat is meegegeven aan createArtikel
         JSONObject obj = new JSONObject();
         obj.put("artikel_id", artikel_id);
         obj.put("artikel_naam", artikel.getArtikel_naam());
@@ -69,6 +65,7 @@ public class ArtikelDAOJSON implements ArtikelDAO {
             file.flush();
             file.close();
         } catch (IOException e) {
+            System.out.println("Probeer opnieuw.\n\n");
             e.printStackTrace();
 	}
         return artikel;
@@ -185,6 +182,7 @@ public class ArtikelDAOJSON implements ArtikelDAO {
             file.flush();
             file.close();
         } catch (IOException e) {
+            System.out.println("Probeer opnieuw.\n\n");
             e.printStackTrace();
 	}
     }

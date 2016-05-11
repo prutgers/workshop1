@@ -34,13 +34,13 @@ public class BestellingArtikelDAOJSON implements BestellingArtikelDAO {
     public void createKoppelBestellingArtikel(BestellingArtikel bestellingArtikel) {
         //Haal de JSONFile op
         JSONArray koppel = this.readFromFile();
-        //Create het nieuwe artikel dat is meegegeven aan public Artikel createArtikel
+        //Maak het nieuwe artikel dat is meegegeven aan createArtikel
         JSONObject obj = new JSONObject();
         obj.put("bestelling_id", bestellingArtikel.getBestelling_id());
         obj.put("artikel_id", bestellingArtikel.getArtikel_id());
         obj.put("artikel_aantal", bestellingArtikel.getAantal());
         koppel.add(obj);
-        //Schrijf de geupdate JSON file weg
+        //Schrijf de aangepaste JSON file weg
         this.writeToFile(koppel);
 	}
 
@@ -174,6 +174,7 @@ public class BestellingArtikelDAOJSON implements BestellingArtikelDAO {
             file.flush();
             file.close();
         } catch (IOException e) {
+            System.out.println("Probeer opnieuw.\n\n");
             e.printStackTrace();
 	}
     }

@@ -35,22 +35,23 @@ public class BestellingDAOJSON implements BestellingDAO{
                 list= new JSONArray();
                 bestellingID = 0;
             }
-            //create newe JSONObject
+            //Maak een nieuw JSONObject
             JSONObject obj = new JSONObject();
             obj.put("bestelling_id", bestellingID+1);
             obj.put("klant_id", bestelling.getKlantID());     
             
             bestelling.setBestellingID(bestellingID+1);
-            //add new JSONObject to JSONArray
+            //Voeg een nieuw JSONObject toe aan JSONArray
             list.add(obj);
 
-            //write updated JSONArray to file
+            //schrijf aangepaste JSONArray naar het bestand
             FileWriter fileWriter = new FileWriter("c:/data/json/bestellingen.json");
             fileWriter.write(list.toJSONString());
             fileWriter.flush();
             fileWriter.close();
 	} 
         catch (IOException | ParseException e) {
+            System.out.println("Probeer opnieuw.\n\n");
             e.printStackTrace();
 	}
         return bestelling;
@@ -70,7 +71,7 @@ public class BestellingDAOJSON implements BestellingDAO{
                 System.out.println("Er is nog geen data");
                 System.exit(1);
             }     
-            //get JSONObject by Id
+            //haal JSONObject op met ID
             for(Object o : list){
                 JSONObject json = (JSONObject)o;
                 int tempBestellingID = ((int)(long)json.get("bestelling_id"));
@@ -87,6 +88,7 @@ public class BestellingDAOJSON implements BestellingDAO{
             fileWriter.close();
         }
         catch (IOException | ParseException e) {
+            System.out.println("Probeer opnieuw.\n\n");
             e.printStackTrace();
 	}
         return bestelling;
@@ -103,7 +105,7 @@ public class BestellingDAOJSON implements BestellingDAO{
                 list = (JSONArray)parser.parse(new FileReader("c:/data/json/bestellingen.json"));
             }
             else{
-                System.out.println("Er is nog geen data");
+                System.out.println("Er is nog geen data.");
                 System.exit(1);
             }    
 
@@ -121,6 +123,7 @@ public class BestellingDAOJSON implements BestellingDAO{
             fileWriter.close();
 	} 
         catch (IOException | ParseException e) {
+            System.out.println("Probeer opnieuw.\n\n");
             e.printStackTrace();
 	}
         return bestellingLijst;
@@ -137,10 +140,10 @@ public class BestellingDAOJSON implements BestellingDAO{
                 list = (JSONArray)parser.parse(new FileReader("c:/data/json/bestellingen.json"));
             }
             else{
-                System.out.println("Er is nog geen data");
+                System.out.println("Er is nog geen data.");
                 System.exit(1);
             }  
-             //get current data in JSONArray
+             //haal huidige data in JSONArray op
             list = (JSONArray)parser.parse(new FileReader("c:/data/json/bestellingen.json"));
             for(Object o : list) {
                 JSONObject json = (JSONObject)o;
@@ -161,6 +164,7 @@ public class BestellingDAOJSON implements BestellingDAO{
             fileWriter.close();
 	} 
         catch (IOException | ParseException e) {
+            System.out.println("Probeer opnieuw.\n\n");
             e.printStackTrace();
 	}
         return bestellingLijst;
@@ -176,10 +180,10 @@ public class BestellingDAOJSON implements BestellingDAO{
                 list = (JSONArray)parser.parse(new FileReader("c:/data/json/bestellingen.json"));
             }
             else{
-                System.out.println("Er is nog geen data");
+                System.out.println("Er is nog geen data.");
                 System.exit(1);
             }  
-            //get current data in JSONArray
+            //haal huidige data in JSONArray op
             list = (JSONArray)parser.parse(new FileReader("c:/data/json/bestellingen.json"));
 
             for(Object obj : list) {
@@ -189,13 +193,14 @@ public class BestellingDAOJSON implements BestellingDAO{
                     json.put("klant_id", bestelling.getKlantID());
                 }
             }
-            //write updated JSONArray to file
+            //schrijf aangepaste JSONArray naar het bestand
             FileWriter fileWriter = new FileWriter("c:/data/json/bestellingen.json");
             fileWriter.write(list.toJSONString());
             fileWriter.flush();
             fileWriter.close();
 	} 
         catch (IOException | ParseException e) {
+            System.out.println("Probeer opnieuw.\n\n");
             e.printStackTrace();
 	}
     }
@@ -210,10 +215,10 @@ public class BestellingDAOJSON implements BestellingDAO{
                 list = (JSONArray)parser.parse(new FileReader("c:/data/json/bestellingen.json"));
             }
             else{
-                System.out.println("Er is nog geen data");
+                System.out.println("Er is nog geen data.");
                 System.exit(1);
             } 
-            //get current data in JSONArray
+            //haal huidige data in JSONArray op
             list = (JSONArray)parser.parse(new FileReader("c:/data/json/bestellingen.json"));
             for(int i = 0; i< list.size();i++){
                 JSONObject json = (JSONObject)list.get(i);
@@ -227,6 +232,7 @@ public class BestellingDAOJSON implements BestellingDAO{
             fileWriter.flush();
 	}         
         catch (IOException | ParseException e) {
+            System.out.println("Probeer opnieuw.\n\n");
             e.printStackTrace();
 	}
     }
