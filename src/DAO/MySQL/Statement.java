@@ -44,6 +44,7 @@ public class Statement {
 
         }
         catch(Exception e){
+            System.out.println("\nProbeer opnieuw.\n");
             e.printStackTrace();
         }
     }
@@ -77,6 +78,7 @@ public class Statement {
                 }
             }
             catch (IllegalArgumentException | IllegalAccessException | SecurityException e) {
+                System.out.println("\nProbeer opnieuw.\n");
                 e.printStackTrace();
             }
         }

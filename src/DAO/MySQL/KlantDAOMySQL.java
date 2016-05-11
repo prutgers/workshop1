@@ -33,7 +33,7 @@ public class KlantDAOMySQL implements KlantDAO{
                             + " achternaam,"    //2
                             + " tussenvoegsel," //3
                             + " email)"         //4
-                            + "values (?, ?, ?, ?)" ;
+                            + " values (?, ?, ?, ?)" ;
             
             PreparedStatement pstmt = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
             pstmt.setString(1, klant.getVoornaam() );
@@ -49,10 +49,12 @@ public class KlantDAOMySQL implements KlantDAO{
             
         }
         catch(com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException ex){
-            logger.info("Klant bestaat al in Database");
+            logger.info("Deze klant bestaat al in de database."
+                    + "\nProbeer opnieuw.\n");
             throw ex;         
         }
         catch(Exception ex){
+            System.out.println("\nProbeer opnieuw.\n");
             ex.printStackTrace();         
         }
         return klant;
@@ -80,10 +82,11 @@ public class KlantDAOMySQL implements KlantDAO{
             klant.setTussenvoegsel(readKlantResult.getString("tussenvoegsel"));
             klant.setEmail(readKlantResult.getString("email"));
             
-                logger.info("POJO made.");
+                logger.info("POJO gemaakt.");
             
         }
         catch(Exception ex){
+            System.out.println("\nProbeer opnieuw.\n");
             ex.printStackTrace();
             return null;
         }
@@ -115,6 +118,7 @@ public class KlantDAOMySQL implements KlantDAO{
 
         }
         catch(Exception ex){
+            System.out.println("\nProbeer opnieuw.\n");
             ex.printStackTrace();     
         }
         return klant;
@@ -136,6 +140,7 @@ public class KlantDAOMySQL implements KlantDAO{
             throw ex;         
         }
         catch(Exception ex){
+            System.out.println("\nProbeer opnieuw.\n");
             ex.printStackTrace();     
         }
     }
@@ -168,7 +173,7 @@ public class KlantDAOMySQL implements KlantDAO{
             
             
             ResultSet readKlantResult = readKlant.executeQuery();
-                logger.info("Statement executed.");
+                logger.info("Statement uitgevoerd.");
             
             while (readKlantResult.next()){
                 i++;
@@ -184,9 +189,10 @@ public class KlantDAOMySQL implements KlantDAO{
         }
         
         catch(Exception ex){
+            System.out.println("\nProbeer opnieuw.\n");
             ex.printStackTrace();
         }
-        System.out.println("" + i +" Klants matched this inquiry.");
+        System.out.println("Er zijn " + i + " klanten die met de zoekopdracht overeenkomen:");
         return AllKlant;
     }
 }

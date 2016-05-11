@@ -49,7 +49,7 @@ public class AdresDAOMySQL implements AdresDAO {
             stmntCA.close();
         }
         catch (ClassNotFoundException | SQLException ex) {
-            System.out.println(ex + "\nProbeer opnieuw.");
+            System.out.println(ex + "\n\nProbeer opnieuw.");
             
             Logger.getLogger(AdresDAOMySQL.class.getName()).log(Level.SEVERE, null, ex);            
             }
@@ -84,7 +84,7 @@ public class AdresDAOMySQL implements AdresDAO {
             }
         }
         catch (ClassNotFoundException | SQLException ex) {
-            System.out.println(ex + "\nProbeer opnieuw.");
+            System.out.println(ex + "\n\nProbeer opnieuw.");
             }
         
         return adresGegevens;
@@ -112,7 +112,7 @@ public class AdresDAOMySQL implements AdresDAO {
                 adres.setAdres_id(rs.getInt("adres_id"));
         }
             catch (ClassNotFoundException | SQLException ex) {
-                System.out.println(ex + "\nProbeer opnieuw.");
+                System.out.println(ex + "\n\nProbeer opnieuw.");
             }
         
         return adres;
@@ -143,7 +143,7 @@ public class AdresDAOMySQL implements AdresDAO {
         }
         
         catch (SQLException | ClassNotFoundException ex) {
-            System.out.println(ex + "\nProbeer opnieuw.");
+            System.out.println(ex + "\n\nProbeer opnieuw.");
         }
     }
     
@@ -160,7 +160,7 @@ public class AdresDAOMySQL implements AdresDAO {
         } 
         
         catch (SQLException | ClassNotFoundException ex) {
-            System.out.println(ex + "\nProbeer opnieuw.");
+            System.out.println(ex + "\n\nProbeer opnieuw.");
         }
     }
 }

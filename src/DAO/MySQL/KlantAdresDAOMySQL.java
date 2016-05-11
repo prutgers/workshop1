@@ -45,12 +45,14 @@ public class KlantAdresDAOMySQL implements KlantAdresDAO {
             ResultSet resultSet = createKoppel.getGeneratedKeys();
             if (resultSet.isBeforeFirst()){
                 resultSet.next();
-                koppelKlantAdresOut.setKoppel_id(resultSet.getInt(1)); //wijs door db gegenereerde id toe aan klant
+                //wijs een door de database gegenereerd id toe aan de klant
+                koppelKlantAdresOut.setKoppel_id(resultSet.getInt(1)); 
             }
             
         }
         
         catch(Exception ex){
+            System.out.println("\nProbeer opnieuw.\n");
             ex.printStackTrace();     
         }
         return koppelKlantAdresOut;
@@ -78,9 +80,10 @@ public class KlantAdresDAOMySQL implements KlantAdresDAO {
             }
         }
         catch(Exception ex){
+            System.out.println("\nProbeer opnieuw.\n");
             ex.printStackTrace();     
         }
-        System.out.println("" + i +" klanten gevonden op dit adres.");
+        System.out.println("Er zijn " + i + " klanten gevonden op dit adres:");
         return allKlant_id;
     }
     
@@ -107,6 +110,7 @@ public class KlantAdresDAOMySQL implements KlantAdresDAO {
             }
         }
         catch(Exception ex){
+            System.out.println("\nProbeer opnieuw.\n");
             ex.printStackTrace();     
         }
         
@@ -131,6 +135,7 @@ public class KlantAdresDAOMySQL implements KlantAdresDAO {
             deleteByKlant_id.executeUpdate();
         }
         catch(Exception ex){
+            System.out.println("\nProbeer opnieuw.\n");
             ex.printStackTrace();            
         }
     }
@@ -147,6 +152,7 @@ public class KlantAdresDAOMySQL implements KlantAdresDAO {
             deleteByAdres_id.executeUpdate();
         }
         catch(Exception ex){
+            System.out.println("\nProbeer opnieuw.\n");
             ex.printStackTrace();            
         }
     }

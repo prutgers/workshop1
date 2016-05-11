@@ -11,7 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
-import static java.sql.Statement.RETURN_GENERATED_KEYS; // help mij hiermee :D
+import static java.sql.Statement.RETURN_GENERATED_KEYS; 
 import javax.sql.RowSet;
 import com.sun.rowset.*;
 import interfaceDAO.BestellingArtikelDAO;
@@ -24,7 +24,7 @@ import java.util.ArrayList;
 public class BestellingArtikelDAOMySQL implements BestellingArtikelDAO {
     
     
-    // Toe te voegen is Statement.RETURN_GENERATED_KEYS zoals in KlantDAO
+    //Statement.RETURN_GENERATED_KEYS toe te voegen
     
     @Override
     public void createKoppelBestellingArtikel(BestellingArtikel koppelBestellingArtikel){
@@ -38,7 +38,7 @@ public class BestellingArtikelDAOMySQL implements BestellingArtikelDAO {
             pstmt.executeUpdate();
         }
         catch(SQLException | ClassNotFoundException  e){
-            System.out.println("Fout in createKoppelBestellingArtikel");
+            System.out.println("\nProbeer opnieuw.\n");
             e.printStackTrace();
         }
     }
@@ -67,7 +67,7 @@ public class BestellingArtikelDAOMySQL implements BestellingArtikelDAO {
             
         }
         catch(SQLException | ClassNotFoundException  e){
-            System.out.println("Fout in readKoppelMetBestelling");
+            System.out.println("\nProbeer opnieuw.\n");
             e.printStackTrace();
         }
         return lijst;
@@ -96,7 +96,7 @@ public class BestellingArtikelDAOMySQL implements BestellingArtikelDAO {
             
         }
         catch(SQLException | ClassNotFoundException  e){
-            System.out.println("Fout in readKoppelMetBestelling");
+            System.out.println("\nProbeer opnieuw.\n");
             e.printStackTrace();
         }
         return lijst;
@@ -124,7 +124,7 @@ public class BestellingArtikelDAOMySQL implements BestellingArtikelDAO {
 
         }
         catch(SQLException | ClassNotFoundException  e){
-            System.out.println("Fout in readKoppelMetBestelling");
+            System.out.println("\nProbeer opnieuw.\n");
             e.printStackTrace();
         }
         return koppel;
@@ -147,12 +147,11 @@ public class BestellingArtikelDAOMySQL implements BestellingArtikelDAO {
             }
         }
         catch(SQLException | ClassNotFoundException  e){
-            System.out.println("Fout in readKoppelMetBestelling");
+            System.out.println("\nProbeer opnieuw.\n");
             e.printStackTrace();
         }
     }
     
-    // dit is waarschijnlijk onzin
     @Override
     public void deleteKoppelMetArtikelID(int artikel_id){
         try {
@@ -169,7 +168,7 @@ public class BestellingArtikelDAOMySQL implements BestellingArtikelDAO {
             }
         }
         catch(SQLException | ClassNotFoundException  e){
-            System.out.println("Fout in readKoppelMetBestelling");
+            System.out.println("\nProbeer opnieuw.\n");
             e.printStackTrace();
         }
     }
@@ -193,7 +192,7 @@ public class BestellingArtikelDAOMySQL implements BestellingArtikelDAO {
             
         }
         catch(SQLException | ClassNotFoundException  e){
-            System.out.println("Fout in readKoppelMetBestelling");
+            System.out.println("\nProbeer opnieuw.\n");
             e.printStackTrace();
         }
     }
@@ -218,14 +217,15 @@ public class BestellingArtikelDAOMySQL implements BestellingArtikelDAO {
             pstmt.executeUpdate();
         }
         catch(SQLException | ClassNotFoundException  e){
-            System.out.println("Fout in createKoppelBestellingArtikel");
+            System.out.println("\nProbeer opnieuw.\n");
             e.printStackTrace();
         }
     }
         
     /**
      * 
-     * dit werk niet maar waarom is nog onbekend gelukkig is er ook een werkende versie hoera voor Herman!!!!!
+     * dit werkt niet maar waarom is nog onbekend 
+     * gelukkig is er ook een werkende versie dankzij Herman
     public static void updateKoppel2(KoppelBestellingArtikel koppel){
         try {
             Class.forName("com.mysql.jdbc.Driver");

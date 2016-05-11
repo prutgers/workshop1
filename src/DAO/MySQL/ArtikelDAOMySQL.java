@@ -6,12 +6,6 @@
 package DAO.MySQL;
 
 /**
- *
- * @author Peter
- */
-
-/**
- * ArtikelDAO doet momenteen nog alles het zou mooi zijn als ik de connectie lost weet te koppelen
  * @author Peter
  */
 
@@ -53,6 +47,7 @@ public class ArtikelDAOMySQL implements ArtikelDAO {
             pstmt.close();
         } 
         catch (SQLException e){
+            System.out.println("\nProbeer opnieuw.\n");
                 e.printStackTrace();
         } catch (ClassNotFoundException ex) {
            Logger.getLogger(ArtikelDAOMySQL.class.getName()).log(Level.SEVERE, null, ex);
@@ -79,7 +74,8 @@ public class ArtikelDAOMySQL implements ArtikelDAO {
             pstmt.close();
         }
         catch (ClassNotFoundException | SQLException e){
-            System.out.println("verdorie mislukt");
+            System.out.println("\nProbeer opnieuw.\n");
+            e.printStackTrace();
         } 
        return artikelLijst;
    }
@@ -105,7 +101,8 @@ public class ArtikelDAOMySQL implements ArtikelDAO {
             pstmt.close();
         }
         catch (ClassNotFoundException | SQLException e){
-            System.out.println("verdorie mislukt");
+            System.out.println("\nProbeer opnieuw.\n");
+            e.printStackTrace();
         } 
        return artikel;
     }
@@ -126,7 +123,8 @@ public class ArtikelDAOMySQL implements ArtikelDAO {
             pstmt.close();
         }
         catch (ClassNotFoundException | SQLException e){
-            System.out.println("verdorie mislukt");
+            System.out.println("\nProbeer opnieuw.\n");
+            e.printStackTrace();
         } 
     }
    
@@ -141,7 +139,8 @@ public class ArtikelDAOMySQL implements ArtikelDAO {
             pstmt.close();
         }
         catch (ClassNotFoundException | SQLException e){
-            System.out.println("verdorie mislukt");
+            System.out.println("\nProbeer opnieuw.\n");
+            e.printStackTrace();
         }  
    }
 }

@@ -21,7 +21,7 @@ public class BestellingDAOMySQL implements BestellingDAO{
         
             PreparedStatement stmt = con.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
 
-            //Set values for INSERT-part of the statement
+            //set values vooor INSERT
                        
             stmt.setInt(1, bestelling.getKlantID());
 
@@ -30,11 +30,12 @@ public class BestellingDAOMySQL implements BestellingDAO{
             ResultSet resultSet = stmt.getGeneratedKeys();
             if (resultSet.isBeforeFirst()){
                 resultSet.next();
-                bestelling.setBestellingID(resultSet.getInt(1)); //wijs door db gegenereerde id toe aan klant
+                //wijs een door de database gegenereerd id toe aan de klant
+                bestelling.setBestellingID(resultSet.getInt(1)); 
             }
         }
         catch(SQLException | ClassNotFoundException e){
-            System.out.println("createBestelling error");
+            System.out.println("\nProbeer opnieuw.\n");
             e.printStackTrace();
         }
         return bestelling;
@@ -53,6 +54,7 @@ public class BestellingDAOMySQL implements BestellingDAO{
             }
         }
         catch(SQLException | ClassNotFoundException  e){
+            System.out.println("\nProbeer opnieuw.\n");
             e.printStackTrace();
         }
         return bestelling;
@@ -72,6 +74,7 @@ public class BestellingDAOMySQL implements BestellingDAO{
             }
         }
         catch(Exception e){
+            System.out.println("\nProbeer opnieuw.\n");
             e.printStackTrace();
         }
         return bestellingLijst;
@@ -84,7 +87,7 @@ public class BestellingDAOMySQL implements BestellingDAO{
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){    
                 // Er is iets met deze builder dat niet klopt, bestelling_id wordt wel goed mee gegeven maar klant_id niet
-                //Bestelling bestelling = new Bestelling.BestellingBuilder().bestellingID(rs.getInt("bestelling_id")).klantID(rs.getInt("klant_id")).build();
+                // Bestelling bestelling = new Bestelling.BestellingBuilder().bestellingID(rs.getInt("bestelling_id")).klantID(rs.getInt("klant_id")).build();
                 Bestelling bestelling = new Bestelling();
                 bestelling.setBestellingID(rs.getInt("bestelling_id"));
                 bestelling.setKlantID(rs.getInt("klant_id"));
@@ -92,6 +95,7 @@ public class BestellingDAOMySQL implements BestellingDAO{
             }
         }
         catch(Exception e){
+            System.out.println("\nProbeer opnieuw.\n");
             e.printStackTrace();
         }
         return bestellingLijst;
@@ -110,6 +114,7 @@ public class BestellingDAOMySQL implements BestellingDAO{
             stmt.executeUpdate();
         }
         catch(SQLException | ClassNotFoundException  e){
+            System.out.println("\nProbeer opnieuw.\n");
             e.printStackTrace();
         }
     }
@@ -127,6 +132,7 @@ public class BestellingDAOMySQL implements BestellingDAO{
             stmt.executeUpdate();
         }
         catch(SQLException | ClassNotFoundException  e){
+            System.out.println("\nProbeer opnieuw.\n");
             e.printStackTrace();
         }
     }
@@ -139,6 +145,7 @@ public class BestellingDAOMySQL implements BestellingDAO{
             stmt.executeUpdate();
         }
         catch(SQLException | ClassNotFoundException  e){
+            System.out.println("\nProbeer opnieuw.\n");
             e.printStackTrace();
         }
     }
