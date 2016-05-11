@@ -22,9 +22,8 @@ public class MainController {
         view.readMain();
         switch (view.getSelect()) {
             case 1:
-                
                 KlantController.startKeuze();
-                        
+                break;
             case 2:
                 BestellingController.startKeuze();
                 break;
@@ -38,7 +37,6 @@ public class MainController {
                 ConfigController.setConnection();
                 ConfigController.setDatabase();
                 break;
-                
             case 0:
                 System.exit(0);
                 break;
