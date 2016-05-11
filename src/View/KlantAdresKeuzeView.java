@@ -20,7 +20,7 @@ public class KlantAdresKeuzeView {
             + "2: Haal alle adressen van een klant op\n"
             + "3: Haal alle bewoners van een adres op\n"
                 + "\n"
-            + "4: Verwijder een klant van al zijn adressen\n"
+            + "4: Verwijder een klant van al zijn/haar adressen\n"
             + "5: Verwijder een adres voor alle klanten gekoppeld aan dat adres\n"
                 + "\n"
             + "0: Keer terug naar het Hoofdmenu\n");
