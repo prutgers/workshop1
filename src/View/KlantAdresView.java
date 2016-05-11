@@ -12,6 +12,7 @@ package View;
 
 import DAOFactory.DAOFactory;
 import POJO.KlantAdres;
+import formatMessage.PrintFormat;
 import java.util.ArrayList;
 import formatMessage.VerifyInputScanner;
 
@@ -64,8 +65,7 @@ public class KlantAdresView {
     
     
     public void print(ArrayList<KlantAdres> klantLijst){
-        System.out.println("\nLIJST MET ALLE KLANTEN \n"
-                + "====");
+        PrintFormat.printHeader("KLANTADRESKOPPELS");
         System.out.printf("%10s| %10s| %10s|\n", "Klant ID", "Adres ID", "Koppel ID");
         for(KlantAdres e : klantLijst){
          System.out.printf("%10s| %10s| %10s|\n", e.getKlant_id(), e.getAdres_id(), e.getKoppel_id());
