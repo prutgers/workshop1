@@ -29,6 +29,7 @@ public class ArtikelKeuzeView {
             + "0: Keer terug naar het Hoofdmenu \n");
         setSelect(input.nextInt());
         }
+    
     public void herhaalKeuze(){
         System.out.println("Maak een keuze: 1, 2, 3, 4, 5 of 0");
     }

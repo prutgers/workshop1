@@ -22,13 +22,12 @@ public class AdresDAOMySQL implements AdresDAO {
         
         try (Connection connection = ConnectionPool.getConnection();){
             String query = "INSERT INTO adres ("
-                + "adres_id, "
                 + "straatnaam, "
                 + "huisnummer, "
                 + "toevoeging, "
                 + "postcode, "
                 + "woonplaats) "
-                + "values (?, ?, ?, ?, ?, ?)";
+                + "values (?, ?, ?, ?, ?)";
             
             PreparedStatement stmntCA = connection.prepareStatement(query,
                     Statement.RETURN_GENERATED_KEYS);
