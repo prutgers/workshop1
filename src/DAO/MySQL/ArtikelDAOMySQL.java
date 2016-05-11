@@ -30,10 +30,7 @@ public class ArtikelDAOMySQL implements ArtikelDAO {
 
    @Override
    public Artikel createArtikel(Artikel artikel){
-        //Connect to database
-        
-        System.out.println("artikel prijs " + artikel.getArtikel_prijs() );
-        
+        //Haal een connectie uit de ConnectiePool
         try(Connection connection = ConnectionPool.getConnection();) {
             String sql = "INSERT INTO artikel("
             + "artikel_naam,"
@@ -41,12 +38,13 @@ public class ArtikelDAOMySQL implements ArtikelDAO {
             + "artikel_prijs) "
             +  "VALUES(?,?,?)";
             PreparedStatement pstmt = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
-            // Set the values
+            // Ken de juiste waarden toe an de database variabelen
             pstmt.setString(1, artikel.getArtikel_naam());
             pstmt.setInt(2, artikel.getArtikel_voorraad());
             pstmt.setBigDecimal(3, artikel.getArtikel_prijs());
-            // Insert 
+            // Voer het Prepared Statement uit
             pstmt.executeUpdate();
+            // Haal de generated key op van nieuw toegevoegde artikel
             ResultSet rs = pstmt.getGeneratedKeys();
             if (rs.isBeforeFirst()){
                 rs.next();
@@ -55,11 +53,11 @@ public class ArtikelDAOMySQL implements ArtikelDAO {
             pstmt.close();
         } 
         catch (SQLException e){
-                System.out.println("verdorie mislukt");
                 e.printStackTrace();
         } catch (ClassNotFoundException ex) {
            Logger.getLogger(ArtikelDAOMySQL.class.getName()).log(Level.SEVERE, null, ex);
        }
+        //Geef het nieuwe artikel terug inclusief de generated key
         return artikel;
     }
    
