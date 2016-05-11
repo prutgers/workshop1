@@ -147,7 +147,7 @@ public class KlantView {
     }
     
     public void KlantInKlantAdresTabel(){
-        System.out.println("De Klant die u probeert te verwijderen heeft nog"
+        System.out.println("De klant die u probeert te verwijderen heeft nog"
                 + " geassocieerde adressen en/of bestellingen."
                 + " \nVerwijder de koppeling(en) en probeer opnieuw.");
     }
