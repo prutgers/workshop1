@@ -149,8 +149,8 @@ public class BestellingController {
     
     /**
      * Alleen automatisch 
-     * createBestelArtikelMenu koppelt artikelen en bestellingen aan elkaar
-     * en 1 methode met argumenten voor automatische invoer
+     * createBestelArtikelMenu koppelt artikelen en bestellingen aan elkaar.
+     * 1 methode met argumenten voor automatische invoer
      */
     public static void createKoppel(int bestellingID){
         BestellingArtikelView view  = new BestellingArtikelView();

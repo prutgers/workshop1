@@ -28,7 +28,8 @@ public class ConfigController {
             case 3: ConnectionPool.setConnectionSettings(
                     ConnectionJDBC.getConnectionJDBC());
                 break;
-            case 0: MainController.hoofdMenu(); break;
+            case 0: MainController.hoofdMenu(); 
+                break;
             default:
                 view.readConnectionSettings();
                 break;
@@ -48,7 +49,8 @@ public class ConfigController {
                 break;
             case 4: DAOFactory.setDB("XML");
                 break;
-            case 0: MainController.hoofdMenu(); break;
+            case 0: MainController.hoofdMenu(); 
+                break;
             default:
                 view.readConnectionSettings();
                 break;

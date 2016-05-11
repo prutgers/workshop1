@@ -77,7 +77,7 @@ public class KlantController {
             kView.KlantBestaatAl();
         }
         
-        //create adres
+        //maak een nieuw adres
         AdresView adresView = new AdresView();
         adresView.create();
         
@@ -92,7 +92,7 @@ public class KlantController {
         AdresDAO aDAO = DAOFactory.getAdresDAO();
         aDAO.createAdres(adres);
         
-        //koppel de klant ana het adres
+        //koppel de klant aan het adres
         KlantAdres klantAdres = new KlantAdres();
         klantAdres.setKlant_id( klant.getKlant_id() );
         klantAdres.setAdres_id( adres.getAdres_id() );
