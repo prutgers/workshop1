@@ -26,40 +26,40 @@ public class ArtikelView {
     
 
     public void create(){
-        System.out.println("Voer de artikelnaam in: ");
+        System.out.print("Voer de artikelnaam in: ");
         this.artikel_naam = VerifyInputScanner.verifyString();
         
-        System.out.println("Voer het aantal dat van dit artikel op voorraad is in: ");
+        System.out.print("Voer het aantal dat van dit artikel op voorraad is in: ");
         this.artikel_voorraad = VerifyInputScanner.verifyInt();
         
-        System.out.println("Voer de artikelprijs in: ");
+        System.out.print("Voer de artikelprijs in: ");
         this.artikel_prijs = VerifyInputScanner.verifyBigDecimal();
         
       
     }
     
     public  void update(){
-        System.out.println("Voer het artikel ID van het artikel "
+        System.out.print("Voer het artikel ID van het artikel "
                 + "dat u wilt aanpassen in: ");
         this.artikel_id = VerifyInputScanner.verifyInt();
         
-        System.out.println("Artikelnaam: ");
+        System.out.print("Artikelnaam: ");
         this.artikel_naam = VerifyInputScanner.verifyString();
         
-        System.out.println("Aantal van dit artikel dat op voorraad is: ");
+        System.out.print("Aantal van dit artikel dat op voorraad is: ");
         this.artikel_voorraad = VerifyInputScanner.verifyInt();
         
-        System.out.println("Artikelprijs: ");
+        System.out.print("Artikelprijs: ");
         this.artikel_prijs = VerifyInputScanner.verifyBigDecimal();
     }
     
     public void readArtikelById(){
-        System.out.println("Voer het artikel ID in: ");
+        System.out.print("Voer het artikel ID in: ");
         artikel_id = VerifyInputScanner.verifyInt();
     }
     
     public void delete(){
-        System.out.println("Voer het artikel ID van het "
+        System.out.print("Voer het artikel ID van het "
                 + "te verwijderen artikel in: ");
         this.artikel_id = VerifyInputScanner.verifyInt();
     }
@@ -76,10 +76,10 @@ public class ArtikelView {
     
     public void print(Artikel artikel){
         PrintFormat.printHeader("Artikel met artikel ID " + artikel.getArtikel_id());
-        System.out.println("Artikel ID " + artikel.getArtikel_id());
-        System.out.println("Artikel Naam " + artikel.getArtikel_naam());
-        System.out.println("Artikel Prijs" + artikel.getArtikel_prijs());
-        System.out.println("Artikel Voorraad " + artikel.getArtikel_voorraad());
+        System.out.println("Artikel ID: " + artikel.getArtikel_id());
+        System.out.println("Artikelnaam: " + artikel.getArtikel_naam());
+        System.out.println("Artikelprijs: " + artikel.getArtikel_prijs());
+        System.out.println("Artikelvoorraad: " + artikel.getArtikel_voorraad());
         
     }
     

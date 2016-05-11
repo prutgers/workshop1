@@ -24,10 +24,10 @@ public class KlantAdresView {
     }
     
     public KlantAdresView create(){
-        System.out.print("\nVoer uw gegevens in.");
-        System.out.print("\nKlant ID nummer: ");
+        System.out.print("Voer uw gegevens in.\n");
+        System.out.print("Voer het klant ID in: ");
         this.setKlant_id( VerifyInputScanner.verifyInt() );
-        System.out.print("\nAdres ID nummer: ");
+        System.out.print("Voer het adres ID in: ");
         this.setKlant_id( VerifyInputScanner.verifyInt() );
         
         return this;
@@ -35,14 +35,14 @@ public class KlantAdresView {
     
     public KlantAdresView readByKlant(){
         this.resetKlantAdres();
-        System.out.print("\nKlant ID getal? : ");
+        System.out.print("Voer het klant ID in: ");
         this.setKlant_id( VerifyInputScanner.verifyInt() );
         return this;
     }
     
     public KlantAdresView readByAdres(){
         this.resetKlantAdres();
-        System.out.print("\nAdres ID getal? : ");
+        System.out.print("Voer het adres ID in: ");
         this.setKlant_id( VerifyInputScanner.verifyInt() );
         return this;
     }
@@ -50,14 +50,14 @@ public class KlantAdresView {
         
     public KlantAdresView deleteByKlant(){
         this.resetKlantAdres();
-        System.out.print("\nKlant ID getal? : ");
+        System.out.print("Voer het klant ID in: ");
         this.setKlant_id( VerifyInputScanner.verifyInt() );
         return this;
     }  
     
     public KlantAdresView deleteByAdres(){
         this.resetKlantAdres();
-        System.out.print("\nAdres ID getal? : ");
+        System.out.print("Voer het adres ID in: ");
         this.setKlant_id( VerifyInputScanner.verifyInt() );
         return this;
     }
@@ -78,7 +78,7 @@ public class KlantAdresView {
     }
     
     public void printUpdate(KlantAdres e){
-        System.out.println("De gegevens zijn geupdate.");
+        System.out.println("De gegevens zijn aangepast.");
         this.print(e);
     }
 

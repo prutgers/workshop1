@@ -26,21 +26,21 @@ public class ConfigView {
     
     
     public void readConnectionSettings(){
-        PrintFormat.printHeader("Connection Settings");
-        System.out.println("Selecteer een setting:\n"
-                    + "Kies 1 voor Hikari; \n"
-                    + "Kies 2 voor C3P0; \n"
-                    + "Kies 3 voor een directe JDBC connectie \n");
+        PrintFormat.printHeader("CONNECTIESETTINGS");
+        System.out.println("Selecteer een setting:\n\n"
+                    + "1: Hikari\n"
+                    + "2: C3P0\n"
+                    + "3: JDBC direct\n");
         this.selectConnection = VerifyInputScanner.verifyInt();
     }
     
     public void readDatabaseSettings(){
-        PrintFormat.printHeader("DataBase Settings");
-        System.out.println("Selecteer een setting:\n"
-                    + "Kies 1 MySQL; \n"
-                    + "Kies 2 Firebird; \n"
-                    + "Kies 3 JSON \n"
-                    + "Kies 4 XML  \n");
+        PrintFormat.printHeader("DATABASESETTINGS");
+        System.out.println("Selecteer een setting:\n\n"
+                    + "1: MySQL\n"
+                    + "2: Firebird\n"
+                    + "3: JSON\n"
+                    + "4: XML\n");
         this.selectDatabase = VerifyInputScanner.verifyInt();
     }
 }

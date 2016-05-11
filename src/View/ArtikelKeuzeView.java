@@ -26,12 +26,13 @@ public class ArtikelKeuzeView {
                 + "\n"
             + "5: Verwijder een bestaand artikel (met artikel ID) \n"
                 + "\n"
-            + "0: Keer terug naar het Hoofdmenu \n");
+            + "0: Keer terug naar het Hoofdmenu "
+                + "\n");
         setSelect(input.nextInt());
         }
     
     public void herhaalKeuze(){
-        System.out.println("Maak een keuze: 1, 2, 3, 4, 5 of 0");
+        System.out.println("Maak een keuze: 1, 2, 3, 4, 5 of 0\n");
     }
     /**
      * @return the select

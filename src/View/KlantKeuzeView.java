@@ -15,15 +15,18 @@ import formatMessage.PrintFormat;
 public class KlantKeuzeView {
     private int select;
     public void keuzeView(){
-        PrintFormat.printHeader("Klant Management Menu");        
+        PrintFormat.printHeader("KLANTMENU");        
         System.out.println("1: Maak een nieuwe klant aan\n"
-            + "2: Haal klant gegevens op met een ID nummer\n"
-            + "3: Update klant gegevens met een ID nummer\n"
-            + "4: Verwijder een klant uit de geslecteerde Database met een ID nummer\n"
-            + "5: Toon alle klanten die aan de kriteria voldoen\n"
-            + "6: Toon alle klanten in deze database\n"
                 + "\n"
-            + "0: Keer terug naar het Hoofdmenu");
+            + "2: Haal een specifieke klant op (met klant ID)\n"
+                + "\n"
+            + "3: Pas een bestaande klant aan (met klant ID)\n"
+            + "4: Verwijder een bestaande klant (met klant ID)\n"
+                + "\n"
+            + "5: Haal specifieke klantgegevens op (met gedeeltelijke informatie)\n"
+            + "6: Haal alle klantgegevens op\n"
+                + "\n"
+            + "0: Keer terug naar het Hoofdmenu\n");
         this.select = VerifyInputScanner.verifyInt();
     }
     

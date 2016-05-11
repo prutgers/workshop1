@@ -22,7 +22,8 @@ public class AdresKeuzeView {
                 + "\n"
             + "5: Verwijder een bestaand adres\n"
                 + "\n"
-            + "0: Keer terug naar het Hoofdmenu");
+            + "0: Keer terug naar het Hoofdmenu"
+                + "\n");
         select = input.nextInt();
     }
     

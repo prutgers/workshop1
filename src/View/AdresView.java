@@ -18,32 +18,32 @@ public class AdresView {
     private String woonplaats;
     
     public void create() {
-        System.out.println("Voer de straatnaam in:");
+        System.out.print("Voer de straatnaam in: ");
         this.straatnaam = VerifyInputScanner.verifyString();
-        System.out.println("Voer het huisnummer in:");
+        System.out.print("Voer het huisnummer in: ");
         this.huisnummer = VerifyInputScanner.verifyInt();
-        System.out.println("Voer de toevoeging in:");
+        System.out.print("Voer de toevoeging in: ");
         this.toevoeging = VerifyInputScanner.verifyString();
-        System.out.println("Voer de postcode in:");
+        System.out.print("Voer de postcode in: ");
         this.postcode = VerifyInputScanner.verifyString();
-        System.out.println("Voer de woonplaats in:");
+        System.out.print("Voer de woonplaats in: ");
         this.woonplaats = VerifyInputScanner.verifyString();
     }
     
     public void update() {
-        System.out.println("Welk adres wilt u aanpassen? \n"
+        System.out.print("Welk adres wilt u aanpassen? \n"
                 + "Voer het adres ID in: ");
         this.adres_id = VerifyInputScanner.verifyInt();
 
-        System.out.println("Voer een nieuwe straatnaam in: ");
+        System.out.print("Voer een nieuwe straatnaam in: ");
         this.straatnaam = VerifyInputScanner.verifyString();
-        System.out.println("Voer een nieuw huisnummer in: ");
+        System.out.print("Voer een nieuw huisnummer in: ");
         this.huisnummer = VerifyInputScanner.verifyInt();
-        System.out.println("Voer een nieuwe toevoeging in: ");
+        System.out.print("Voer een nieuwe toevoeging in: ");
         this.toevoeging = VerifyInputScanner.verifyString();
-        System.out.println("Voer een nieuwe postcode in: ");
+        System.out.print("Voer een nieuwe postcode in: ");
         this.postcode = VerifyInputScanner.verifyString();
-        System.out.println("Voer een nieuwe woonplaats in: ");
+        System.out.print("Voer een nieuwe woonplaats in: ");
         this.woonplaats = VerifyInputScanner.verifyString();
     }
     
@@ -63,7 +63,7 @@ public class AdresView {
     }
     
     public void readAdresByID() {
-        System.out.println("Voer het adres ID in: ");
+        System.out.print("Voer het adres ID in: ");
         this.adres_id = VerifyInputScanner.verifyInt();
     }
     
@@ -77,7 +77,7 @@ public class AdresView {
     }
     
     public void delete() {
-        System.out.println("Welk adres wilt u verwijderen? \n"
+        System.out.print("Welk adres wilt u verwijderen? \n"
                 + "Voer het adres ID in: ");
         this.adres_id = VerifyInputScanner.verifyInt();
     }

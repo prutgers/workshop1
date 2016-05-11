@@ -43,7 +43,7 @@ public class BestellingView {
     }
     public void readBestellingID(){
         Scanner input = new Scanner(System.in);
-        System.out.println("Voer het bestelling ID in: ");
+        System.out.print("Voer het bestelling ID in: ");
         this.bestellingID = input.nextInt();
     }
     

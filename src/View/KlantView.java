@@ -26,14 +26,14 @@ public class KlantView {
     }
     
     public KlantView create(){
-        System.out.print("\nVoer uw gegevens in.");
-        System.out.print("\nUw voornaam: ");
+        System.out.print("Voer de gegevens in.");
+        System.out.print("Voornaam: ");
         this.setVoornaam( VerifyInputScanner.verifyString() );
-        System.out.print("Uw achternaam: ");
+        System.out.print("Achternaam: ");
         this.setAchternaam( VerifyInputScanner.verifyString() );
         System.out.print("Tussenvoegsels: ");
         this.setTussenvoegsel( VerifyInputScanner.verifyString() );
-        System.out.print("Email adress: ");
+        System.out.print("Emailadres: ");
         this.setEmail( VerifyInputScanner.verifyString() );
         
         return this;
@@ -41,7 +41,7 @@ public class KlantView {
     
     public KlantView read(){
         this.resetKlant();
-        System.out.print("\nKlant ID getal? : ");
+        System.out.print("Voer het klant ID in: ");
         this.setKlant_id( VerifyInputScanner.verifyInt() );
         return this;
     }
@@ -49,30 +49,32 @@ public class KlantView {
     public KlantView update(){
         this.resetKlant();
         //select a Klant
-        System.out.println("\nUpdate een Klant! \nWat is je Klant_id?");
+        System.out.println("Voer het klant ID van de te updaten klant in: ");
         int klant_idlocal = VerifyInputScanner.verifyInt();
         this.setKlant_id(klant_idlocal);
-        System.out.println("Welkom terug "+ new DAOFactory().getKlantDAO().readKlant( klant_idlocal ).getVoornaam() );
+        
+        //onderstaande is overbodig omdat we nu een applicatie maken voor een beheerder, niet voor een klant
+        //System.out.println("Welkom terug "+ new DAOFactory().getKlantDAO().readKlant( klant_idlocal ).getVoornaam() );
         
         //verkrijg de nieuwe data uit de commandline en zet in de Outputklant
-        System.out.println("Please fill in your new infromation:"
-                + " (If you don't want to update a field just leave it blank.)");
-        System.out.print("Je nieuwe Voornaam: ");
+        System.out.println("Voer de nieuwe gegevens in "
+                + " (laat het veld leeg als er geen verandering nodig is).");
+        System.out.print("Voornaam: ");
         String nieuweVoornaam = VerifyInputScanner.verifyString();
         if ( !nieuweVoornaam.equals("") ) {
             this.setVoornaam( nieuweVoornaam );
                 }
-        System.out.print("Je nieuwe Achternaam: ");
+        System.out.print("Achternaam: ");
         String nieuweAchternaam = VerifyInputScanner.verifyString();
         if ( !nieuweAchternaam.equals("") ) {
             this.setAchternaam( nieuweAchternaam );
                 }
-        System.out.print("Je nieuwe Toevoegingen: ");
+        System.out.print("Tussenvoegsel: ");
         String nieuweTussenvoegsel = VerifyInputScanner.verifyString();
         if ( !nieuweTussenvoegsel.equals("") ) {
             this.setTussenvoegsel( nieuweTussenvoegsel );
                 }
-        System.out.print("Je nieuwe Email adres: ");
+        System.out.print("Emailadres: ");
         String nieuwEmail = VerifyInputScanner.verifyString();
         if ( !nieuwEmail.equals("") ) {
             this.setEmail( nieuwEmail );
@@ -82,15 +84,16 @@ public class KlantView {
     
     public KlantView delete(){
         this.resetKlant();
-        System.out.print("\nKlant ID getal? : ");
+        System.out.print("Voer het klant ID in: ");
         this.setKlant_id( VerifyInputScanner.verifyInt() );
         return this;
     }
     
     public KlantView readAllByKlant(){
-        System.out.print("\nVoer waar mogelijk de gegevens in.");
+        System.out.print("Voer de gegevens in "
+                + "(laat het veld leeg als de gegevens onbekend zijn).");
         this.resetKlant();
-        System.out.print("\nHet klant ID getal: ");
+        System.out.print("Klant ID: ");
         String klant_id = VerifyInputScanner.verifyString();
         if ( !klant_id.equals("") ) {
             this.setKlant_id( Integer.parseInt(klant_id) );
@@ -105,12 +108,12 @@ public class KlantView {
         if ( !nieuweAchternaam.equals("") ) {
             this.setAchternaam( nieuweAchternaam );
         }
-        System.out.print("Tussenvoegsels: ");
+        System.out.print("Tussenvoegsel: ");
         String nieuweTussenvoegsel = VerifyInputScanner.verifyString();
         if ( !nieuweTussenvoegsel.equals("") ) {
             this.setTussenvoegsel( nieuweTussenvoegsel );
         }
-        System.out.print("Email adress: ");
+        System.out.print("Emailadres: ");
         String nieuwEmail = VerifyInputScanner.verifyString();
         if ( !nieuwEmail.equals("") ) {
             this.setEmail( nieuwEmail );
@@ -134,20 +137,19 @@ public class KlantView {
     }
     
     public void printUpdate(Klant e){
-        System.out.println("Uw gegevens zijn geupdate.");
-        System.out.println("klant ID " + e.getKlant_id());
+        System.out.println("De gegevens zijn voor " + e.getKlant_id() + " zijn aangepast.");
         this.print(e);
     }
 
     
     public void KlantBestaatAl(){
-            System.out.println("Uw naam staat al in de database.");
+            System.out.println("Deze klant staat al in de database.");
     }
     
     public void KlantInKlantAdresTabel(){
         System.out.println("De Klant die u probeert te verwijderen heeft nog"
-                + " geassoceerde adressen of bestellingen."
-                + " \nVerwijder eerst deze koppels en probeer het dan nog eens.");
+                + " geassocieerde adressen en/of bestellingen."
+                + " \nVerwijder de koppeling(en) en probeer opnieuw.");
     }
     
     /**

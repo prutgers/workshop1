@@ -35,12 +35,13 @@ public class BestellingKeuzeView {
             + "8: Verwijder één artikel uit een bestelling (met bestelling ID en artikel ID) \n"
             + "9: Verwijder een bestaande bestelling (met bestelling ID) \n"
                 + "\n"
-            + "0: Keer terug naar het Hoofdmenu");
+            + "0: Keer terug naar het Hoofdmenu"
+                + "\n");
         select = input.nextInt();
     }
     public void keuzeFout(){
         System.out.println("Maak een keuze: 1, 2, 3, 4, 5, "
-                            + "6, 7, 8, 9 of 0");
+                            + "6, 7, 8, 9 of 0\n");
     }
     
 }
