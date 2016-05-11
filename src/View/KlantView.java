@@ -26,7 +26,7 @@ public class KlantView {
     }
     
     public KlantView create(){
-        System.out.print("Voer de gegevens in.");
+        System.out.println("Voer de gegevens in.");
         System.out.print("Voornaam: ");
         this.setVoornaam( VerifyInputScanner.verifyString() );
         System.out.print("Achternaam: ");
@@ -49,7 +49,7 @@ public class KlantView {
     public KlantView update(){
         this.resetKlant();
         //select a Klant
-        System.out.println("Voer het klant ID van de te updaten klant in: ");
+        System.out.print("Voer het klant ID van de te updaten klant in: ");
         int klant_idlocal = VerifyInputScanner.verifyInt();
         this.setKlant_id(klant_idlocal);
         
@@ -90,7 +90,7 @@ public class KlantView {
     }
     
     public KlantView readAllByKlant(){
-        System.out.print("Voer de gegevens in "
+        System.out.println("Voer de gegevens in "
                 + "(laat het veld leeg als de gegevens onbekend zijn).");
         this.resetKlant();
         System.out.print("Klant ID: ");
