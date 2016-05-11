@@ -197,7 +197,7 @@ public class KlantDAOFirebird implements KlantDAO{
             System.out.println("Probeer opnieuw.\n\n");
             ex.printStackTrace();
         }
-        System.out.println("Er zijn " + i + " klanten die met de zoekopdracht overeenkomen:\n");
+        System.out.println("Er zijn " + i + " klanten die met de zoekopdracht overeenkomen:");
         return AllKlant;
     }
 }
