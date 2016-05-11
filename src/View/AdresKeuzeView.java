@@ -1,6 +1,7 @@
 package View;
 
 import formatMessage.PrintFormat;
+import formatMessage.VerifyInputScanner;
 import java.util.Scanner;
 
 /**
@@ -22,9 +23,8 @@ public class AdresKeuzeView {
                 + "\n"
             + "5: Verwijder een bestaand adres\n"
                 + "\n"
-            + "0: Keer terug naar het Hoofdmenu"
-                + "\n");
-        select = input.nextInt();
+            + "0: Keer terug naar het Hoofdmenu\n");
+        this.select = VerifyInputScanner.verifyInt();
     }
     
     public void herhaalKeuze() {
