@@ -6,6 +6,7 @@ package View;
  */
 
 import POJO.Adres;
+import formatMessage.PrintFormat;
 import formatMessage.VerifyInputScanner;
 import java.util.ArrayList;
 
@@ -48,14 +49,13 @@ public class AdresView {
     }
     
     public void readAll(ArrayList<Adres> adresGegevens) {
-        System.out.println("ADRESGEGEVENS\n"
-                         + "-------------");
-        System.out.format("%s| %s| %s| %s| %s| %s|\n",
+        PrintFormat.printHeader("ADRESGEGEVENS");
+        System.out.format("%10s| %35s| %12s| %12s| %10s| %35s|\n",
             "Adres ID", "Straatnaam", "Huisnummer", "Toevoeging",
                 "Postcode", "Woonplaats");
         
         for(Adres a : adresGegevens) {
-            System.out.format("%d| %s| %d| %s| %s| %s|\n", 
+            System.out.format("%10d| %35s| %12d| %12s| %10s| %35s|\n", 
                     a.getAdres_id(), a.getStraatnaam(), a.getHuisnummer(), 
                     a.getToevoeging(), a.getPostcode(), a.getWoonplaats());            
         }

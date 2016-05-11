@@ -12,6 +12,7 @@ package View;
 
 import DAOFactory.DAOFactory;
 import POJO.Klant;
+import formatMessage.PrintFormat;
 import java.util.ArrayList;
 import formatMessage.VerifyInputScanner;
 
@@ -58,7 +59,7 @@ public class KlantView {
         
         //verkrijg de nieuwe data uit de commandline en zet in de Outputklant
         System.out.println("Voer de nieuwe gegevens in "
-                + " (laat het veld leeg als er geen verandering nodig is).");
+                + " (laat het veld leeg als er geen verandering nodig is)."); 
         System.out.print("Voornaam: ");
         String nieuweVoornaam = VerifyInputScanner.verifyString();
         if ( !nieuweVoornaam.equals("") ) {
@@ -123,8 +124,7 @@ public class KlantView {
     }
     
     public void print(ArrayList<Klant> klantLijst){
-        System.out.println("\nLIJST MET ALLE KLANTEN \n"
-                + "====");
+        PrintFormat.printHeader("KLANTGEGEVENS");
         System.out.printf("%12s| %31s| %32s| %13s| %31s|\n", "Klant_id", "Voornaam", "Achternaam", "Tussenvoegsel", "Email");
         for(Klant e : klantLijst){
          System.out.printf("%12s| %31s| %32s| %13s| %31s|\n", e.getKlant_id(), e.getVoornaam(), e.getAchternaam(), e.getTussenvoegsel(), e.getEmail());

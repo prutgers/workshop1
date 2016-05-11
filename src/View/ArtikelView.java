@@ -65,6 +65,7 @@ public class ArtikelView {
     }
     
     public void print(ArrayList<Artikel> artikelLijst){
+        PrintFormat.printHeader("ARTIKELGEGEVENS");
         System.out.format("%s, %s, %s, %s\n", 
                 "Artikel ID", "Artikelnaam", "Artikelprijs", "Artikelvoorraad");
         

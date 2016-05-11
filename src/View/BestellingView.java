@@ -9,6 +9,7 @@ import DAO.MySQL.ArtikelDAOMySQL;
 import POJO.Artikel;
 import POJO.Bestelling;
 import POJO.BestellingArtikel;
+import formatMessage.PrintFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -48,13 +49,15 @@ public class BestellingView {
     }
     
     public void print(ArrayList<Bestelling> list){
+        PrintFormat.printHeader("BESTELLINGGEGEVENS");
         System.out.printf("%15s %15s\n", "Bestelling ID", "Klant ID");
         for(Bestelling e : list){
             System.out.printf("%15d %15d\n",e.getBestellingID(), e.getKlantID());
         }
     }
     public void printArtikelLijst(ArrayList<BestellingArtikel> list){
-        Scanner input = new Scanner(System.in);;
+        Scanner input = new Scanner(System.in);
+        PrintFormat.printHeader("ARTIKELLIJST");
         System.out.printf("%15s %15s\n", "Artikel ID", 
                 "Aantal");
         for(BestellingArtikel e : list){
