@@ -42,8 +42,8 @@ public final class ConnectionPoolC3P0 implements ConnectionType{
     private ConnectionPoolC3P0(){
         ComboPooledDataSource cpds = new ComboPooledDataSource();
         try {
-            cpds.setDriverClass( "com.mysql.jdbc.Driver" ); //loads the jdbc driver
-                logger.info("C3P0 Driver loaded");
+            cpds.setDriverClass( "com.mysql.jdbc.Driver" ); //de jdbc driver laden
+                logger.info("De C3P0 driver is geladen.");
             
             cpds.setJdbcUrl( "jdbc:mysql://localhost/workshopdb" );
             cpds.setUser(usernaam);
@@ -52,7 +52,7 @@ public final class ConnectionPoolC3P0 implements ConnectionType{
             cpds.setMaxPoolSize(5);
             
             
-                logger.info("Database connected");
+                logger.info("De database connectie is gemaakt.");
             
             this.cpds = cpds;
         }
@@ -63,7 +63,7 @@ public final class ConnectionPoolC3P0 implements ConnectionType{
     }
     
     public static ConnectionPoolC3P0 getConnectionPoolC3P0(){
-            logger.info("C3P0 Connectie gehaalt.");
+            logger.info("De C3P0 connectie is opgehaald.");
         return connectionPoolC3P0;
     }
     

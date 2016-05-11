@@ -11,7 +11,7 @@ package ConnectionPools;
  */
 import java.sql.*;
 
-//This class is legacy code, avoid use if possible
+//Deze klasse is legacy code. Zoveel mogelijk gebruik van deze klasse vermijden
 
 public class DBConnector implements java.io.Closeable {
     Connection connection;
@@ -26,7 +26,7 @@ public class DBConnector implements java.io.Closeable {
     
     @Override
     public void close(){
-          // Close the connection
+          // sluit de verbinding
           try{
               connection.close();
           }

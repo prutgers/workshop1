@@ -17,7 +17,7 @@ import java.sql.SQLException;
  */
 
 /**
- * Hier kan je de HikariCP van downloaden en dan de HikariCP 2.4.5 de jar file
+ * Hier kun je de HikariCP van downloaden en dan de HikariCP 2.4.5 de jar file
  * http://search.maven.org/#search|ga|1|com.zaxxer.hikaricp
  * Ga naar libraries in netbeans rechtermuisknop workshop1 properties
      * Druk op libraries
@@ -44,21 +44,21 @@ public final class ConnectionPoolHikari implements ConnectionType {
         config.setInitializationFailFast(true);
         //config.setConnectionTestQuery("VALUES 1");
         config.setDataSourceClassName("com.mysql.jdbc.jdbc2.optional.MysqlDataSource");
-           // logger.info("Hikari Driver loaded");
+           // logger.info("De Hikari driver is geladen.");
             
         config.addDataSourceProperty("serverName", "localhost");
         config.addDataSourceProperty("port", "3306");
         config.addDataSourceProperty("databaseName", "workshopdb");
         config.addDataSourceProperty("user", usernaam);
         config.addDataSourceProperty("password", wachtwoord);
-          //  logger.info("Database connected");
+          //  logger.info("De database connectie is gemaakt.");
         
         this.ds = new HikariDataSource(config);
     }
     
     
     public static ConnectionPoolHikari getConnectionPoolHikari(){
-          //  logger.info("Hikari Connectie gehaalt.");
+          //  logger.info("De Hikari connectie is opgehaald.");
         return connectionPoolHikari;
     }
     

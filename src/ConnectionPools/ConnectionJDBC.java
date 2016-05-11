@@ -24,28 +24,31 @@ public class ConnectionJDBC implements ConnectionType, java.io.Closeable {
     
     public ConnectionJDBC() {
         try {
-        // Load the JDBC driver
+        // Laad de JDBC driver
         Class.forName("com.mysql.jdbc.Driver");
-            logger.info("Driver loaded");
-        // Connect to a database
+            logger.info("De driver is geladen.");
+        // Verbind met een database
         Connection connection = DriverManager.getConnection
                  ("jdbc:mysql://localhost/workshopdb" , usernaam, wachtwoord);
-            logger.info("Database connected");
+            logger.info("De database connectie is gemaakt.");
         this.connection = connection;
         }
         catch(ClassNotFoundException ex){
-            logger.info("Driver failed to load, controleer of je alle libraries hebt die in de dependancies vermeld zijn.");
+            logger.info("Het laden van de driver is mislukt."
+                    + " Controleer of je alle libraries hebt die in"
+                    + " de dependencies vermeld zijn en probeer opnieuw.");
             ex.printStackTrace();
             
         }
         catch(SQLException ex){
-            logger.info("Probleem met het verbinden met de Database.");
+            logger.info("Er was een probleem met het verbinden met de database."
+                    + " Probeer opnieuw.");
             ex.printStackTrace();
         }
     }
     
     /**
-     * De ConnectionJDBC class is niet een Singleton class.
+     * De ConnectionJDBC class is geen Singleton class.
      * Deze get() is er alleen om compatibiliteit te bieden met de andere ConnectionType classen.
      * 
      */
@@ -55,7 +58,7 @@ public class ConnectionJDBC implements ConnectionType, java.io.Closeable {
     
     /**
      * De JDBC driver ondersteunt geen Pool functionaliteit.
-     * Dit betekend dat als een methode de connectie gebruikt en dan sluit
+     * Dit betekent dat als een methode de connectie gebruikt en dan sluit
      * (bv dmv een try-with-resources blok) alle daarop volgende
      * connectiepogingen een 'connection closed' error geven.
      * Om toch een autoclose functie mogelijk te maken wordt er voor iedere
@@ -67,7 +70,7 @@ public class ConnectionJDBC implements ConnectionType, java.io.Closeable {
     
     @Override
     public void close(){
-          // Close the connection
+          // sluit de verbinding
           try{
               connection.close();
           }
