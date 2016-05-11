@@ -24,7 +24,7 @@ public class KlantAdresView {
     }
     
     public KlantAdresView create(){
-        System.out.print("Voer uw gegevens in.\n");
+        System.out.println("Voer uw gegevens in.");
         System.out.print("Voer het klant ID in: ");
         this.setKlant_id( VerifyInputScanner.verifyInt() );
         System.out.print("Voer het adres ID in: ");

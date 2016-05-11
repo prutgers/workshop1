@@ -27,7 +27,7 @@ public class KlantView {
     
     public KlantView create(){
 
-        System.out.print("Voornaam: ");
+        System.out.print("\nVoornaam: ");
         this.setVoornaam( VerifyInputScanner.verifyString() );
         System.out.print("Achternaam: ");
         this.setAchternaam( VerifyInputScanner.verifyString() );

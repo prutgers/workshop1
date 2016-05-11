@@ -73,7 +73,7 @@ public class KlantDAOMySQL implements KlantDAO{
                 logger.info("Statement prepared.");
 
             ResultSet readKlantResult = readKlant.executeQuery();
-                logger.info("Statement executed.");
+                logger.info("Statement uitgevoerd.");
             
             readKlantResult.next();
             klant.setKlant_id(readKlantResult.getInt("klant_id"));
