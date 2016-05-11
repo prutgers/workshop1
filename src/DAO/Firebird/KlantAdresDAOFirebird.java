@@ -36,11 +36,13 @@ public class KlantAdresDAOFirebird implements KlantAdresDAO {
             ResultSet resultSet = stmntCKA.getGeneratedKeys();
             if (resultSet.isBeforeFirst()){
                 resultSet.next();
-                klantAdresKoppel.setKoppel_id(resultSet.getInt(1)); //wijs door db gegenereerde id toe aan klant
+                //wijs een door de database gegenereerd id toe aan klant
+                klantAdresKoppel.setKoppel_id(resultSet.getInt(1)); 
             } 
         }
         
         catch(Exception ex){
+            System.out.println("Probeer opnieuw.\n\n");
             ex.printStackTrace();     
         }
         
@@ -60,7 +62,7 @@ public class KlantAdresDAOFirebird implements KlantAdresDAO {
             stmntRKID.setInt(1, adres_id);
 
             ResultSet readKlantResult = stmntRKID.executeQuery();
-                logger.info("Statement executed.");
+                logger.info("Statement uitgevoerd.");
             
             while (readKlantResult.next()){
                 i++;
@@ -69,6 +71,7 @@ public class KlantAdresDAOFirebird implements KlantAdresDAO {
         }
         
         catch(Exception ex){
+            System.out.println("Probeer opnieuw.\n\n");
             ex.printStackTrace();     
         }
         
@@ -99,6 +102,7 @@ public class KlantAdresDAOFirebird implements KlantAdresDAO {
         }
         
         catch(Exception ex){
+            System.out.println("Probeer opnieuw.\n\n");
             ex.printStackTrace();     
         }
         
@@ -137,6 +141,7 @@ public class KlantAdresDAOFirebird implements KlantAdresDAO {
             stmntDAID.executeUpdate();
         }
         catch(Exception ex){
+            System.out.println("Probeer opnieuw.\n\n");
             ex.printStackTrace();            
         }
     }

@@ -50,14 +50,14 @@ public class KlantDAOFirebird implements KlantDAO{
             ResultSet resultSet = pstmt.executeQuery();
             if (resultSet.next()){
                 klant.setKlant_id(resultSet.getInt(1)); 
-            }
-            
+            }  
         }
 //        catch(com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException ex){
 //            logger.info("Klant bestaat al in Database");
 //            throw ex;         
 //        }
         catch(Exception ex){
+            System.out.println("Probeer opnieuw.\n\n");
             ex.printStackTrace();         
         }
         return klant;
@@ -85,10 +85,11 @@ public class KlantDAOFirebird implements KlantDAO{
             klant.setTussenvoegsel(readKlantResult.getString("tussenvoegsel"));
             klant.setEmail(readKlantResult.getString("email"));
             
-                logger.info("POJO made.");
+                logger.info("POJO gemaakt.");
             
         }
         catch(Exception ex){
+            System.out.println("Probeer opnieuw.\n\n");
             ex.printStackTrace();
             return null;
         }
@@ -121,6 +122,7 @@ public class KlantDAOFirebird implements KlantDAO{
 
         }
         catch(Exception ex){
+            System.out.println("Probeer opnieuw.\n\n");
             ex.printStackTrace();     
         }
         return klantOut;
@@ -139,9 +141,11 @@ public class KlantDAOFirebird implements KlantDAO{
             
         }
         catch(com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException ex){
+            System.out.println("Probeer opnieuw.\n\n");
             throw ex;         
         }
         catch(Exception ex){
+            System.out.println("Probeer opnieuw.\n\n");
             ex.printStackTrace();     
         }
     }
@@ -174,7 +178,7 @@ public class KlantDAOFirebird implements KlantDAO{
             
             
             ResultSet readKlantResult = readKlant.executeQuery();
-                logger.info("Statement executed.");
+                logger.info("Statement uitgevoerd.");
             
             while (readKlantResult.next()){
                 i++;
@@ -190,9 +194,10 @@ public class KlantDAOFirebird implements KlantDAO{
         }
         
         catch(Exception ex){
+            System.out.println("Probeer opnieuw.\n\n");
             ex.printStackTrace();
         }
-        System.out.println("" + i +" Klants matched this inquiry.");
+        System.out.println("Er zijn " + i + " klanten die met de zoekopdracht overeenkomen.");
         return AllKlant;
     }
 }

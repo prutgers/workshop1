@@ -11,7 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
-import static java.sql.Statement.RETURN_GENERATED_KEYS; // help mij hiermee :D
+import static java.sql.Statement.RETURN_GENERATED_KEYS;
 import javax.sql.RowSet;
 import com.sun.rowset.*;
 import interfaceDAO.BestellingArtikelDAO;
@@ -25,7 +25,7 @@ import java.util.ArrayList;
 public class BestellingArtikelDAOFirebird implements BestellingArtikelDAO {
     
     
-    // Toe te voegen is Statement.RETURN_GENERATED_KEYS zoals in KlantDAO
+    //Statement.RETURN_GENERATED_KEYS nog toe te voegen
     
     @Override
     public void createKoppelBestellingArtikel(BestellingArtikel koppelBestellingArtikel){
@@ -39,7 +39,7 @@ public class BestellingArtikelDAOFirebird implements BestellingArtikelDAO {
             pstmt.executeUpdate();
         }
         catch(SQLException | ClassNotFoundException  e){
-            System.out.println("Fout in createKoppelBestellingArtikel");
+            System.out.println("Probeer opnieuw.\n\n");
             e.printStackTrace();
         }
     }
@@ -65,7 +65,7 @@ public class BestellingArtikelDAOFirebird implements BestellingArtikelDAO {
             
         }
         catch(SQLException | ClassNotFoundException  e){
-            System.out.println("Fout in readKoppelMetBestelling");
+            System.out.println("Probeer opnieuw.\n\n");
             e.printStackTrace();
         }
         return lijst;
@@ -88,7 +88,7 @@ public class BestellingArtikelDAOFirebird implements BestellingArtikelDAO {
             }
         }
         catch(SQLException | ClassNotFoundException  e){
-            System.out.println("Fout in readKoppelMetBestelling");
+            System.out.println("Probeer opnieuw.\n\n");
             e.printStackTrace();
         }
         return lijst;
@@ -112,7 +112,7 @@ public class BestellingArtikelDAOFirebird implements BestellingArtikelDAO {
 
         }
         catch(SQLException | ClassNotFoundException  e){
-            System.out.println("Fout in readKoppelMetBestelling");
+            System.out.println("Probeer opnieuw.\n\n");
             e.printStackTrace();
         }
         return koppel;
@@ -127,12 +127,11 @@ public class BestellingArtikelDAOFirebird implements BestellingArtikelDAO {
             pstmt.close();
         }
         catch(SQLException | ClassNotFoundException  e){
-            System.out.println("Fout in readKoppelMetBestelling");
+            System.out.println("Probeer opnieuw.\n\n");
             e.printStackTrace();
         }
     }
     
-    // dit is waarschijnlijk onzin
     @Override
     public void deleteKoppelMetArtikelID(int artikel_id){
         try(Connection connection = DBConnectorFirebird.getConnection()) {
@@ -142,7 +141,7 @@ public class BestellingArtikelDAOFirebird implements BestellingArtikelDAO {
             pstmt.close();
         }
         catch(SQLException | ClassNotFoundException  e){
-            System.out.println("Fout in readKoppelMetBestelling");
+            System.out.println("Probeer opnieuw.\n\n");
             e.printStackTrace();
         }
     }
@@ -158,7 +157,7 @@ public class BestellingArtikelDAOFirebird implements BestellingArtikelDAO {
             pstmt.close();
         }
         catch(SQLException | ClassNotFoundException  e){
-            System.out.println("Fout in readKoppelMetBestelling");
+            System.out.println("Probeer opnieuw.\n\n");
             e.printStackTrace();
         }
     }
@@ -183,7 +182,7 @@ public class BestellingArtikelDAOFirebird implements BestellingArtikelDAO {
             pstmt.executeUpdate();
         }
         catch(SQLException | ClassNotFoundException  e){
-            System.out.println("Fout in createKoppelBestellingArtikel");
+            System.out.println("Probeer opnieuw.\n\n");
             e.printStackTrace();
         }
     }

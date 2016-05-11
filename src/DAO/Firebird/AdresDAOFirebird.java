@@ -42,7 +42,7 @@ public class AdresDAOFirebird implements AdresDAO {
             }
         
         catch (ClassNotFoundException | SQLException ex) {
-            System.out.println(ex + "\nProbeer opnieuw.");
+            System.out.println(ex + "\n\nProbeer opnieuw.");
         }
 
         return adres;
@@ -80,7 +80,7 @@ public class AdresDAOFirebird implements AdresDAO {
             stmntRA.close();
         }
         catch (ClassNotFoundException | SQLException ex) {
-            System.out.println(ex + "Probeer opnieuw.");
+            System.out.println(ex + "\n\nProbeer opnieuw.");
             }
         return adresGegevens;
     }
@@ -105,7 +105,7 @@ public class AdresDAOFirebird implements AdresDAO {
                 adres.setWoonplaats(rs.getString("woonplaats"));       
         }
             catch (ClassNotFoundException | SQLException ex) {
-                System.out.println(ex + "Probeer opnieuw.");
+                System.out.println(ex + "\n\nProbeer opnieuw.");
             }
                 
         return adres;
@@ -137,7 +137,7 @@ public class AdresDAOFirebird implements AdresDAO {
             
         }
         catch (SQLException | ClassNotFoundException ex) {
-            System.out.println(ex + "Probeer opnieuw.");
+            System.out.println(ex + "\n\nProbeer opnieuw.");
         }
     }
     
@@ -152,7 +152,7 @@ public class AdresDAOFirebird implements AdresDAO {
             stmnt.executeUpdate();
             
         } catch (SQLException | ClassNotFoundException ex) {
-            System.out.println(ex + "\nProbeer opnieuw.");
+            System.out.println(ex + "\n\nProbeer opnieuw.");
         }
     }
 }

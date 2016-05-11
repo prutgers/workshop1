@@ -11,9 +11,9 @@ package DAO.Firebird;
  */
 
 /**
- * FIREBIRD EN JAYBIRD DOWNLOADEN ik heb de firebird 2.5.5 versie
+ * FIREBIRD EN JAYBIRD DOWNLOADEN 
  * FIREBIRD: http://sourceforge.net/projects/firebird/files/firebird-win64/2.5.5-Release/Firebird-2.5.5.26952_0_x64.exe/download
- * install met alle opties zoals ze standaard staan ik heb een super server aangevinkt
+ * install met alle opties zoals ze standaard staan, super server aanvinken
  * 
  * JAYBIRD: http://www.firebirdsql.org/en/jdbc-driver/
  * toevoegen aan library
@@ -27,7 +27,7 @@ package DAO.Firebird;
  * zet in het mapje data input.sql en inputcreate.sql
  * start de firebird tool en type: INPUT C:\data\inputcreate.sql
  *      daarmee maak je hem aan en krijg je 1 database die TEST heeft met 1 tabel ARTIKEL
- *      de tabal heeft twee kolommen artikel_id (int) en artikel_naam (varchar)
+ *      de tabel heeft twee kolommen: artikel_id (int) en artikel_naam (varchar)
  * mocht je later weer willen connecten naar de database type dan:
  *          INPUT C:\data\input.sql
  * 
@@ -63,7 +63,7 @@ public class ArtikelDAOFirebird implements ArtikelDAO {
 
         } 
         catch (SQLException | ClassNotFoundException e){
-                System.out.println("SQL fout");
+                System.out.println("Probeer opnieuw.\n\n");
                 e.printStackTrace();
         }
         return artikel;
@@ -89,11 +89,11 @@ public class ArtikelDAOFirebird implements ArtikelDAO {
             
         } 
         catch (SQLException e){
-                System.out.println("SQL fout");
+                System.out.println("Probeer opnieuw.\n\n");
                 e.printStackTrace();
         }
         catch(ClassNotFoundException p){
-            System.out.println("verdorie mislukt");
+            System.out.println(p + "\n\nProbeer opnieuw.");
         }
         return artikel;
     }
@@ -118,11 +118,11 @@ public class ArtikelDAOFirebird implements ArtikelDAO {
             
         } 
         catch (SQLException e){
-                System.out.println("SQL fout");
+                System.out.println("Probeer opnieuw.\n\n");
                 e.printStackTrace();
         }
         catch(ClassNotFoundException p){
-            System.out.println("verdorie mislukt");
+            System.out.println(p + "\n\nProbeer opnieuw.");
         }
         return artikelLijst;
     }
@@ -136,11 +136,11 @@ public class ArtikelDAOFirebird implements ArtikelDAO {
             pstmt.close();
         } 
         catch (SQLException e){
-            System.out.println("SQL fout");
+            System.out.println("Probeer opnieuw.\n\n");
             e.printStackTrace();
         }
         catch(ClassNotFoundException p){
-            System.out.println("verdorie mislukt");
+            System.out.println(p + "\n\nProbeer opnieuw.");
         }
     }
 
@@ -160,7 +160,7 @@ public class ArtikelDAOFirebird implements ArtikelDAO {
             pstmt.close(); 
         } 
         catch (SQLException | ClassNotFoundException e){
-            System.out.println("SQL Update fout");
+            System.out.println("Probeer opnieuw.\n\n");
             e.printStackTrace();
         }
     }

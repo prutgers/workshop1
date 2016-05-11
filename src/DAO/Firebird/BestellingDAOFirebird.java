@@ -20,11 +20,13 @@ public class BestellingDAOFirebird implements BestellingDAO {
 
             ResultSet resultSet = pstmt.executeQuery();
             if (resultSet.next()){
-                bestelling.setBestellingID(resultSet.getInt("bestelling_id")); //wijs door db gegenereerde id toe aan bestelling
+                //wijs een door de database gegenereerd id toe aan bestelling
+                bestelling.setBestellingID(resultSet.getInt("bestelling_id")); 
+                
             }
         }
         catch(SQLException | ClassNotFoundException  e){
-            System.out.println("createBestelling error");
+            System.out.println("Probeer opnieuw.\n\n");
             e.printStackTrace();
         }
         return bestelling;
@@ -43,6 +45,7 @@ public class BestellingDAOFirebird implements BestellingDAO {
             }
         }
         catch(SQLException | ClassNotFoundException  e){
+            System.out.println("Probeer opnieuw.\n\n");
             e.printStackTrace();
         }
         return bestelling;
@@ -62,6 +65,7 @@ public class BestellingDAOFirebird implements BestellingDAO {
             }
         }
         catch(Exception e){
+            System.out.println("Probeer opnieuw.\n\n");
             e.printStackTrace();
         }
         return bestellingLijst;
@@ -83,6 +87,7 @@ public class BestellingDAOFirebird implements BestellingDAO {
             }
         }
         catch(Exception e){
+            System.out.println("Probeer opnieuw.\n\n");
             e.printStackTrace();
         }
         return bestellingLijst;
@@ -102,6 +107,7 @@ public class BestellingDAOFirebird implements BestellingDAO {
             stmt.executeUpdate();
         }
         catch(SQLException | ClassNotFoundException  e){
+            System.out.println("Probeer opnieuw.\n\n");
             e.printStackTrace();
         }
     }
@@ -115,6 +121,7 @@ public class BestellingDAOFirebird implements BestellingDAO {
             stmt.executeUpdate();
         }
         catch(SQLException | ClassNotFoundException  e){
+            System.out.println("Probeer opnieuw.\n\n");
             e.printStackTrace();
         }
     }
