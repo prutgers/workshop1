@@ -85,7 +85,7 @@ public class AdresDAOXML implements AdresDAO {
         ArrayList<Adres> adresGegevens = new ArrayList<>();
         File file = new File("C:/data/XML/adresgegevens.xml");
         if(!file.exists()) {
-            System.out.println("Het bestand bestaat nog niet.");
+            System.out.println("Het bestand bestaat nog niet. Probeer opnieuw.");
             return adresGegevens;
         }
         try {
@@ -97,7 +97,7 @@ public class AdresDAOXML implements AdresDAO {
         
         catch (FileNotFoundException ex) {
             Logger.getLogger(AdresDAOXML.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println(ex + "\nHet bestand kon niet worden gevonden. Probeer opnieuw.");
+            System.out.println(ex + "\n\nHet bestand kon niet worden gevonden. Probeer opnieuw.");
         }
         
         return adresGegevens;
@@ -114,7 +114,7 @@ public class AdresDAOXML implements AdresDAO {
         
         catch (FileNotFoundException ex) {
             Logger.getLogger(AdresDAOXML.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println(ex + "\nHet bestand kon niet worden gevonden. Probeer opnieuw.");
+            System.out.println(ex + "\n\nHet bestand kon niet worden gevonden. Probeer opnieuw.");
         }
     }
 }

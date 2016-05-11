@@ -87,7 +87,7 @@ public class ArtikelDAOXML implements ArtikelDAO{
         ArrayList<Artikel> lijst = new ArrayList<>();
         File file = new File("c:/data/xml/artikel.xml");
         if(!file.exists()){
-            System.out.println("Er is nog geen Data");
+            System.out.println("Het bestand bestaat nog niet. Probeer opnieuw.");
             return lijst;
         }
         try{
@@ -97,6 +97,7 @@ public class ArtikelDAOXML implements ArtikelDAO{
             lijst = (ArrayList<Artikel>) xmlDecoder.readObject();               
         }
         catch(FileNotFoundException e){
+            System.out.println("\nHet bestand kon niet worden gevonden. Probeer opnieuw.\n");
             e.printStackTrace();
         }
         return lijst;
@@ -113,6 +114,7 @@ public class ArtikelDAOXML implements ArtikelDAO{
             xmlEncoder.close();
         }
         catch(FileNotFoundException e){
+            System.out.println("\nHet bestand kon niet worden gevonden. Probeer opnieuw.\n");
             e.printStackTrace();
         }
     }

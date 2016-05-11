@@ -40,7 +40,7 @@ public class KlantDAOXML implements KlantDAO {
         ArrayList<Klant> klantLijst = this.readFile();
         boolean klantAlreadyInDB = false;
         
-        //check for dubs!
+        //check voor duplicaten
         if (!klantLijst.isEmpty()){
             for(Klant o : klantLijst) {
                 if (   (
@@ -55,7 +55,7 @@ public class KlantDAOXML implements KlantDAO {
                             ) )
                     ) {
                         klantAlreadyInDB = true;
-                        System.out.print("Klant staat al in Database");
+                        System.out.print("Deze klant bestaat al. Probeer opnieuw.");
                         break;
                 }
             }
@@ -63,7 +63,8 @@ public class KlantDAOXML implements KlantDAO {
         //Schrijf de klant in de ArrayList
         if (!klantAlreadyInDB){
             
-            //vind hoogste klant_id ; moet eigelijk met Collections.max(JSONObject) maar dat duurt veel te lang
+            //vind hoogste klant_id ; 
+            //moet eigelijk met Collections.max(JSONObject) maar dat duurt te lang
             
             int klant_id = 0;
             if (!klantLijst.isEmpty()){
@@ -97,7 +98,7 @@ public class KlantDAOXML implements KlantDAO {
             }
         }
         if (klantFound == false){
-            System.out.print("Geen klant gevonden!");
+            System.out.print("Deze klant bestaat niet. Probeer opnieuw.");
         }
         
         return outputKlant;
@@ -167,7 +168,7 @@ public class KlantDAOXML implements KlantDAO {
                 klantLijst.add(outputKlant);
                 }
             }
-        System.out.println("" + i +" Klants matched this inquiry.");
+        System.out.println("Er zijn " + i + " klanten die met de zoekopdracht overeenkomen:");
         return klantLijst;
     }
    
@@ -181,7 +182,7 @@ public class KlantDAOXML implements KlantDAO {
             klantList = (ArrayList)xmlDecoder.readObject();
         }
         catch(IOException ex){
-            logger.error("Input/Output Exception trying to read file!");
+            logger.error("\nInput/Output Exception. Probeer opnieuw.");
         }
         return klantList;
     }
@@ -194,7 +195,7 @@ public class KlantDAOXML implements KlantDAO {
                 ) {
             xmlEncoder.writeObject(klantList);}
         catch(IOException ex){
-            logger.error("Input/Output Exception trying to write file!");
+            logger.error("\nInput/Output Exception. Probeer opnieuw.");
         }
     }
 }

@@ -40,7 +40,8 @@ public class KlantAdresDAOXML implements KlantAdresDAO {
     public KlantAdres createKlantAdresKoppel(KlantAdres koppel){
         ArrayList<KlantAdres> klantAdresLijst = this.readFile();
         
-            //vind hoogste klant_id ; moet eigelijk met Collections.max(JSONObject) maar dat duurt veel te lang
+            //vind hoogste klant_id 
+            //moet eigelijk met Collections.max(JSONObject) maar dat duurt te lang
         int klant_id = 0;
         if (!klantAdresLijst.isEmpty()){
             KlantAdres lastKoppel = klantAdresLijst.get( klantAdresLijst.size()-1 );
@@ -67,7 +68,7 @@ public class KlantAdresDAOXML implements KlantAdresDAO {
             }
         }
         if (koppelFound == false){
-            System.out.print("Geen klant gevonden!");
+            System.out.print("Deze klant bestaat niet. Probeer opnieuw.");
         }
         return allKlant_id;
     }
@@ -85,7 +86,7 @@ public class KlantAdresDAOXML implements KlantAdresDAO {
             }
         }
         if (koppelFound == false){
-            System.out.print("Geen klant gevonden!");
+            System.out.print("Deze klant bestaat niet. Probeer opnieuw.");
         }
         
         return allAdresLijst;
@@ -93,7 +94,7 @@ public class KlantAdresDAOXML implements KlantAdresDAO {
     
     @Override
     public void updateKlantAdresKoppel(){
-        throw new UnsupportedOperationException("Deze taak heeft geen functie."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Deze taak heeft geen functie."); 
     }
     
     @Override
@@ -130,7 +131,7 @@ public class KlantAdresDAOXML implements KlantAdresDAO {
             klantList = (ArrayList)xmlDecoder.readObject();
         }
         catch(IOException ex){
-            logger.error("Input/Output Exception trying to read file!");
+            logger.error("/nInput/Output Exception. Probeer opnieuw.");
         }
         return klantList;
     }
@@ -143,7 +144,7 @@ public class KlantAdresDAOXML implements KlantAdresDAO {
                 ) {
             xmlEncoder.writeObject(klantList);}
         catch(IOException ex){
-            logger.error("Input/Output Exception trying to write file!");
+            logger.error("/nInput/Output Exception. Probeer opnieuw.");
         }
     }
 }

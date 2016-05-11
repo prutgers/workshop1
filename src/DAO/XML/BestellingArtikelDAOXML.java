@@ -115,7 +115,7 @@ public class BestellingArtikelDAOXML implements BestellingArtikelDAO {
     ArrayList<BestellingArtikel> lijst = new ArrayList<>();
     File file = new File("c:/data/xml/bestellingArtikel.xml");
     if(!file.exists()){
-        System.out.println("Er is nog geen Data");
+        System.out.println("Het bestand bestaat nog niet. Probeer opnieuw.");
         return new ArrayList<BestellingArtikel>();
     }
     try{
@@ -125,6 +125,7 @@ public class BestellingArtikelDAOXML implements BestellingArtikelDAO {
         lijst = (ArrayList<BestellingArtikel>) xmlDecoder.readObject();               
     }
     catch(FileNotFoundException e){
+        System.out.println("\nHet bestand kon niet worden gevonden. Probeer opnieuw.\n");
         e.printStackTrace();
     }
     return lijst;
@@ -140,6 +141,7 @@ public class BestellingArtikelDAOXML implements BestellingArtikelDAO {
             xmlEncoder.close();
         }
         catch(FileNotFoundException e){
+            System.out.println("\nHet bestand kon niet worden gevonden. Probeer opnieuw.\n");
             e.printStackTrace();
         }
     }
