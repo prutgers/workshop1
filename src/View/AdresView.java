@@ -48,12 +48,14 @@ public class AdresView {
     }
     
     public void readAll(ArrayList<Adres> adresGegevens) {
-        System.out.format("%s, %s, %s, %s, %s, %s\n",
+        System.out.println("ADRESGEGEVENS\n"
+                         + "-------------");
+        System.out.printf("%15s| %15s| %15s| %15s| %15s| %15s|\n",
             "Adres ID", "Straatnaam", "Huisnummer", "Toevoeging",
                 "Postcode", "Woonplaats");
         
         for(Adres a : adresGegevens) {
-            System.out.format("%s, %s, %s, %s, %s, %s\n", a.getAdres_id(),
+            System.out.printf("%15d| %15s| %15d| %15s| %15s| %15s|\n", a.getAdres_id(),
                     a.getStraatnaam(), a.getHuisnummer(), a.getToevoeging(),
                     a.getPostcode(), a.getWoonplaats());            
         }
