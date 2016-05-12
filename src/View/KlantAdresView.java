@@ -68,13 +68,13 @@ public class KlantAdresView {
         PrintFormat.printHeader("KLANTADRESKOPPELS");
         System.out.printf("%10s| %10s| %10s|\n", "Klant ID", "Adres ID", "Koppel ID");
         for(KlantAdres e : klantLijst){
-         System.out.printf("%10s| %10s| %10s|\n", e.getKlant_id(), e.getAdres_id(), e.getKoppel_id());
+         System.out.printf("%10d| %10d| %10d|\n", e.getKlant_id(), e.getAdres_id(), e.getKoppel_id());
         }
     }
     
     public void print(KlantAdres e){
         System.out.printf("%10s| %10s| %10s|\n", "Klant ID", "Adres ID", "Koppel ID");
-        System.out.printf("%10s| %10s| %10s|\n", e.getKlant_id(), e.getAdres_id(), e.getKoppel_id());
+        System.out.printf("%10d| %10d| %10d|\n", e.getKlant_id(), e.getAdres_id(), e.getKoppel_id());
     }
     
     public void printUpdate(KlantAdres e){

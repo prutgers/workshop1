@@ -25,7 +25,8 @@ public class KlantKeuzeView {
                 + "\n"
             + "5: Haal specifieke klantgegevens op (met gedeeltelijke informatie)\n"
             + "6: Haal alle klantgegevens op\n"
-            + "7: Voeg een nieuw Adres toe aan een bestaande klant (met klant ID)"
+                + "\n"
+            + "7: Voeg een nieuw adres aan een bestaande klant toe (met klant ID)"
             + "8: Koppel een bestaand adres aan een bestaande klant (met klant ID)"
                 + "\n"
             + "0: Keer terug naar het Hoofdmenu\n");

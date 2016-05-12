@@ -28,13 +28,13 @@ public class KlantView {
     
     public KlantView create(){
 
-        System.out.print("\nVoornaam: ");
+        System.out.print("\nVoer de voornaam in: ");
         this.setVoornaam( VerifyInputScanner.verifyString() );
-        System.out.print("Achternaam: ");
+        System.out.print("Voer de achternaam in: ");
         this.setAchternaam( VerifyInputScanner.verifyString() );
-        System.out.print("Tussenvoegsels: ");
+        System.out.print("Voer de tussenvoegsels in: ");
         this.setTussenvoegsel( VerifyInputScanner.verifyString() );
-        System.out.print("Emailadres: ");
+        System.out.print("Voer het emailadres in: ");
         this.setEmail( VerifyInputScanner.verifyString() );
         
         return this;
@@ -55,27 +55,27 @@ public class KlantView {
         this.setKlant_id(klant_idlocal);
         
         //onderstaande is overbodig omdat we nu een applicatie maken voor een beheerder, niet voor een klant
-        //System.out.println("Welkom terug "+ new DAOFactory().getKlantDAO().readKlant( klant_idlocal ).getVoornaam() );
+        //System.out.println("Welkom terug " + new DAOFactory().getKlantDAO().readKlant( klant_idlocal ).getVoornaam() );
         
         //verkrijg de nieuwe data uit de commandline en zet in de Outputklant
         System.out.println("Voer de nieuwe gegevens in "
                 + " (laat het veld leeg als er geen verandering nodig is)."); 
-        System.out.print("Voornaam: ");
+        System.out.print("Voer de nieuwe voornaam in: ");
         String nieuweVoornaam = VerifyInputScanner.verifyString();
         if ( !nieuweVoornaam.equals("") ) {
             this.setVoornaam( nieuweVoornaam );
                 }
-        System.out.print("Achternaam: ");
+        System.out.print("Voer de nieuwe achternaam in: ");
         String nieuweAchternaam = VerifyInputScanner.verifyString();
         if ( !nieuweAchternaam.equals("") ) {
             this.setAchternaam( nieuweAchternaam );
                 }
-        System.out.print("Tussenvoegsel: ");
+        System.out.print("Voer de nieuwe tussenvoegsels in: ");
         String nieuweTussenvoegsel = VerifyInputScanner.verifyString();
         if ( !nieuweTussenvoegsel.equals("") ) {
             this.setTussenvoegsel( nieuweTussenvoegsel );
                 }
-        System.out.print("Emailadres: ");
+        System.out.print("Voer het nieuwe emailadres in: ");
         String nieuwEmail = VerifyInputScanner.verifyString();
         if ( !nieuwEmail.equals("") ) {
             this.setEmail( nieuwEmail );
@@ -125,14 +125,14 @@ public class KlantView {
     
     public void print(ArrayList<Klant> klantLijst){
         PrintFormat.printHeader("KLANTGEGEVENS");
-        System.out.printf("%12s| %31s| %32s| %13s| %31s|\n", "Klant_id", "Voornaam", "Achternaam", "Tussenvoegsel", "Email");
+        System.out.printf("%12s| %31s| %32s| %13s| %31s|\n", "Klant ID", "Voornaam", "Achternaam", "Tussenvoegsel", "Emailadres");
         for(Klant e : klantLijst){
-         System.out.printf("%12s| %31s| %32s| %13s| %31s|\n", e.getKlant_id(), e.getVoornaam(), e.getAchternaam(), e.getTussenvoegsel(), e.getEmail());
+        System.out.printf("%12d| %31s| %32s| %13s| %31s|\n", e.getKlant_id(), e.getVoornaam(), e.getAchternaam(), e.getTussenvoegsel(), e.getEmail());
         }
     }
     
     public void print(Klant e){
-        System.out.printf("%12s| %31s| %32s| %13s| %31s|\n", "Klant_id", "Voornaam", "Achternaam", "Tussenvoegsel", "Email");
+        System.out.printf("%12s| %31s| %32s| %13s| %31s|\n", "Klant ID", "Voornaam", "Achternaam", "Tussenvoegsel", "Emailadres");
         System.out.printf("%12d| %31s| %32s| %13s| %31s|\n", e.getKlant_id(), e.getVoornaam(), e.getAchternaam(), e.getTussenvoegsel(), e.getEmail());
     }
     
