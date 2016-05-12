@@ -50,18 +50,18 @@ public class BestellingView {
     
     public void print(ArrayList<Bestelling> list){
         PrintFormat.printHeader("BESTELLINGGEGEVENS");
-        System.out.printf("%15s %15s\n", "Bestelling ID", "Klant ID");
+        System.out.printf("%15s| %15s|\n", "Bestelling ID", "Klant ID");
         for(Bestelling e : list){
-            System.out.printf("%15d %15d\n",e.getBestellingID(), e.getKlantID());
+            System.out.printf("%15d| %15d|\n",e.getBestellingID(), e.getKlantID());
         }
     }
     public void printArtikelLijst(ArrayList<BestellingArtikel> list){
         Scanner input = new Scanner(System.in);
         PrintFormat.printHeader("ARTIKELLIJST");
-        System.out.printf("%15s %15s\n", "Artikel ID", 
+        System.out.printf("%15s| %15s|\n", "Artikel ID", 
                 "Aantal");
         for(BestellingArtikel e : list){
-             System.out.printf("%15s %15d \n",e.getArtikel_id(), e.getAantal());  
+             System.out.printf("%15d| %15d|\n",e.getArtikel_id(), e.getAantal());  
         }
     }
     public void print(Bestelling bestelling){
