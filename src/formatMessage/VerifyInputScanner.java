@@ -34,7 +34,7 @@ public class VerifyInputScanner {
                 return verified;
             }
             catch(InputMismatchException e){
-                System.out.println("geen juiste lijn");
+                System.out.println("Ongeldige invoer. Probeer opnieuw.");
 
             }
         }
@@ -72,7 +72,7 @@ public class VerifyInputScanner {
                 
             }
             catch(InputMismatchException e){
-                System.out.println("geen juist nummer, probeer nogmaals");
+                System.out.println("Geen geldig nummer. Probeer opnieuw.");
 
             }
         }
@@ -91,7 +91,7 @@ public class VerifyInputScanner {
                 return verified;
             }
             catch(InputMismatchException e){
-                System.out.println("geen juist nummer, probeer nogmaals");
+                System.out.println("Geen geldig nummer. Probeer opnieuw.");
 
             }
         }
@@ -107,7 +107,7 @@ public class VerifyInputScanner {
                 return verified;
             }
             catch(InputMismatchException e){
-                System.out.println("geen juist nummer, probeer nogmaals");
+                System.out.println("Geen geldig nummer. Probeer opnieuw.");
 
             }
         }
