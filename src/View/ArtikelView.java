@@ -70,7 +70,7 @@ public class ArtikelView {
                 "Artikel ID", "Artikelnaam", "Artikelprijs", "Artikelvoorraad");
         
         for(Artikel a : artikelLijst){
-            System.out.format("%12s| %30s| %14s| %17s|\n", a.getArtikel_id(), a.getArtikel_naam(), 
+            System.out.format("%12d| %30s| %14.2f| %17d|\n", a.getArtikel_id(), a.getArtikel_naam(), 
             a.getArtikel_prijs(), a.getArtikel_voorraad()); 
         }
     }
