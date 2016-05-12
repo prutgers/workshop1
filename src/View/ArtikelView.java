@@ -43,13 +43,13 @@ public class ArtikelView {
                 + "dat u wilt aanpassen in: ");
         this.artikel_id = VerifyInputScanner.verifyInt();
         
-        System.out.print("Artikelnaam: ");
+        System.out.print("Voer de artikelnaam in: ");
         this.artikel_naam = VerifyInputScanner.verifyString();
         
         System.out.print("Aantal van dit artikel dat op voorraad is: ");
         this.artikel_voorraad = VerifyInputScanner.verifyInt();
         
-        System.out.print("Artikelprijs: ");
+        System.out.print("Voer de artikelprijs in: ");
         this.artikel_prijs = VerifyInputScanner.verifyBigDecimal();
     }
     
@@ -66,11 +66,11 @@ public class ArtikelView {
     
     public void print(ArrayList<Artikel> artikelLijst){
         PrintFormat.printHeader("ARTIKELGEGEVENS");
-        System.out.format("%s, %s, %s, %s\n", 
+        System.out.format("%12s| %30s| %14s| %17s|\n", 
                 "Artikel ID", "Artikelnaam", "Artikelprijs", "Artikelvoorraad");
         
         for(Artikel a : artikelLijst){
-            System.out.format("%s, %s, %s, %s\n", a.getArtikel_id(), a.getArtikel_naam(), 
+            System.out.format("%12s| %30s| %14s| %17s|\n", a.getArtikel_id(), a.getArtikel_naam(), 
             a.getArtikel_prijs(), a.getArtikel_voorraad()); 
         }
     }
