@@ -15,6 +15,7 @@ import DAO.MySQL.BestellingArtikelDAOMySQL;
 import View.ArtikelView;
 import DAOFactory.DAOFactory;
 import POJO.Artikel;
+import Service.ArtikelService;
 import View.ArtikelKeuzeView;
 import interfaceDAO.ArtikelDAO;
 import interfaceDAO.BestellingArtikelDAO;
@@ -63,8 +64,9 @@ public class ArtikelController {
         artikel.setArtikel_naam(aView.getArtikel_naam());
         artikel.setArtikel_prijs(aView.getArtikel_prijs());
         artikel.setArtikel_voorraad(aView.getArtikel_voorraad());
-        ArtikelDAO dao = DAOFactory.getArtikelDAO();
-        dao.createArtikel(artikel);
+        
+        ArtikelService AS = new ArtikelService();
+        AS.create(artikel);
     }
     
     public static void update(){
@@ -76,33 +78,34 @@ public class ArtikelController {
         artikel.setArtikel_naam(aView.getArtikel_naam());
         artikel.setArtikel_voorraad(aView.getArtikel_voorraad());
         artikel.setArtikel_prijs(aView.getArtikel_prijs());
+         
         
-        ArtikelDAO dao = DAOFactory.getArtikelDAO();
-        dao.updateArtikel(artikel);
+        ArtikelService AS = new ArtikelService();
+        AS.update(artikel);
+        
     }
     
     public static void delete(){
         ArtikelView aView = new ArtikelView();
         aView.delete();
         
-        BestellingArtikelDAO baDAO = DAOFactory.getBestellingArtikelDAO();
-        baDAO.deleteKoppelMetArtikelID(aView.getArtikel_id());
-        
-        ArtikelDAO dao = DAOFactory.getArtikelDAO();
-        dao.deleteArtikel(aView.getArtikel_id());
-    }
+        ArtikelService AS = new ArtikelService();
+        AS.delete(aView.getArtikel_id());
+     }
     
     public static void readByID(){
         ArtikelView aView = new ArtikelView();
         aView.readArtikelById();
         
-        ArtikelDAO dao = DAOFactory.getArtikelDAO();
-        aView.print(dao.readArtikel(aView.getArtikel_id()));
+        ArtikelService AS = new ArtikelService();
+        aView.print(AS.readByID(aView.getArtikel_id()));
     }
     
     public static void readAll(){
+        //nodig om de print functie aan te roepen
         ArtikelView aView = new ArtikelView();
-        ArtikelDAO dao = DAOFactory.getArtikelDAO();
-        aView.print(dao.readArtikel());
+        
+        ArtikelService AS = new ArtikelService();
+        aView.print(AS.readAll());
     }
 }
