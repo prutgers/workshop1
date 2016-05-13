@@ -18,14 +18,14 @@ import java.util.Scanner;
  * @author Gebruiker
  */
 public class BestellingView {
-    int klandID;
+    int klantID;
 
-    public int getKlandID() {
-        return klandID;
+    public int getKlantID() {
+        return klantID;
     }
 
-    public void setKlandID(int klandID) {
-        this.klandID = klandID;
+    public void setKlantID(int klantID) {
+        this.klantID = klantID;
     }
 
     public int getBestellingID() {
@@ -40,7 +40,7 @@ public class BestellingView {
     public void readKlantID(){
         Scanner input = new Scanner(System.in);
         System.out.print("Voer het klant ID in: ");    
-        this.klandID = input.nextInt();
+        this.klantID = input.nextInt();
     }
     public void readBestellingID(){
         Scanner input = new Scanner(System.in);
