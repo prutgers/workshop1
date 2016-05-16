@@ -8,6 +8,9 @@ package View;
 /**
  *
  * @author lucas
+ * 
+ * KlantKeuzeView is part of the Klant MVC
+ * 
  */
 import formatMessage.VerifyInputScanner;
 import formatMessage.PrintFormat;
