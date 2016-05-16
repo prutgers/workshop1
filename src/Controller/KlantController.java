@@ -8,6 +8,9 @@ package Controller;
 /**
  *
  * @author lucas
+ * 
+ * KlantController is part of the Klant MVC
+ * 
  */
 
 import View.KlantView;
