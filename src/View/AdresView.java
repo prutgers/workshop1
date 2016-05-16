@@ -3,6 +3,9 @@ package View;
 /**
  *
  * @author Sonja
+ * 
+ * AdresView is part of the Adres MVC
+ * 
  */
 
 import POJO.Adres;
