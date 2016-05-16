@@ -27,6 +27,7 @@ public class KlantView {
     private String email;
     
     public KlantView() {
+        
     }
     
     public KlantView create(){
