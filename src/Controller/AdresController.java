@@ -3,6 +3,9 @@ package Controller;
 /**
  *
  * @author Sonja
+ * 
+ * AdresController is part of the Adres MVC
+ * 
  */
 
 import View.AdresView;
