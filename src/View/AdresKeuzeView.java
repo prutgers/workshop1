@@ -7,6 +7,9 @@ import java.util.Scanner;
 /**
  *
  * @author Sonja
+ * 
+ * AdresKeuzeView is part of the Adres MVC
+ * 
  */
 public class AdresKeuzeView {
     int select;
