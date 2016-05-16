@@ -80,7 +80,7 @@ public class KlantController {
             kView.KlantBestaatAl();
         }
         
-        //maak een nieuw adres
+        //maak een nieuw adres aan
         AdresView adresView = new AdresView();
         adresView.create();
         
