@@ -8,6 +8,9 @@ package View;
 /**
  *
  * @author lucas
+ * 
+ * KlantView is part of the Klant MVC
+ * 
  */
 
 import DAOFactory.DAOFactory;
