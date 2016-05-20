@@ -58,10 +58,10 @@ public class BestellingView {
     public void printArtikelLijst(ArrayList<BestellingArtikel> list){
         Scanner input = new Scanner(System.in);
         PrintFormat.printHeader("ARTIKELLIJST");
-        System.out.printf("%15s\t\t| %15s\t\t|\n", "Artikel ID", 
+        System.out.printf("%15s\t| %15s\t|\n", "Artikel ID", 
                 "Aantal");
         for(BestellingArtikel e : list){
-             System.out.printf("%15d\t\t| %15d\t\t|\n",e.getArtikel_id(), e.getAantal());  
+             System.out.printf("%15d\t| %15d\t|\n",e.getArtikel_id(), e.getAantal());  
         }
     }
     public void print(Bestelling bestelling){
