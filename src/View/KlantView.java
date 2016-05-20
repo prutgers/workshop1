@@ -129,9 +129,9 @@ public class KlantView {
     
     public void print(ArrayList<Klant> klantLijst){
         PrintFormat.printHeader("KLANTGEGEVENS");
-        System.out.printf("%12s| %31s| %32s| %13s| %31s|\n", "Klant ID", "Voornaam", "Achternaam", "Tussenvoegsel", "Emailadres");
+        System.out.printf("%12s\t| %31s\t| %32s\t| %13s\t| %31s\t|\n", "Klant ID", "Voornaam", "Achternaam", "Tussenvoegsel", "Emailadres");
         for(Klant e : klantLijst){
-        System.out.printf("%12d| %31s| %32s| %13s| %31s|\n", e.getKlant_id(), e.getVoornaam(), e.getAchternaam(), e.getTussenvoegsel(), e.getEmail());
+        System.out.printf("%12d\t| %31s\t| %32s\t| %13s\t| %31s\t|\n", e.getKlant_id(), e.getVoornaam(), e.getAchternaam(), e.getTussenvoegsel(), e.getEmail());
         }
     }
     
