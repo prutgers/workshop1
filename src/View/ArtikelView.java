@@ -66,11 +66,11 @@ public class ArtikelView {
     
     public void print(ArrayList<Artikel> artikelLijst){
         PrintFormat.printHeader("ARTIKELGEGEVENS");
-        System.out.format("%12s\t| %30s\t| %14s\t| %17s\t|\n", 
+        System.out.format("%12s\t\t| %30s\t\t| %14s\t\t| %17s\t\t|\n", 
                 "Artikel ID", "Artikelnaam", "Artikelprijs", "Artikelvoorraad");
         
         for(Artikel a : artikelLijst){
-            System.out.format("%12d\t| %30s\t| %14.2f\t| %17d\t|\n", a.getArtikel_id(), a.getArtikel_naam(), 
+            System.out.format("%12d\t\t| %30s\t\t| %14.2f\t\t| %17d\t\t|\n", a.getArtikel_id(), a.getArtikel_naam(), 
             a.getArtikel_prijs(), a.getArtikel_voorraad()); 
         }
     }
