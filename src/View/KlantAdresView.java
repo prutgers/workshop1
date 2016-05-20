@@ -66,15 +66,15 @@ public class KlantAdresView {
     
     public void print(ArrayList<KlantAdres> klantLijst){
         PrintFormat.printHeader("KLANTADRESKOPPELS");
-        System.out.printf("%10s\t| %10s\t| %10s\t|\n", "Klant ID", "Adres ID", "Koppel ID");
+        System.out.printf("%10s\t\t| %10s\t\t| %10s\t\t|\n", "Klant ID", "Adres ID", "Koppel ID");
         for(KlantAdres e : klantLijst){
-         System.out.printf("%10d\t| %10d\t| %10d\t|\n", e.getKlant_id(), e.getAdres_id(), e.getKoppel_id());
+         System.out.printf("%10d\t\t| %10d\t\t| %10d\t\t|\n", e.getKlant_id(), e.getAdres_id(), e.getKoppel_id());
         }
     }
     
     public void print(KlantAdres e){
-        System.out.printf("%10s| %10s| %10s|\n", "Klant ID", "Adres ID", "Koppel ID");
-        System.out.printf("%10d| %10d| %10d|\n", e.getKlant_id(), e.getAdres_id(), e.getKoppel_id());
+        System.out.printf("%10s\t\t| %10s\t\t| %10s\t\t|\n", "Klant ID", "Adres ID", "Koppel ID");
+        System.out.printf("%10d\t\t| %10d\t\t| %10d\t\t|\n", e.getKlant_id(), e.getAdres_id(), e.getKoppel_id());
     }
     
     public void printUpdate(KlantAdres e){
