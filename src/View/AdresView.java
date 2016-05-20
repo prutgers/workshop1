@@ -53,15 +53,16 @@ public class AdresView {
     
     public void readAll(ArrayList<Adres> adresGegevens) {
         PrintFormat.printHeader("ADRESGEGEVENS");
-        System.out.format("%10s\t| %30s\t| %12s\t| %12s\t| %10s\t| %35s\t|\n", //test
+        System.out.format("%10s| %30s| %12s| %12s| %10s| %35s|\n",
             "Adres ID", "Straatnaam", "Huisnummer", "Toevoeging",
                 "Postcode", "Woonplaats");
         
         for(Adres a : adresGegevens) {
-            System.out.format("%10d\t| %30s\t| %12d\t| %12s\t| %10s\t| %35s\t|\n", 
+            System.out.format("%10d| %30s| %12d| %12s| %10s| %35s|\n", 
                     a.getAdres_id(), a.getStraatnaam(), a.getHuisnummer(), 
                     a.getToevoeging(), a.getPostcode(), a.getWoonplaats());            
         }
+
     }
     
     public void readAdresByID() {
